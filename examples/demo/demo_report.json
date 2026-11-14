@@ -1,0 +1,485 @@
+{
+ "generated": "2026-11-14T11:28:04+00:00",
+ "base": "http://127.0.0.1:8000",
+ "versions": {
+  "app": "1.0.0",
+  "processing": "1.2",
+  "analysis": "1.1",
+  "frontend_bundled": true
+ },
+ "targets": [
+  {
+   "key": "barnards-star",
+   "label": "Barnard's Star",
+   "share_url": "http://127.0.0.1:8000/explore?q=Barnard%27s+Star&fov=0.05&obs=2026W12_2A_0520_2_D6&mode=difference",
+   "steps": [
+    {
+     "step": 1,
+     "name": "open the website",
+     "ok": true,
+     "detail": "HTTP 200",
+     "seconds": 0.0
+    },
+    {
+     "step": 2,
+     "name": "search",
+     "ok": true,
+     "detail": "NAME Barnard's star: 61 observations",
+     "seconds": 0.3
+    },
+    {
+     "step": 3,
+     "name": "retrieve observations",
+     "ok": true,
+     "detail": "57 processed frames (1 failed, 3 skipped)",
+     "seconds": 2.2
+    },
+    {
+     "step": 4,
+     "name": "chronological display",
+     "ok": true,
+     "detail": "2025-08-15 \u2192 2026-08-20, 4 visits",
+     "seconds": 0.0
+    },
+    {
+     "step": 5,
+     "name": "play the time-lapse",
+     "ok": true,
+     "detail": "first/middle/last frame FITS: [200, 200, 200]",
+     "seconds": 0.0
+    },
+    {
+     "step": 6,
+     "name": "pause on an observation",
+     "ok": true,
+     "detail": "2026W12_2A_0520_2_D6 (PNG 200)",
+     "seconds": 0.0
+    },
+    {
+     "step": 7,
+     "name": "compare two dates",
+     "ok": true,
+     "detail": "visit 4 vs visit 1, \u0394t 362.149 d",
+     "seconds": 1.9
+    },
+    {
+     "step": 8,
+     "name": "difference image",
+     "ok": true,
+     "detail": "diverging blue-white-red: red = brighter in A, blue = brighter in B",
+     "seconds": 0.0
+    },
+    {
+     "step": 9,
+     "name": "metadata",
+     "ok": true,
+     "detail": "2026-03-22T08:46:29 \u00b7 \u03bb 4.858 \u00b5m (CWAVE/CBAND) \u00b7 D6 \u00b7 DR1 \u00b7 flags BLOOM,OVERFLOW,SUR_ERROR,TRANSIENT",
+     "seconds": 0.0
+    },
+    {
+     "step": 10,
+     "name": "run the analysis",
+     "ok": true,
+     "detail": "3 sources, classes {'high_proper_motion_candidate': 1, 'stationary': 2}",
+     "seconds": 4.6
+    },
+    {
+     "step": 11,
+     "name": "measured position and motion",
+     "ok": true,
+     "detail": "S001 at RA 269.44624 Dec 4.76889, 0.53\" from ephemeris; \u00b5 = (-1467 \u00b1 567, 10567 \u00b1 456) mas/yr, 23.2\u03c3; known high-proper-motion object (0.62); match Gaia DR3 4472832130942575872",
+     "seconds": 0.0
+    },
+    {
+     "step": 12,
+     "name": "share through a URL",
+     "ok": true,
+     "detail": "http://127.0.0.1:8000/explore?q=Barnard%27s+Star&fov=0.05&obs=2026W12_2A_0520_2_D6&mode=difference",
+     "seconds": 0.0
+    }
+   ],
+   "warnings": [
+    "The series combines releases DR1, QR3. IRSA documents DR1 + QR3 as one uniformly processed set.",
+    "The target (S001) is saturated at these wavelengths: its position comes from RAW centroids and it has no reliable photometry, light curve or spectrum."
+   ]
+  },
+  {
+   "key": "epsilon-indi-b",
+   "label": "Epsilon Indi B",
+   "share_url": "http://127.0.0.1:8000/explore?q=eps+Ind+B&fov=0.05&obs=2026W18_1A_0444_1_D6&mode=difference",
+   "steps": [
+    {
+     "step": 1,
+     "name": "open the website",
+     "ok": true,
+     "detail": "HTTP 200",
+     "seconds": 0.0
+    },
+    {
+     "step": 2,
+     "name": "search",
+     "ok": true,
+     "detail": "* eps Ind B: 98 observations",
+     "seconds": 0.5
+    },
+    {
+     "step": 3,
+     "name": "retrieve observations",
+     "ok": true,
+     "detail": "92 processed frames (1 failed, 5 skipped)",
+     "seconds": 2.9
+    },
+    {
+     "step": 4,
+     "name": "chronological display",
+     "ok": true,
+     "detail": "2025-04-29 \u2192 2026-09-28, 6 visits",
+     "seconds": 0.0
+    },
+    {
+     "step": 5,
+     "name": "play the time-lapse",
+     "ok": true,
+     "detail": "first/middle/last frame FITS: [200, 200, 200]",
+     "seconds": 0.0
+    },
+    {
+     "step": 6,
+     "name": "pause on an observation",
+     "ok": true,
+     "detail": "2026W18_1A_0444_1_D6 (PNG 200)",
+     "seconds": 0.0
+    },
+    {
+     "step": 7,
+     "name": "compare two dates",
+     "ok": true,
+     "detail": "visit 6 vs visit 1, \u0394t 511.785 d",
+     "seconds": 3.0
+    },
+    {
+     "step": 8,
+     "name": "difference image",
+     "ok": true,
+     "detail": "diverging blue-white-red: red = brighter in A, blue = brighter in B",
+     "seconds": 0.0
+    },
+    {
+     "step": 9,
+     "name": "metadata",
+     "ok": true,
+     "detail": "2026-04-29T03:53:51 \u00b7 \u03bb 4.557 \u00b5m (CWAVE/CBAND) \u00b7 D6 \u00b7 DR1 \u00b7 flags none",
+     "seconds": 0.0
+    },
+    {
+     "step": 10,
+     "name": "run the analysis",
+     "ok": true,
+     "detail": "9 sources, classes {'high_proper_motion_candidate': 1, 'stationary': 3, 'insufficient_data': 5}",
+     "seconds": 9.4
+    },
+    {
+     "step": 11,
+     "name": "measured position and motion",
+     "ok": true,
+     "detail": "S001 at RA 331.09681 Dec -56.80084, 0.948\" from ephemeris; \u00b5 = (3850 \u00b1 145, -2547 \u00b1 146) mas/yr, 31.7\u03c3; known high-proper-motion object (0.90); match Gaia DR3 6412596012146801152",
+     "seconds": 0.0
+    },
+    {
+     "step": 12,
+     "name": "share through a URL",
+     "ok": true,
+     "detail": "http://127.0.0.1:8000/explore?q=eps+Ind+B&fov=0.05&obs=2026W18_1A_0444_1_D6&mode=difference",
+     "seconds": 0.0
+    }
+   ],
+   "warnings": [
+    "The series combines releases DR1, QR3. IRSA documents DR1 + QR3 as one uniformly processed set."
+   ]
+  },
+  {
+   "key": "wise-0855",
+   "label": "WISE 0855",
+   "share_url": "http://127.0.0.1:8000/explore?ra=08h55m10.831s&dec=-07d14m42.53s&fov=0.1&obs=2025W50_2A_0428_1_D6&mode=difference",
+   "steps": [
+    {
+     "step": 1,
+     "name": "open the website",
+     "ok": true,
+     "detail": "HTTP 200",
+     "seconds": 0.0
+    },
+    {
+     "step": 2,
+     "name": "search",
+     "ok": true,
+     "detail": "08h55m10.831s -07d14m42.53s: 45 observations",
+     "seconds": 4.3
+    },
+    {
+     "step": 3,
+     "name": "retrieve observations",
+     "ok": true,
+     "detail": "44 processed frames (1 failed, 0 skipped)",
+     "seconds": 143.0
+    },
+    {
+     "step": 4,
+     "name": "chronological display",
+     "ok": true,
+     "detail": "2025-05-05 \u2192 2026-05-11, 4 visits",
+     "seconds": 0.0
+    },
+    {
+     "step": 5,
+     "name": "play the time-lapse",
+     "ok": true,
+     "detail": "first/middle/last frame FITS: [200, 200, 200]",
+     "seconds": 0.0
+    },
+    {
+     "step": 6,
+     "name": "pause on an observation",
+     "ok": true,
+     "detail": "2025W50_2A_0428_1_D6 (PNG 200)",
+     "seconds": 0.0
+    },
+    {
+     "step": 7,
+     "name": "compare two dates",
+     "ok": true,
+     "detail": "visit 4 vs visit 1, \u0394t 357.184 d",
+     "seconds": 14.4
+    },
+    {
+     "step": 8,
+     "name": "difference image",
+     "ok": true,
+     "detail": "diverging blue-white-red: red = brighter in A, blue = brighter in B",
+     "seconds": 0.0
+    },
+    {
+     "step": 9,
+     "name": "metadata",
+     "ok": true,
+     "detail": "2025-12-13T00:41:57 \u00b7 \u03bb 4.731 \u00b5m (CWAVE/CBAND) \u00b7 D6 \u00b7 DR1 \u00b7 flags none",
+     "seconds": 0.0
+    },
+    {
+     "step": 10,
+     "name": "run the analysis",
+     "ok": true,
+     "detail": "26 sources, classes {'high_proper_motion_candidate': 2, 'stationary': 22, 'insufficient_data': 2}",
+     "seconds": 30.7
+    },
+    {
+     "step": 11,
+     "name": "measured position and motion",
+     "ok": true,
+     "detail": "S013 at RA 133.75917 Dec -7.24200, 1.157\" from ephemeris; \u00b5 = (-6549 \u00b1 1785, 2947 \u00b1 1401) mas/yr, 3.8\u03c3; known high-proper-motion object (0.42); match CWISE J085506.91-071437.5",
+     "seconds": 0.0
+    },
+    {
+     "step": 12,
+     "name": "share through a URL",
+     "ok": true,
+     "detail": "http://127.0.0.1:8000/explore?ra=08h55m10.831s&dec=-07d14m42.53s&fov=0.1&obs=2025W50_2A_0428_1_D6&mode=difference",
+     "seconds": 0.0
+    }
+   ],
+   "warnings": []
+  },
+  {
+   "key": "rw-aurigae",
+   "label": "RW Aurigae",
+   "share_url": "http://127.0.0.1:8000/explore?q=RW+Aur&fov=0.05&obs=2026W09_2A_0224_4_D6&mode=difference",
+   "steps": [
+    {
+     "step": 1,
+     "name": "open the website",
+     "ok": true,
+     "detail": "HTTP 200",
+     "seconds": 0.0
+    },
+    {
+     "step": 2,
+     "name": "search",
+     "ok": true,
+     "detail": "V* RW Aur: 56 observations",
+     "seconds": 0.3
+    },
+    {
+     "step": 3,
+     "name": "retrieve observations",
+     "ok": true,
+     "detail": "54 processed frames (2 failed, 0 skipped)",
+     "seconds": 1.8
+    },
+    {
+     "step": 4,
+     "name": "chronological display",
+     "ok": true,
+     "detail": "2025-09-11 \u2192 2026-09-16, 3 visits",
+     "seconds": 0.0
+    },
+    {
+     "step": 5,
+     "name": "play the time-lapse",
+     "ok": true,
+     "detail": "first/middle/last frame FITS: [200, 200, 200]",
+     "seconds": 0.0
+    },
+    {
+     "step": 6,
+     "name": "pause on an observation",
+     "ok": true,
+     "detail": "2026W09_2A_0224_4_D6 (PNG 200)",
+     "seconds": 0.0
+    },
+    {
+     "step": 7,
+     "name": "compare two dates",
+     "ok": true,
+     "detail": "visit 3 vs visit 1, \u0394t 362.163 d",
+     "seconds": 1.8
+    },
+    {
+     "step": 8,
+     "name": "difference image",
+     "ok": true,
+     "detail": "diverging blue-white-red: red = brighter in A, blue = brighter in B",
+     "seconds": 0.0
+    },
+    {
+     "step": 9,
+     "name": "metadata",
+     "ok": true,
+     "detail": "2026-02-27T15:32:34 \u00b7 \u03bb 4.477 \u00b5m (CWAVE/CBAND) \u00b7 D6 \u00b7 DR1 \u00b7 flags OVERFLOW",
+     "seconds": 0.0
+    },
+    {
+     "step": 10,
+     "name": "run the analysis",
+     "ok": true,
+     "detail": "7 sources, classes {'stationary': 6, 'insufficient_data': 1}",
+     "seconds": 5.4
+    },
+    {
+     "step": 11,
+     "name": "measured position and motion",
+     "ok": true,
+     "detail": "S001 at RA 76.95650 Dec 30.40125, 0.413\" from ephemeris; \u00b5 = (528 \u00b1 885, -78 \u00b1 832) mas/yr, 0.2\u03c3; stationary (0.38); match Gaia DR3 156430817820015232",
+     "seconds": 0.0
+    },
+    {
+     "step": 12,
+     "name": "share through a URL",
+     "ok": true,
+     "detail": "http://127.0.0.1:8000/explore?q=RW+Aur&fov=0.05&obs=2026W09_2A_0224_4_D6&mode=difference",
+     "seconds": 0.0
+    }
+   ],
+   "warnings": [
+    "Registration could not be measured (too few Gaia or stationary field stars); a 0.5\" per-visit floor is assumed in all position errors.",
+    "The series combines releases DR1, QR3. IRSA documents DR1 + QR3 as one uniformly processed set.",
+    "The target (S001) is saturated at these wavelengths: its position comes from RAW centroids and it has no reliable photometry, light curve or spectrum."
+   ]
+  },
+  {
+   "key": "r-draconis",
+   "label": "R Draconis",
+   "share_url": "http://127.0.0.1:8000/explore?q=R+Dra&fov=0.08&obs=2026W17_1B_0434_1_D6&mode=difference",
+   "steps": [
+    {
+     "step": 1,
+     "name": "open the website",
+     "ok": true,
+     "detail": "HTTP 200",
+     "seconds": 0.0
+    },
+    {
+     "step": 2,
+     "name": "search",
+     "ok": true,
+     "detail": "V* R Dra: 97 observations",
+     "seconds": 0.4
+    },
+    {
+     "step": 3,
+     "name": "retrieve observations",
+     "ok": true,
+     "detail": "90 processed frames (1 failed, 6 skipped)",
+     "seconds": 2.6
+    },
+    {
+     "step": 4,
+     "name": "chronological display",
+     "ok": true,
+     "detail": "2025-05-16 \u2192 2026-06-12, 3 visits",
+     "seconds": 0.0
+    },
+    {
+     "step": 5,
+     "name": "play the time-lapse",
+     "ok": true,
+     "detail": "first/middle/last frame FITS: [200, 200, 200]",
+     "seconds": 0.0
+    },
+    {
+     "step": 6,
+     "name": "pause on an observation",
+     "ok": true,
+     "detail": "2026W17_1B_0434_1_D6 (PNG 200)",
+     "seconds": 0.0
+    },
+    {
+     "step": 7,
+     "name": "compare two dates",
+     "ok": true,
+     "detail": "visit 3 vs visit 1, \u0394t 346.573 d",
+     "seconds": 2.8
+    },
+    {
+     "step": 8,
+     "name": "difference image",
+     "ok": true,
+     "detail": "diverging blue-white-red: red = brighter in A, blue = brighter in B",
+     "seconds": 0.0
+    },
+    {
+     "step": 9,
+     "name": "metadata",
+     "ok": true,
+     "detail": "2026-04-22T07:56:42 \u00b7 \u03bb 4.624 \u00b5m (CWAVE/CBAND) \u00b7 D6 \u00b7 DR1 \u00b7 flags BLOOM,OVERFLOW,SUR_ERROR,TRANSIENT",
+     "seconds": 0.0
+    },
+    {
+     "step": 10,
+     "name": "run the analysis",
+     "ok": true,
+     "detail": "12 sources, classes {'stationary': 7, 'insufficient_data': 5}",
+     "seconds": 15.3
+    },
+    {
+     "step": 11,
+     "name": "measured position and motion",
+     "ok": false,
+     "detail": "Target not detected within 20\" of its predicted position (faint, saturated or masked).",
+     "seconds": 0.0
+    },
+    {
+     "step": 12,
+     "name": "share through a URL",
+     "ok": true,
+     "detail": "http://127.0.0.1:8000/explore?q=R+Dra&fov=0.08&obs=2026W17_1B_0434_1_D6&mode=difference",
+     "seconds": 0.0
+    }
+   ],
+   "warnings": [
+    "Registration could not be measured (too few Gaia or stationary field stars); a 0.5\" per-visit floor is assumed in all position errors.",
+    "9 of 12 sources look like saturation artefacts: the field is dominated by a saturated star, so detections here are unreliable. Try shorter-wavelength detectors.",
+    "The series combines releases DR1, QR3. IRSA documents DR1 + QR3 as one uniformly processed set."
+   ]
+  }
+ ]
+}

@@ -1,0 +1,233 @@
+# DEVELOPMENT PROMPT 4: ASTRONOMICAL SOURCE ANALYSIS AND DISCOVERY ENGINE
+
+You are responsible for developing the scientific analysis subsystem of SPHEREx Explorer.
+
+Your objective is to help users identify objects that move, change brightness or exhibit interesting wavelength-dependent behaviour across SPHEREx observations.
+
+This is what distinguishes the project from a conventional astronomical image viewer.
+
+## 1. Your objective
+
+Develop a Python-based scientific analysis module that works with the processed observations supplied by Person 2.
+
+The module should help identify:
+- Moving objects.
+- High-proper-motion stars.
+- Brown dwarfs.
+- Asteroids and comets.
+- Variable stars.
+- Transient sources.
+- Objects with interesting infrared spectral characteristics.
+
+The application must distinguish between a potential discovery and a confirmed astronomical object.
+
+## 2. Required research
+
+Study:
+
+- SPHEREx archive: https://irsa.ipac.caltech.edu/Missions/spherex.html
+- SPHEREx Source Discovery Tool.
+- SPHEREx Spectrophotometry Tool.
+- Gaia DR3: https://archive.stsci.edu/missions-and-data/gaia
+- Astropy Photutils: https://photutils.readthedocs.io/
+- Astropy coordinates: https://docs.astropy.org/en/stable/coordinates/
+- SIMBAD: https://simbad.cds.unistra.fr/simbad/
+
+Understand:
+- Source extraction.
+- Centroid estimation.
+- Proper motion.
+- Parallax.
+- Photometry.
+- Signal-to-noise ratio.
+- Point spread functions.
+- Difference-image detection.
+- Light curves.
+- Infrared spectra.
+- Cross-matching astronomical catalogues.
+
+## 3. Features to implement
+
+### A. Source detection
+
+Use Photutils or an appropriate astronomical source-detection library.
+
+Identify point-like sources in processed SPHEREx images.
+
+For each source, estimate:
+- Pixel coordinates.
+- Celestial coordinates.
+- Flux.
+- Signal-to-noise ratio.
+- Source significance.
+- Detection quality.
+
+Use WCS to convert pixel coordinates into RA and declination.
+
+### B. Temporal source matching
+
+Match detected sources between different observation epochs.
+
+Implement a matching algorithm that:
+- Identifies sources appearing in multiple images.
+- Calculates their positional displacement.
+- Calculates angular separation.
+- Estimates angular motion per unit time.
+- Accounts for positional uncertainties.
+- Identifies sources with potentially significant motion.
+
+Do not assume every positional change is real motion. Account for image registration errors, PSF effects and measurement uncertainties.
+
+### C. Moving-object candidates
+
+Create a candidate-ranking system.
+
+Identify possible:
+- Nearby stars with high proper motion.
+- Brown dwarfs.
+- Asteroids.
+- Comets.
+- Other moving objects.
+
+Use observation timestamps to calculate motion.
+
+For fast-moving objects, allow coordinate predictions at individual observation epochs using an appropriate ephemeris or proper-motion model.
+
+Where possible, distinguish linear proper motion from non-linear apparent motion.
+
+### D. Variable-star analysis
+
+Measure the brightness of selected sources across observations.
+
+Generate:
+- Flux versus time.
+- Magnitude versus time, where calibrated photometry permits.
+- Brightness variation.
+- Uncertainty estimates.
+- Variability indicators.
+
+Identify potential variable sources.
+
+Include a warning that differing instrumental conditions, wavelengths and calibration can imitate variability.
+
+### E. Spectral analysis
+
+Investigate how to extract flux as a function of wavelength.
+
+Use SPHEREx spectral data and the archive's Spectrophotometry Tool documentation.
+
+Implement:
+- Wavelength versus flux plots.
+- Spectral channel selection.
+- Comparison between epochs.
+- Comparison between two selected objects, where data permit.
+
+If full spectra cannot be reliably extracted within the hackathon, produce a simplified multi-channel spectral profile and document its limitations.
+
+### F. Catalogue cross-matching
+
+Prepare optional cross-matching with:
+- Gaia DR3.
+- WISE.
+- SIMBAD.
+
+Display known object associations when available.
+
+Do not label an object as newly discovered simply because it is absent from one catalogue.
+
+### G. Candidate classification
+
+Produce a preliminary classification based on observable characteristics.
+
+For example:
+
+- Stationary source.
+- High-proper-motion candidate.
+- Variable source.
+- Transient candidate.
+- Possible solar-system object.
+
+Include a confidence score based on defined measurable criteria, not an unexplained AI-generated percentage.
+
+## 4. Required Python functions
+
+Develop:
+
+- detect_sources(image, wcs)
+- extract_source_photometry(image, sources)
+- match_sources(observations)
+- calculate_angular_motion(source_positions, timestamps)
+- identify_moving_candidates(matched_sources)
+- generate_light_curve(source_id, observations)
+- generate_spectrum(source_id, spectral_data)
+- crossmatch_catalogue(ra, dec, radius)
+- classify_candidate(source_measurements)
+
+## 5. Integration contract
+
+Person 2 supplies processed images and WCS information.
+
+Person 3 displays your analysis results.
+
+Person 5 integrates your module into the main application.
+
+Return structured results such as:
+
+{
+  "source_id": "source_001",
+  "ra": 0.0,
+  "dec": 0.0,
+  "detections": [],
+  "angular_motion": null,
+  "motion_uncertainty": null,
+  "variability_indicator": null,
+  "classification": "moving_candidate",
+  "confidence": null,
+  "known_catalogue_match": null
+}
+
+Include source positions, timestamps and uncertainties in the detection records.
+
+## 6. Testing
+
+The five mandatory test objects must be investigated:
+
+1. Barnard's Star: high proper motion.
+2. Epsilon Indi B: brown dwarf system.
+3. WISE 0855: nearby, fast-moving brown dwarf.
+4. RW Aurigae: variable young stellar system.
+5. R Draconis: variable star.
+
+Test whether the pipeline can:
+- Identify the source.
+- Track its position.
+- Measure positional changes.
+- Generate a light curve where data allow.
+- Generate spectral information where data allow.
+
+Use appropriate reference catalogues and ephemerides.
+
+## 7. Deliverables
+
+Provide:
+- Python analysis module.
+- Source detection implementation.
+- Temporal matching implementation.
+- Candidate classification logic.
+- Light-curve generation.
+- Spectral analysis functionality.
+- Unit tests.
+- Example outputs.
+- Scientific limitations documentation.
+
+## 8. Important constraints
+
+Do not build the frontend.
+
+Do not download raw observations independently; use the data acquisition module.
+
+Do not implement image reprojection independently; use Person 2's outputs.
+
+Do not claim discoveries without independent verification.
+
+Your priority is turning the image sequence into useful scientific information and helping users identify objects worth investigating.

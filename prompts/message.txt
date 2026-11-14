@@ -1,0 +1,174 @@
+# DEVELOPMENT PROMPT 1: SPHEREx DATA ACQUISITION ENGINE
+
+You are responsible for developing the SPHEREx data acquisition subsystem for a public-facing astronomical time-lapse web application called SPHEREx Explorer.
+
+## 1. Your objective
+
+Build a Python backend module that accepts celestial coordinates (Right Ascension and Declination), searches the NASA/IPAC Infrared Science Archive (IRSA) for SPHEREx observations covering that position, retrieves the relevant metadata, and downloads the required FITS image cutouts.
+
+The system must support observations from different dates so that the frontend can construct a time-lapse.
+
+## 2. Required research
+
+Before coding, study:
+
+- NASA SPHEREx archive: https://irsa.ipac.caltech.edu/Missions/spherex.html
+- SPHEREx Data Access: https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-access/
+- Introduction to SPHEREx Spectral Images: https://caltech-ipac.github.io/irsa-tutorials/spherex-intro/
+- SPHEREx Cutouts tutorial: https://caltech-ipac.github.io/irsa-tutorials/spherex-cutouts/
+
+Understand:
+- Simple Image Access Protocol version 2 (SIA2).
+- Astroquery and PyVO.
+- FITS multi-extension files.
+- SPHEREx observation metadata.
+- Observation timestamps.
+- Spectral bands and wavelength information.
+- Data release differences (DR1, QR3 and future releases).
+- The distinction between spectral channels and temporal observations.
+
+## 3. Features to implement
+
+### A. Coordinate input
+
+Accept:
+- Right Ascension in decimal degrees.
+- Declination in decimal degrees.
+- Field-of-view radius or angular width.
+- Optional observation date range.
+- Optional data release.
+- Optional wavelength range.
+
+Validate coordinates and reject invalid inputs.
+
+Support both decimal-degree coordinates and sexagesimal coordinates through a shared coordinate convention.
+
+### B. Archive querying
+
+Use Astroquery or PyVO to query the IRSA SIA2 service.
+
+The system should:
+1. Search for observations overlapping the requested sky region.
+2. Support DR1 and QR3 collections.
+3. Retrieve all matching observation records.
+4. Extract observation timestamps.
+5. Extract available wavelength/band information.
+6. Retrieve FITS access URLs.
+7. Record detector, instrument and quality metadata where available.
+8. Sort observations chronologically.
+
+Do not assume that every search returns observations at regular six-month intervals.
+
+### C. FITS downloading
+
+Implement a downloader that:
+- Retrieves only relevant observations.
+- Downloads cutouts rather than entire files wherever supported.
+- Supports multiple observations.
+- Handles HTTP failures and retries.
+- Avoids downloading duplicate files.
+- Uses caching.
+- Provides download progress and error reporting.
+- Preserves the original FITS files and metadata.
+
+Do not discard metadata when creating cutouts.
+
+### D. Metadata extraction
+
+For every observation, extract as much of the following as the archive provides:
+
+- Observation ID.
+- Observation date/time.
+- Right Ascension and declination.
+- Wavelength range.
+- Spectral channel.
+- Detector/array identifier.
+- Exposure time.
+- Data release.
+- Calibration level.
+- Contamination and quality flags.
+- Original file URL.
+
+If metadata is unavailable, return null rather than inventing values.
+
+### E. Updateability
+
+Design the system so future SPHEREx data releases can be incorporated without rewriting the downloader.
+
+Use configurable collection names and data-release settings.
+
+## 4. Required backend interface
+
+Develop the following Python functions:
+
+- search_observations(ra, dec, fov, date_range, release)
+- get_observation_metadata(observation_id)
+- download_observation(access_url, output_directory)
+- download_cutout(access_url, ra, dec, fov)
+- get_available_observation_dates(ra, dec, fov)
+- get_available_bands(ra, dec, fov)
+
+Expose the functionality through FastAPI endpoints where appropriate.
+
+Coordinate with Person 5 before finalizing API routes.
+
+## 5. Integration contract
+
+Return observation records in a consistent JSON structure containing:
+
+{
+  "observation_id": "unique identifier",
+  "observation_time": "ISO 8601 timestamp",
+  "ra": 0.0,
+  "dec": 0.0,
+  "wavelength_min": 0.0,
+  "wavelength_max": 0.0,
+  "band": "band identifier",
+  "detector": null,
+  "data_release": "DR1",
+  "calibration_level": null,
+  "quality_flags": [],
+  "fits_url": "URL",
+  "local_path": null
+}
+
+This is an illustrative contract. Adapt field names only after agreeing on the shared interface with the other members.
+
+## 6. Testing
+
+Test archive queries for:
+
+1. Barnard's Star.
+2. Epsilon Indi B.
+3. WISE 0855 — RA 08h55m10.831s, Dec -7d14m42.53s.
+4. RW Aurigae.
+5. R Draconis.
+
+Use SIMBAD or another authoritative astronomical catalogue to resolve names into coordinates. Be mindful of proper motion, especially for nearby brown dwarfs and Barnard's Star.
+
+Verify that each query returns sensible metadata and that FITS files can actually be retrieved.
+
+## 7. Deliverables
+
+Provide:
+
+- Complete Python source code.
+- FastAPI routes or clearly documented functions.
+- requirements.txt.
+- README.md explaining setup and usage.
+- Example JSON responses.
+- Sample downloaded FITS files or a reproducible test procedure.
+- Unit tests.
+- A list of known limitations.
+
+## 8. Important constraints
+
+Do not build a frontend.
+
+Do not implement image alignment or image differencing; Person 2 handles those.
+
+Do not implement scientific source detection; Person 4 handles that.
+
+Your priority is reliable access to genuine SPHEREx observations and their metadata.
+
+Write modular, documented code that can be integrated into the main application.

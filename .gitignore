@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+cache/
+*.part
+.env
+
+# build output, logs, local config
+frontend/dist/
+frontend/node_modules/
+logs/
+*.log
+.claude/
+
+# 3D Atlas data (rebuild with python -m scripts.build_galaxy_map); the SPHEREx survey results are kept
+frontend/public/galaxy/*
+!frontend/public/galaxy/spherex_survey.json

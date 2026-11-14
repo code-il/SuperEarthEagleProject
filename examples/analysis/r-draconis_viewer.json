@@ -1,0 +1,140 @@
+{
+ "sources": [
+  {
+   "id": "S003",
+   "label": "S003 stationary",
+   "ra": 248.14713935197702,
+   "dec": 66.75795518982844,
+   "mjd": 61031.334934301485,
+   "kind": "artifact",
+   "score": 0.175,
+   "notes": "Unmatched and within 40\" of saturated S001: probably a PSF-wing, bloom or ghost artefact. No counterpart in the catalogues that answered. Not a discovery claim: requires independent verification."
+  },
+  {
+   "id": "S008",
+   "label": "S008 stationary",
+   "ra": 248.18476001077352,
+   "dec": 66.75880974474101,
+   "mjd": 61124.72117993333,
+   "kind": "artifact",
+   "score": 0.125,
+   "notes": "Unmatched and within 40\" of saturated S002: probably a PSF-wing, bloom or ghost artefact. No counterpart in the catalogues that answered. Not a discovery claim: requires independent verification."
+  },
+  {
+   "id": "S004",
+   "label": "S004 stationary",
+   "ra": 248.17694792454486,
+   "dec": 66.76251785286561,
+   "mjd": 61074.048678198145,
+   "kind": "artifact",
+   "score": 0.061,
+   "notes": "\u00b5 = 6.13 \u00b1 1.69\"/yr \u00b7 Unmatched and within 40\" of saturated S008: probably a PSF-wing, bloom or ghost artefact. No counterpart in the catalogues that answered. Not a discovery claim: requires independent verification.",
+   "pm_ra_cosdec_mas_yr": -673.5527714547105,
+   "pm_dec_mas_yr": -6092.668492324013
+  },
+  {
+   "id": "S005",
+   "label": "S005 stationary",
+   "ra": 248.1699375240101,
+   "dec": 66.74628775698002,
+   "mjd": 60947.10433843377,
+   "kind": "artifact",
+   "score": 0.032,
+   "notes": "\u00b5 = 21.45 \u00b1 4.94\"/yr \u00b7 Unmatched and within 40\" of saturated S002: probably a PSF-wing, bloom or ghost artefact. No counterpart in the catalogues that answered. Not a discovery claim: requires independent verification.",
+   "pm_ra_cosdec_mas_yr": 21428.88284806069,
+   "pm_dec_mas_yr": 906.172783025113
+  },
+  {
+   "id": "S002",
+   "label": "S002 stationary",
+   "ra": 248.1869724879413,
+   "dec": 66.75195432514876,
+   "mjd": 61009.70624142533,
+   "kind": "artifact",
+   "score": 0.005,
+   "notes": "\u00b5 = 8.58 \u00b1 1.91\"/yr \u00b7 Unmatched and within 40\" of saturated S005: probably a PSF-wing, bloom or ghost artefact. No counterpart in the catalogues that answered. Not a discovery claim: requires independent verification.",
+   "pm_ra_cosdec_mas_yr": -6837.420130270444,
+   "pm_dec_mas_yr": 5187.088856040651
+  },
+  {
+   "id": "S001",
+   "label": "S001 insufficient data",
+   "ra": 248.14193214250153,
+   "dec": 66.75270847080361,
+   "mjd": 60828.762449732276,
+   "kind": "artifact",
+   "score": 0.0,
+   "notes": "Unmatched and within 40\" of saturated S003: probably a PSF-wing, bloom or ghost artefact. No counterpart in the catalogues that answered. Not a discovery claim: requires independent verification."
+  },
+  {
+   "id": "S006",
+   "label": "S006 insufficient data",
+   "ra": 248.1554927261023,
+   "dec": 66.74772529931413,
+   "mjd": 61071.68860906098,
+   "kind": "artifact",
+   "score": 0.0,
+   "notes": "\u00b5 = 13.93 \u00b1 2.21\"/yr \u00b7 Unmatched and within 40\" of saturated S001: probably a PSF-wing, bloom or ghost artefact. No counterpart in the catalogues that answered. Not a discovery claim: requires independent verification.",
+   "pm_ra_cosdec_mas_yr": 12406.967336623224,
+   "pm_dec_mas_yr": 6326.387388062601
+  },
+  {
+   "id": "S007",
+   "label": "S007 insufficient data",
+   "ra": 248.1807016860518,
+   "dec": 66.74803352822063,
+   "mjd": 61040.8734747253,
+   "kind": "artifact",
+   "score": 0.0,
+   "notes": "Unmatched and within 40\" of saturated S002: probably a PSF-wing, bloom or ghost artefact. No counterpart in the catalogues that answered. Not a discovery claim: requires independent verification."
+  },
+  {
+   "id": "S009",
+   "label": "S009 insufficient data",
+   "ra": 248.15387358165947,
+   "dec": 66.76214800463721,
+   "mjd": 61040.8734747253,
+   "kind": "artifact",
+   "score": 0.0,
+   "notes": "Unmatched and within 40\" of saturated S001: probably a PSF-wing, bloom or ghost artefact. No counterpart in the catalogues that answered. Not a discovery claim: requires independent verification."
+  }
+ ],
+ "light_curves": [
+  {
+   "source_id": "S005",
+   "label": "S005 stationary",
+   "units": "mJy",
+   "points": [
+    {
+     "mjd": 61203.859412373,
+     "flux": 19.491634647416912,
+     "flux_err": 10.556011117978446,
+     "wavelength": 4.6430066055802435,
+     "observation_id": "2026W24_2B_0242_3_D6"
+    }
+   ]
+  },
+  {
+   "source_id": "S001",
+   "label": "S001 insufficient data",
+   "units": "mJy",
+   "points": [
+    {
+     "mjd": 61154.641381574,
+     "flux": 43.672035715234415,
+     "flux_err": 29.603864543903697,
+     "wavelength": 4.970792074731719,
+     "observation_id": "2026W17_2A_0255_3_D6"
+    },
+    {
+     "mjd": 61181.725824664,
+     "flux": 29.606538462826943,
+     "flux_err": 28.454036542727806,
+     "wavelength": 4.990844435746695,
+     "observation_id": "2026W21_2A_0035_1_D6"
+    }
+   ]
+  }
+ ],
+ "spectra": []
+}

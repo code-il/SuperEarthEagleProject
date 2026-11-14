@@ -1,0 +1,350 @@
+{
+  "observations": [
+    {
+      "observation_id": "2025W20_2D_0243_1_D6",
+      "observation_time": "2025-05-16T22:56:23.626Z",
+      "ra": 253.59040304547804,
+      "dec": 67.04921420543455,
+      "wavelength_min": 4.4115,
+      "wavelength_max": 5.0096,
+      "band": "SPHEREx-D6",
+      "detector": 6,
+      "data_release": "DR1",
+      "calibration_level": 2,
+      "quality_flags": [
+        "BLOOM",
+        "OVERFLOW",
+        "SUR_ERROR"
+      ],
+      "fits_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W20_2D/l2b-v27-2026-198/6/level2_2025W20_2D_0243_1D6_spx_l2b-v27-2026-198.fits",
+      "local_path": "C:\\Users\\AADIL ARSHAD\\OneDrive\\Desktop\\Aadil\\CODE-il\\SphereX_SuperEarth\\cache\\cutouts\\level2_2025W20_2D_0243_1D6_spx_l2b-v27-2026-198\\cut_248.16723_+66.75502_0.0300.fits",
+      "obs_id": "2025W20_2D_0243_1",
+      "publisher_did": "ivo://irsa.ipac/spherex_dr1?2025W20_2D_0243_1/D6",
+      "collection": "spherex_dr1",
+      "observation_time_end": "2025-05-16T22:58:18.797Z",
+      "mjd_start": 60811.955829,
+      "mjd_end": 60811.957162,
+      "exposure_time_s": 113.5826,
+      "instrument": "SPHEREx",
+      "pixel_scale_arcsec": 6.15,
+      "image_size_px": [
+        2040,
+        2040
+      ],
+      "image_fov_deg": 3.485,
+      "spectral_resolving_power": 127.8,
+      "s_region": "POLYGON ICRS 259.99143750908775 67.34662051064976 254.51493338800745 64.66954081311222 247.3007082551434 66.49656555259199 252.40488054282457 69.44161778918311 259.99143750908775 67.34662051064976",
+      "covers_position": true,
+      "archive_release_date": "2026-09-28 07:20:04",
+      "estimated_size_kb": 65664,
+      "survey_field": "SPS_105365_S12",
+      "cloud_access": {
+        "aws": {
+          "bucket_name": "nasa-irsa-spherex",
+          "key": "dr1/level2/2025W20_2D/l2b-v27-2026-198/6/level2_2025W20_2D_0243_1D6_spx_l2b-v27-2026-198.fits",
+          "region": "us-east-1"
+        }
+      },
+      "wavelength_at_target": 4.427636172436852,
+      "bandwidth_at_target": 0.03554908175197529,
+      "quality": {
+        "l1_dqa": "Pass",
+        "l2_dqa": "Pass",
+        "psf_fwhm": 9.041940402463002,
+        "target_in_image": true,
+        "target_pixel_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SOURCE",
+          "SUR_ERROR"
+        ],
+        "target_box_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SOURCE",
+          "SUR_ERROR"
+        ],
+        "fraction_with_problem_flags": 0.3858,
+        "fraction_by_flag": {
+          "TRANSIENT": 0.31481,
+          "OVERFLOW": 0.0463,
+          "SUR_ERROR": 0.28395,
+          "SOURCE": 1.0,
+          "BLOOM": 0.33951,
+          "HALO": 0.0463
+        },
+        "pipeline_version": "7.0.5"
+      },
+      "cutout": {
+        "url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W20_2D/l2b-v27-2026-198/6/level2_2025W20_2D_0243_1D6_spx_l2b-v27-2026-198.fits?center=248.1672307,66.7550241d&size=0.030000",
+        "center_ra": 248.16723072343547,
+        "center_dec": 66.7550241023173,
+        "size_deg": 0.03,
+        "bytes": 3951360,
+        "sha256": "856f28d0d12279bb8877780030e73ae5ffbafdbe2930e3de38a74ff6c16f6048",
+        "retrieved_at": "2026-11-14T08:01:08.713138+00:00"
+      }
+    },
+    {
+      "observation_id": "2025W52_2A_0161_2_D6",
+      "observation_time": "2025-12-26T05:13:59.779Z",
+      "ra": 244.3425489935811,
+      "dec": 66.18342414064725,
+      "wavelength_min": 4.4115,
+      "wavelength_max": 5.0096,
+      "band": "SPHEREx-D6",
+      "detector": 6,
+      "data_release": "DR1",
+      "calibration_level": 2,
+      "quality_flags": [
+        "BLOOM",
+        "OVERFLOW",
+        "SUR_ERROR",
+        "TRANSIENT"
+      ],
+      "fits_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W52_2A/l2b-v27-2026-211/6/level2_2025W52_2A_0161_2D6_spx_l2b-v27-2026-211.fits",
+      "local_path": "C:\\Users\\AADIL ARSHAD\\OneDrive\\Desktop\\Aadil\\CODE-il\\SphereX_SuperEarth\\cache\\cutouts\\level2_2025W52_2A_0161_2D6_spx_l2b-v27-2026-211\\cut_248.16723_+66.75502_0.0300.fits",
+      "obs_id": "2025W52_2A_0161_2",
+      "publisher_did": "ivo://irsa.ipac/spherex_dr1?2025W52_2A_0161_2/D6",
+      "collection": "spherex_dr1",
+      "observation_time_end": "2025-12-26T05:15:54.864Z",
+      "mjd_start": 61035.218053,
+      "mjd_end": 61035.219385,
+      "exposure_time_s": 113.5826,
+      "instrument": "SPHEREx",
+      "pixel_scale_arcsec": 6.15,
+      "image_size_px": [
+        2040,
+        2040
+      ],
+      "image_fov_deg": 3.485,
+      "spectral_resolving_power": 127.8,
+      "s_region": "POLYGON ICRS 243.33438056572842 63.72280745032669 238.39141657862228 66.51531634176767 245.6059416911819 68.67689955161526 250.15431425670027 65.64076707940303 243.33438056572842 63.72280745032669",
+      "covers_position": true,
+      "archive_release_date": "2026-10-06 19:20:38",
+      "estimated_size_kb": 65581,
+      "survey_field": "SPS_033669_S12",
+      "cloud_access": {
+        "aws": {
+          "bucket_name": "nasa-irsa-spherex",
+          "key": "dr1/level2/2025W52_2A/l2b-v27-2026-211/6/level2_2025W52_2A_0161_2D6_spx_l2b-v27-2026-211.fits",
+          "region": "us-east-1"
+        }
+      },
+      "wavelength_at_target": 4.4221438082366635,
+      "bandwidth_at_target": 0.03679559605545459,
+      "quality": {
+        "l1_dqa": "Pass",
+        "l2_dqa": "Pass",
+        "psf_fwhm": 9.041940402463002,
+        "target_in_image": true,
+        "target_pixel_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SOURCE",
+          "SUR_ERROR"
+        ],
+        "target_box_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SOURCE",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "fraction_with_problem_flags": 0.28086,
+        "fraction_by_flag": {
+          "TRANSIENT": 0.21296,
+          "OVERFLOW": 0.07099,
+          "SUR_ERROR": 0.21914,
+          "NONFUNC": 0.00309,
+          "SOURCE": 1.0,
+          "BLOOM": 0.27778
+        },
+        "pipeline_version": "7.0.5"
+      },
+      "cutout": {
+        "url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W52_2A/l2b-v27-2026-211/6/level2_2025W52_2A_0161_2D6_spx_l2b-v27-2026-211.fits?center=248.1672307,66.7550241d&size=0.030000",
+        "center_ra": 248.16723072343547,
+        "center_dec": 66.7550241023173,
+        "size_deg": 0.03,
+        "bytes": 3951360,
+        "sha256": "3b2a6e779c789d01c934c5faaecbf91c981ae7a8a40042d0940e1fa3bac1d0d9",
+        "retrieved_at": "2026-11-14T08:01:01.493761+00:00"
+      }
+    },
+    {
+      "observation_id": "2026W17_1B_0434_1_D6",
+      "observation_time": "2026-04-22T07:56:42.893Z",
+      "ra": 251.01674201104905,
+      "dec": 67.68678360243108,
+      "wavelength_min": 4.4115,
+      "wavelength_max": 5.0096,
+      "band": "SPHEREx-D6",
+      "detector": 6,
+      "data_release": "DR1",
+      "calibration_level": 2,
+      "quality_flags": [
+        "BLOOM",
+        "OVERFLOW",
+        "SUR_ERROR",
+        "TRANSIENT"
+      ],
+      "fits_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W17_1B/l2b-v27-2026-242/6/level2_2026W17_1B_0434_1D6_spx_l2b-v27-2026-242.fits",
+      "local_path": "C:\\Users\\AADIL ARSHAD\\OneDrive\\Desktop\\Aadil\\CODE-il\\SphereX_SuperEarth\\cache\\cutouts\\level2_2026W17_1B_0434_1D6_spx_l2b-v27-2026-242\\cut_248.16723_+66.75502_0.0300.fits",
+      "obs_id": "2026W17_1B_0434_1",
+      "publisher_did": "ivo://irsa.ipac/spherex_dr1?2026W17_1B_0434_1/D6",
+      "collection": "spherex_dr1",
+      "observation_time_end": "2026-04-22T07:58:37.978Z",
+      "mjd_start": 61152.331052,
+      "mjd_end": 61152.332384,
+      "exposure_time_s": 113.5826,
+      "instrument": "SPHEREx",
+      "pixel_scale_arcsec": 6.15,
+      "image_size_px": [
+        2040,
+        2040
+      ],
+      "image_fov_deg": 3.485,
+      "spectral_resolving_power": 127.8,
+      "s_region": "POLYGON ICRS 257.5686077344691 68.08665502167692 252.2068818075225 65.32446164592 244.64228998886773 67.0259908252494 249.49632871370775 70.05671070050275 257.5686077344691 68.08665502167692",
+      "covers_position": true,
+      "archive_release_date": "2026-10-09 09:53:38",
+      "estimated_size_kb": 65690,
+      "survey_field": "SPS_105359_S12",
+      "cloud_access": {
+        "aws": {
+          "bucket_name": "nasa-irsa-spherex",
+          "key": "dr1/level2/2026W17_1B/l2b-v27-2026-242/6/level2_2026W17_1B_0434_1D6_spx_l2b-v27-2026-242.fits",
+          "region": "us-east-1"
+        }
+      },
+      "wavelength_at_target": 4.624029279184403,
+      "bandwidth_at_target": 0.03632840905642714,
+      "quality": {
+        "l1_dqa": "Pass",
+        "l2_dqa": "Pass",
+        "psf_fwhm": 9.041940402463002,
+        "target_in_image": true,
+        "target_pixel_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SOURCE",
+          "SUR_ERROR"
+        ],
+        "target_box_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SOURCE",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "fraction_with_problem_flags": 0.29938,
+        "fraction_by_flag": {
+          "TRANSIENT": 0.25926,
+          "OVERFLOW": 0.0216,
+          "SUR_ERROR": 0.19136,
+          "NONFUNC": 0.00617,
+          "PERSIST": 0.00309,
+          "SOURCE": 1.0,
+          "BLOOM": 0.27469,
+          "HALO": 0.01543
+        },
+        "pipeline_version": "7.0.5"
+      },
+      "cutout": {
+        "url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2026W17_1B/l2b-v27-2026-242/6/level2_2026W17_1B_0434_1D6_spx_l2b-v27-2026-242.fits?center=248.1672307,66.7550241d&size=0.030000",
+        "center_ra": 248.16723072343547,
+        "center_dec": 66.7550241023173,
+        "size_deg": 0.03,
+        "bytes": 3951360,
+        "sha256": "76b3204759be0b9a0e041fc7cff49328ce0843a1e817a8c6098cf9b61c3072a4",
+        "retrieved_at": "2026-11-14T08:01:10.936178+00:00"
+      }
+    },
+    {
+      "observation_id": "2025W23_2B_0206_1_D1",
+      "observation_time": "2025-06-06T11:22:23.837Z",
+      "ra": 246.99134489465752,
+      "dec": 66.82361782705331,
+      "wavelength_min": 0.7455,
+      "wavelength_max": 1.1167,
+      "band": "SPHEREx-D1",
+      "detector": 1,
+      "data_release": "DR1",
+      "calibration_level": 2,
+      "quality_flags": [
+        "BLOOM",
+        "OVERFLOW",
+        "SUR_ERROR"
+      ],
+      "fits_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W23_2B/l2b-v27-2026-201/1/level2_2025W23_2B_0206_1D1_spx_l2b-v27-2026-201.fits",
+      "local_path": "C:\\Users\\AADIL ARSHAD\\OneDrive\\Desktop\\Aadil\\CODE-il\\SphereX_SuperEarth\\cache\\cutouts\\level2_2025W23_2B_0206_1D1_spx_l2b-v27-2026-201\\cut_248.16723_+66.75502_0.0300.fits",
+      "obs_id": "2025W23_2B_0206_1",
+      "publisher_did": "ivo://irsa.ipac/spherex_dr1?2025W23_2B_0206_1/D1",
+      "collection": "spherex_dr1",
+      "observation_time_end": "2025-06-06T11:24:19.008Z",
+      "mjd_start": 60832.473887,
+      "mjd_end": 60832.47522,
+      "exposure_time_s": 113.5826,
+      "instrument": "SPHEREx",
+      "pixel_scale_arcsec": 6.15,
+      "image_size_px": [
+        2040,
+        2040
+      ],
+      "image_fov_deg": 3.485,
+      "spectral_resolving_power": 39.1,
+      "s_region": "POLYGON ICRS 248.32187333655375 69.17981680848163 253.0528782649059 66.20109399557592 245.8455330787037 64.43924629675813 240.56781220057943 67.20247740388581 248.32187333655375 69.17981680848163",
+      "covers_position": true,
+      "archive_release_date": "2026-09-28 18:56:55",
+      "estimated_size_kb": 65869,
+      "survey_field": "SPS_105008_S12",
+      "cloud_access": {
+        "aws": {
+          "bucket_name": "nasa-irsa-spherex",
+          "key": "dr1/level2/2025W23_2B/l2b-v27-2026-201/1/level2_2025W23_2B_0206_1D1_spx_l2b-v27-2026-201.fits",
+          "region": "us-east-1"
+        }
+      },
+      "wavelength_at_target": 0.9417652736839274,
+      "bandwidth_at_target": 0.02410745380618708,
+      "quality": {
+        "l1_dqa": "Pass",
+        "l2_dqa": "Pass",
+        "psf_fwhm": 7.530770327317724,
+        "target_in_image": true,
+        "target_pixel_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SOURCE",
+          "SUR_ERROR"
+        ],
+        "target_box_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SOURCE",
+          "SUR_ERROR"
+        ],
+        "fraction_with_problem_flags": 0.37963,
+        "fraction_by_flag": {
+          "TRANSIENT": 0.31481,
+          "OVERFLOW": 0.0679,
+          "SUR_ERROR": 0.26235,
+          "PERSIST": 0.00309,
+          "SOURCE": 1.0,
+          "BLOOM": 0.37963
+        },
+        "pipeline_version": "7.0.5"
+      },
+      "cutout": {
+        "url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W23_2B/l2b-v27-2026-201/1/level2_2025W23_2B_0206_1D1_spx_l2b-v27-2026-201.fits?center=248.1672307,66.7550241d&size=0.030000",
+        "center_ra": 248.16723072343547,
+        "center_dec": 66.7550241023173,
+        "size_deg": 0.03,
+        "bytes": 3954240,
+        "sha256": "041e78770dc428665443173a7e4824813c9114be202e9d85b17d5c5e164a2c04",
+        "retrieved_at": "2026-11-14T08:01:20.362286+00:00"
+      }
+    }
+  ]
+}
