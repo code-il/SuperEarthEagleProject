@@ -1,0 +1,312 @@
+[
+ {
+  "key": "barnards-star",
+  "label": "Barnard's Star",
+  "frames": 53,
+  "visits": 4,
+  "releases": [
+   "DR1",
+   "QR3"
+  ],
+  "wavelength_source": [
+   "CWAVE/CBAND"
+  ],
+  "registration": {
+   "method": "scatter of stationary field sources",
+   "sigma_arcsec": 0.1,
+   "n_reference_sources": 1,
+   "reference_sources": [
+    "S002"
+   ],
+   "dof": 6,
+   "raw_rms_arcsec": 0.164
+  },
+  "sources": 3,
+  "classes": {
+   "high_proper_motion_candidate": 1,
+   "stationary": 2
+  },
+  "warnings": [
+   "The series combines releases DR1, QR3. IRSA documents DR1 + QR3 as one uniformly processed set.",
+   "The target (S001) is saturated at these wavelengths: its position comes from RAW centroids and it has no reliable photometry, light curve or spectrum."
+  ],
+  "runtime_s": 266.9,
+  "target_found": true,
+  "target_offset_median_arcsec": 0.441,
+  "catalogue_pm": [
+   -801.551,
+   10362.394
+  ],
+  "measured_pm": [
+   -1592.5864744757419,
+   10353.58306938218
+  ],
+  "measured_pm_err": [
+   572.404127099984,
+   457.78051605227733
+  ],
+  "motion_sigma": 22.64003104566456,
+  "linear_chi2_red": 0.2575417533455291,
+  "parallax_removed_mas": 546.975939730948,
+  "classification": "high_proper_motion_candidate",
+  "label_text": "known high-proper-motion object",
+  "confidence": 0.625,
+  "status": "known",
+  "subtype": null,
+  "saturated": true,
+  "catalogue_match": "Gaia DR3 4472832130942575872",
+  "catalogue": "gaia",
+  "match_sep_arcsec": 0.223,
+  "pm_difference_sigma": 1.72,
+  "variability": null,
+  "variability_amp_mag": null,
+  "variability_reliable": false,
+  "light_curve_points": 0,
+  "pm_vs_ephemeris_sigma": 1.72,
+  "candidates_not_known": [],
+  "moving": [
+   "S001"
+  ]
+ },
+ {
+  "key": "epsilon-indi-b",
+  "label": "Epsilon Indi B",
+  "frames": 91,
+  "visits": 6,
+  "releases": [
+   "DR1",
+   "QR3"
+  ],
+  "wavelength_source": [
+   "CWAVE/CBAND"
+  ],
+  "registration": {
+   "method": "scatter of stationary field sources",
+   "sigma_arcsec": 0.1,
+   "n_reference_sources": 1,
+   "reference_sources": [
+    "S002"
+   ],
+   "dof": 8,
+   "raw_rms_arcsec": 0.631
+  },
+  "sources": 8,
+  "classes": {
+   "high_proper_motion_candidate": 1,
+   "stationary": 2,
+   "insufficient_data": 5
+  },
+  "warnings": [
+   "The series combines releases DR1, QR3. IRSA documents DR1 + QR3 as one uniformly processed set."
+  ],
+  "runtime_s": 293.6,
+  "target_found": true,
+  "target_offset_median_arcsec": 0.861,
+  "catalogue_pm": [
+   3981.977,
+   -2466.832
+  ],
+  "measured_pm": [
+   3913.43931842101,
+   -2540.1418664530684
+  ],
+  "measured_pm_err": [
+   139.27304680073905,
+   146.26419167820143
+  ],
+  "motion_sigma": 32.91991175124151,
+  "linear_chi2_red": 0.7259122629339932,
+  "parallax_removed_mas": 270.6580324694526,
+  "classification": "high_proper_motion_candidate",
+  "label_text": "known high-proper-motion object",
+  "confidence": 0.896,
+  "status": "known",
+  "subtype": null,
+  "saturated": false,
+  "catalogue_match": "Gaia DR3 6412596012146801152",
+  "catalogue": "gaia",
+  "match_sep_arcsec": 0.761,
+  "pm_difference_sigma": 0.71,
+  "variability": 0.24276254754652277,
+  "variability_amp_mag": 0.09,
+  "variability_reliable": false,
+  "light_curve_points": 75,
+  "pm_vs_ephemeris_sigma": 0.71,
+  "candidates_not_known": [],
+  "moving": [
+   "S001",
+   "S004"
+  ]
+ },
+ {
+  "key": "wise-0855",
+  "label": "WISE 0855",
+  "frames": 44,
+  "visits": 4,
+  "releases": [
+   "DR1"
+  ],
+  "wavelength_source": [
+   "CWAVE/CBAND"
+  ],
+  "registration": {
+   "method": "default floor",
+   "sigma_arcsec": 0.5,
+   "n_reference_sources": 0,
+   "reference_sources": [],
+   "dof": 0,
+   "reason": "fewer than 4 degrees of freedom from stationary field sources"
+  },
+  "sources": 3,
+  "classes": {
+   "high_proper_motion_candidate": 1,
+   "stationary": 1,
+   "insufficient_data": 1
+  },
+  "warnings": [
+   "Registration could not be measured (too few Gaia or stationary field stars); a 0.5\" per-visit floor is assumed in all position errors."
+  ],
+  "runtime_s": 209.3,
+  "target_found": true,
+  "target_offset_median_arcsec": 0.955,
+  "catalogue_pm": [
+   -8123.7,
+   673.2
+  ],
+  "measured_pm": [
+   -8717.391523106433,
+   2413.608085693273
+  ],
+  "measured_pm_err": [
+   2016.6113940460991,
+   2356.7206697779743
+  ],
+  "motion_sigma": 4.0472537798714185,
+  "linear_chi2_red": 0.8192013904974271,
+  "parallax_removed_mas": null,
+  "classification": "high_proper_motion_candidate",
+  "label_text": "known high-proper-motion object",
+  "confidence": 0.425,
+  "status": "known",
+  "subtype": "possible_brown_dwarf (CatWISE W1-W2 >= 1.0)",
+  "saturated": false,
+  "catalogue_match": "CWISE J085506.91-071437.5",
+  "catalogue": "catwise",
+  "match_sep_arcsec": 1.854,
+  "pm_difference_sigma": 1.02,
+  "variability": 1.4638724052879684,
+  "variability_amp_mag": 0.427,
+  "variability_reliable": false,
+  "light_curve_points": 34,
+  "pm_vs_ephemeris_sigma": 0.9,
+  "candidates_not_known": [],
+  "moving": [
+   "S001"
+  ]
+ },
+ {
+  "key": "rw-aurigae",
+  "label": "RW Aurigae",
+  "frames": 54,
+  "visits": 3,
+  "releases": [
+   "DR1",
+   "QR3"
+  ],
+  "wavelength_source": [
+   "CWAVE/CBAND"
+  ],
+  "registration": {
+   "method": "default floor",
+   "sigma_arcsec": 0.5,
+   "n_reference_sources": 0,
+   "reference_sources": [],
+   "dof": 0,
+   "reason": "fewer than 4 degrees of freedom from stationary field sources"
+  },
+  "sources": 7,
+  "classes": {
+   "stationary": 6,
+   "insufficient_data": 1
+  },
+  "warnings": [
+   "Registration could not be measured (too few Gaia or stationary field stars); a 0.5\" per-visit floor is assumed in all position errors.",
+   "The series combines releases DR1, QR3. IRSA documents DR1 + QR3 as one uniformly processed set.",
+   "The target (S001) is saturated at these wavelengths: its position comes from RAW centroids and it has no reliable photometry, light curve or spectrum."
+  ],
+  "runtime_s": 12.0,
+  "target_found": true,
+  "target_offset_median_arcsec": 0.411,
+  "catalogue_pm": [
+   7.23,
+   -20.33
+  ],
+  "measured_pm": [
+   527.9632454343905,
+   -78.72304869589124
+  ],
+  "measured_pm_err": [
+   884.5629585808923,
+   832.0583002465281
+  ],
+  "motion_sigma": 0.21072430689716795,
+  "linear_chi2_red": 0.06164864477451179,
+  "parallax_removed_mas": null,
+  "classification": "stationary",
+  "label_text": "stationary",
+  "confidence": 0.375,
+  "status": "known",
+  "subtype": null,
+  "saturated": true,
+  "catalogue_match": "Gaia DR3 156430817820015232",
+  "catalogue": "gaia",
+  "match_sep_arcsec": 0.178,
+  "pm_difference_sigma": 0.6,
+  "variability": null,
+  "variability_amp_mag": null,
+  "variability_reliable": false,
+  "light_curve_points": 0,
+  "pm_vs_ephemeris_sigma": 0.59,
+  "candidates_not_known": [],
+  "moving": []
+ },
+ {
+  "key": "r-draconis",
+  "label": "R Draconis",
+  "frames": 85,
+  "visits": 3,
+  "releases": [
+   "DR1",
+   "QR3"
+  ],
+  "wavelength_source": [
+   "CWAVE/CBAND"
+  ],
+  "registration": {
+   "method": "default floor",
+   "sigma_arcsec": 0.5,
+   "n_reference_sources": 0,
+   "reference_sources": [],
+   "dof": 0,
+   "reason": "fewer than 4 degrees of freedom from stationary field sources"
+  },
+  "sources": 9,
+  "classes": {
+   "stationary": 5,
+   "insufficient_data": 4
+  },
+  "warnings": [
+   "Registration could not be measured (too few Gaia or stationary field stars); a 0.5\" per-visit floor is assumed in all position errors.",
+   "9 of 9 sources look like saturation artefacts: the field is dominated by a saturated star, so detections here are unreliable. Try shorter-wavelength detectors.",
+   "The series combines releases DR1, QR3. IRSA documents DR1 + QR3 as one uniformly processed set."
+  ],
+  "runtime_s": 329.7,
+  "target_found": false,
+  "target_offset_median_arcsec": null,
+  "catalogue_pm": null,
+  "candidates_not_known": [],
+  "moving": [
+   "S006"
+  ]
+ }
+]

@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html, body, #root {
+  height: 100%;
+  background: #020617;
+}
+
+kbd {
+  border: 1px solid #334155;
+  border-radius: 3px;
+  padding: 0 3px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: #cbd5e1;
+}
+
+:focus-visible {
+  outline: 2px solid #fbbf24;
+  outline-offset: 1px;
+}

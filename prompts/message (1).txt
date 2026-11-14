@@ -1,0 +1,220 @@
+# DEVELOPMENT PROMPT 2: SPHEREx IMAGE PROCESSING ENGINE
+
+You are responsible for developing the astronomical image-processing subsystem for SPHEREx Explorer.
+
+Your job is to transform raw SPHEREx FITS observations into scientifically meaningful images that can be compared across different observation dates.
+
+## 1. Your objective
+
+Build a Python image-processing pipeline that takes SPHEREx FITS files from Person 1 and produces processed, aligned images suitable for:
+- Time-lapse playback.
+- Blink comparison.
+- Image subtraction.
+- Image stacking.
+- Multiwavelength visualization.
+- Scientific investigation of moving objects.
+
+## 2. Required research
+
+Study:
+
+- SPHEREx FITS structure: https://caltech-ipac.github.io/irsa-tutorials/spherex-intro/
+- SPHEREx data products: https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-products/
+- FITS and WCS: https://docs.astropy.org/
+- Image reprojection: https://docs.astropy.org/projects/reproject/en/stable/
+- SPHEREx cutouts: https://caltech-ipac.github.io/irsa-tutorials/spherex-cutouts/
+
+Understand:
+- FITS headers and extensions.
+- World Coordinate System (WCS).
+- Astrometric alignment.
+- Pixel scale.
+- Background subtraction.
+- Image normalization.
+- Noise and signal-to-noise ratio.
+- Flux conservation.
+- Image differencing.
+- Bad pixels and contamination flags.
+
+## 3. Features to implement
+
+### A. FITS interpretation
+
+Read the downloaded FITS files using Astropy.
+
+Identify:
+- Science image arrays.
+- Uncertainty or error arrays.
+- Data quality information.
+- WCS information.
+- Spectral information.
+- Relevant detector and calibration metadata.
+
+Do not assume all useful information is stored in the primary HDU. Inspect the actual SPHEREx multi-extension FITS structure.
+
+### B. Image preparation
+
+Implement:
+- Invalid-pixel handling.
+- NaN and infinity handling.
+- Background estimation and subtraction where appropriate.
+- Image normalization for display.
+- Optional bad-pixel masking.
+- Quality flag propagation.
+
+Preserve the original scientific values separately from display-normalized images.
+
+### C. Image alignment
+
+Different observations may have slightly different pointing and pixel coordinates.
+
+Use Astropy WCS and the reproject package to place images on a common celestial grid.
+
+Implement:
+- Reference-image selection.
+- WCS-based reprojection.
+- Consistent output image dimensions.
+- Consistent pixel scale.
+- Footprint masks to identify areas without valid coverage.
+
+Remember that reprojection is not a substitute for correcting inaccurate astrometry.
+
+### D. Image stacking
+
+Allow users to combine compatible observations.
+
+Implement:
+- Mean stacking.
+- Median stacking.
+- Optional uncertainty-weighted stacking.
+
+Support stacking by:
+- Observation date.
+- Spectral channel.
+- Detector/array, where scientifically appropriate.
+- Selected date ranges.
+
+Do not combine incompatible wavelengths or calibration levels without explicitly identifying the operation and its limitations.
+
+### E. Image differencing
+
+Implement two principal modes:
+
+1. Difference imaging:
+   Image A minus Image B.
+
+2. Ratio imaging:
+   Image A divided by Image B, with appropriate zero and invalid-pixel handling.
+
+Allow the user to choose which observations to compare.
+
+Provide sensible normalization and visualization of positive and negative residuals.
+
+Be aware that changing backgrounds, PSFs, noise and calibration can create false residuals. Do not label every difference as a moving astronomical object.
+
+### F. Multiwavelength processing
+
+SPHEREx has 102 spectral channels across its near-infrared range.
+
+Create functionality to:
+- Select individual channels.
+- Combine selected channels where appropriate.
+- Compare images at different wavelengths.
+- Produce wavelength-dependent image products.
+
+Investigate the six detector arrays and their data characteristics before implementing any detector-level stacking.
+
+### G. Output
+
+For each processed observation, produce:
+- A processed FITS file.
+- A display-ready image.
+- WCS metadata.
+- Observation timestamp.
+- Wavelength information.
+- Quality information.
+- Processing history.
+
+For image comparisons, also produce:
+- Difference image.
+- Ratio image.
+- Validity mask.
+
+## 4. Required Python functions
+
+Develop modular functions such as:
+
+- load_spherex_fits(path)
+- extract_science_image(hdul)
+- prepare_image(image, uncertainty, quality)
+- reproject_observation(image, input_wcs, reference_wcs)
+- stack_observations(images, method)
+- subtract_images(image_a, image_b)
+- divide_images(image_a, image_b)
+- generate_display_image(image)
+- save_processed_observation(image, metadata, output_path)
+
+Use NumPy, Astropy, SciPy and reproject as appropriate.
+
+## 5. Integration contract
+
+Communicate with Person 1 about FITS input paths.
+
+Communicate with Person 3 about the image format required by the viewer.
+
+Communicate with Person 4 about the scientifically useful processed data required for detection and analysis.
+
+Provide a consistent output object containing:
+
+{
+  "observation_id": "unique identifier",
+  "observation_time": "ISO timestamp",
+  "wavelength": 0.0,
+  "image_url": "processed image URL",
+  "fits_url": "processed FITS URL",
+  "wcs": {},
+  "quality_flags": [],
+  "processing_method": "description"
+}
+
+Use real WCS information. Do not replace astronomical coordinate information with arbitrary image coordinates.
+
+## 6. Testing
+
+Use observations from:
+- Barnard's Star.
+- Epsilon Indi B.
+- WISE 0855.
+- RW Aurigae.
+- R Draconis.
+
+Verify:
+- Alignment between observation epochs.
+- Correct orientation and coordinate mapping.
+- No unexpected shifts caused by reprojection.
+- Correct subtraction.
+- Correct handling of missing pixels.
+- Preservation of valid photometric information.
+
+Create example before-and-after images.
+
+## 7. Deliverables
+
+Provide:
+- Python image-processing module.
+- requirements.txt additions.
+- Example processed FITS products.
+- Example difference images.
+- Unit tests.
+- Documentation of the processing methods.
+- Known limitations and scientific caveats.
+
+## 8. Important constraints
+
+Do not build the web interface.
+
+Do not query the SPHEREx archive independently unless required for a controlled test. Use Person 1's data acquisition interface.
+
+Do not implement moving-object detection. Person 4 is responsible for that.
+
+Your priority is scientifically defensible image processing that makes temporal comparisons possible.
