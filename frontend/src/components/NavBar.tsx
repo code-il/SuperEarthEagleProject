@@ -13,6 +13,7 @@ export function NavBar() {
         {api.usingMocks && <span className="rounded bg-fuchsia-700 px-2 py-0.5 text-[11px] font-semibold">MOCK DATA</span>}
       </Link>
       <NavLink to="/" end className={link}>Home</NavLink>
+      <NavLink to="/map" className={link}>3D Atlas</NavLink>
       <NavLink to="/explore" className={link}>Explore</NavLink>
       <NavLink to="/about" className={link}>About &amp; help</NavLink>
     </nav>

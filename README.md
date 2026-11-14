@@ -44,6 +44,37 @@ Settings are read from `.env`; see [`.env.example`](.env.example). For Docker, r
 exact environment used for validation. The viewer's versions are locked in
 `frontend/package-lock.json`.
 
+## 3D Atlas (`/map`)
+
+A zoomable 3D map of the real stellar neighbourhood, from a planetary system (AU) out to the whole
+Milky Way (kpc), one continuous camera. Every point sits at its measured Gaia DR3 distance.
+
+- **617k objects**: every Gaia DR3 star within 100 pc (parallax/error ≥ 10), a 1-in-3 sample of
+  bright stars to 4 kpc, 2.7k SIMBAD objects Gaia cannot see (cold brown dwarfs such as WISE 0855),
+  and 4.8k planetary systems from the NASA Exoplanet Archive drawn to scale with habitable zones.
+- **Classified**, with the source of every class shown: *measured* from the object's SPHEREx
+  DR1+QR3 spectrum (blackbody + H₂O/CH₄ band indices), *catalogued* (SIMBAD spectral type), or
+  *predicted* by a k-NN model on Gaia photometry (89.7 % held-out accuracy, shown in the app).
+- **Filters** by class, classification source, model confidence, distance and flags (planet hosts,
+  variables, binaries, halo stars, invisible to Gaia); colour by class, true colour or source.
+- **Frontier mode** highlights what is still unknown and ranks sectors of space by how uncharted
+  they are. Pick an object and press *Measure SPHEREx spectrum* to classify it from the images.
+- Each object card shows the SPHEREx DR1 all-sky image (HiPS cube, wavelength slider) and links to
+  the time-lapse viewer.
+
+Build the map data once (≈5 min download, then cached in `cache/galaxy/`), and optionally measure
+SPHEREx spectra for a set of nearby objects:
+
+```bash
+.venv\Scripts\python -m scripts.build_galaxy_map
+```
+
+```bash
+.venv\Scripts\python -m scripts.spherex_survey --limit 16
+```
+
+Re-run `build_galaxy_map` after the survey to fold the SPHEREx classes into the map.
+
 ## Demonstration
 
 Open the app and pick **WISE 0855** on the home page. It opens by name; the card also links the

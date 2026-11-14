@@ -37,6 +37,7 @@ from fastapi.staticfiles import StaticFiles
 from .analysis_routes import router as analysis_router
 from .catalog_routes import router as catalog_router
 from .data_routes import router as data_router
+from .galaxy_routes import router as galaxy_router
 from .processing_routes import router as processing_router
 
 APP_VERSION = "1.0.0"
@@ -76,7 +77,8 @@ app.add_middleware(CORSMiddleware, allow_origins=_origins, allow_methods=["GET",
 # concurrent heavy jobs (processing/analysis download and reproject many cutouts).
 # ---------------------------------------------------------------------------
 
-HEAVY_PREFIXES = ("/api/process", "/api/compare", "/api/analysis", "/api/light-curve", "/api/spectrum", "/api/cutouts")
+HEAVY_PREFIXES = ("/api/process", "/api/compare", "/api/analysis", "/api/light-curve", "/api/spectrum", "/api/cutouts",
+                  "/api/galaxy/spectrum")
 LIMITED_PREFIXES = HEAVY_PREFIXES + ("/api/search", "/api/observations", "/api/resolve", "/api/catalog")
 
 
@@ -156,6 +158,7 @@ app.include_router(data_router)
 app.include_router(processing_router)
 app.include_router(catalog_router)
 app.include_router(analysis_router)
+app.include_router(galaxy_router)
 
 
 @app.get("/api/version", tags=["meta"])

@@ -57,6 +57,9 @@ Every field endpoint accepts either `q` or `ra` and `dec`:
 | `GET /api/light-curve/{source_id}` | P4 | Flux (mJy, AB mag) against time + variability test |
 | `GET /api/spectrum/{source_id}` | P4 | Per-visit and combined spectrum, ratio of each visit to the first, `compare_to` another source |
 | `GET /api/analysis/crossmatch` | P4 | Gaia DR3 / CatWISE2020 / SIMBAD (/ SkyBoT) look-up of one position |
+| `GET /api/galaxy/object/{i}` | Atlas | Full record of 3D-map object `i` (Gaia DR3, SIMBAD, planets, SPHEREx spectrum) |
+| `GET /api/galaxy/spectrum/{i}` | Atlas | Measure (first call, 1–3 min, heavy job) or return the SPHEREx DR1+QR3 spectrum of object `i`, with its spectral class |
+| `GET /api/galaxy/survey` | Atlas | Every object with a SPHEREx spectrum so far (the map's charted layer) |
 
 The prompt's suggested routes all exist. `GET /api/analysis/{source_id}` and
 `GET /api/spectrum/{source_id}` take the field as query parameters, because source ids
