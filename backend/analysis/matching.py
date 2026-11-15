@@ -96,7 +96,7 @@ def build_visit_stacks(observations: Sequence[Any]) -> list[SimpleNamespace]:
                 observation_time=None, wavelength=summ.get("wavelength_mean"), detector=det,
                 psf_fwhm=max(fw) if fw else None, data=res.data, variance=res.variance,
                 mask=(~res.valid).astype(np.uint8), flags=flags, raw=raw, wcs=mem[0].wcs,
-                flag_definitions=flag_defs, n_frames=len(mem),
+                flag_definitions=flag_defs, n_frames=len(mem), noise_correlation=summ.get("noise_correlation"),
                 releases=sorted({m.data_release for m in mem if m.data_release}),
                 wavelength_range=[float(min(m.wavelength for m in mem if m.wavelength)),
                                   float(max(m.wavelength for m in mem if m.wavelength))]
@@ -146,7 +146,11 @@ def estimate_registration(detections: list[dict[str, Any]], reference: list[dict
     dx, dy = float(np.median(o[:, 0])), float(np.median(o[:, 1]))
     scatter = float(np.sqrt(np.mean((o[:, 0] - dx) ** 2 + (o[:, 1] - dy) ** 2) / 2))
     sig = max(scatter / math.sqrt(len(o)) * 1.25, 0.1)  # 1.25: median vs mean efficiency
-    out.update(dra_arcsec=dx, ddec_arcsec=dy, sigma_arcsec=sig, scatter_arcsec=scatter, applied=True)
+    res = np.hypot(o[:, 0] - dx, o[:, 1] - dy)  # residuals after removing the common shift
+    raw = np.hypot(o[:, 0], o[:, 1])
+    out.update(dra_arcsec=dx, ddec_arcsec=dy, sigma_arcsec=sig, scatter_arcsec=scatter, applied=True,
+               median_offset_arcsec=float(np.median(raw)), rms_residual_arcsec=float(np.sqrt(np.mean(res ** 2))),
+               max_residual_arcsec=float(res.max()))
     return out
 
 

@@ -17,7 +17,8 @@ Gaia star, and the held-out accuracy is written to the metadata.
 
 Outputs (``frontend/public/galaxy/``): ``stars.bin`` (render buffer), ``meta.json``,
 ``objects.json`` (named objects), ``systems.json`` (planetary systems); and
-``cache/galaxy/catalog.npz`` (full per-object columns for ``/api/galaxy/object/{i}``).
+``data/galaxy/catalog.npz`` (full per-object columns for ``/api/galaxy/object/{i}``). All of these are
+committed, so a fresh clone runs without rebuilding.
 
     python -m scripts.build_galaxy_map           # uses cached downloads
     python -m scripts.build_galaxy_map --refresh # downloads again
@@ -28,6 +29,7 @@ import csv
 import io
 import json
 import math
+import re
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -39,7 +41,8 @@ from astropy.coordinates import SkyCoord
 import astropy.units as u
 
 from backend.galaxy.classes import CLASS_ID, CLASSES, FLAGS, class_from_hr, class_from_simbad, simbad_flags
-from backend.galaxy.model import features, train_and_evaluate
+from backend.galaxy.catalog import save_catalog
+from backend.galaxy.model import KNNClassifier, features, train_and_evaluate
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "cache" / "galaxy"
@@ -161,11 +164,21 @@ def fetch_simbad_bright() -> list[dict[str, str]]:
 
 def fetch_exoplanets() -> list[dict[str, str]]:
     q = ("SELECT pl_name, hostname, gaia_dr3_id, ra, dec, sy_dist, sy_plx, pl_orbsmax, pl_orbper, pl_rade, pl_bmasse, "
-         "pl_eqt, pl_orbeccen, discoverymethod, disc_year, st_spectype, st_teff, st_rad, st_mass, sy_pnum "
+         "pl_eqt, pl_orbeccen, discoverymethod, disc_year, st_spectype, st_teff, st_rad, st_mass, sy_pnum, "
+         "pl_orbpererr1, pl_orbpererr2, pl_orbsmaxerr1, pl_orbsmaxerr2, pl_orbeccenerr1, pl_orbeccenerr2, "
+         "pl_tranmid, pl_tranmiderr1, pl_tranmiderr2, pl_orbtper, pl_orbtpererr1, pl_orbtpererr2, pl_orblper, "
+         "pl_orbincl, st_masserr1, st_masserr2 "
          "FROM pscomppars")
     r = requests.get(EXO_TAP, params={"query": q, "format": "csv"}, timeout=300, headers=UA)
     r.raise_for_status()
     return list(csv.DictReader(io.StringIO(r.text)))
+
+
+def serr(row: dict[str, str], base: str) -> float:
+    """Symmetric 1-sigma from an archive's ``<base>1`` (+) and ``<base>2`` (-) columns."""
+    e = [abs(f(row.get(base + "1"))), abs(f(row.get(base + "2")))]
+    e = [x for x in e if math.isfinite(x)]
+    return float(np.mean(e)) if e else float("nan")
 
 
 def f(v: str | None, default=np.nan) -> float:
@@ -177,8 +190,39 @@ def f(v: str | None, default=np.nan) -> float:
 
 
 def clean_name(main_id: str) -> str:
-    s = " ".join(main_id.replace("* ", "").replace("V* ", "").split())
+    s = " ".join(main_id.replace("V* ", "").replace("* ", "").split())
     return s[5:] if s.startswith("NAME ") else s
+
+
+def fetch_simbad_names() -> list[dict[str, str]]:
+    """Every SIMBAD ``NAME`` alias of the near (plx >= 10) and bright (V < 5) objects."""
+    near = simbad("SELECT i.oidref AS oid, i.id FROM ident i JOIN basic b ON i.oidref = b.oid "
+                  "WHERE i.id LIKE 'NAME %' AND b.plx_value >= 10")
+    bright = simbad("SELECT i.oidref AS oid, i.id FROM ident i JOIN allfluxes f ON f.oidref = i.oidref "
+                    "JOIN basic b ON b.oid = i.oidref WHERE f.V < 5 AND b.plx_value > 0.2 AND b.plx_value < 10 "
+                    "AND i.id LIKE 'NAME %'")
+    return near + bright
+
+
+_COMPONENT = re.compile(r"\s([A-D]{1,2})$")
+
+
+def best_name(main_id: str, names: list[str]) -> str:
+    """Display name: SIMBAD's own NAME main id, else the alias matching the component (Sirius B), else the shortest."""
+    if main_id.startswith("NAME "):
+        return main_id[5:].strip()
+    if not names:
+        return clean_name(main_id)
+    comp = _COMPONENT.search(main_id)
+    if comp:
+        hit = [n for n in names if n.endswith(" " + comp.group(1))]
+        if hit:
+            return min(hit, key=len)
+    plain = [n for n in names if not _COMPONENT.search(n)] or names
+    # Prefer real words over catalogue abbreviations ("vMA 2"), then possessive common names
+    # ("van Maanen's Star"), then the shortest ("Polaris" over "North Star").
+    worded = [n for n in plain if re.search(r"[a-z]{4,}", n)] or plain
+    return min(worded, key=lambda n: ("'s " not in n, len(n), n))
 
 
 def main(argv: list[str]) -> None:
@@ -193,7 +237,13 @@ def main(argv: list[str]) -> None:
     log("SIMBAD types and names")
     sim = cached("simbad_near", fetch_simbad_near, refresh)
     bright = cached("simbad_bright", fetch_simbad_bright, refresh)
-    log(f"  {len(sim)} near, {len(bright)} bright")
+    aliases: dict[str, list[str]] = {}
+    for r in cached("simbad_names", fetch_simbad_names, refresh):
+        aliases.setdefault(r["oid"], []).append(r["id"][5:].strip())
+    for r in sim + bright:
+        r["name"] = best_name(r["main_id"], aliases.get(r["oid"], [])) if (aliases.get(r["oid"]) or r["main_id"].startswith("NAME ")) else ""
+        r["aliases"] = sorted(set(aliases.get(r["oid"], [])) | {clean_name(r["main_id"])})
+    log(f"  {len(sim)} near, {len(bright)} bright, {len(aliases)} with proper names")
     log("NASA Exoplanet Archive")
     exo = cached("exoplanets", fetch_exoplanets, refresh)
     log(f"  {len(exo)} planets")
@@ -202,10 +252,20 @@ def main(argv: list[str]) -> None:
     gaia = near + far
     seen: set[str] = set()
     rows = []
+    # Faint (G > 19) sources with a poor astrometric fit (RUWE > 1.4) are mostly background stars with
+    # spurious parallaxes in crowded Galactic-plane fields, not stars within 100 pc. Drop them unless
+    # SIMBAD knows the object.
+    known = {r.get("gaia_id") for r in sim if r.get("gaia_id")}
+    n_spurious = 0
     for r in gaia:
-        if r["source_id"] not in seen:
-            seen.add(r["source_id"])
-            rows.append(r)
+        if r["source_id"] in seen:
+            continue
+        seen.add(r["source_id"])
+        if f(r["phot_g_mean_mag"]) > 19 and f(r["ruwe"]) > 1.4 and r["source_id"] not in known:
+            n_spurious += 1
+            continue
+        rows.append(r)
+    log(f"  dropped {n_spurious} faint sources with unreliable astrometry (G > 19, RUWE > 1.4)")
     n_gaia = len(rows)
     col = lambda k: np.array([f(r[k]) for r in rows])  # noqa: E731
     source_id = np.array([int(r["source_id"]) for r in rows], dtype=np.int64)
@@ -214,6 +274,7 @@ def main(argv: list[str]) -> None:
     gmag, bp_rp, bp_g, g_rp = col("phot_g_mean_mag"), col("bp_rp"), col("bp_g"), col("g_rp")
     teff, ruwe = col("teff_gspphot"), col("ruwe")
     name = np.array([""] * n_gaia, dtype=object)
+    alias: dict[int, list[str]] = {}  # map index -> other names (search)
     otype = np.array([""] * n_gaia, dtype=object)
     sptype = np.array([""] * n_gaia, dtype=object)
     cls = np.full(n_gaia, -1, np.int16)
@@ -232,14 +293,16 @@ def main(argv: list[str]) -> None:
         if i is not None:
             if not name[i] or r["name"]:
                 name[i] = nm
+            alias.setdefault(i, []).extend(r["aliases"])
             otype[i], sptype[i] = r["otype"], r["sp_type"]
             flags[i] |= FLAGS["named"] | simbad_flags(r["otype"])
             if c is not None:
                 cls[i], src[i] = c, "catalogue"
         elif f(r["plx_value"]) > 0 and (c is not None or r["name"]) and r["otype"] not in ("Pl", "Pl?"):
             extra.append((r, nm, c))
-    # SIMBAD-only objects that are not just Gaia stars we cut (keep those Gaia lacks: no Gaia id at all).
-    extra = [e for e in extra if not e[0].get("gaia_id")]
+    extra_alias = [e[0]["aliases"] for e in extra]
+    # SIMBAD objects whose Gaia source is not in the tiers (no DR3 parallax, e.g. the Luhman 16 binary, or
+    # parallax/error < 10) are placed with SIMBAD's astrometry.
     log(f"  {int((src == 'catalogue').sum())} Gaia stars with catalogue types, {len(extra)} SIMBAD-only objects")
 
     # ---------------- Model ----------------
@@ -249,17 +312,35 @@ def main(argv: list[str]) -> None:
     X = features(abs_g, bp_rp, bp_g, g_rp)
     model, report = train_and_evaluate(X[lab], cls[lab].astype(int))
     log(f"  model accuracy {report['accuracy']} on {report['n_test']} held-out stars")
+    # Below G ~ 19 the BP flux is dominated by noise and background (the "BP excess"), which makes faint
+    # red dwarfs look blue and pushes them onto the white-dwarf sequence. Those stars get a second model
+    # that only uses M_G and G-RP, and are always flagged low-confidence.
+    faint_g = 19.0
     todo = ok & (cls < 0)
-    P = model.predict_proba(X[todo])
-    cls[todo] = P.argmax(1)
-    prob[todo] = P.max(1)
+    bright_todo, faint_todo = todo & ~(gmag > faint_g), todo & (gmag > faint_g)
+    P = model.predict_proba(X[bright_todo])
+    cls[bright_todo], prob[bright_todo] = P.argmax(1), P.max(1)
+    Xf = np.column_stack([abs_g, g_rp])
+    model_f, report_f = train_and_evaluate(Xf[lab], cls[lab].astype(int))
+    faint_lab = np.where(lab & (gmag > 17.5))[0]  # how it does on faint labelled stars (resubstitution-free: k-NN on the rest)
+    if len(faint_lab) >= 50:
+        rest = KNNClassifier(15).fit(Xf[lab & ~(gmag > 17.5)], cls[lab & ~(gmag > 17.5)].astype(int))
+        pf = rest.predict_proba(Xf[faint_lab]).argmax(1)
+        report_f["accuracy_on_faint_labelled"] = round(float((pf == cls[faint_lab]).mean()), 3)
+        report_f["n_faint_labelled"] = int(len(faint_lab))
+    Pf = model_f.predict_proba(Xf[faint_todo])
+    cls[faint_todo], prob[faint_todo] = Pf.argmax(1), Pf.max(1)
+    flags[faint_todo] |= FLAGS["low_confidence"]
+    report["faint_model"] = {"applies_to": f"G > {faint_g:g} (BP-RP unreliable)", "n": int(faint_todo.sum()),
+                             "method": "k-nearest neighbours (k=15) on standardised [M_G, G-RP]",
+                             **{k: report_f[k] for k in ("accuracy", "n_test", "accuracy_on_faint_labelled", "n_faint_labelled")
+                                if k in report_f}}
     flags[todo & (prob < 0.6)] |= FLAGS["low_confidence"]
     # The HR rule is a sanity floor for very sparse regions of the diagram (no neighbours agree).
-    weak = np.where(todo)[0][P.max(1) < 0.34]
-    for i in weak:
+    for i in np.where(bright_todo & (prob < 0.34))[0]:
         cls[i] = class_from_hr(bp_rp[i], abs_g[i])
     # Where the model and the textbook HR-diagram boundaries disagree by more than one type, flag it uncertain.
-    ti = np.where(todo)[0]
+    ti = np.where(bright_todo)[0]
     hr = np.array([class_from_hr(bp_rp[i], abs_g[i]) for i in ti])
     disagree = (hr != cls[ti]) & ~((hr <= 5) & (cls[ti] <= 5) & (np.abs(hr - cls[ti]) <= 1))
     flags[ti[disagree]] |= FLAGS["low_confidence"]
@@ -280,6 +361,8 @@ def main(argv: list[str]) -> None:
             vals = [r.get(k, defaults.get(k)) for r in rows]
             cols[k] = np.concatenate([arr, np.array(vals, dtype=arr.dtype)])
 
+    for k, al in enumerate(extra_alias):
+        alias[n_gaia + k] = al
     append_many([dict(source_id=-int(r["oid"]), ra=f(r["ra"]), dec=f(r["dec"]), plx=f(r["plx_value"]), pmra=f(r["pmra"]),
                       pmdec=f(r["pmdec"]), name=nm, otype=r["otype"], sptype=r["sp_type"],
                       cls=c if c is not None else CLASS_ID["unknown"], src="catalogue" if c is not None else "none",
@@ -295,7 +378,14 @@ def main(argv: list[str]) -> None:
                                    "st_rad": f(p["st_rad"]), "st_mass": f(p["st_mass"]), "planets": []})
         s["planets"].append({"name": p["pl_name"], "a_au": f(p["pl_orbsmax"]), "period_d": f(p["pl_orbper"]),
                              "radius_re": f(p["pl_rade"]), "mass_me": f(p["pl_bmasse"]), "teq_k": f(p["pl_eqt"]),
-                             "ecc": f(p["pl_orbeccen"]), "method": p["discoverymethod"], "year": p["disc_year"]})
+                             "ecc": f(p["pl_orbeccen"]), "method": p["discoverymethod"], "year": p["disc_year"],
+                             # uncertainties are symmetrised (mean of |+err| and |-err|)
+                             "period_err": serr(p, "pl_orbpererr"), "a_err": serr(p, "pl_orbsmaxerr"),
+                             "ecc_err": serr(p, "pl_orbeccenerr"),
+                             # epochs for the orbital phase (BJD, TDB): transit midpoint or periastron time
+                             "t_transit": f(p["pl_tranmid"]), "t_transit_err": serr(p, "pl_tranmiderr"),
+                             "t_peri": f(p["pl_orbtper"]), "t_peri_err": serr(p, "pl_orbtpererr"),
+                             "omega_deg": f(p["pl_orblper"]), "incl_deg": f(p["pl_orbincl"])})
     idx_of = {int(v): k for k, v in enumerate(cols["source_id"]) if v > 0}
     base = len(cols["source_id"])
     new_hosts: list[dict] = []
@@ -341,21 +431,48 @@ def main(argv: list[str]) -> None:
     # ---------------- SPHEREx survey ----------------
     survey_file = OUT / "spherex_survey.json"
     survey = json.loads(survey_file.read_text(encoding="utf-8")) if survey_file.exists() else {"objects": []}
-    n_spx = 0
-    for o in survey.get("objects", []):
-        if o.get("status") != "ok":
-            continue
+    n_spx = n_spx_class = 0
+
+    def match(o: dict) -> int | None:
         d = (ra - o["ra"]) ** 2 * np.cos(np.radians(o["dec"])) ** 2 + (dec - o["dec"]) ** 2
         i = int(np.nanargmin(d))
-        if d[i] > (30 / 3600) ** 2:  # 30" (proper motion between epochs)
+        return i if d[i] <= (30 / 3600) ** 2 else None  # 30" (proper motion between epochs)
+
+    # Object indices change between builds: re-key the survey and the spectra measured live in the app.
+    for o in survey.get("objects", []):
+        o["i"] = match(o)
+    survey["objects"] = [o for o in survey.get("objects", []) if o["i"] is not None]
+    if survey_file.exists():
+        survey_file.write_text(json.dumps(survey, separators=(",", ":")), encoding="utf-8")
+    live_dir = RAW / "spectra"
+    if live_dir.exists():
+        live = []
+        for fp in live_dir.glob("*.json"):
+            try:
+                live.append(json.loads(fp.read_text(encoding="utf-8")))
+            except (OSError, ValueError):
+                continue
+            fp.unlink()
+        for o in live:
+            o["i"] = match(o)
+            if o["i"] is not None:
+                (live_dir / f"{o['i']}.json").write_text(json.dumps(o), encoding="utf-8")
+    for o in survey["objects"]:
+        if o.get("status") != "ok":
             continue
-        o["i"] = i
+        i = o["i"]
         flags[i] |= FLAGS["spherex"]
         spx = o.get("classification") or {}
-        if spx.get("class_id") is not None and spx.get("confidence", 0) >= 0.5:
-            cls[i], src[i], prob[i] = spx["class_id"], "spherex", spx["confidence"]
+        # A 0.75-5 um colour temperature cannot tell a white dwarf or a giant from a main-sequence star
+        # of the same temperature, so SPHEREx only replaces a class that no catalogue gave, or one with
+        # molecular-band evidence of a brown dwarf. Otherwise it is shown as supporting evidence.
+        sc, conf = spx.get("class_id"), spx.get("confidence", 0)
+        molecular = sc == CLASS_ID["bd"] and bool(spx.get("features"))
+        if sc is not None and conf >= 0.5 and (src[i] in ("model", "none") or molecular):
+            cls[i], src[i], prob[i] = sc, "spherex", conf
+            n_spx_class += 1
         n_spx += 1
-    log(f"  {n_spx} objects with SPHEREx DR1+QR3 spectra")
+    log(f"  {n_spx} objects with SPHEREx DR1+QR3 spectra ({n_spx_class} classified by SPHEREx)")
 
     # ---------------- Positions & render buffer ----------------
     c = SkyCoord(ra=ra * u.deg, dec=dec * u.deg, distance=dist * u.pc, frame="icrs").galactic
@@ -382,8 +499,12 @@ def main(argv: list[str]) -> None:
         nm = str(name[i])
         if nm.startswith(junk) and not (int(flags[i]) & keep_id) and cls[i] != CLASS_ID["bd"]:
             continue
-        objects.append({"i": int(i), "n": str(name[i]), "c": int(cls[i]), "f": int(flags[i]),
-                        "d": round(float(dist[i]), 3), "t": str(otype[i] or ""), "s": str(sptype[i] or "")})
+        o = {"i": int(i), "n": str(name[i]), "c": int(cls[i]), "f": int(flags[i]),
+             "d": round(float(dist[i]), 3), "t": str(otype[i] or ""), "s": str(sptype[i] or "")}
+        al = sorted({a for a in alias.get(int(i), []) if a != nm and not a.startswith(junk)})[:8]
+        if al:
+            o["a"] = al
+        objects.append(o)
     (OUT / "objects.json").write_text(json.dumps(objects, separators=(",", ":")), encoding="utf-8")
     sys_list = sorted((s for s in systems.values() if "i" in s), key=lambda s: s["dist_pc"])
     def jclean(o):
@@ -406,7 +527,8 @@ def main(argv: list[str]) -> None:
         "classes": CLASSES, "flags": FLAGS, "counts": counts, "class_sources": by_source,
         "model": report,
         "provenance": {
-            "gaia": {"release": "Gaia DR3", "near": TIERS["near"], "far": TIERS["far"], "n": n_gaia},
+            "gaia": {"release": "Gaia DR3", "near": TIERS["near"], "far": TIERS["far"], "n": n_gaia,
+                     "dropped_unreliable": n_spurious, "quality_cut": "drop G > 19 and RUWE > 1.4 unless in SIMBAD"},
             "simbad": {"n_near": len(sim), "n_bright": len(bright), "n_simbad_only": len(extra)},
             "exoplanets": {"table": "NASA Exoplanet Archive pscomppars", "n_planets": len(exo), "n_systems": len(systems)},
             "spherex": {"releases": survey.get("releases", ["DR1", "QR3"]), "n": n_spx,
@@ -414,7 +536,7 @@ def main(argv: list[str]) -> None:
         },
     }
     (OUT / "meta.json").write_text(json.dumps(meta, indent=1), encoding="utf-8")
-    np.savez_compressed(RAW / "catalog.npz", source_id=source_id, ra=ra, dec=dec, plx=plx, pmra=pmra, pmdec=pmdec,
+    save_catalog(source_id=source_id, ra=ra, dec=dec, plx=plx, pmra=pmra, pmdec=pmdec,
                         rv=rv, gmag=gmag, bp_rp=bp_rp, teff=teff, ruwe=ruwe, name=name.astype(str),
                         otype=otype.astype(str), sptype=sptype.astype(str), cls=cls, src=src.astype(str),
                         flags=flags, prob=prob, dist=dist, vtan=vtan, xyz=xyz)

@@ -15,7 +15,7 @@ export default function HomePage() {
   const navigate = useNavigate();
   useGlassSpecular();
   return (
-    <div className="relative min-h-screen overflow-x-clip text-neutral-200 antialiased">
+    <div className="home relative min-h-screen overflow-x-clip text-neutral-200 antialiased">
       <div className="fixed inset-0 -z-10 bg-black" aria-hidden />
       <Suspense fallback={null}><Starfield /></Suspense>
       <Suspense fallback={null}><DraggableGalaxy /></Suspense>
@@ -87,10 +87,10 @@ export default function HomePage() {
                   or brown dwarf has shifted. Blink between them and find it before the clock runs out.
                 </p>
                 <div className="mt-8">
-                  <Link to="/explore" className="btn-primary px-6 py-2.5 text-sm">Play</Link>
+                  <Link to="/science" className="btn-primary px-6 py-2.5 text-sm">Play</Link>
                 </div>
                 <div className="mt-6 flex gap-5 text-sm">
-                  <a href="#" className="text-neutral-400 underline decoration-neutral-600 underline-offset-4 hover:text-white hover:decoration-neutral-200">Leaderboards</a>
+                  <Link to="/science/leaderboard" className="text-neutral-400 underline decoration-neutral-600 underline-offset-4 hover:text-white hover:decoration-neutral-200">Leaderboards</Link>
                   <Link to="/about" className="text-neutral-400 underline decoration-neutral-600 underline-offset-4 hover:text-white hover:decoration-neutral-200">Help</Link>
                 </div>
               </div>

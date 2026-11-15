@@ -78,7 +78,15 @@ export function parseUrl(search: URLSearchParams): UrlState {
   return out;
 }
 
+/** Every query key the Explore viewer reads (the Atlas strips these when the Explore pop-up closes). */
+export const EXPLORE_KEYS = ["q", "ra", "dec", "fov", "det", "release", "from", "to", "wmin", "wmax", "mode", "obs", "stretch", "cmap"];
+
 export function buildUrl(p: ExploreParams, extra: { mode?: ViewMode; obs?: string } = {}): string {
+  return `/explore?${exploreSearch(p, extra).toString()}`;
+}
+
+/** The Explore query for `p`, as search params (used inside the Atlas pop-up as well as for /explore links). */
+export function exploreSearch(p: ExploreParams, extra: { mode?: ViewMode; obs?: string } = {}): URLSearchParams {
   const s = new URLSearchParams();
   if (p.q) s.set("q", p.q);
   else {
@@ -95,5 +103,5 @@ export function buildUrl(p: ExploreParams, extra: { mode?: ViewMode; obs?: strin
   if (p.wavelength_max !== undefined) s.set("wmax", String(p.wavelength_max));
   if (extra.mode && extra.mode !== "single") s.set("mode", extra.mode);
   if (extra.obs) s.set("obs", extra.obs);
-  return `/explore?${s.toString()}`;
+  return s;
 }

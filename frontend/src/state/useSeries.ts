@@ -91,12 +91,12 @@ export function useSeries(params: ExploreParams | null): SeriesState {
  * Load every frame's FITS in the background so playback is smooth.
  * Frames near `priority` load first. Returns planes by seriesIndex.
  */
-export function usePlanes(frames: Frame[], priority: number) {
+export function usePlanes(frames: Frame[], priority: number, plane: string = "SCI") {
   const [planes, setPlanes] = useState<Map<number, ImagePlane>>(new Map());
   const [failed, setFailed] = useState<Map<number, string>>(new Map());
   const prioRef = useRef(priority);
   prioRef.current = priority;
-  const framesKey = useMemo(() => frames.map((f) => f.fits_url).join("|"), [frames]);
+  const framesKey = useMemo(() => plane + "|" + frames.map((f) => f.fits_url).join("|"), [frames, plane]);
 
   useEffect(() => {
     setPlanes(new Map());
@@ -118,7 +118,7 @@ export function usePlanes(frames: Frame[], priority: number) {
         pending.set(i, plane);
         if (!flushTimer) flushTimer = setTimeout(flush, 80);
       } else if (err && !ctl.signal.aborted) setFailed((m) => new Map(m).set(i, err.message));
-    }, { signal: ctl.signal, order, concurrency: 6 });
+    }, { signal: ctl.signal, order, concurrency: 6, extnames: plane === "SCI" ? ["SCI"] : [plane, "SCI"] });
     return () => {
       ctl.abort();
       if (flushTimer) clearTimeout(flushTimer);

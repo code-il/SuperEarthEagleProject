@@ -112,10 +112,10 @@ function AladinView({ grid, target }: { grid: Grid | null; target?: [number, num
 
   return (
     <div className="space-y-2 text-xs">
-      <select aria-label="Context survey" className="w-full rounded border border-slate-700 bg-slate-800 px-1 py-1 text-xs" value={survey} onChange={(e) => setSurvey(e.target.value)}>
+      <select aria-label="Context survey" className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-1 py-1 text-xs" value={survey} onChange={(e) => setSurvey(e.target.value)}>
         {SURVEYS.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}
       </select>
-      <div ref={el} className="h-56 w-full overflow-hidden rounded bg-black" />
+      <div ref={el} className="h-56 w-full overflow-hidden rounded-lg bg-black" />
       {error && <p className="text-red-300">{error}</p>}
       <p className="text-[10px] text-slate-500">Box: processed field. Circle: target on this frame's date. HiPS tiles load directly from IRSA / CDS.</p>
       {grid && (

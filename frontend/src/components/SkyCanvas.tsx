@@ -1,14 +1,15 @@
 /**
  * The main image viewer: one processed SPHEREx plane on the common north-up grid.
  *
- * - Zoom (wheel, +/-), pan (drag), reset (double-click or 0); pixels stay sharp.
+ * - Zoom (wheel, +/-), pan (drag), reset (double-click or 0). Display is bicubic-smoothed by default
+ *   (SPHEREx pixels are 6.15″, so small cutouts are only a few dozen pixels across); "pixels" shows them raw.
  * - Hover readout: pixel, RA/Dec, value in physical units (from the FITS, not the PNG).
  * - Overlays in sky coordinates (target, Gaia, CatWISE, Person-4 sources), compass, scale bar.
  * The science array is only read, never changed.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { DisplaySettings, ImagePlane, Marker, PixelReadout, ViewState } from "../types";
-import { renderPlane } from "../lib/render";
+import { renderPlane, smoothFactor, upsamplePlane } from "../lib/render";
 import { makeTan, northAngle, pix2world, pixelScaleArcsec, world2pix } from "../lib/wcs";
 import { formatDecDms, formatRaHms } from "../lib/coords";
 
@@ -87,12 +88,15 @@ export function SkyCanvas(props: SkyCanvasProps) {
   // Render science values -> RGBA once per plane/limits/display change.
   const bitmap = useMemo(() => {
     if (!plane) return null;
+    const smooth = (display.interpolation ?? "smooth") === "smooth";
+    const shown = smooth ? upsamplePlane(plane, smoothFactor(plane.width, plane.height)) : plane;
     const c = document.createElement("canvas");
-    c.width = plane.width;
-    c.height = plane.height;
-    c.getContext("2d")!.putImageData(renderPlane(plane, limits, display, diverging), 0, 0);
+    c.width = shown.width;
+    c.height = shown.height;
+    c.getContext("2d")!.putImageData(renderPlane(shown, limits, display, diverging), 0, 0);
     return c;
   }, [plane, limits, display, diverging]);
+  const smooth = (display.interpolation ?? "smooth") === "smooth";
 
   const v: ViewState | null = useMemo(() => {
     if (!plane) return null;
@@ -137,7 +141,8 @@ export function SkyCanvas(props: SkyCanvasProps) {
     g.save();
     g.fillStyle = "#1c1a2b";
     g.fillRect(left, top, plane.width * v.zoom, plane.height * v.zoom);
-    g.imageSmoothingEnabled = false;
+    g.imageSmoothingEnabled = smooth;
+    g.imageSmoothingQuality = "high";
     g.drawImage(bitmap, left, top, plane.width * v.zoom, plane.height * v.zoom);
     g.strokeStyle = "rgba(148,163,184,0.35)";
     g.lineWidth = 1;
@@ -242,7 +247,7 @@ export function SkyCanvas(props: SkyCanvasProps) {
       g.fillText(nice >= 60 ? `${nice / 60}′` : `${nice}″`, bx + len / 2 - 8, by - 7);
       g.restore();
     }
-  }, [plane, bitmap, v, size, screenMarkers, toScreen, tan, props.showCompass, props.showLabels]);
+  }, [plane, bitmap, v, size, screenMarkers, toScreen, tan, props.showCompass, props.showLabels, smooth]);
 
   // Interaction.
   const setView = (nv: ViewState) => onViewChange(nv);
@@ -309,7 +314,7 @@ export function SkyCanvas(props: SkyCanvasProps) {
     <div ref={wrapRef} className={`relative overflow-hidden rounded-md bg-[#0a0d18] select-none ${props.className ?? ""}`}
       role="img" aria-label={props.caption ? `SPHEREx image: ${props.caption}` : "SPHEREx image viewer"}>
       {!plane && props.fallbackUrl && (
-        <img src={props.fallbackUrl} alt="" className="absolute inset-0 m-auto max-h-full max-w-full object-contain [image-rendering:pixelated] opacity-80" />
+        <img src={props.fallbackUrl} alt="" className="absolute inset-0 m-auto max-h-full max-w-full object-contain opacity-80" />
       )}
       <canvas
         ref={canvasRef}
@@ -327,13 +332,13 @@ export function SkyCanvas(props: SkyCanvasProps) {
         onDoubleClick={() => onViewChange(null)}
       />
       {props.caption && (
-        <div className="pointer-events-none absolute left-2 top-2 rounded bg-black/60 px-2 py-1 font-mono text-xs text-slate-100">{props.caption}</div>
+        <div className="pointer-events-none absolute left-2 top-2 rounded-lg bg-black/60 px-2 py-1 font-mono text-xs text-slate-100">{props.caption}</div>
       )}
       {props.badge && (
-        <div className="pointer-events-none absolute right-2 top-2 rounded bg-black/60 px-2 py-1 font-mono text-xs text-slate-200">{props.badge}</div>
+        <div className="pointer-events-none absolute right-2 top-2 rounded-lg bg-black/60 px-2 py-1 font-mono text-xs text-slate-200">{props.badge}</div>
       )}
       {hoverMarker && (
-        <div className="pointer-events-none absolute z-10 max-w-64 rounded border border-slate-600 bg-slate-900/95 px-2 py-1 text-xs text-slate-100 shadow"
+        <div className="pointer-events-none absolute z-10 max-w-64 rounded-lg border border-slate-600 bg-slate-900/95 px-2 py-1 text-xs text-slate-100 shadow"
           style={{ left: Math.min(hoverMarker.sx + 12, size.W - 220), top: hoverMarker.sy + 12 }}>
           <div className="font-semibold" style={{ color: markerColor(hoverMarker.m) }}>{hoverMarker.m.label ?? hoverMarker.m.id}</div>
           {hoverMarker.m.title && <div className="text-slate-300">{hoverMarker.m.title}</div>}

@@ -71,7 +71,7 @@ def viewer_is_stale() -> bool:
 def build_viewer() -> bool:
     npm = _npm()
     if not npm:
-        print("! Node.js/npm not found: cannot build the viewer. Install Node 20+ or use a prebuilt frontend/dist.")
+        print("! Node.js/npm not found: cannot build the viewer. Install Node 20.19+ or use a prebuilt frontend/dist.")
         return False
     if not (FRONTEND / "node_modules").is_dir():
         print("> npm ci (installing viewer dependencies)…", flush=True)
@@ -94,6 +94,24 @@ def check() -> int:
             print(f"  !!  {mod}: {exc}"); ok = False
     npm = _npm()
     print(f"npm: {npm or 'not found (needed only to build the viewer)'}")
+    node = shutil.which("node") or next((str(c) for c in (Path(npm).parent / n for n in ("node.exe", "node")) if npm and c.is_file()), None)
+    if node:
+        try:
+            v = subprocess.run([node, "--version"], capture_output=True, text=True, timeout=20).stdout.strip()
+            major, minor = (int(x) for x in v.lstrip("v").split(".")[:2])
+            if (major, minor) < (20, 19):
+                print(f"! Node {v} is too old for the viewer build (Vite 8 needs 20.19+ or 22.12+)"); ok = False
+            else:
+                print(f"  ok  node {v}")
+        except Exception:  # pragma: no cover - diagnostic
+            pass
+    galaxy = ROOT / "data" / "galaxy" / "catalog.npz"
+    pub = FRONTEND / "public" / "galaxy"
+    missing = [str(p.relative_to(ROOT)) for p in (galaxy, pub / "meta.json", pub / "stars.bin", pub / "systems.json") if not p.is_file()]
+    if missing:
+        print(f"  !!  3D Atlas data missing: {', '.join(missing)} (git pull, or rebuild with python -m scripts.build_galaxy_map)"); ok = False
+    else:
+        print("  ok  3D Atlas data")
     print(f"viewer build: {'present' if (DIST / 'index.html').is_file() else 'missing'}"
           f"{' (older than sources)' if (DIST / 'index.html').is_file() and viewer_is_stale() else ''}")
     try:
@@ -125,7 +143,7 @@ def main(argv: list[str] | None = None) -> int:
     if a.dev:
         npm = _npm()
         if not npm:
-            print("! npm not found; the dev server needs Node.js 20+.")
+            print("! npm not found; the dev server needs Node.js 20.19+.")
             return 1
         if not (FRONTEND / "node_modules").is_dir():
             subprocess.check_call([npm, "ci"], cwd=FRONTEND)

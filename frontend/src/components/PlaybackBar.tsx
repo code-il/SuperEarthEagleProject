@@ -34,7 +34,7 @@ function Btn(props: React.ButtonHTMLAttributes<HTMLButtonElement> & { label: str
   const { label, children, className, ...rest } = props;
   return (
     <button type="button" aria-label={label} title={label}
-      className={`flex h-8 min-w-8 items-center justify-center rounded border border-slate-700 bg-slate-800 px-2 text-sm text-slate-100 hover:bg-slate-700 disabled:opacity-40 ${className ?? ""}`}
+      className={`flex h-8 min-w-8 items-center justify-center rounded border border-white/10 bg-white/[0.06] px-2 text-sm text-slate-100 hover:bg-white/10 disabled:opacity-40 ${className ?? ""}`}
       {...rest}>
       {children}
     </button>
@@ -58,7 +58,7 @@ export function PlaybackBar(p: PlaybackBarProps) {
   };
 
   return (
-    <section aria-label="Time-lapse playback" className="rounded-md border border-slate-800 bg-slate-900/80 px-3 py-2">
+    <section aria-label="Time-lapse playback" className="rounded-md border border-white/[0.06] bg-slate-900/80 px-3 py-2">
       <div className="flex flex-wrap items-center gap-2">
         <Btn label="First frame" onClick={() => p.onIndex(0)} disabled={!n}>⏮</Btn>
         <Btn label="Previous frame (←)" onClick={() => p.onIndex(Math.max(0, index - 1))} disabled={!n || index === 0}>◀</Btn>
@@ -71,13 +71,13 @@ export function PlaybackBar(p: PlaybackBarProps) {
 
         <label className="ml-2 flex items-center gap-1 text-xs text-slate-300">
           Speed
-          <select className="rounded border border-slate-700 bg-slate-800 px-1 py-1 text-xs" value={p.fps} onChange={(e) => p.onFps(Number(e.target.value))}>
+          <select className="rounded-lg border border-white/10 bg-white/[0.06] px-1 py-1 text-xs" value={p.fps} onChange={(e) => p.onFps(Number(e.target.value))}>
             {SPEEDS.map((s) => <option key={s} value={s}>{s} fps</option>)}
           </select>
         </label>
         <label className="flex items-center gap-1 text-xs text-slate-300" title="Uniform: equal time per frame. Proportional: frames separated by longer real gaps stay on screen longer.">
           Timing
-          <select className="rounded border border-slate-700 bg-slate-800 px-1 py-1 text-xs" value={p.timing} onChange={(e) => p.onTiming(e.target.value as Timing)}>
+          <select className="rounded-lg border border-white/10 bg-white/[0.06] px-1 py-1 text-xs" value={p.timing} onChange={(e) => p.onTiming(e.target.value as Timing)}>
             <option value="uniform">equal per frame</option>
             <option value="proportional">follows real gaps</option>
           </select>
@@ -87,14 +87,14 @@ export function PlaybackBar(p: PlaybackBarProps) {
         </label>
         <label className="flex items-center gap-1 text-xs text-slate-300">
           Axis
-          <select className="rounded border border-slate-700 bg-slate-800 px-1 py-1 text-xs" value={p.axis} onChange={(e) => p.onAxis(e.target.value as TimeAxis)}>
+          <select className="rounded-lg border border-white/10 bg-white/[0.06] px-1 py-1 text-xs" value={p.axis} onChange={(e) => p.onAxis(e.target.value as TimeAxis)}>
             <option value="visits">by visit (gaps labelled)</option>
             <option value="linear">true time (linear)</option>
           </select>
         </label>
         <form className="ml-auto flex items-center gap-1" onSubmit={(e) => { e.preventDefault(); doJump(); }}>
           <input aria-label="Jump to date or MJD" placeholder="Jump: 2026-02-14 or MJD"
-            className="w-44 rounded border border-slate-700 bg-slate-800 px-2 py-1 text-xs placeholder:text-slate-500"
+            className="w-44 rounded-lg border border-white/10 bg-white/[0.06] px-2 py-1 text-xs placeholder:text-slate-500"
             value={jump} onChange={(e) => setJump(e.target.value)} />
           <Btn label="Jump to nearest frame" type="submit">Go</Btn>
         </form>
@@ -105,7 +105,7 @@ export function PlaybackBar(p: PlaybackBarProps) {
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-300">
         <input type="range" min={0} max={Math.max(0, n - 1)} value={index} aria-label="Frame index"
-          onChange={(e) => p.onIndex(Number(e.target.value))} className="w-40 accent-amber-400" />
+          onChange={(e) => p.onIndex(Number(e.target.value))} className="w-40" />
         <span className="font-mono text-amber-300">{f ? formatDateTime(f.observation_time) : "—"}</span>
         <span>Frame <b>{n ? index + 1 : 0}</b> of <b>{n}</b></span>
         <span>Visit {f ? epochs.indexOf(f.epoch) + 1 : 0} of {epochs.length}</span>
@@ -115,7 +115,7 @@ export function PlaybackBar(p: PlaybackBarProps) {
         {p.loadedCount < n && <span className="text-slate-500">images loaded {p.loadedCount}/{n}</span>}
         <div className="ml-auto flex gap-1">
           {epochs.map((e, k) => (
-            <button key={e} type="button" className={`rounded px-2 py-0.5 text-[11px] ${f?.epoch === e ? "bg-amber-500/20 text-amber-300" : "bg-slate-800 text-slate-300 hover:bg-slate-700"}`}
+            <button key={e} type="button" className={`rounded px-2 py-0.5 text-[11px] ${f?.epoch === e ? "bg-amber-500/20 text-amber-300" : "bg-white/[0.06] text-slate-300 hover:bg-white/10"}`}
               onClick={() => p.onIndex(frames.findIndex((x) => x.epoch === e))} title="Jump to the first frame of this visit">
               Visit {k + 1}
             </button>

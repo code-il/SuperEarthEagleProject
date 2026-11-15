@@ -134,6 +134,10 @@ export interface ProcessedObservation {
   masked_flags: string[];
   display_limits: [number, number] | null;
   units: string;
+  /** var(sum over a large area) / sum(VAR): resampling correlates neighbouring pixels. */
+  noise_correlation?: number | null;
+  /** Planes in the FITS file (SCI, RAW, ZSUB). */
+  planes?: string[];
   /** "CWAVE/CBAND" (science calibration) or "WCS-WAVE (approximate lookup)". */
   wavelength_source?: string | null;
   wavelength_calibration?: string | null;
@@ -328,7 +332,12 @@ export interface Spectrum {
 export type Stretch = "linear" | "sqrt" | "log" | "asinh";
 export type Colormap = "gray" | "inferno" | "magma" | "viridis" | "diverging";
 export type ViewMode = "single" | "blink" | "side-by-side" | "difference" | "ratio" | "stacked";
-export type LimitsMode = "series" | "frame";
+/** "channel": one scale per wavelength channel (default); "series": one per detector; "frame": each frame. */
+export type LimitsMode = "channel" | "series" | "frame";
+/** Which processed plane to show: SCI = final (background-subtracted, masked), ZSUB = calibrated minus
+ * the ZODI model, RAW = calibrated image as delivered (reprojected only). */
+export type SciencePlane = "SCI" | "ZSUB" | "RAW";
+export type Interpolation = "smooth" | "pixels";
 
 export interface DisplaySettings {
   stretch: Stretch;
@@ -340,8 +349,12 @@ export interface DisplaySettings {
   contrast: number;
   /** Lower / upper percentile for automatic limits. */
   percentiles: [number, number];
-  /** "series": shared limits per detector (true brightness changes stay visible). */
+  /** "channel": shared limits per wavelength channel; "series": per detector; "frame": per frame. */
   limitsMode: LimitsMode;
+  /** Processed plane shown in the time-lapse (default SCI). */
+  plane?: SciencePlane;
+  /** "smooth": bicubic resampling for display (default); "pixels": show the raw 6.15″ detector pixels. */
+  interpolation?: Interpolation;
 }
 
 export interface OverlaySettings {

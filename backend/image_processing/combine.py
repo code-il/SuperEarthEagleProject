@@ -110,6 +110,11 @@ def subtract_images(image_a: np.ndarray, image_b: np.ndarray,
     in B. A source that moved leaves a +/- pair ("dipole"). Residuals can
     also come from PSF, background or calibration differences: they are
     not automatically astronomical changes.
+
+    Significance = (A - B) / sqrt(var_A + var_B) assumes independent errors.
+    Frames shared by A and B, common calibration errors or the correlation
+    resampling puts between neighbouring pixels are not included, so
+    treat it as an indicator, not a calibrated probability.
     """
     a = np.asarray(image_a, float)
     b = np.asarray(image_b, float)
@@ -139,35 +144,43 @@ def divide_images(image_a: np.ndarray, image_b: np.ndarray,
                   min_snr_b: float = 5.0, min_abs_b: float = 0.0) -> ComparisonResult:
     """Ratio image A / B.
 
-    Division is only done where B is significantly non-zero: ``B / sigma_B
-    >= min_snr_b`` when B's variance is known, else ``|B| > min_abs_b``.
-    Other pixels are NaN. On background-subtracted data this means the
-    ratio is only defined on sources, which is where it is meaningful (e.g.
-    brightness change of a variable star). Variance by first-order error
-    propagation: var(R) = R^2 (var_A/A^2 + var_B/B^2).
+    Division is only done where A and B are both valid and B is positive
+    and significant: ``B / sigma_B >= min_snr_b`` when B's variance is
+    known, else ``B > min_abs_b``. Other pixels are NaN. On
+    background-subtracted data this means the ratio is only defined on
+    sources, which is where it is meaningful (e.g. brightness change of a
+    variable star). A negative or near-zero denominator is never used: the
+    ratio of a noise fluctuation is meaningless.
+
+    Variance by first-order propagation for independent A and B:
+    var(R) = var_A / B^2 + A^2 var_B / B^4. (Written this way it stays finite
+    where A ~ 0, unlike R^2 (var_A/A^2 + var_B/B^2).) Correlated errors, e.g.
+    A and B sharing frames or calibration, would add a covariance term that
+    is not included. A ratio between different wavelengths is a colour, not
+    a change in time.
     """
     a = np.asarray(image_a, float)
     b = np.asarray(image_b, float)
     if a.shape != b.shape:
         raise ValueError(f"Shapes differ: {a.shape} vs {b.shape}. Reproject onto one grid first.")
-    valid = np.isfinite(a) & np.isfinite(b) & (b != 0)
+    valid = np.isfinite(a) & np.isfinite(b) & (b > 0)
     hist = ["ratio A / B"]
     have_var = variance_a is not None and variance_b is not None
     if have_var:
         va = np.asarray(variance_a, float)
         vb = np.asarray(variance_b, float)
         with np.errstate(invalid="ignore", divide="ignore"):
-            snr_b = np.abs(b) / np.sqrt(vb)
-        valid &= np.isfinite(snr_b) & (snr_b >= min_snr_b)
-        hist.append(f"B required to have S/N >= {min_snr_b}")
+            snr_b = b / np.sqrt(vb)
+        valid &= np.isfinite(snr_b) & (snr_b >= min_snr_b) & np.isfinite(va) & (va >= 0)
+        hist.append(f"B required to be positive with S/N >= {min_snr_b}; A and B both valid")
     else:
-        valid &= np.abs(b) > min_abs_b
-        hist.append(f"|B| required to exceed {min_abs_b}")
+        valid &= b > min_abs_b
+        hist.append(f"B required to exceed {min_abs_b} (positive denominator)")
     with np.errstate(invalid="ignore", divide="ignore"):
         ratio = np.where(valid, a / b, np.nan)
         var = sig = None
         if have_var:
-            var = np.where(valid, ratio ** 2 * (va / a ** 2 + vb / b ** 2), np.nan)
+            var = np.where(valid, va / b ** 2 + a ** 2 * vb / b ** 4, np.nan)
             var = np.where(np.isfinite(var), var, np.nan)
             sig = np.where(valid & np.isfinite(var) & (var > 0), (ratio - 1) / np.sqrt(var), np.nan)
     return ComparisonResult(ratio, var, sig, valid, "ratio", hist)

@@ -1,0 +1,648 @@
+<title>SPHEREx Atlas Data Flow</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: four swimlanes, each read left to right as Source -> Processing -> Stored product -> On screen.
+   Below 980px every lane stacks top to bottom. Dark-first to match the Atlas console. */
+:root {
+  --bg: #070b14;
+  --surface: #0d1422;
+  --surface-2: #111b2d;
+  --line: #1f2b40;
+  --fg: #dde5f0;
+  --muted: #8b9ab0;
+  --source: #6cb6ff;
+  --step: #3fd0b6;
+  --file: #b39dff;
+  --screen: #f4b74b;
+  --illus: #f472b6;
+  --warn: #f58a7a;
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f4f6fa; --surface: #ffffff; --surface-2: #f0f3f8; --line: #d5dce7; --fg: #101a2a; --muted: #55657b;
+    --source: #1d68c9; --step: #0b8571; --file: #6447d1; --screen: #a96a0c; --illus: #bd2f78; --warn: #c2412f;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f4f6fa; --surface: #ffffff; --surface-2: #f0f3f8; --line: #d5dce7; --fg: #101a2a; --muted: #55657b;
+  --source: #1d68c9; --step: #0b8571; --file: #6447d1; --screen: #a96a0c; --illus: #bd2f78; --warn: #c2412f;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 15px/1.55 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 1240px; margin: 0 auto; display: grid; gap: 44px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.1; letter-spacing: -0.01em; }
+h2 { font-size: 22px; line-height: 1.2; }
+h3 { font-size: 15px; line-height: 1.3; font-weight: 600; }
+p { margin: 0; }
+code, .mono { font-family: var(--font-mono); font-size: 0.86em; }
+a { color: var(--source); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--screen); outline-offset: 2px; }
+
+header.top { display: grid; gap: 14px; }
+.eyebrow { font: 500 11px/1 var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--step); }
+.lede { max-width: 68ch; color: var(--muted); font-size: 16px; }
+
+/* legend */
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.sw { width: 11px; height: 11px; border-radius: 3px; border: 2px solid currentColor; }
+.k-source { color: var(--source); } .k-step { color: var(--step); } .k-file { color: var(--file); }
+.k-screen { color: var(--screen); } .k-illus { color: var(--illus); } .k-warn { color: var(--warn); }
+
+/* lanes */
+.lane { display: grid; gap: 16px; }
+.lane-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+.lane-tag { font: 500 12px/1 var(--font-mono); color: var(--muted); letter-spacing: 0.08em; }
+.lane-when { color: var(--muted); font-size: 13.5px; }
+.cols-head { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 34px;
+  font: 500 11px/1 var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; }
+.cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 34px; }
+.col { position: relative; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.col:not(:last-child)::after {
+  content: ""; position: absolute; top: 50%; right: -27px; width: 20px; height: 20px; transform: translateY(-50%);
+  background: var(--muted); opacity: 0.7;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M2 10h13M10 4l6 6-6 6' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M2 10h13M10 4l6 6-6 6' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.col-label { display: none; font: 500 11px/1 var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; }
+
+.node {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+  padding: 11px 13px 12px; display: grid; gap: 6px; min-width: 0;
+}
+.node .kind { font: 500 10px/1 var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; }
+.node.source { border-top: 2px solid var(--source); } .node.source .kind { color: var(--source); }
+.node.step   { border-top: 2px solid var(--step); }   .node.step .kind   { color: var(--step); }
+.node.file   { border-top: 2px solid var(--file); }   .node.file .kind   { color: var(--file); }
+.node.screen { border-top: 2px solid var(--screen); } .node.screen .kind { color: var(--screen); }
+.node.illus  { border-top: 2px dashed var(--illus); background: var(--surface-2); } .node.illus .kind { color: var(--illus); }
+.node.empty  { border-style: dashed; background: transparent; color: var(--muted); }
+.node ul { margin: 0; padding-left: 16px; display: grid; gap: 3px; color: var(--muted); font-size: 13.5px; }
+.node li::marker { color: var(--line); }
+.node p { color: var(--muted); font-size: 13.5px; }
+.node b { color: var(--fg); font-weight: 600; }
+.num { font-variant-numeric: tabular-nums; }
+.where { font: 400 11.5px/1.3 var(--font-mono); color: var(--muted); opacity: 0.85; overflow-wrap: anywhere; }
+.flag { color: var(--warn); }
+
+.divider { height: 1px; background: var(--line); }
+
+/* uncertainty chain */
+.chain { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; }
+.chain .node { flex: 1 1 170px; }
+.chain .arrow { align-self: center; color: var(--muted); font: 500 18px/1 var(--font-mono); }
+
+/* what-is-what table */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 13.5px; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+th { font: 500 11px/1.2 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 600; white-space: nowrap; }
+td { color: var(--muted); } td:first-child { color: var(--fg); }
+.pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font: 500 11px/1.5 var(--font-mono); border: 1px solid currentColor; white-space: nowrap; }
+.p-meas { color: var(--source); } .p-der { color: var(--step); } .p-pred { color: var(--screen); }
+.p-disp { color: var(--file); } .p-ill { color: var(--illus); }
+
+.limits { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.limits .node p { color: var(--muted); }
+
+footer { color: var(--muted); font-size: 13px; }
+
+@media (max-width: 979px) {
+  .cols-head { display: none; }
+  .cols { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+  .col-label { display: block; }
+  .col:not(:last-child)::after { top: auto; bottom: -26px; right: auto; left: 50%; transform: translateX(-50%) rotate(90deg); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .node { transition: border-color 0.15s; }
+  .node:hover { border-color: var(--muted); }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">SPHEREx Atlas · data provenance</div>
+    <h1>Where every number on screen comes from</h1>
+    <p class="lede">The app has four data flows. Each one below reads in order: the archive it queries, what the code does to the data, the file that is stored, and what you finally see. Counts are from the current build of the map (572,846 objects, built 15 Nov 2026).</p>
+    <div class="legend" aria-label="Legend">
+      <span class="k-source"><i class="sw"></i>Archive or catalogue</span>
+      <span class="k-step"><i class="sw"></i>Processing step</span>
+      <span class="k-file"><i class="sw"></i>Stored product</span>
+      <span class="k-screen"><i class="sw"></i>What you see</span>
+      <span class="k-illus"><i class="sw" style="border-style:dashed"></i>Illustration, not data</span>
+    </div>
+  </header>
+
+  <!-- ===================================================== Lane A -->
+  <section class="lane" aria-labelledby="lane-a">
+    <div class="lane-head">
+      <span class="lane-tag">FLOW A</span>
+      <h2 id="lane-a">The 3D Atlas</h2>
+      <span class="lane-when">Built offline by <code>scripts/build_galaxy_map.py</code>, then served as static files.</span>
+    </div>
+    <div class="cols-head" aria-hidden="true">
+      <span class="k-source">Source</span><span class="k-step">Processing</span><span class="k-file">Stored product</span><span class="k-screen">On screen</span>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <span class="col-label k-source">Source</span>
+        <div class="node source">
+          <span class="kind">Catalogue</span>
+          <h3>Gaia DR3 <code>gaia_source</code></h3>
+          <ul>
+            <li>Position, parallax ϖ ± σ, proper motion, radial velocity</li>
+            <li>G, BP−RP, BP−G, G−RP photometry, T<sub>eff</sub>, RUWE</li>
+            <li><b>Near:</b> ϖ ≥ 10 mas (within 100 pc), ϖ/σ ≥ 10</li>
+            <li><b>Far:</b> ϖ 0.25–10 mas, G &lt; 10.5, one star in three at random</li>
+          </ul>
+          <span class="where">ESA Gaia archive, TAP</span>
+        </div>
+        <div class="node source">
+          <span class="kind">Catalogue</span>
+          <h3>SIMBAD</h3>
+          <ul>
+            <li>Names and NAME aliases, object types, spectral types</li>
+            <li>Joined to Gaia by Gaia DR3 identifier</li>
+            <li><span class="num">256,188</span> objects with ϖ ≥ 10 mas, <span class="num">714</span> bright stars (V &lt; 5) further out</li>
+          </ul>
+          <span class="where">TAP: Harvard mirror, CDS fallback</span>
+        </div>
+        <div class="node source">
+          <span class="kind">Catalogue</span>
+          <h3>NASA Exoplanet Archive</h3>
+          <ul>
+            <li><span class="num">6,470</span> confirmed planets in <span class="num">4,862</span> systems</li>
+            <li>Semi-major axis, period, radius, mass, host</li>
+          </ul>
+          <span class="where">table pscomppars, TAP</span>
+        </div>
+        <div class="node source">
+          <span class="kind">Measured here</span>
+          <h3>SPHEREx spectral classes</h3>
+          <p>Results of flow C for the surveyed objects and any object measured from its card.</p>
+        </div>
+      </div>
+
+      <div class="col">
+        <span class="col-label k-step">Processing</span>
+        <div class="node step">
+          <span class="kind">1 · Quality cut</span>
+          <h3>Drop unreliable parallaxes</h3>
+          <p>Stars with G &gt; 19 and RUWE &gt; 1.4 are removed unless SIMBAD knows them: <span class="num">46,058</span> removed. These faint, poorly fitted sources gave spurious white dwarfs.</p>
+        </div>
+        <div class="node step">
+          <span class="kind">2 · Place</span>
+          <h3>Distance and luminosity</h3>
+          <ul>
+            <li>d = 1/ϖ → heliocentric Galactic x, y, z in parsecs</li>
+            <li>M<sub>G</sub> = G + 5 log₁₀(ϖ / 100 mas)</li>
+            <li class="flag">No dust-extinction correction</li>
+          </ul>
+        </div>
+        <div class="node step">
+          <span class="kind">3 · Classify</span>
+          <h3>Catalogue first, then a model</h3>
+          <ul>
+            <li>SIMBAD type when there is one (<span class="num">77,847</span>)</li>
+            <li>Otherwise k-nearest neighbours (k = 15) on [M<sub>G</sub>, BP−RP, BP−G, G−RP]: <span class="num">481,372</span> predicted</li>
+            <li>89.7 % correct on a held-out 20 % (<span class="num">13,894</span> stars)</li>
+            <li>G &gt; 19: [M<sub>G</sub>, G−RP] only, always low confidence</li>
+            <li><span class="num">13,626</span> without colours stay unclassified</li>
+          </ul>
+        </div>
+        <div class="node step">
+          <span class="kind">4 · Merge</span>
+          <h3>Add what Gaia misses</h3>
+          <ul>
+            <li><span class="num">4,332</span> SIMBAD-only objects, e.g. cold brown dwarfs such as WISE 0855</li>
+            <li>Planets attached to their hosts</li>
+            <li>A SPHEREx class replaces the map class only if that class was predicted or missing, or the spectrum shows molecular bands</li>
+            <li>Display name: the common name from SIMBAD's aliases</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col">
+        <span class="col-label k-file">Stored product</span>
+        <div class="node file">
+          <span class="kind">Binary</span>
+          <h3><code>stars.bin</code></h3>
+          <p>x, y, z (pc) for all <span class="num">572,846</span> objects, plus packed class, class source, confidence, colour and M<sub>G</sub>.</p>
+          <span class="where">frontend/public/galaxy/</span>
+        </div>
+        <div class="node file">
+          <span class="kind">JSON</span>
+          <h3><code>objects.json</code> · <code>systems.json</code> · <code>meta.json</code></h3>
+          <ul>
+            <li>Named objects with up to 8 aliases (search)</li>
+            <li>Planetary systems</li>
+            <li>Class counts, model accuracy per class, query provenance</li>
+          </ul>
+        </div>
+        <div class="node file">
+          <span class="kind">Archive</span>
+          <h3><code>catalog.npz</code></h3>
+          <p>Every column per object, served by <code>/api/galaxy/object/{i}</code> for the object card.</p>
+          <span class="where">cache/galaxy/</span>
+        </div>
+      </div>
+
+      <div class="col">
+        <span class="col-label k-screen">On screen</span>
+        <div class="node screen">
+          <span class="kind">3D map</span>
+          <h3>One point per object</h3>
+          <ul>
+            <li><b>Position:</b> the measured distance and direction</li>
+            <li><b>Colour:</b> the class</li>
+            <li><b>Brightness:</b> luminosity from M<sub>G</sub>, dimmed by distance from the camera</li>
+            <li>Distance rings in parsecs</li>
+          </ul>
+        </div>
+        <div class="node screen">
+          <span class="kind">Object card</span>
+          <h3>Class and its evidence</h3>
+          <p>Class with its source (catalogue, model, SPHEREx or unclassified) and confidence, Gaia's measurements, and any planets. Orbits are drawn to scale and tilted by their measured inclination, with the Kopparapu et al. (2014) habitable zone; anything not measured is left out or labelled.</p>
+        </div>
+        <div class="node screen">
+          <span class="kind">Frontier mode</span>
+          <h3>What is still unknown</h3>
+          <p>Unclassified and low-confidence objects are highlighted, and sectors are ranked by how much is unknown.</p>
+        </div>
+        <div class="node illus">
+          <span class="kind">Illustration</span>
+          <h3>Milky Way disk and Sun glow</h3>
+          <p>The spiral disk seen from far out is artwork for orientation. The Sun's glow has a fixed size so it stays visible. Its true-size sphere appears only close up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===================================================== Lane B -->
+  <section class="lane" aria-labelledby="lane-b">
+    <div class="lane-head">
+      <span class="lane-tag">FLOW B</span>
+      <h2 id="lane-b">SPHEREx images</h2>
+      <span class="lane-when">On demand when Explore opens a field. Runs in the backend API and is cached by field and settings.</span>
+    </div>
+    <div class="cols-head" aria-hidden="true">
+      <span class="k-source">Source</span><span class="k-step">Processing</span><span class="k-file">Stored product</span><span class="k-screen">On screen</span>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <span class="col-label k-source">Source</span>
+        <div class="node source">
+          <span class="kind">Archive search</span>
+          <h3>IRSA SIA2: SPHEREx Level 2</h3>
+          <ul>
+            <li>Collections <code>spherex_dr1</code>, <code>spherex_qr3</code> and their deep-field versions</li>
+            <li>Every exposure covering the field: six detectors, about 113 s each</li>
+            <li>When an exposure is in both releases, DR1 is used</li>
+          </ul>
+        </div>
+        <div class="node source">
+          <span class="kind">Cutouts</span>
+          <h3>IRSA cutout service, per exposure</h3>
+          <ul>
+            <li><b>IMAGE</b> in MJy/sr, <b>VARIANCE</b>, <b>FLAGS</b> (bit names read from the file's own header)</li>
+            <li><b>ZODI</b> zodiacal-light model</li>
+            <li>Celestial WCS with SIP distortion; per-pixel wavelength and bandwidth</li>
+            <li>PSF FWHM</li>
+          </ul>
+        </div>
+        <div class="node source">
+          <span class="kind">Catalogues</span>
+          <h3>Reference catalogues</h3>
+          <ul>
+            <li>Gaia DR3 and CatWISE2020 cone searches: overlays, registration, cross-match</li>
+            <li>SIMBAD for names, SkyBoT for known asteroids at the frame time</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col">
+        <span class="col-label k-step">Processing</span>
+        <div class="node step">
+          <span class="kind">1 · Clean</span>
+          <h3>Invalid pixels and background</h3>
+          <ul>
+            <li>NaN values and variance ≤ 0 marked invalid</li>
+            <li>Flags masked by profile (default <i>standard</i>: detector defects, saturation, nonlinearity, persistence, outliers)</li>
+            <li>Background: ZODI model plus a constant median (default), a smooth 2-D mesh, ZODI only, or none</li>
+          </ul>
+          <span class="where">image_processing/prepare.py</span>
+        </div>
+        <div class="node step">
+          <span class="kind">2 · Align</span>
+          <h3>One north-up grid</h3>
+          <ul>
+            <li>TAN grid centred on the target at 6.15″/px, using each file's own WCS</li>
+            <li>Bilinear image; variance Σw²σ² with the same weights</li>
+            <li>Flags: OR of all four contributing pixels</li>
+            <li>Noise-correlation factor per frame (≈ 2.2) for sums and fits</li>
+          </ul>
+          <span class="where">image_processing/align.py</span>
+        </div>
+        <div class="node step">
+          <span class="kind">3 · Combine &amp; compare</span>
+          <h3>Stacks, differences, ratios</h3>
+          <ul>
+            <li>Stacks only frames within one wavelength channel; mixed groups are split</li>
+            <li>A − B after Gaussian PSF and background matching, with significance (A − B)/σ</li>
+            <li>A / B only where B &gt; 0 with S/N ≥ 5; σ<sub>R</sub>² = σ<sub>A</sub>²/B² + A²σ<sub>B</sub>²/B⁴</li>
+          </ul>
+          <span class="where">image_processing/combine.py, pipeline.py</span>
+        </div>
+        <div class="node step">
+          <span class="kind">4 · Analyse</span>
+          <h3>Sources, motion, light, spectra</h3>
+          <ul>
+            <li>Matched-filter detection; visit stacks registered to Gaia (median offset, RMS, max)</li>
+            <li>Motion fit; forced PSF photometry for light curves</li>
+            <li>Spectra binned on the 102 SPHEREx channels</li>
+            <li>Cross-match, then a class: stationary, high proper motion, variable, transient or solar-system candidate</li>
+          </ul>
+          <span class="where">analysis/</span>
+        </div>
+      </div>
+
+      <div class="col">
+        <span class="col-label k-file">Stored product</span>
+        <div class="node file">
+          <span class="kind">FITS per frame</span>
+          <h3>Processed observation</h3>
+          <ul>
+            <li><b>SCI</b> final · <b>RAW</b> calibrated as delivered · <b>ZSUB</b> RAW − ZODI</li>
+            <li><b>VAR</b>, <b>MASK</b>, <b>FLAGS</b>, <b>WGT</b> valid interpolation weight, <b>WAVE</b> µm per pixel</li>
+            <li>Header: source file, checksum, settings, full processing history</li>
+          </ul>
+        </div>
+        <div class="node file">
+          <span class="kind">Images</span>
+          <h3>PNG frames and GIF time-lapse</h3>
+          <p>Renderings for quick previews only, with limits shared per wavelength channel.</p>
+        </div>
+        <div class="node file">
+          <span class="kind">FITS</span>
+          <h3>Stacks and comparisons</h3>
+          <p>DIFF or RATIO with VAR, SIG and MASK, plus the caveats written for that comparison.</p>
+        </div>
+        <div class="node file">
+          <span class="kind">JSON</span>
+          <h3>Analysis results</h3>
+          <p>Sources, detections, motions, light curves, spectra and catalogue matches, each with its uncertainties.</p>
+        </div>
+      </div>
+
+      <div class="col">
+        <span class="col-label k-screen">On screen</span>
+        <div class="node screen">
+          <span class="kind">Explore viewer</span>
+          <h3>Every frame in time order</h3>
+          <p>The browser reads the FITS floating-point values itself, not the PNGs. Stretch, colour map and limits change only the picture. You can switch between final, ZODI-subtracted and calibrated images.</p>
+        </div>
+        <div class="node screen">
+          <span class="kind">Readout</span>
+          <h3>Pixel values</h3>
+          <p>Surface brightness in MJy/sr and the wavelength of that pixel in that exposure.</p>
+        </div>
+        <div class="node screen">
+          <span class="kind">Overlays</span>
+          <h3>Catalogue markers</h3>
+          <p>Gaia and CatWISE stars drawn where their proper motion puts them on each frame's date.</p>
+        </div>
+        <div class="node screen">
+          <span class="kind">Tools</span>
+          <h3>Blink, difference, plots</h3>
+          <p>Blink two dates, difference and significance maps, ratio, light curves, spectra, and a source list with each class's evidence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===================================================== Lane C -->
+  <section class="lane" aria-labelledby="lane-c">
+    <div class="lane-head">
+      <span class="lane-tag">FLOW C</span>
+      <h2 id="lane-c">SPHEREx spectrum of an Atlas object</h2>
+      <span class="lane-when">Measure on the object card, or <code>scripts/spherex_survey.py</code> for a list of targets. Reuses flow B.</span>
+    </div>
+    <div class="cols-head" aria-hidden="true">
+      <span class="k-source">Source</span><span class="k-step">Processing</span><span class="k-file">Stored product</span><span class="k-screen">On screen</span>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <span class="col-label k-source">Source</span>
+        <div class="node source">
+          <span class="kind">From flow A</span>
+          <h3>The object's Gaia position</h3>
+          <p>RA, Dec and proper motion at epoch J2016.0.</p>
+        </div>
+        <div class="node source">
+          <span class="kind">From flow B</span>
+          <h3>All SPHEREx images of it</h3>
+          <p>Every DR1 and QR3 exposure on all six detectors, from 0.75 to 5 µm.</p>
+        </div>
+      </div>
+      <div class="col">
+        <span class="col-label k-step">Processing</span>
+        <div class="node step">
+          <span class="kind">1 · Photometry</span>
+          <h3>Forced PSF fit in every frame</h3>
+          <p>Each frame is cleaned and aligned as in flow B on a 0.03° field. The flux is fitted at the position propagated to that frame's date.</p>
+        </div>
+        <div class="node step">
+          <span class="kind">2 · Spectrum</span>
+          <h3>Bin on 102 channels</h3>
+          <p>Points are combined per channel with inverse-variance weights.</p>
+        </div>
+        <div class="node step">
+          <span class="kind">3 · Classify</span>
+          <h3>Read a class from the shape</h3>
+          <ul>
+            <li>Blackbody colour temperature → O/B … M or brown dwarf</li>
+            <li>Methane (3.3 µm) and water (1.4 µm) band indices</li>
+            <li>4–5 µm excess → warm dust</li>
+            <li class="flag">Photometric indices, not a calibrated spectral type</li>
+          </ul>
+          <span class="where">galaxy/spectral.py</span>
+        </div>
+      </div>
+      <div class="col">
+        <span class="col-label k-file">Stored product</span>
+        <div class="node file">
+          <span class="kind">JSON</span>
+          <h3>Spectra and classes</h3>
+          <ul>
+            <li><code>cache/galaxy/spectra/*.json</code> from Measure</li>
+            <li><code>spherex_survey.json</code> from the survey</li>
+            <li>Both are matched to objects by sky position when the map is rebuilt</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <span class="col-label k-screen">On screen</span>
+        <div class="node screen">
+          <span class="kind">Object card</span>
+          <h3>Spectrum plot</h3>
+          <p>Fluxes with error bars, the best-fitting blackbody and the shaded water and methane bands. The card says so when the SPHEREx class differs from the map class.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===================================================== Lane D -->
+  <section class="lane" aria-labelledby="lane-d">
+    <div class="lane-head">
+      <span class="lane-tag">FLOW D</span>
+      <h2 id="lane-d">SPHEREx sky box</h2>
+      <span class="lane-when">The small image beside the card. It is a picture only: no measurement is read from it.</span>
+    </div>
+    <div class="cols-head" aria-hidden="true">
+      <span class="k-source">Source</span><span class="k-step">Processing</span><span class="k-file">Stored product</span><span class="k-screen">On screen</span>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <span class="col-label k-source">Source</span>
+        <div class="node source">
+          <span class="kind">Image tiles</span>
+          <h3>IRSA SPHEREx all-sky HiPS cube</h3>
+          <ul>
+            <li>DR1 all-sky mosaic, 102 wavelength slices</li>
+            <li>12.9″ pixels (HiPS order 5); slices 50 and 51 are empty</li>
+            <li>8-bit PNG tiles, already asinh-stretched at IRSA from 0–40 MJy/sr</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <span class="col-label k-step">Processing</span>
+        <div class="node step">
+          <span class="kind">In the browser</span>
+          <h3>Point and colour</h3>
+          <ul>
+            <li>The object's Galactic position is converted to RA and Dec</li>
+            <li>Starting wavelength by class: 1.7 µm for stars, 4.5 µm for T and Y dwarfs, 3.5 µm for young stars</li>
+            <li>Aladin Lite with inferno colours, a linear cut at 0–150 of 255, and zoom limited to 0.12–3°</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <span class="col-label k-file">Stored product</span>
+        <div class="node empty">
+          <span class="kind">Nothing stored</span>
+          <p>Tiles stream from IRSA as you pan and zoom.</p>
+        </div>
+      </div>
+      <div class="col">
+        <span class="col-label k-screen">On screen</span>
+        <div class="node screen">
+          <span class="kind">Sky box</span>
+          <h3>The sky around the object</h3>
+          <p>The box follows the selected object, or the star you are zoomed in on. <b>Details</b> opens flow B at that position.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===================================================== Uncertainty -->
+  <section class="lane" aria-labelledby="unc">
+    <div class="lane-head">
+      <span class="lane-tag">ERRORS</span>
+      <h2 id="unc">How uncertainty travels through flow B</h2>
+    </div>
+    <div class="chain">
+      <div class="node source"><span class="kind">Input</span><h3>VARIANCE</h3><p>σ² per pixel from the SPHEREx pipeline. Pixels with σ² ≤ 0 are invalid.</p></div>
+      <span class="arrow" aria-hidden="true">→</span>
+      <div class="node step"><span class="kind">Resample</span><h3>Σw²σ²</h3><p>Exact per pixel. Neighbours become correlated, so VAR × NOISECOR is used for sums and PSF fits.</p></div>
+      <span class="arrow" aria-hidden="true">→</span>
+      <div class="node step"><span class="kind">Stack</span><h3>Σσ²/n² or 1/Σσ⁻²</h3><p>Mean or inverse-variance weighted. The median uses π/2 × the mean's variance.</p></div>
+      <span class="arrow" aria-hidden="true">→</span>
+      <div class="node step"><span class="kind">Compare</span><h3>σ<sub>A</sub>² + σ<sub>B</sub>²</h3><p>Significance assumes independent A and B. The measured scatter of the significance map is reported next to it.</p></div>
+      <span class="arrow" aria-hidden="true">→</span>
+      <div class="node screen"><span class="kind">Shown</span><h3>Error bars and σ maps</h3><p>On light curves, spectra, positions and motions.</p></div>
+    </div>
+  </section>
+
+  <!-- ===================================================== What is what -->
+  <section class="lane" aria-labelledby="wiw">
+    <div class="lane-head">
+      <span class="lane-tag">KEY</span>
+      <h2 id="wiw">What you see, and what it is</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>On screen</th><th>Comes from</th><th>Kind</th></tr></thead>
+        <tbody>
+          <tr><td>Star positions in 3D</td><td>Gaia direction and 1/ϖ (flow A)</td><td><span class="pill p-der">Derived</span></td></tr>
+          <tr><td>Star colour in 3D</td><td>The class; the card names its source</td><td><span class="pill p-meas">Catalogue</span> <span class="pill p-pred">Predicted</span> <span class="pill p-meas">SPHEREx</span></td></tr>
+          <tr><td>Star brightness in 3D</td><td>M<sub>G</sub> and the camera's distance</td><td><span class="pill p-der">Derived</span></td></tr>
+          <tr><td>Class confidence</td><td>Share of the 15 neighbours that agree, or the spectrum fit</td><td><span class="pill p-pred">Predicted</span></td></tr>
+          <tr><td>Planet orbits</td><td>Exoplanet Archive P, a, e, ω with 1σ errors (a or P from Kepler's third law when missing)</td><td><span class="pill p-meas">Catalogue</span></td></tr>
+          <tr><td>Planet motion</td><td>Two-body Kepler orbits at 1 day per second, from today's positions predicted from transit or periastron times, ±1σ arc shown</td><td><span class="pill p-der">Predicted</span></td></tr>
+          <tr><td>Orbit tilt</td><td>Measured inclination to our line of sight, towards the real direction of the Sun (drawn edge-on and labelled when missing)</td><td><span class="pill p-meas">Catalogue</span></td></tr>
+          <tr><td>Orbit shape gaps</td><td>e not measured: dashed circle; e measured but not ω: ring between a(1−e) and a(1+e); no measured epoch: no planet dot</td><td><span class="pill p-disp">Labelled gap</span></td></tr>
+          <tr><td>Node rotation, planet dots</td><td>Rotation about the line of sight cannot be measured (line of nodes drawn horizontal); dots are markers</td><td><span class="pill p-disp">Display only</span></td></tr>
+          <tr><td>Frontier pulsing</td><td>Highlight for unclassified objects, not variability</td><td><span class="pill p-disp">Display only</span></td></tr>
+          <tr><td>Habitable zone</td><td>Kopparapu et al. (2014) from the host's measured T<sub>eff</sub> and radius; not drawn when either is missing or T<sub>eff</sub> is outside 2600–7200 K</td><td><span class="pill p-der">Derived</span></td></tr>
+          <tr><td>Milky Way disk, Sun glow</td><td>Artwork for orientation</td><td><span class="pill p-ill">Illustration</span></td></tr>
+          <tr><td>Card spectrum points</td><td>Forced PSF photometry on SPHEREx images (flow C)</td><td><span class="pill p-meas">Measured</span></td></tr>
+          <tr><td>Blackbody curve, band indices</td><td>Fits to those points</td><td><span class="pill p-der">Derived</span></td></tr>
+          <tr><td>Sky box image</td><td>IRSA HiPS tiles (flow D)</td><td><span class="pill p-disp">Display only</span></td></tr>
+          <tr><td>Explore frames: calibrated</td><td>RAW plane, the SPHEREx pipeline's calibrated values resampled</td><td><span class="pill p-meas">Measured</span></td></tr>
+          <tr><td>Explore frames: final</td><td>SCI plane, after ZODI and background removal</td><td><span class="pill p-der">Derived</span></td></tr>
+          <tr><td>Colours and stretch</td><td>Browser rendering of the FITS values</td><td><span class="pill p-disp">Display only</span></td></tr>
+          <tr><td>Pixel readout</td><td>FITS floating-point value</td><td><span class="pill p-meas">Measured</span></td></tr>
+          <tr><td>Overlay markers</td><td>Gaia and CatWISE, moved by linear proper motion (no parallax)</td><td><span class="pill p-der">Derived</span></td></tr>
+          <tr><td>Difference and σ maps</td><td>Two aligned sets, PSF- and background-matched</td><td><span class="pill p-der">Derived</span></td></tr>
+          <tr><td>Light curves</td><td>Forced photometry per frame; each point keeps its wavelength</td><td><span class="pill p-meas">Measured</span></td></tr>
+          <tr><td>Source classes in Explore</td><td>Explicit tests on motion, variability and matches; unmatched means candidate</td><td><span class="pill p-pred">Candidate</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================================================== Limits -->
+  <section class="lane" aria-labelledby="lim">
+    <div class="lane-head">
+      <span class="lane-tag">LIMITS</span>
+      <h2 id="lim">What the pipeline does not do yet</h2>
+    </div>
+    <div class="limits">
+      <div class="node"><h3>PSF matching is Gaussian</h3><p>SPHEREx's ePSFs vary across the detector. Matching uses a Gaussian approximation of the FWHM, so bright stars can leave residuals in differences.</p></div>
+      <div class="node"><h3>Photometry is not The Tractor</h3><p>Fluxes come from a PSF fit with a local background. IRSA's spectrophotometry tool is the independent reference to compare with.</p></div>
+      <div class="node"><h3>Wavelength changes every exposure</h3><p>SPHEREx's linear variable filters put a source at a new wavelength in each frame. A difference between two dates can be the spectrum, not a change in time. Compare within a channel.</p></div>
+      <div class="node"><h3>No extinction in the 3D map</h3><p>M<sub>G</sub> ignores interstellar dust. This is negligible within 100 pc but matters for the distant bright stars.</p></div>
+      <div class="node"><h3>Background removal can remove real light</h3><p>A constant or mesh background also removes nebulae or galaxies that fill the cutout. Use ZODI only, or no background, for diffuse emission.</p></div>
+      <div class="node"><h3>Registration is checked, not forced</h3><p>Frames are shifted to Gaia only with enough matched low-motion stars. The residual median, RMS and maximum are reported.</p></div>
+    </div>
+  </section>
+
+  <footer>Code paths are relative to <code>backend/</code> unless they start with <code>scripts/</code>, <code>frontend/</code> or <code>cache/</code>. Processing version 1.3.</footer>
+</div>

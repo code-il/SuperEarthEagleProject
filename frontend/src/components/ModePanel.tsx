@@ -57,14 +57,14 @@ export function ModePanel(p: ModePanelProps) {
     <Panel title="Comparison mode">
       <Seg label="Viewing mode" value={p.mode} onChange={p.onMode} options={MODES} />
       {needsB && (
-        <div className="space-y-1 rounded border border-slate-800 bg-slate-900 p-2">
+        <div className="space-y-1 rounded-lg border border-white/[0.06] bg-white/[0.03] p-2">
           <div className="flex items-center gap-2 text-xs">
-            <span className="rounded bg-amber-500 px-1.5 font-bold text-slate-950">A</span>
+            <span className="rounded-lg bg-amber-500 px-1.5 font-bold text-slate-950">A</span>
             <span className="truncate text-slate-200">{p.frameA ? formatDateTime(p.frameA.observation_time) : "—"}</span>
             <span className="ml-auto text-slate-500">current frame</span>
           </div>
           <div className="flex items-center gap-2 text-xs">
-            <span className="rounded bg-sky-400 px-1.5 font-bold text-slate-950">B</span>
+            <span className="rounded-lg bg-sky-400 px-1.5 font-bold text-slate-950">B</span>
             <span className="truncate text-slate-200">{p.frameB ? formatDateTime(p.frameB.observation_time) : "—"}</span>
             <span className="ml-auto text-slate-500">{p.bIsAuto ? "auto" : "pinned"}</span>
           </div>
@@ -75,9 +75,9 @@ export function ModePanel(p: ModePanelProps) {
             </p>
           )}
           <div className="flex gap-1">
-            <button type="button" className="flex-1 rounded bg-slate-800 px-2 py-1 text-xs hover:bg-slate-700" onClick={p.onSetBToCurrent}
+            <button type="button" className="flex-1 rounded-lg bg-white/[0.06] px-2 py-1 text-xs hover:bg-white/10" onClick={p.onSetBToCurrent}
               title="Pin the frame on screen as B, then move A with the playback controls">Pin current as B</button>
-            <button type="button" className="flex-1 rounded bg-slate-800 px-2 py-1 text-xs hover:bg-slate-700 disabled:opacity-40" disabled={p.bIsAuto} onClick={p.onAutoB}
+            <button type="button" className="flex-1 rounded-lg bg-white/[0.06] px-2 py-1 text-xs hover:bg-white/10 disabled:opacity-40" disabled={p.bIsAuto} onClick={p.onAutoB}
               title="B = frame from another visit at the closest wavelength">Auto B</button>
           </div>
         </div>

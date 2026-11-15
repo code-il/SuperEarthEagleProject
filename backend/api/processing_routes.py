@@ -5,7 +5,9 @@ are given as in the data routes (``q`` or ``ra``/``dec``).
 """
 from __future__ import annotations
 
+import json
 import logging
+import threading
 from pathlib import Path
 from typing import Any
 
@@ -30,7 +32,7 @@ class ProcessingOptions(BaseModel):
     pixel_scale_arcsec: float = Field(NATIVE_PIXEL_SCALE_ARCSEC, gt=0.5, le=30,
                                       description="Output grid scale; 6.15 = native SPHEREx pixels.")
     mask_profile: str | list[str] = Field("standard", description="none | minimal | standard | strict | [flag names]")
-    background: str = Field("zodi+median", description="none | zodi | median | zodi+median")
+    background: str = Field("zodi+median", description="none | zodi | median | zodi+median | mesh | zodi+mesh")
     reproject_method: str = Field("interp", description="interp | exact | nearest")
     stretch: str = Field("asinh", description="Display stretch for PNGs: linear | sqrt | log | asinh")
     max_observations: int = Field(120, ge=1, le=400)
@@ -77,10 +79,26 @@ def _validate_options(o: ProcessingOptions) -> None:
         raise ValueError(f"stretch must be one of {STRETCHES}")
 
 
+_series_locks: dict[str, threading.Lock] = {}
+_series_locks_guard = threading.Lock()
+
+
 def _series(req: SearchRequest | Any) -> tuple[dict[str, Any], Any]:
     _validate_options(req)
     pos = _position(req.ra, req.dec, req.q, req.epoch)
-    series = process_series(
+    # Identical requests (a double-clicked button, a page re-mount) wait for the first one and then
+    # reuse its cached products instead of processing the same files concurrently.
+    fields = ("fov", "detectors", "date_start", "date_end", "release", "wavelength_min", "wavelength_max",
+              "pixel_scale_arcsec", "mask_profile", "background", "reproject_method", "stretch", "max_observations")
+    key = json.dumps([round(pos["ra"], 6), round(pos["dec"], 6)] + [getattr(req, f, None) for f in fields], default=str)
+    with _series_locks_guard:
+        lock = _series_locks.setdefault(key, threading.Lock())
+    with lock:
+        return pos, _process(pos, req)
+
+
+def _process(pos: dict[str, Any], req: Any) -> Any:
+    return process_series(
         pos["ra"], pos["dec"], req.fov,
         detectors=req.detectors, date_range=_range(req.date_start, req.date_end), release=req.release,
         wavelength_range=_range(req.wavelength_min, req.wavelength_max),
@@ -88,7 +106,6 @@ def _series(req: SearchRequest | Any) -> tuple[dict[str, Any], Any]:
         background=req.background, method=req.reproject_method, stretch=req.stretch,
         max_observations=req.max_observations, make_gifs=getattr(req, "make_gifs", False),
     )
-    return pos, series
 
 
 @router.get("/processing/options")

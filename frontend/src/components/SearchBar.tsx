@@ -83,7 +83,7 @@ export function SearchBar({ initial, onSubmit, busy }: SearchBarProps) {
       <div className="relative min-w-0 basis-full sm:min-w-64 sm:flex-1 sm:basis-auto">
         <input
           aria-label="Target name or coordinates" aria-invalid={!!error} aria-describedby="search-hint"
-          className={`w-full rounded border bg-slate-900 px-3 py-1.5 text-sm text-slate-100 placeholder:text-slate-500 ${error ? "border-red-500" : "border-slate-700 focus:border-amber-400"}`}
+          className={`w-full rounded border bg-white/[0.03] px-3 py-1.5 text-sm text-slate-100 placeholder:text-slate-500 ${error ? "border-red-500" : "border-white/10 focus:border-amber-400"}`}
           placeholder="Name or coordinates: Barnard's Star · 269.452 4.693 · 17h57m48.5s +04d41m36s"
           value={text} onChange={(e) => { setText(e.target.value); setError(null); }}
           list="mandatory-targets"
@@ -96,8 +96,8 @@ export function SearchBar({ initial, onSubmit, busy }: SearchBarProps) {
       <label className="flex items-center gap-1 text-xs text-slate-300" title={`Field of view: ${FOV_MIN}°–${FOV_MAX}°. Bigger fields mean more download and processing time.`}>
         FOV
         <input aria-label="Field of view" type="number" min="0" step="any" value={fovVal} onChange={(e) => setFovVal(e.target.value)}
-          className="w-16 rounded border border-slate-700 bg-slate-900 px-1.5 py-1.5 text-xs" />
-        <select aria-label="Field of view unit" value={fovUnit} className="rounded border border-slate-700 bg-slate-900 px-1 py-1.5 text-xs"
+          className="w-16 rounded-lg border border-white/10 bg-white/[0.03] px-1.5 py-1.5 text-xs" />
+        <select aria-label="Field of view unit" value={fovUnit} className="rounded-lg border border-white/10 bg-white/[0.03] px-1 py-1.5 text-xs"
           onChange={(e) => {
             const u = e.target.value as FovUnit;
             setFovVal(String(+((Number(fovVal) * FOV_UNITS[fovUnit]) / FOV_UNITS[u]).toFixed(4)));
@@ -109,27 +109,27 @@ export function SearchBar({ initial, onSubmit, busy }: SearchBarProps) {
       <div className="flex items-center gap-0.5" role="group" aria-label="Detectors to load" title="Detectors to load (D1 0.75 µm … D6 5.0 µm). Each extra detector adds downloads.">
         {[1, 2, 3, 4, 5, 6].map((d) => (
           <button key={d} type="button" aria-pressed={detectors.includes(d)} onClick={() => toggleDet(d)}
-            className={`h-7 w-7 rounded text-[11px] font-semibold ${detectors.includes(d) ? "text-slate-950" : "bg-slate-800 text-slate-400"}`}
+            className={`h-7 w-7 rounded text-[11px] font-semibold ${detectors.includes(d) ? "text-slate-950" : "bg-white/[0.06] text-slate-400"}`}
             style={detectors.includes(d) ? { background: DETECTOR_COLORS[d - 1] } : undefined}>D{d}</button>
         ))}
       </div>
       <button type="button" className="text-xs text-slate-400 hover:text-slate-200" onClick={() => setShowAdv(!showAdv)} aria-expanded={showAdv}>More ▾</button>
       <button type="submit" disabled={busy || !detectors.length}
-        className="rounded bg-amber-500 px-4 py-1.5 text-sm font-semibold text-slate-950 hover:bg-amber-400 disabled:opacity-50">
+        className="btn btn-primary px-4 py-1.5 text-sm">
         {busy ? "Loading…" : "Explore"}
       </button>
       {showAdv && (
         <div className="flex w-full flex-wrap items-center gap-3 pt-3 text-xs text-slate-300">
           <label className="flex items-center gap-1">Release
-            <select value={release} onChange={(e) => setRelease(e.target.value)} className="rounded border border-slate-700 bg-slate-900 px-1 py-1">
+            <select value={release} onChange={(e) => setRelease(e.target.value)} className="rounded-lg border border-white/10 bg-white/[0.03] px-1 py-1">
               <option value="">default (DR1 + QR3)</option><option value="DR1">DR1</option><option value="QR3">QR3</option><option value="all">all incl. deep</option>
             </select>
           </label>
-          <label className="flex items-center gap-1">From <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="rounded border border-slate-700 bg-slate-900 px-1 py-0.5" /></label>
-          <label className="flex items-center gap-1">To <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="rounded border border-slate-700 bg-slate-900 px-1 py-0.5" /></label>
+          <label className="flex items-center gap-1">From <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="rounded-lg border border-white/10 bg-white/[0.03] px-1 py-0.5" /></label>
+          <label className="flex items-center gap-1">To <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="rounded-lg border border-white/10 bg-white/[0.03] px-1 py-0.5" /></label>
           <span className="text-slate-500">Challenge targets:</span>
           {MANDATORY_TARGETS.map((t) => (
-            <button key={t.key} type="button" title={t.why} className="rounded bg-slate-800 px-2 py-0.5 hover:bg-slate-700"
+            <button key={t.key} type="button" title={t.why} className="rounded-lg bg-white/[0.06] px-2 py-0.5 hover:bg-white/10"
               onClick={() => { setText(t.query); submit(t.query); }}>{t.label}</button>
           ))}
         </div>

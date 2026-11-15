@@ -75,3 +75,50 @@ def test_infrared_excess_flagged():
 def test_too_faint():
     c = classify_spectrum(_spectrum(np.full(102, 0.01), snr=0.5))
     assert c["class_id"] is None
+
+
+@pytest.mark.parametrize("main_id, names, expected", [
+    ("NAME Proxima Centauri", ["Proxima", "Proxima Cen", "Proxima Centauri"], "Proxima Centauri"),
+    ("* alf CMa", ["Sirius", "Sirius A"], "Sirius"),
+    ("* alf CMa B", ["Sirius B", "Sirius BC", "Sirius C"], "Sirius B"),
+    ("* alf UMi", ["Lodestar", "North Star", "Polaris"], "Polaris"),
+    ("Wolf   28", ["van Maanen 2", "van Maanen Star", "van Maanen's Star", "vMA 2"], "van Maanen's Star"),
+    ("LP  791-18", [], "LP 791-18"),
+])
+def test_display_names(main_id, names, expected):
+    from scripts.build_galaxy_map import best_name
+    assert best_name(main_id, names) == expected
+
+
+def test_compact_catalog_roundtrip(tmp_path):
+    """The committed catalogue keeps every column (derived ones recomputed) at its stored precision."""
+    from backend.galaxy.catalog import load_catalog, save_catalog, tangential_velocity
+
+    n = 3
+    xyz = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]], np.float32)
+    xyz.tofile(tmp_path / "stars.bin")
+    plx = np.array([100.0, 768.07, 2.5])
+    pmra, pmdec = np.array([10.0, np.nan, -3.0]), np.array([0.0, 5.0, 4.0])
+    cols = dict(source_id=np.arange(n, dtype=np.int64), ra=np.array([10.123456789, 217.42894, 0.0]),
+                dec=np.array([-5.987654321, -62.67949, 1.0]), plx=plx, pmra=pmra, pmdec=pmdec,
+                name=np.array(["", "Proxima Centauri", "Barnard's star"]), flags=np.array([1, 2, 178]),
+                dist=1000 / plx, vtan=tangential_velocity(pmra, pmdec, 1000 / plx), xyz=xyz)
+    save_catalog(tmp_path / "c.npz", **cols)
+    c = load_catalog(tmp_path / "c.npz", tmp_path / "stars.bin")
+    assert c["ra"][0] == 10.123456789 and c["dec"][0] == -5.987654321  # full precision kept
+    assert list(c["name"]) == ["", "Proxima Centauri", "Barnard's star"]
+    assert np.allclose(c["dist"], 1000 / plx, rtol=1e-6)
+    assert np.allclose(c["vtan"], cols["vtan"], rtol=1e-6)
+    assert np.array_equal(c["xyz"], xyz) and list(c["flags"]) == [1, 2, 178]
+
+
+def test_committed_catalog_matches_stars_bin():
+    """data/galaxy/catalog.npz and frontend/public/galaxy/* ship together and describe the same objects."""
+    import json
+
+    from backend.galaxy.catalog import CATALOG_PATH, STARS_BIN, load_catalog
+
+    meta = json.loads((STARS_BIN.parent / "meta.json").read_text(encoding="utf-8"))
+    c = load_catalog()
+    assert CATALOG_PATH.exists() and len(c["ra"]) == meta["count"]
+    assert STARS_BIN.stat().st_size >= meta["count"] * 12

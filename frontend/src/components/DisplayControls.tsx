@@ -1,4 +1,4 @@
-import type { Colormap, DisplaySettings, Stretch } from "../types";
+import type { Colormap, DisplaySettings, LimitsMode, SciencePlane, Stretch } from "../types";
 import { DEFAULT_DISPLAY, colormapRgb } from "../lib/render";
 import { Panel, Row, Select, Slider, Toggle } from "./ui";
 
@@ -14,7 +14,7 @@ function Ramp({ cmap, invert }: { cmap: Colormap; invert: boolean }) {
 }
 
 /** Display-only controls. None of these change the science values. */
-export function DisplayControls({ value, onChange, limits, units, diverging }: { value: DisplaySettings; onChange: (d: DisplaySettings) => void; limits: [number, number]; units?: string; diverging?: boolean }) {
+export function DisplayControls({ value, onChange, limits, units, diverging, showPlane = false }: { value: DisplaySettings; onChange: (d: DisplaySettings) => void; limits: [number, number]; units?: string; diverging?: boolean; showPlane?: boolean }) {
   const set = <K extends keyof DisplaySettings>(k: K, v: DisplaySettings[K]) => onChange({ ...value, [k]: v });
   return (
     <Panel title="Display" actions={
@@ -35,11 +35,19 @@ export function DisplayControls({ value, onChange, limits, units, diverging }: {
           onChange={(v) => set("percentiles", v.split("-").map(Number) as [number, number])}
           options={[{ value: "0-100", label: "min–max" }, { value: "0.5-99.5", label: "99.5%" }, { value: "1-99", label: "99%" }, { value: "2-98", label: "98%" }, { value: "5-95", label: "95%" }]} />
       </Row>
-      <Row label="Limits" hint="Series: one scale for all frames of a detector, so real brightness changes stay visible. Frame: rescale each frame.">
-        <Select label="Limits mode" value={value.limitsMode} onChange={(v) => set("limitsMode", v)}
-          options={[{ value: "series", label: "shared (series)" }, { value: "frame", label: "per frame" }]} />
+      <Row label="Limits" hint="Per channel: one scale for all frames at the same wavelength, so real brightness changes stay visible and a bright frame at one wavelength does not set the scale of another. Detector: one scale per detector. Frame: rescale each frame.">
+        <Select<LimitsMode> label="Limits mode" value={value.limitsMode} onChange={(v) => set("limitsMode", v)}
+          options={[{ value: "channel", label: "per wavelength channel" }, { value: "series", label: "per detector" }, { value: "frame", label: "per frame" }]} />
       </Row>
+      {showPlane && (
+        <Row label="Image" hint="Final: ZODI model and residual background removed, bad pixels masked. ZODI-subtracted: only the zodiacal-light model removed (keeps diffuse emission). Calibrated: the image as delivered by the SPHEREx pipeline, only resampled onto the grid.">
+          <Select<SciencePlane> label="Science plane" value={value.plane ?? "SCI"} onChange={(v) => set("plane", v)}
+            options={[{ value: "SCI", label: "final (background-subtracted)" }, { value: "ZSUB", label: "ZODI-subtracted" }, { value: "RAW", label: "calibrated (original)" }]} />
+        </Row>
+      )}
       <Toggle label="Invert" checked={value.invert} onChange={(v) => set("invert", v)} />
+      <Toggle label="Smooth pixels (bicubic)" checked={(value.interpolation ?? "smooth") === "smooth"}
+        onChange={(v) => set("interpolation", v ? "smooth" : "pixels")} />
       <p className="font-mono text-[11px] text-slate-500">
         scale {limits[0].toPrecision(3)} … {limits[1].toPrecision(3)} {units ?? ""}
       </p>

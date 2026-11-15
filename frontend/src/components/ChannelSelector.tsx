@@ -91,10 +91,10 @@ export function ChannelSelector(p: ChannelSelectorProps) {
       </div>
       <div className="flex justify-between text-[10px] text-slate-500"><span>0.75 µm</span><span>5.0 µm</span></div>
       <Row label="Wavelength (µm)">
-        <input aria-label="Minimum wavelength" type="number" step="0.01" min="0.7" max="5.1" placeholder="min" className="w-16 rounded border border-slate-700 bg-slate-800 px-1 py-0.5 text-xs"
+        <input aria-label="Minimum wavelength" type="number" step="0.01" min="0.7" max="5.1" placeholder="min" className="w-16 rounded-lg border border-white/10 bg-white/[0.06] px-1 py-0.5 text-xs"
           value={value.wlMin ?? ""} onChange={(e) => p.onChange({ ...value, wlMin: e.target.value === "" ? null : Number(e.target.value) })} />
         –
-        <input aria-label="Maximum wavelength" type="number" step="0.01" min="0.7" max="5.1" placeholder="max" className="w-16 rounded border border-slate-700 bg-slate-800 px-1 py-0.5 text-xs"
+        <input aria-label="Maximum wavelength" type="number" step="0.01" min="0.7" max="5.1" placeholder="max" className="w-16 rounded-lg border border-white/10 bg-white/[0.06] px-1 py-0.5 text-xs"
           value={value.wlMax ?? ""} onChange={(e) => p.onChange({ ...value, wlMax: e.target.value === "" ? null : Number(e.target.value) })} />
       </Row>
       <p className="text-xs text-slate-300">
@@ -103,7 +103,7 @@ export function ChannelSelector(p: ChannelSelectorProps) {
       </p>
       {p.showCompare && (
         <Row label="Compare channel (B)" hint="Pane B shows the frame in this channel closest in time to A">
-          <select aria-label="Compare channel" className="max-w-40 rounded border border-slate-700 bg-slate-800 px-1 py-1 text-xs"
+          <select aria-label="Compare channel" className="max-w-40 rounded-lg border border-white/10 bg-white/[0.06] px-1 py-1 text-xs"
             value={p.compareChannel ?? ""} onChange={(e) => p.onCompareChannel(e.target.value === "" ? null : Number(e.target.value))}>
             <option value="">same as A (time)</option>
             {present.map((c) => <option key={c.index} value={c.index}>{c.label}</option>)}

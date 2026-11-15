@@ -14,7 +14,7 @@ Candidates are never presented as discoveries.
 
 ## Run it
 
-You need Python 3.11+ and, to build the viewer, Node.js 20+. No accounts or API keys are needed:
+You need Python 3.11+ and, to build the viewer, Node.js 20.19+ (or 22.12+; Vite 8 refuses older versions). No accounts or API keys are needed:
 every data service is public.
 
 ```bash
@@ -44,23 +44,35 @@ Settings are read from `.env`; see [`.env.example`](.env.example). For Docker, r
 exact environment used for validation. The viewer's versions are locked in
 `frontend/package-lock.json`.
 
-## 3D Atlas (`/map`)
+## 3D Atlas (the front page, `/`)
 
 A zoomable 3D map of the real stellar neighbourhood, from a planetary system (AU) out to the whole
 Milky Way (kpc), one continuous camera. Every point sits at its measured Gaia DR3 distance.
 
-- **617k objects**: every Gaia DR3 star within 100 pc (parallax/error ≥ 10), a 1-in-3 sample of
-  bright stars to 4 kpc, 2.7k SIMBAD objects Gaia cannot see (cold brown dwarfs such as WISE 0855),
-  and 4.8k planetary systems from the NASA Exoplanet Archive drawn to scale with habitable zones.
+- **573k objects**: every Gaia DR3 star within 100 pc (parallax/error ≥ 10, minus 46k faint
+  G > 19 sources with RUWE > 1.4, which are mostly spurious parallaxes in crowded Galactic-plane
+  fields), a 1-in-3 sample of bright stars to 4 kpc, 4.3k SIMBAD objects Gaia has no parallax for
+  (cold brown dwarfs such as WISE 0855, the Luhman 16 binary), and 4.8k planetary systems from the
+  NASA Exoplanet Archive drawn to scale with habitable zones. Names use SIMBAD's common names and
+  every alias is searchable (Sirius, Polaris, Proxima Centauri, Barnard's star).
 - **Classified**, with the source of every class shown: *measured* from the object's SPHEREx
   DR1+QR3 spectrum (blackbody + H₂O/CH₄ band indices), *catalogued* (SIMBAD spectral type), or
-  *predicted* by a k-NN model on Gaia photometry (89.7 % held-out accuracy, shown in the app).
+  *predicted* by a k-NN model on Gaia photometry (89.7 % held-out accuracy, shown in the app;
+  below G = 19, where BP−RP is unreliable, a second model on M_G and G−RP, flagged uncertain).
+  SPHEREx replaces a class only when no catalogue gave one or when it sees brown-dwarf molecular
+  bands: a 0.75–5 µm colour temperature cannot tell a white dwarf or giant from a dwarf.
 - **Filters** by class, classification source, model confidence, distance and flags (planet hosts,
   variables, binaries, halo stars, invisible to Gaia); colour by class, true colour or source.
 - **Frontier mode** highlights what is still unknown and ranks sectors of space by how uncharted
   they are. Pick an object and press *Measure SPHEREx spectrum* to classify it from the images.
-- Each object card shows the SPHEREx DR1 all-sky image (HiPS cube, wavelength slider) and links to
-  the time-lapse viewer.
+- Each object card shows the SPHEREx DR1 all-sky image (HiPS cube, wavelength slider) and opens the
+  time-lapse viewer (Explore) as a pop-up over the map (`/?view=explore&ra=…&dec=…`; old
+  `/explore?…` links redirect there). Images are bicubic-smoothed for display by default; the
+  "Smooth pixels" toggle shows the raw 6.15″ pixels.
+- Stars are drawn by their apparent brightness from the camera. The Sun keeps a fixed-size marker
+  glow so home is always visible, plus a true-size disk when you zoom in close.
+- **Tour**: a guided walkthrough (opens on the first visit, and from the *Tour* button).
+- The challenge targets page moved to `/targets`.
 
 Build the map data once (≈5 min download, then cached in `cache/galaxy/`), and optionally measure
 SPHEREx spectra for a set of nearby objects:
@@ -74,6 +86,44 @@ SPHEREx spectra for a set of nearby objects:
 ```
 
 Re-run `build_galaxy_map` after the survey to fold the SPHEREx classes into the map.
+
+## N-body orbit engine (proof of concept, `backend/orbits/`)
+
+By default the Atlas animates analytic two-body Kepler orbits. This engine adds planet–planet
+gravity, and is checked against JPL Horizons and corrected by measured data. In the viewer, open a
+planetary system and choose **Engine: N-body** in the orbit legend. The planets then follow the
+engine's positions, loaded in 120-day stretches. When the engine refuses a system, or can't
+reproduce the archive, the legend says why and the Kepler orbits stay.
+
+- **Physics:** Newtonian N-body, plus an optional general-relativity (1PN) term for the central
+  star. It integrates with fixed-step RK4 (baseline) or adaptive 8th-order DOP853.
+- **Solar System:** starts from JPL Horizons (DE441) states. Masses are from DE440, Earth and
+  Moon are separate bodies, and Ceres, Vesta, Pallas and Hygiea are included. Every so often
+  Horizons can replace the engine's state, so errors can't build up.
+- **Exoplanets:** starts from NASA Exoplanet Archive elements and masses. It then corrects each
+  planet's phase and orbit size until the simulated transits reproduce the archive's ephemeris
+  (T0, P) within 1σ. Some systems can't be done honestly: missing masses, ω not measured, or
+  orbits that cross or sit inside the Hill stability limit. Those are refused, with the reason.
+  Systems that don't converge (resonant chains such as TRAPPIST-1) are marked "not converged".
+
+Endpoints: `GET /api/orbits/solar/validate?days=3650`, `GET /api/orbits/system/{i}?days=30`
+(transit predictions) and `GET /api/orbits/system/{i}/positions` (the viewer's tracks).
+
+## Citizen science (`/science`, `backend/game/`)
+
+Investigations built from real Atlas sources and their real SPHEREx images, automated quality
+checks, blind community review, two separate leaderboards (global contribution and scientifically
+validated), streaks, achievements and an admin area. All scoring happens on the server. No extra
+setup or packages are needed: state is a SQLite file created on first use.
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `SPHEREX_GAME_DB` | `<SPHEREX_CACHE_DIR>/game/game.db` (`./cache/game/game.db`) | Where the game database lives (in Docker: the `/data/cache` volume) |
+| `SPHEREX_GAME_ADMINS` | empty | Comma-separated usernames that become administrators when they register |
+
+Investigations open for submission once IRSA has returned the field's observation list; if the
+archive is down the page says so and nothing is assumed. Sources, licences and AI disclosure:
+[`docs/SOURCES.md`](docs/SOURCES.md).
 
 ## Demonstration
 

@@ -178,5 +178,76 @@ export const DEFAULT_DISPLAY: DisplaySettings = {
   brightness: 0,
   contrast: 1,
   percentiles: [0.5, 99.5],
-  limitsMode: "series",
+  limitsMode: "channel",
+  interpolation: "smooth",
+  plane: "SCI",
 };
+
+/** Catmull-Rom kernel weights for fractional offset t (taps at -1, 0, 1, 2). */
+function cubicWeights(t: number): [number, number, number, number] {
+  const t2 = t * t, t3 = t2 * t;
+  return [(-t3 + 2 * t2 - t) / 2, (3 * t3 - 5 * t2 + 2) / 2, (-3 * t3 + 4 * t2 + t) / 2, (t3 - t2) / 2];
+}
+
+/** Upsampling factor for display: about 512 px across the result, between 1 and 8. */
+export function smoothFactor(w: number, h: number): number {
+  return Math.max(1, Math.min(8, Math.floor(512 / Math.max(w, h, 1))));
+}
+
+/**
+ * Bicubic (Catmull-Rom) resampling of a plane by an integer factor, for display only.
+ * Isolated masked / NaN pixels (cosmic-ray and hot-pixel hits, single pixels or pairs: at least 6 of 8 neighbours valid)
+ * are first filled with the mean of their valid neighbours; larger masked areas stay invalid and are
+ * left out of their neighbours' kernels, so bad pixels do not bleed. The science array is not changed
+ * (readouts still report "masked"), and the WCS is not updated: callers draw the result over the
+ * original pixel footprint.
+ */
+export function upsamplePlane(plane: ImagePlane, k: number): ImagePlane {
+  if (k <= 1) return plane;
+  const { width: w, height: h, mask } = plane;
+  const W = w * k, H = h * k;
+  const out = new Float32Array(W * H);
+  const valid0 = (i: number) => Number.isFinite(plane.data[i]) && !(mask && mask[i]);
+  const data = Float32Array.from(plane.data);
+  const good = new Uint8Array(w * h);
+  for (let i = 0; i < w * h; i++) good[i] = valid0(i) ? 1 : 0;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const i = y * w + x;
+    if (good[i]) continue;
+    let s = 0, n = 0;
+    for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+      const xx = x + dx, yy = y + dy;
+      if ((dx || dy) && xx >= 0 && yy >= 0 && xx < w && yy < h && valid0(yy * w + xx)) { s += plane.data[yy * w + xx]; n++; }
+    }
+    if (n >= 6) { data[i] = s / n; good[i] = 1; }
+  }
+  const ok = (i: number) => good[i] === 1;
+  const wy: [number, number, number, number][] = [], wx: [number, number, number, number][] = [];
+  const iy0: number[] = [], ix0: number[] = [];
+  for (let Y = 0; Y < H; Y++) { const s = (Y + 0.5) / k - 0.5, f = Math.floor(s); iy0.push(f); wy.push(cubicWeights(s - f)); }
+  for (let X = 0; X < W; X++) { const s = (X + 0.5) / k - 0.5, f = Math.floor(s); ix0.push(f); wx.push(cubicWeights(s - f)); }
+  for (let Y = 0; Y < H; Y++) {
+    const fy = iy0[Y], ky = wy[Y];
+    for (let X = 0; X < W; X++) {
+      const fx = ix0[X], kx = wx[X];
+      // The nearest source pixel decides validity.
+      const ny = Math.min(h - 1, Math.max(0, Math.round((Y + 0.5) / k - 0.5)));
+      const nx = Math.min(w - 1, Math.max(0, Math.round((X + 0.5) / k - 0.5)));
+      if (!ok(ny * w + nx)) { out[Y * W + X] = NaN; continue; }
+      let acc = 0, wsum = 0;
+      for (let j = 0; j < 4; j++) {
+        const yy = Math.min(h - 1, Math.max(0, fy - 1 + j));
+        for (let i = 0; i < 4; i++) {
+          const xx = Math.min(w - 1, Math.max(0, fx - 1 + i));
+          const idx = yy * w + xx;
+          if (!ok(idx)) continue;
+          const wt = ky[j] * kx[i];
+          acc += wt * data[idx];
+          wsum += wt;
+        }
+      }
+      out[Y * W + X] = wsum > 0.5 ? acc / wsum : data[ny * w + nx];
+    }
+  }
+  return { ...plane, width: W, height: H, data: out, mask: undefined };
+}

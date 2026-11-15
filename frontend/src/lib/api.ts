@@ -218,7 +218,7 @@ export function loadPlane(url: string, extnames: string[] = ["SCI"]): Promise<Im
 export async function loadPlanes(
   urls: string[],
   onLoaded: (i: number, plane: ImagePlane | null, err?: Error) => void,
-  opts: { concurrency?: number; signal?: AbortSignal; order?: number[] } = {},
+  opts: { concurrency?: number; signal?: AbortSignal; order?: number[]; extnames?: string[] } = {},
 ): Promise<void> {
   const order = opts.order ?? urls.map((_, i) => i);
   let next = 0;
@@ -226,7 +226,7 @@ export async function loadPlanes(
     while (next < order.length && !opts.signal?.aborted) {
       const i = order[next++];
       try {
-        onLoaded(i, await loadPlane(urls[i]));
+        onLoaded(i, await loadPlane(urls[i], opts.extnames));
       } catch (e) {
         onLoaded(i, null, e as Error);
       }

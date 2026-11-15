@@ -1,5 +1,6 @@
 /**
- * /explore — the SPHEREx time-series viewer.
+ * The SPHEREx time-series viewer. It opens as a pop-up over the 3D Atlas (``/map?view=explore&ra=…``);
+ * ``/explore?…`` links redirect there. ``embedded`` + ``onClose`` are set by the Atlas.
  *
  *  ┌──────────────── top bar: search, FOV, detectors ────────────────┐
  *  │ left: mode, channels,   │ centre: viewer(s)    │ right: metadata, │
@@ -11,7 +12,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import type { Channel, DisplaySettings, ImagePlane, Marker, OverlaySettings, PixelReadout, ViewMode, ViewState } from "../types";
 import { api, apiUrl } from "../lib/api";
 import type { ExploreParams } from "../lib/api";
-import { buildUrl, parseUrl } from "../lib/urlState";
+import { EXPLORE_KEYS, buildUrl, exploreSearch, parseUrl } from "../lib/urlState";
 import { DEFAULT_DISPLAY, limitsFor } from "../lib/render";
 import { frameDurationMs, formatDate, formatDateTime, formatDuration } from "../lib/time";
 import { formatAngle, formatDecDms, formatRaHms } from "../lib/coords";
@@ -41,9 +42,16 @@ function caption(f?: Frame): string | undefined {
   return `${formatDateTime(f.observation_time)} · ${f.wavelength.toFixed(3)} µm · D${f.detector}`;
 }
 
-export default function ExplorePage() {
+export default function ExplorePage({ embedded = false, onClose }: { embedded?: boolean; onClose?: () => void } = {}) {
   const [sp, setSp] = useSearchParams();
   const navigate = useNavigate();
+  const openSearch = (p: ExploreParams) => {
+    if (!embedded) return navigate(buildUrl(p, { mode }));
+    const next = new URLSearchParams(sp);
+    for (const k of EXPLORE_KEYS) next.delete(k);
+    exploreSearch(p, { mode }).forEach((v, k) => next.set(k, v));
+    setSp(next);
+  };
   const url = useMemo(() => parseUrl(sp), [sp]);
   const pkey = paramsKey(url.params);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,18 +122,19 @@ export default function ExplorePage() {
     return autoReference(visible, A);
   }, [compareChannel, pinnedB, frames, visible, A]);
 
-  const { planes, failed } = usePlanes(frames, cur ?? 0);
+  const { planes, failed } = usePlanes(frames, cur ?? 0, display.plane ?? "SCI");
   const planeA = A ? planes.get(A.seriesIndex) ?? null : null;
   const planeB = B ? planes.get(B.seriesIndex) ?? null : null;
 
   // ---- display limits -----------------------------------------------------
   const seriesLimits = useMemo(() => {
     const out = new Map<number, [number, number]>();
-    if (display.limitsMode !== "series") return out;
+    if (display.limitsMode === "frame") return out;
     const byDet = new Map<number, ImagePlane[]>();
     for (const f of visible) {
       const pl = planes.get(f.seriesIndex);
-      if (pl) byDet.set(f.detector, [...(byDet.get(f.detector) ?? []), pl]);
+      const k = limitGroup(f, display.limitsMode);
+      if (pl) byDet.set(k, [...(byDet.get(k) ?? []), pl]);
     }
     for (const [d, pls] of byDet) out.set(d, limitsFor(pls, display.percentiles));
     return out;
@@ -135,10 +144,10 @@ export default function ExplorePage() {
 
   const limitsOf = useCallback((f: Frame | undefined, pl: ImagePlane | null): [number, number] => {
     if (!f) return [0, 1];
-    if (display.limitsMode === "series") {
-      const l = seriesLimits.get(f.detector);
+    if (display.limitsMode !== "frame") {
+      const l = seriesLimits.get(limitGroup(f, display.limitsMode));
       if (l) return l;
-      if (f.display_limits) return f.display_limits;
+      if (f.display_limits && display.limitsMode === "channel" && (display.plane ?? "SCI") === "SCI") return f.display_limits;
     }
     return pl ? limitsFor([pl], display.percentiles) : f.display_limits ?? [0, 1];
   }, [display.limitsMode, display.percentiles, seriesLimits]);
@@ -297,7 +306,7 @@ export default function ExplorePage() {
   const loadingSeries = series.status === "searching" || series.status === "processing";
 
   const viewer = (() => {
-    if (!params) return <Welcome error={url.error} />;
+    if (!params) return <Welcome error={url.error} embedded={embedded} />;
     if (loadingSeries) return (
       <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
         <Spinner label={series.message} />
@@ -325,8 +334,8 @@ export default function ExplorePage() {
     }
     if (mode === "side-by-side") return (
       <div className="grid h-full grid-cols-2 gap-2">
-        <div className="relative min-h-0"><SkyCanvas {...commonCanvas} className="h-full w-full border-2 border-amber-400/60" plane={planeA} limits={limitsOf(A, planeA)} markers={markersAt(A)} caption={caption(A)} badge={`A · ${badge}`} loading={!planeA} /></div>
-        <div className="relative min-h-0"><SkyCanvas {...commonCanvas} className="h-full w-full border-2 border-sky-400/60" plane={planeB} limits={limitsOf(B, planeB)} markers={markersAt(B)} caption={caption(B)} badge={B && A ? `B · Δt ${formatDuration(B.mjd - A.mjd)}` : "B"} loading={!!B && !planeB} emptyText="No reference frame" /></div>
+        <div className="relative min-h-0"><SkyCanvas {...commonCanvas} className="h-full w-full rounded-xl ring-2 ring-amber-300/50" plane={planeA} limits={limitsOf(A, planeA)} markers={markersAt(A)} caption={caption(A)} badge={`A · ${badge}`} loading={!planeA} /></div>
+        <div className="relative min-h-0"><SkyCanvas {...commonCanvas} className="h-full w-full rounded-xl ring-2 ring-sky-300/50" plane={planeB} limits={limitsOf(B, planeB)} markers={markersAt(B)} caption={caption(B)} badge={B && A ? `B · Δt ${formatDuration(B.mjd - A.mjd)}` : "B"} loading={!!B && !planeB} emptyText="No reference frame" /></div>
       </div>
     );
     if (isCmp) {
@@ -363,14 +372,14 @@ export default function ExplorePage() {
           badge={stacks.data ? `${stackIdx + 1} / ${stacks.data.length}` : undefined} emptyText={stacks.error ?? "No stacks"} />
         {stacks.data && (
           <div className="flex flex-wrap items-center gap-1">
-            <button type="button" className="rounded bg-slate-800 px-2 py-1 text-xs hover:bg-slate-700" onClick={() => setStackIdx((i) => Math.max(0, i - 1))}>◀</button>
+            <button type="button" className="btn h-7 px-2 text-xs" onClick={() => setStackIdx((i) => Math.max(0, i - 1))}>◀</button>
             {stacks.data.map((s, i) => (
               <button key={s.key} type="button" title={s.key} onClick={() => setStackIdx(i)}
-                className={`rounded px-2 py-1 text-[11px] ${i === stackIdx ? "bg-amber-500 font-semibold text-slate-950" : "bg-slate-800 text-slate-300 hover:bg-slate-700"}`}>
+                className={`rounded px-2 py-1 text-[11px] ${i === stackIdx ? "bg-[var(--accent)] font-semibold text-slate-950" : "bg-white/[0.06] text-slate-300 hover:bg-white/10"}`}>
                 {s.group_by === "channel" ? `${s.wavelength_mean.toFixed(2)} µm` : formatDate(s.time_start)}
               </button>
             ))}
-            <button type="button" className="rounded bg-slate-800 px-2 py-1 text-xs hover:bg-slate-700" onClick={() => setStackIdx((i) => Math.min((stacks.data?.length ?? 1) - 1, i + 1))}>▶</button>
+            <button type="button" className="btn h-7 px-2 text-xs" onClick={() => setStackIdx((i) => Math.min((stacks.data?.length ?? 1) - 1, i + 1))}>▶</button>
           </div>
         )}
         {stack?.warnings?.length ? <Note tone="warn">{stack.warnings.join(" ")}</Note> : null}
@@ -389,43 +398,49 @@ export default function ExplorePage() {
   };
 
   return (
-    <div className="grid min-h-screen grid-rows-[auto_1fr_auto] bg-slate-950 text-slate-100 lg:h-screen">
+    <div className={`grid grid-rows-[auto_1fr_auto] bg-slate-950 text-slate-100 ${embedded ? "h-full overflow-y-auto lg:overflow-hidden" : "min-h-screen lg:h-screen"}`}>
       {/* Top bar */}
-      <header className="flex flex-wrap items-center gap-3 border-b border-slate-800 bg-slate-900 px-3 pt-2 pb-4">
-        <Link to="/" className="flex items-center gap-2 pr-2" aria-label="SPHEREx Explorer home">
-          <img src="/favicon.svg" alt="" className="h-7 w-7" />
-          <span className="text-sm font-bold tracking-wide">SPHEREx <span className="text-amber-400">Explorer</span></span>
-        </Link>
+      <header className="flex flex-wrap items-center gap-3 border-b border-white/[0.06] bg-[#070a14]/80 px-4 py-2.5 backdrop-blur-xl">
+        {embedded ? (
+          <button type="button" onClick={onClose} className="btn h-8 px-3" title="Back to the 3D Atlas (Esc)">
+            <span aria-hidden>←</span> Atlas
+          </button>
+        ) : (
+          <Link to="/map" className="flex items-center gap-2 pr-2" aria-label="SPHEREx Atlas">
+            <img src="/favicon.svg" alt="" className="h-5 w-5" />
+          </Link>
+        )}
+        <span className="text-[13.5px] font-semibold tracking-tight">SPHEREx <span className="font-normal text-slate-400">Images</span></span>
         <Link to="/about" className="text-xs text-slate-400 hover:text-slate-200" title="What SPHEREx is, how to read the viewer, glossary">Help</Link>
-        <SearchBar initial={params} busy={loadingSeries} onSubmit={(p) => navigate(buildUrl(p, { mode }))} />
+        <SearchBar initial={params} busy={loadingSeries} onSubmit={openSearch} />
         {availability && (
-          <span className="rounded bg-emerald-900/50 px-2 py-0.5 text-[11px] text-emerald-200" role="status"
+          <span className="chip border-emerald-300/30 text-emerald-200" role="status"
             title={`${availability.n} SPHEREx frames in ${availability.visits} visits, ${formatDate(availability.first)} to ${formatDate(availability.last)} (${availability.releases})`}>
             {availability.n} observations · {availability.visits} visits · {formatDate(availability.first)} → {formatDate(availability.last)}
           </span>
         )}
         {grid && (
-          <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] text-slate-400">
+          <div className="flex flex-wrap items-center gap-3 text-[11.5px] text-slate-400">
             <span title="Field centre">{formatRaHms(grid.center_ra)} {formatDecDms(grid.center_dec)}</span>
             <span><Term k="fov">FOV</Term> {formatAngle(grid.fov_deg)}</span>
             <span title="Grid pixel scale and current zoom">{grid.pixel_scale_arcsec.toFixed(2)}″/px · {zoomText}</span>
-            <button type="button" onClick={() => setView(null)} className="rounded bg-slate-800 px-2 py-1 font-sans text-xs text-slate-200 hover:bg-slate-700" title="Reset zoom and pan (0)">Reset view</button>
-            <button type="button" onClick={copyLink} className="rounded bg-slate-800 px-2 py-1 font-sans text-xs text-slate-200 hover:bg-slate-700">{copied ? "Copied" : "Copy link"}</button>
+            <button type="button" onClick={() => setView(null)} className="btn h-7 px-2.5 text-xs" title="Reset zoom and pan (0)">Reset view</button>
+            <button type="button" onClick={copyLink} className="btn h-7 px-2.5 text-xs">{copied ? "Copied" : "Copy link"}</button>
           </div>
         )}
-        {api.usingMocks && <span className="rounded bg-fuchsia-700 px-2 py-0.5 text-[11px] font-semibold">MOCK DATA</span>}
+        {api.usingMocks && <span className="rounded-lg bg-fuchsia-700 px-2 py-0.5 text-[11px] font-semibold">MOCK DATA</span>}
       </header>
 
       <div className="grid min-h-0 grid-cols-1 md:grid-cols-[17rem_1fr] lg:grid-cols-[17rem_1fr_19rem]">
         {/* Left sidebar */}
-        <aside className="order-2 min-h-0 border-slate-800 bg-slate-900/60 md:order-none md:overflow-y-auto md:border-r" aria-label="Viewer controls">
+        <aside className="order-2 min-h-0 border-white/[0.06] bg-white/[0.02] md:order-none md:overflow-y-auto md:border-r" aria-label="Viewer controls">
           <ModePanel mode={mode} onMode={setMode} frameA={A} frameB={B} bIsAuto={!pinnedB && compareChannel === null}
             onSetBToCurrent={() => A && setPinnedB(A.observation_id)} onAutoB={() => { setPinnedB(null); setCompareChannel(null); }}
             blinkMs={blinkMs} onBlinkMs={setBlinkMs} compare={compareOpts} onCompare={setCompareOpts} stack={stackOpts} onStack={setStackOpts} />
           <ChannelSelector channels={channels} counts={channelCounts} value={filter} onChange={setFilter}
             compareChannel={compareChannel} onCompareChannel={setCompareChannel} showCompare={mode === "side-by-side" || mode === "blink"}
             nVisible={visible.length} nTotal={frames.length} />
-          <DisplayControls value={display} onChange={setDisplay} limits={limitsOf(A, planeA)} units={A?.units} diverging={isCmp} />
+          <DisplayControls value={display} onChange={setDisplay} limits={limitsOf(A, planeA)} units={A?.units} diverging={isCmp} showPlane={!isCmp} />
           <OverlayControls value={overlays} onChange={setOverlays} st={{
             hasTarget: frames.some((f) => f.predicted) || !!series.processed?.query?.target,
             gaia: overlays.gaia ? { count: gaia.data?.count ?? 0, loading: gaia.loading, error: gaia.error } : undefined,
@@ -449,7 +464,7 @@ export default function ExplorePage() {
         </main>
 
         {/* Right sidebar */}
-        <aside className="order-3 min-h-0 border-slate-800 bg-slate-900/60 md:col-span-2 md:border-t lg:col-span-1 lg:overflow-y-auto lg:border-t-0 lg:border-l" aria-label="Observation details">
+        <aside className="order-3 min-h-0 border-white/[0.06] bg-white/[0.02] md:col-span-2 md:border-t lg:col-span-1 lg:overflow-y-auto lg:border-t-0 lg:border-l" aria-label="Observation details">
           <ReadoutPanel r={hover} units={isCmp ? (cmp.show === "significance" ? "σ" : mode === "ratio" ? "" : "MJy/sr") : A?.units} />
           <ObservationPanel f={A} label={mode === "single" ? "Observation" : "Observation A"} />
           {(mode === "blink" || mode === "side-by-side" || isCmp) && <ObservationPanel f={B} label="Observation B" />}
@@ -473,13 +488,19 @@ export default function ExplorePage() {
   );
 }
 
-function Welcome({ error }: { error: string | null }) {
+function Welcome({ error, embedded }: { error: string | null; embedded?: boolean }) {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-3 p-8 text-center">
       {error && <Note tone="error">{error}</Note>}
       <p className="max-w-md text-sm text-slate-400">
-        Enter a target name or coordinates above, or open one of the challenge targets from the <Link className="text-amber-300 underline" to="/">home page</Link>.
+        Enter a target name or coordinates above{embedded ? ", or close this panel, pick a star in the Atlas and press “Open SPHEREx images”" : ""}.
+        The <Link className="text-amber-300 underline" to="/targets">challenge targets</Link> are good places to start.
       </p>
     </div>
   );
+}
+
+/** Display-limit group of a frame: its wavelength channel ("channel" mode) or its detector. */
+function limitGroup(f: Frame, mode: string): number {
+  return mode === "channel" && f.channel ? 1000 + f.channel.index : f.detector;
 }
