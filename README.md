@@ -14,7 +14,7 @@ Candidates are never presented as discoveries.
 
 ## Run it
 
-You need Python 3.11+ and, to build the viewer, Node.js 20+. No accounts or API keys are needed:
+You need Python 3.11+ and, to build the viewer, Node.js 20.19+ (or 22.12+; Vite 8 refuses older versions). No accounts or API keys are needed:
 every data service is public.
 
 ```bash

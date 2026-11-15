@@ -1,6 +1,6 @@
 """SPHEREx DR1+QR3 spectral survey of map objects -> frontend/public/galaxy/spherex_survey.json.
 
-Picks a set of nearby objects from the built map catalogue (``cache/galaxy/catalog.npz``):
+Picks a set of nearby objects from the built map catalogue (``data/galaxy/catalog.npz``):
 the challenge targets, brown dwarfs and planet-hosting M dwarfs within 25 pc, white dwarfs, and
 a sample of *uncharted* objects (no Gaia colour, no catalogue type). For each one it measures the
 spectrum from every SPHEREx image (``backend.galaxy.spectral.measure_spectrum``) and classifies it.
@@ -22,6 +22,7 @@ from pathlib import Path
 
 import numpy as np
 
+from backend.galaxy.catalog import load_catalog
 from backend.galaxy.classes import CLASS_ID, FLAGS
 from backend.galaxy.spectral import GAIA_REF_MJD, measure_spectrum
 
@@ -64,8 +65,7 @@ def main(argv: list[str]) -> None:
     ap.add_argument("--limit", type=int, default=40)
     ap.add_argument("--workers", type=int, default=1)
     a = ap.parse_args(argv)
-    with np.load(ROOT / "cache" / "galaxy" / "catalog.npz", allow_pickle=False) as z:
-        c = {k: z[k] for k in z.files}
+    c = load_catalog()
     targets = pick(c, a.limit)
     done = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {"releases": ["DR1", "QR3"], "objects": []}
     done["objects"] = [o for o in done["objects"] if o.get("status") != "error"]  # retry earlier failures

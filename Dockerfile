@@ -20,6 +20,8 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/ backend/
 COPY scripts/ scripts/
+# 3D Atlas object catalogue (the map's static files come with the viewer build)
+COPY data/ data/
 COPY --from=web /web/dist frontend/dist
 RUN useradd --create-home app && mkdir -p /data/cache && chown -R app /data
 USER app

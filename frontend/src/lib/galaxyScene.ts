@@ -11,6 +11,7 @@
  */
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { DAYS_PER_SECOND, type OrbitModel, ellipsePoints, jdNow, meanAnomaly, orbitFor, phaseSigma, positionAtM } from "./orbits";
 import { AU_PER_PC, FLAG, type ClassDef, type NamedObject, type PlanetSystem, type StarBuffers, fmtDist } from "./galaxyData";
 
 export interface Filters {
@@ -144,7 +145,13 @@ export class GalaxyScene {
   private sunBody: THREE.Mesh;
   private sunLabel: HTMLDivElement;
   private system: THREE.Group | null = null;
-  private systemPlanets: { mesh: THREE.Mesh; a: number; period: number; phase: number; label: HTMLDivElement; name: string }[] = [];
+  private systemPlanets: { mesh: THREE.Mesh; orbit: OrbitModel; arc: THREE.Line; label: HTMLDivElement; name: string }[] = [];
+  /** In-plane basis for the system view: x = line of nodes, y = towards the Sun (observer). */
+  private sysBasis = { x: new THREE.Vector3(1, 0, 0), y: new THREE.Vector3(0, 0, 1) };
+  /** Wall-clock start (ms) and Julian date of the orbit clock: simulated date = jd0 + elapsed s × DAYS_PER_SECOND. */
+  private simStart = { ms: 0, jd: 0 };
+  /** Planets listed by the archive but without a or P (not drawn). */
+  unplottedPlanets: string[] = [];
   private labelLayer: HTMLDivElement;
   private labelPool: HTMLDivElement[] = [];
   private ringLabels: HTMLDivElement[] = [];
@@ -152,7 +159,6 @@ export class GalaxyScene {
   private raf = 0;
   private lastLabel = 0;
   private clock = new THREE.Clock();
-  private simDays = 0;
   filters: Filters;
   selected = -1;
   /** Skip rendering (e.g. while the Explore pop-up covers the map). */
@@ -174,7 +180,7 @@ export class GalaxyScene {
     return { px, alpha };
   }
 
-  onFrame?: (info: { camDist: number; focusDistFromSun: number }) => void;
+  onFrame?: (info: { camDist: number; focusDistFromSun: number; orbitJd: number | null }) => void;
   onLabelClick?: (i: number) => void;
 
   constructor(private host: HTMLElement, private data: StarBuffers, private classes: ClassDef[], private named: NamedObject[], filters: Filters) {
@@ -401,27 +407,43 @@ export class GalaxyScene {
     const hz = new THREE.Mesh(new THREE.RingGeometry(hzIn, hzOut, 128), new THREE.MeshBasicMaterial({ color: 0x22c55e, transparent: true, opacity: 0.12, side: THREE.DoubleSide, depthWrite: false }));
     hz.rotation.x = -Math.PI / 2;
     grp.add(hz);
+    // Orbital plane orientation on the sky is unknown: draw it flat, with the transit point
+    // (the planet between its star and us) facing the Sun.
+    const toSun = this.toWorld(new THREE.Vector3()).sub(this.toWorld(this.galPos(i)));
+    toSun.y = 0;
+    if (toSun.lengthSq() < 1e-30) toSun.set(0, 0, 1);
+    toSun.normalize();
+    this.sysBasis = { y: toSun, x: new THREE.Vector3(toSun.z, 0, -toSun.x) };
+    const B = this.sysBasis;
+    const inPlane = (x: number, y: number) => B.x.clone().multiplyScalar(x * pc).addScaledVector(B.y, y * pc);
+    this.unplottedPlanets = [];
     sys.planets.forEach((p, k) => {
-      const a = (p.a_au ?? 0.05 * (k + 1)) * pc;
-      const e = Math.min(p.ecc ?? 0, 0.9);
-      const b = a * Math.sqrt(1 - e * e);
-      const pts = Array.from({ length: 181 }, (_, j) => { const t = (j / 180) * Math.PI * 2; return new THREE.Vector3(a * Math.cos(t) - a * e, 0, b * Math.sin(t)); });
-      grp.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.45 })));
+      const orbit = orbitFor(p, sys.st_mass, k);
+      if (!orbit) { this.unplottedPlanets.push(p.name); return; }
+      const known = orbit.phase !== "unknown";
+      grp.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(ellipsePoints(orbit).map(([x, y]) => inPlane(x, y))),
+        new THREE.LineBasicMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.45 })));
+      // ±1σ arc of the predicted position (updated every frame as the uncertainty grows).
+      const arc = new THREE.Line(new THREE.BufferGeometry().setFromPoints(Array.from({ length: 49 }, () => new THREE.Vector3())),
+        new THREE.LineBasicMaterial({ color: 0xfcd34d, transparent: true, opacity: 0.9 }));
+      arc.visible = false;
+      grp.add(arc);
       const pr = Math.max((p.radius_re ?? 2) * 4.26352e-5 * pc, starR * 0.02);
       const teq = p.teq_k ?? 400;
       const col = teq > 1000 ? 0xf97316 : teq > 400 ? 0xeab308 : teq > 200 ? 0x22d3ee : 0x93c5fd;
       const mesh = new THREE.Mesh(new THREE.SphereGeometry(pr, 16, 8), new THREE.MeshBasicMaterial({ color: col }));
-      const dot = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture("#ffffff"), color: col, depthWrite: false, sizeAttenuation: false, blending: THREE.AdditiveBlending }));
+      const dot = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture("#ffffff"), color: col, depthWrite: false, sizeAttenuation: false,
+        blending: THREE.AdditiveBlending, transparent: true, opacity: known ? 1 : 0.35 }));
       dot.scale.set(0.012, 0.012, 1);
       mesh.add(dot);
       grp.add(mesh);
       const label = document.createElement("div");
       label.className = "absolute font-mono text-[10px] text-sky-200 whitespace-nowrap";
-      label.textContent = p.name.replace(sys.host, "").trim() || p.name;
+      label.textContent = (p.name.replace(sys.host, "").trim() || p.name) + (known ? "" : " (position unknown)");
       this.labelLayer.appendChild(label);
-      this.systemPlanets.push({ mesh, a, period: p.period_d ?? 365 * Math.pow(p.a_au ?? 1, 1.5), phase: k * 2.1, label, name: p.name });
-      mesh.userData = { a, e, b };
+      this.systemPlanets.push({ mesh, orbit, arc, label, name: p.name });
     });
+    this.simStart = { ms: performance.now(), jd: jdNow() };
     this.system = grp;
     this.scene.add(grp);
     this.mat.uniforms.uHide.value = i; // the system's own star is drawn as a sphere at the origin
@@ -456,7 +478,7 @@ export class GalaxyScene {
 
   private loop = () => {
     this.raf = requestAnimationFrame(this.loop);
-    const dt = Math.min(this.clock.getDelta(), 0.1);
+    this.clock.getDelta();
     if (this.paused) return;
     const now = performance.now();
     if (this.anim) {
@@ -497,19 +519,34 @@ export class GalaxyScene {
       const rel = Math.log10(r / scale);
       mat.opacity = THREE.MathUtils.clamp(1 - Math.abs(rel + 0.1) / 1.1, 0, 1) * 0.35;
     }
+    let orbitJd: number | null = null;
     if (this.system) {
-      this.simDays += dt * 6; // 6 days per second
+      // One fixed rate for every system, tied to the wall clock (frame rate cannot change it).
+      orbitJd = this.simStart.jd + ((now - this.simStart.ms) / 1000) * DAYS_PER_SECOND;
+      const B = this.sysBasis, pc = 1 / AU_PER_PC;
+      const put = (v: THREE.Vector3, [x, y]: [number, number]) => v.copy(B.x).multiplyScalar(x * pc).addScaledVector(B.y, y * pc);
       for (const p of this.systemPlanets) {
-        const { a, e, b } = p.mesh.userData as { a: number; e: number; b: number };
-        const th = p.phase + (2 * Math.PI * this.simDays) / Math.max(p.period, 0.1);
-        p.mesh.position.set(a * Math.cos(th) - a * e, 0, b * Math.sin(th));
+        const M = meanAnomaly(p.orbit, orbitJd);
+        put(p.mesh.position, positionAtM(p.orbit, M));
+        const sig = phaseSigma(p.orbit, orbitJd);
+        p.arc.visible = Number.isFinite(sig) && sig > 0.002;
+        if (p.arc.visible) {
+          const span = Math.min(sig, Math.PI);
+          const attr = p.arc.geometry.getAttribute("position") as THREE.BufferAttribute;
+          const v = new THREE.Vector3();
+          for (let k = 0; k < attr.count; k++) {
+            put(v, positionAtM(p.orbit, M - span + (2 * span * k) / (attr.count - 1)));
+            attr.setXYZ(k, v.x, v.y, v.z);
+          }
+          attr.needsUpdate = true;
+        }
       }
       this.system.position.copy(this.toWorld(this.galPos(this.selected)));
       this.system.visible = camDist < 0.05;
     }
     this.renderer.render(this.scene, this.camera);
     if (now - this.lastLabel > 120) { this.lastLabel = now; this.updateLabels(camDist); }
-    this.onFrame?.({ camDist, focusDistFromSun: distFromSunToFocus });
+    this.onFrame?.({ camDist, focusDistFromSun: distFromSunToFocus, orbitJd: this.system?.visible ? orbitJd : null });
   };
 
   private project(v: THREE.Vector3): [number, number, boolean] {
@@ -543,7 +580,7 @@ export class GalaxyScene {
     // Planet labels.
     for (const p of this.systemPlanets) {
       const [x, y, ok] = this.project(p.mesh.getWorldPosition(new THREE.Vector3()));
-      const show = ok && !!this.system?.visible && camDist < p.a * 60;
+      const show = ok && !!this.system?.visible && camDist < (p.orbit.a / AU_PER_PC) * 60;
       p.label.style.display = show ? "block" : "none";
       p.label.style.transform = `translate(${x + 8}px, ${y - 6}px)`;
     }

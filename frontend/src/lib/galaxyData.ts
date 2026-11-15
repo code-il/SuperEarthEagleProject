@@ -24,7 +24,12 @@ export interface GalaxyMeta {
 export interface NamedObject { i: number; n: string; c: number; f: number; d: number; t: string; s: string; a?: string[] }
 
 export interface Planet { name: string; a_au: number | null; period_d: number | null; radius_re: number | null; mass_me: number | null;
-  teq_k: number | null; ecc: number | null; method: string; year: string }
+  teq_k: number | null; ecc: number | null; method: string; year: string;
+  /** 1σ (symmetrised) uncertainties from the archive. */
+  period_err?: number | null; a_err?: number | null; ecc_err?: number | null;
+  /** Transit midpoint / periastron time (BJD_TDB) and 1σ, argument of periastron, inclination. */
+  t_transit?: number | null; t_transit_err?: number | null; t_peri?: number | null; t_peri_err?: number | null;
+  omega_deg?: number | null; incl_deg?: number | null }
 export interface PlanetSystem { i: number; host: string; dist_pc: number; st_spectype: string; st_teff: number | null;
   st_rad: number | null; st_mass: number | null; planets: Planet[] }
 

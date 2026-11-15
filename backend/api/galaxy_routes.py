@@ -23,25 +23,26 @@ import numpy as np
 from fastapi import APIRouter, HTTPException
 
 from backend.data_acquisition.config import get_settings
+from backend.galaxy.catalog import CATALOG_PATH, load_catalog, public_galaxy_dir
 
 ROOT = Path(__file__).resolve().parents[2]
-PUBLIC = ROOT / "frontend" / "public" / "galaxy"
+PUBLIC = public_galaxy_dir()
 router = APIRouter(prefix="/api/galaxy", tags=["galaxy map"])
 _lock = threading.Lock()
 _object_locks: dict[int, threading.Lock] = {}
 
 
 def _catalog_path() -> Path:
-    return ROOT / "cache" / "galaxy" / "catalog.npz"
+    return CATALOG_PATH
 
 
 @lru_cache(maxsize=1)
 def _catalog() -> dict[str, np.ndarray]:
     p = _catalog_path()
     if not p.exists():
-        raise HTTPException(503, "The galaxy map catalogue is not built yet: run python -m scripts.build_galaxy_map")
-    with np.load(p, allow_pickle=False) as z:
-        return {k: z[k] for k in z.files}
+        raise HTTPException(503, "The galaxy map catalogue is missing (data/galaxy/catalog.npz): pull it from git "
+                                 "or run python -m scripts.build_galaxy_map")
+    return load_catalog(p)
 
 
 @lru_cache(maxsize=1)

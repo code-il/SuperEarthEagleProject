@@ -15,6 +15,7 @@ import { GalaxyScene, type Filters } from "../lib/galaxyScene";
 import { EXPLORE_KEYS } from "../lib/urlState";
 import { AtlasTour, type TourStep } from "../components/AtlasTour";
 import { SpherexSkyBox, sliceForClass, type SkyTarget } from "../components/SpherexSkyBox";
+import { jdNow, orbitFor, phaseNote } from "../lib/orbits";
 
 const ExplorePage = lazy(() => import("./ExplorePage"));
 
@@ -44,7 +45,7 @@ export default function MapPage() {
   const [data, setData] = useState<GalaxyData | null>(null);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const [hud, setHud] = useState({ camDist: 12, focus: 0 });
+  const [hud, setHud] = useState<{ camDist: number; focus: number; orbitJd: number | null }>({ camDist: 12, focus: 0, orbitJd: null });
   const [sel, setSel] = useState<number>(-1);
   const [zoomStar, setZoomStar] = useState<number>(-1);
   const wide = useWide();
@@ -86,9 +87,9 @@ export default function MapPage() {
     engine.current = e;
     if (import.meta.env.DEV) (window as unknown as { __atlas: GalaxyScene }).__atlas = e;
     let last = 0, lastNear = 0;
-    e.onFrame = ({ camDist, focusDistFromSun }) => {
+    e.onFrame = ({ camDist, focusDistFromSun, orbitJd }) => {
       const now = performance.now();
-      if (now - last > 200) { last = now; setHud({ camDist, focus: focusDistFromSun }); }
+      if (now - last > 200) { last = now; setHud({ camDist, focus: focusDistFromSun, orbitJd }); }
       // Zoomed in close: the sky box follows the star nearest the point you are looking at.
       if (now - lastNear > 500) {
         lastNear = now;
@@ -191,7 +192,7 @@ export default function MapPage() {
         body: <p>Search by name or alias (Sirius, Polaris, Proxima Centauri, TRAPPIST-1), or click the box for a list of famous neighbours.</p> },
       { title: "Inspect a star", target: "card", run: () => { const i = byName("TRAPPIST-1"); if (i >= 0) select(i, true); },
         body: <><p>The card shows the class and the evidence for it and Gaia's measurements. The SPHEREx box shows the sky around the star in SPHEREx's all-sky map; it also follows the star you are zoomed in on.</p>
-          <p>TRAPPIST-1, 12.5 pc away, has seven known planets. When you fly to a planet host, its system is drawn to scale, with the habitable zone in green.</p></> },
+          <p>TRAPPIST-1, 12.5 pc away, has seven known planets. When you fly to a planet host, its orbits are drawn to scale from the NASA Exoplanet Archive, with the estimated habitable zone in green. Planets move on Kepler orbits at one fixed rate, 1 day per second (Mercury would take 88 s), starting from today's predicted positions; the yellow arc is the ±1σ uncertainty of each position.</p></> },
       { title: "Reading a SPHEREx spectrum", target: "spectrum", run: () => { const i = byName("eps Ind B"); if (i >= 0) select(i, true); },
         body: <><p>SPHEREx sees 102 infrared colours, from 0.75 to 5 µm. This is ε Indi B, a pair of brown dwarfs 3.7 pc away. The dashed line is the best-fitting blackbody (about 1,900 K), and the dip in the shaded H₂O band is water vapour in their atmospheres.</p>
           <p>For any other object, press <b>Measure</b> to build its spectrum from every SPHEREx image of it. This takes 1–3 minutes the first time.</p></> },
@@ -280,6 +281,7 @@ export default function MapPage() {
             <div className={`absolute bottom-14 z-10 max-md:hidden ${sel >= 0 ? "right-[396px]" : "right-3"}`}>{skyBox}</div>
           )}
           <Hud camDist={hud.camDist} focus={hud.focus} uncharted={filters.uncharted} />
+          {hud.orbitJd != null && sel >= 0 && <OrbitLegend jd={hud.orbitJd} unplotted={engine.current?.unplottedPlanets ?? []} />}
         </>
       )}
       {tour !== null && !exploreOpen && <AtlasTour steps={tourSteps} step={tour} onStep={setTour} onClose={endTour} />}
@@ -376,7 +378,7 @@ function Hud({ camDist, focus, uncharted }: { camDist: number; focus: number; un
         <div className="tracking-[0.3em] text-teal-300">{zoneName(camDist)}</div>
         <div>VIEW SCALE {fmtDist(camDist)} · FOCUS {fmtDist(focus)} FROM SUN</div>
       </div>
-      {uncharted && <div className="rounded-md border border-fuchsia-400/40 bg-fuchsia-950/50 px-3 py-1.5 tracking-widest text-fuchsia-200">FRONTIER MODE · pink = unclassified or uncertain</div>}
+      {uncharted && <div className="rounded-md border border-fuchsia-400/40 bg-fuchsia-950/50 px-3 py-1.5 tracking-widest text-fuchsia-200">FRONTIER MODE · pink = unclassified or uncertain · the pulsing is a highlight, not variability</div>}
       <div data-tour="controls" className="rounded-md border border-teal-500/20 bg-slate-950/70 px-3 py-1.5 text-right backdrop-blur max-sm:hidden">
         drag rotate · right-drag pan · scroll zoom to cursor · click select · dbl-click fly · <b>H</b> home · <b>F</b> focus · <b>U</b> frontier
       </div>
@@ -724,22 +726,44 @@ function SpectrumView({ s, classes, mapClass }: { s: SpherexSpectrum; classes: {
 }
 
 function SystemView({ sys }: { sys: NonNullable<GalaxyData["systems"]>[number] }) {
+  const jd = jdNow();
+  const rows = sys.planets.map((p, k) => ({ p, o: orbitFor(p, sys.st_mass, k) }));
+  const pm = (v: number | null | undefined, e: number | null | undefined, d: number) =>
+    v == null ? "–" : e != null && e > 0 ? `${v.toFixed(d)}±${e < 10 ** -d ? e.toPrecision(1) : e.toFixed(d)}` : v.toFixed(d);
   return (
     <Section title={`Planetary system · ${sys.planets.length} planet${sys.planets.length > 1 ? "s" : ""}`}>
-      <p className="mb-1 text-slate-400">Zoom in (or press Fly) to see the orbits to scale. The green band is the estimated habitable zone.</p>
+      <p className="mb-1 text-slate-400">Zoom in (or press Fly) to see the orbits to scale. Elements from the NASA Exoplanet Archive; ± is 1σ. Values marked * are derived with Kepler's third law from the star's mass.</p>
       <table className="w-full font-mono text-[10px]">
-        <thead className="text-slate-500"><tr><th className="text-left">Planet</th><th className="text-right">a (AU)</th><th className="text-right">R⊕</th><th className="text-right">Teq</th><th className="text-right">Found</th></tr></thead>
-        <tbody>{sys.planets.map((p) => (
-          <tr key={p.name} className="border-t border-slate-800/70">
-            <td className="truncate py-0.5 text-slate-200">{p.name}</td>
-            <td className="text-right">{p.a_au != null ? p.a_au.toFixed(3) : "–"}</td>
+        <thead className="text-slate-500"><tr><th className="text-left">Planet</th><th className="text-right">P (d)</th><th className="text-right">a (AU)</th><th className="text-right">e</th><th className="text-right">R⊕</th></tr></thead>
+        <tbody>{rows.map(({ p, o }) => (
+          <tr key={p.name} className="border-t border-slate-800/70" title={o ? `Position today: ${phaseNote(o, jd)}` : "Not drawn: the archive has neither its period nor its orbit size"}>
+            <td className="truncate py-0.5 text-slate-200">{p.name}{!o && <span className="text-slate-500"> (not drawn)</span>}</td>
+            <td className="text-right">{o?.P_source === "kepler3" ? `${o.P.toFixed(2)}*` : pm(p.period_d, p.period_err, p.period_d != null && p.period_d < 10 ? 4 : 2)}</td>
+            <td className="text-right">{o?.a_source === "kepler3" ? `${o.a.toFixed(4)}*` : pm(p.a_au, p.a_err, 4)}</td>
+            <td className="text-right">{pm(p.ecc, p.ecc_err, 2)}</td>
             <td className="text-right">{p.radius_re != null ? p.radius_re.toFixed(1) : "–"}</td>
-            <td className="text-right">{p.teq_k != null ? `${Math.round(p.teq_k)}K` : "–"}</td>
-            <td className="text-right text-slate-500" title={p.method}>{p.year}</td>
           </tr>
         ))}</tbody>
       </table>
+      <ul className="mt-1.5 space-y-0.5 text-[10px] text-slate-500">
+        {rows.filter((r) => r.o).map(({ p, o }) => <li key={p.name}><span className="text-slate-300">{p.name.replace(sys.host, "").trim() || p.name}</span>: {phaseNote(o!, jd)}</li>)}
+      </ul>
     </Section>
+  );
+}
+
+/** What the orbit animation is, shown whenever a planetary system is on screen. */
+function OrbitLegend({ jd, unplotted }: { jd: number; unplotted: string[] }) {
+  const date = new Date((jd - 2440587.5) * 86400000).toISOString().slice(0, 10);
+  return (
+    <div className="pointer-events-none absolute left-1/2 top-16 z-10 w-[min(560px,calc(100%-24px))] -translate-x-1/2 rounded-md border border-sky-400/30 bg-slate-950/85 px-3 py-2 font-mono text-[10px] leading-relaxed text-slate-300 backdrop-blur">
+      <div className="flex justify-between gap-2 tracking-[0.2em] text-sky-300"><span>ORBIT PREDICTION · NOT AN OBSERVATION</span><span className="tracking-normal text-slate-200">{date}</span></div>
+      <div><b className="text-slate-100">Time:</b> 1 s = 1 day for every system (Mercury would take 88 s), starting today.</div>
+      <div><b className="text-slate-100">Motion:</b> two-body Kepler orbits from NASA Exoplanet Archive elements (P, a, e, ω); planet–planet gravity ignored.</div>
+      <div><b className="text-slate-100">Start:</b> positions predicted from each planet's transit or periastron time; <span className="text-amber-300">yellow arc = ±1σ</span>. Faint planets have no measured phase and are placed arbitrarily.</div>
+      <div><b className="text-slate-100">Not known, drawn for display:</b> orbit tilt on the sky (drawn flat, transit side towards the Sun) and planet dots (markers, not to scale). Orbit sizes and the star are to scale; green = estimated habitable zone.</div>
+      {unplotted.length > 0 && <div className="text-slate-500">Not drawn (no period or orbit size): {unplotted.join(", ")}</div>}
+    </div>
   );
 }
 

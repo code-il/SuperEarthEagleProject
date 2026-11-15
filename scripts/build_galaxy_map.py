@@ -17,7 +17,8 @@ Gaia star, and the held-out accuracy is written to the metadata.
 
 Outputs (``frontend/public/galaxy/``): ``stars.bin`` (render buffer), ``meta.json``,
 ``objects.json`` (named objects), ``systems.json`` (planetary systems); and
-``cache/galaxy/catalog.npz`` (full per-object columns for ``/api/galaxy/object/{i}``).
+``data/galaxy/catalog.npz`` (full per-object columns for ``/api/galaxy/object/{i}``). All of these are
+committed, so a fresh clone runs without rebuilding.
 
     python -m scripts.build_galaxy_map           # uses cached downloads
     python -m scripts.build_galaxy_map --refresh # downloads again
@@ -40,6 +41,7 @@ from astropy.coordinates import SkyCoord
 import astropy.units as u
 
 from backend.galaxy.classes import CLASS_ID, CLASSES, FLAGS, class_from_hr, class_from_simbad, simbad_flags
+from backend.galaxy.catalog import save_catalog
 from backend.galaxy.model import KNNClassifier, features, train_and_evaluate
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -162,11 +164,21 @@ def fetch_simbad_bright() -> list[dict[str, str]]:
 
 def fetch_exoplanets() -> list[dict[str, str]]:
     q = ("SELECT pl_name, hostname, gaia_dr3_id, ra, dec, sy_dist, sy_plx, pl_orbsmax, pl_orbper, pl_rade, pl_bmasse, "
-         "pl_eqt, pl_orbeccen, discoverymethod, disc_year, st_spectype, st_teff, st_rad, st_mass, sy_pnum "
+         "pl_eqt, pl_orbeccen, discoverymethod, disc_year, st_spectype, st_teff, st_rad, st_mass, sy_pnum, "
+         "pl_orbpererr1, pl_orbpererr2, pl_orbsmaxerr1, pl_orbsmaxerr2, pl_orbeccenerr1, pl_orbeccenerr2, "
+         "pl_tranmid, pl_tranmiderr1, pl_tranmiderr2, pl_orbtper, pl_orbtpererr1, pl_orbtpererr2, pl_orblper, "
+         "pl_orbincl, st_masserr1, st_masserr2 "
          "FROM pscomppars")
     r = requests.get(EXO_TAP, params={"query": q, "format": "csv"}, timeout=300, headers=UA)
     r.raise_for_status()
     return list(csv.DictReader(io.StringIO(r.text)))
+
+
+def serr(row: dict[str, str], base: str) -> float:
+    """Symmetric 1-sigma from an archive's ``<base>1`` (+) and ``<base>2`` (-) columns."""
+    e = [abs(f(row.get(base + "1"))), abs(f(row.get(base + "2")))]
+    e = [x for x in e if math.isfinite(x)]
+    return float(np.mean(e)) if e else float("nan")
 
 
 def f(v: str | None, default=np.nan) -> float:
@@ -366,7 +378,14 @@ def main(argv: list[str]) -> None:
                                    "st_rad": f(p["st_rad"]), "st_mass": f(p["st_mass"]), "planets": []})
         s["planets"].append({"name": p["pl_name"], "a_au": f(p["pl_orbsmax"]), "period_d": f(p["pl_orbper"]),
                              "radius_re": f(p["pl_rade"]), "mass_me": f(p["pl_bmasse"]), "teq_k": f(p["pl_eqt"]),
-                             "ecc": f(p["pl_orbeccen"]), "method": p["discoverymethod"], "year": p["disc_year"]})
+                             "ecc": f(p["pl_orbeccen"]), "method": p["discoverymethod"], "year": p["disc_year"],
+                             # uncertainties are symmetrised (mean of |+err| and |-err|)
+                             "period_err": serr(p, "pl_orbpererr"), "a_err": serr(p, "pl_orbsmaxerr"),
+                             "ecc_err": serr(p, "pl_orbeccenerr"),
+                             # epochs for the orbital phase (BJD, TDB): transit midpoint or periastron time
+                             "t_transit": f(p["pl_tranmid"]), "t_transit_err": serr(p, "pl_tranmiderr"),
+                             "t_peri": f(p["pl_orbtper"]), "t_peri_err": serr(p, "pl_orbtpererr"),
+                             "omega_deg": f(p["pl_orblper"]), "incl_deg": f(p["pl_orbincl"])})
     idx_of = {int(v): k for k, v in enumerate(cols["source_id"]) if v > 0}
     base = len(cols["source_id"])
     new_hosts: list[dict] = []
@@ -517,7 +536,7 @@ def main(argv: list[str]) -> None:
         },
     }
     (OUT / "meta.json").write_text(json.dumps(meta, indent=1), encoding="utf-8")
-    np.savez_compressed(RAW / "catalog.npz", source_id=source_id, ra=ra, dec=dec, plx=plx, pmra=pmra, pmdec=pmdec,
+    save_catalog(source_id=source_id, ra=ra, dec=dec, plx=plx, pmra=pmra, pmdec=pmdec,
                         rv=rv, gmag=gmag, bp_rp=bp_rp, teff=teff, ruwe=ruwe, name=name.astype(str),
                         otype=otype.astype(str), sptype=sptype.astype(str), cls=cls, src=src.astype(str),
                         flags=flags, prob=prob, dist=dist, vtan=vtan, xyz=xyz)

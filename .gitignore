@@ -13,6 +13,5 @@ logs/
 *.log
 .claude/
 
-# 3D Atlas data (rebuild with python -m scripts.build_galaxy_map); the SPHEREx survey results are kept
-frontend/public/galaxy/*
-!frontend/public/galaxy/spherex_survey.json
+# The 3D Atlas data is committed (frontend/public/galaxy/*, data/galaxy/catalog.npz) so a fresh clone
+# works without rebuilding; python -m scripts.build_galaxy_map regenerates it.
