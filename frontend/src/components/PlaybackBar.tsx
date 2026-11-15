@@ -58,7 +58,11 @@ export function PlaybackBar(p: PlaybackBarProps) {
   };
 
   return (
+<<<<<<< HEAD
     <section aria-label="Time-lapse playback" className="glass rounded-[20px] px-4 py-2.5">
+=======
+    <section aria-label="Time-lapse playback" className="rounded-md border border-white/[0.06] bg-slate-900/80 px-3 py-2">
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
       <div className="flex flex-wrap items-center gap-2">
         <Btn label="First frame" onClick={() => p.onIndex(0)} disabled={!n}>⏮</Btn>
         <Btn label="Previous frame (←)" onClick={() => p.onIndex(Math.max(0, index - 1))} disabled={!n || index === 0}>◀</Btn>

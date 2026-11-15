@@ -335,7 +335,11 @@ def _rank(conn: sqlite3.Connection, uid: int, day: str) -> tuple[int | None, int
 def community(conn: sqlite3.Connection, day: str) -> dict[str, Any]:
     votes = config.get(conn, "daily")["votes_wanted"]
     return {
+<<<<<<< HEAD
         "players_today": conn.execute("SELECT COUNT(*) FROM daily_runs WHERE day=? AND user_id NOT IN (SELECT id FROM users WHERE username LIKE 'demo\\_%' ESCAPE '\\')", (day,)).fetchone()[0],   # demo players excluded
+=======
+        "players_today": conn.execute("SELECT COUNT(*) FROM daily_runs WHERE day=?", (day,)).fetchone()[0],
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
         "coordinates_today": conn.execute("SELECT COUNT(DISTINCT investigation_id) FROM daily_items WHERE day=? AND anchor=0 AND status='answered' "
                                           "AND qc_status IN ('passed','passed_with_warnings')", (day,)).fetchone()[0],
         "sources_with_enough_votes": conn.execute("SELECT COUNT(*) FROM investigations WHERE category='classification' AND training=0 AND n_submissions>=?",
@@ -420,11 +424,18 @@ def leaderboard(conn: sqlite3.Connection, day: str | None = None, room: str | No
     rows = conn.execute(q, args).fetchall()
     entries = [{"rank": k, "user_id": r["user_id"], "name": r["display_name"] or r["username"], "score": r["score"],
                 "max_score": r["max_score"], "surveyed": r["surveyed"], "tiles": tiles(conn, r["user_id"], day),
+<<<<<<< HEAD
                 "finished_at": r["finished_at"], "me": r["user_id"] == uid, "demo": r["username"].lower().startswith("demo_")}
                for k, r in enumerate(rows, 1)]
     me = next((e for e in entries if e["me"]), None)
     return {"day": day, "number": puzzle_number(conn, day), "room": room, "room_name": name, "order": order,
             "total": len(entries), "entries": entries[:limit], "me": me, "includes_demo": any(e["demo"] for e in entries)}
+=======
+                "finished_at": r["finished_at"], "me": r["user_id"] == uid} for k, r in enumerate(rows, 1)]
+    me = next((e for e in entries if e["me"]), None)
+    return {"day": day, "number": puzzle_number(conn, day), "room": room, "room_name": name, "order": order,
+            "total": len(entries), "entries": entries[:limit], "me": me}
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 
 
 def create_room(conn: sqlite3.Connection, uid: int, name: str) -> dict[str, Any]:

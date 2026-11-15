@@ -47,6 +47,7 @@ export const SOURCE_LABEL: Record<ClassSource, string> = {
 
 export interface GalaxyData { meta: GalaxyMeta; stars: StarBuffers; objects: NamedObject[]; systems: PlanetSystem[] }
 
+<<<<<<< HEAD
 let cache: Promise<GalaxyData> | null = null;
 
 /** The Atlas data, fetched once per page load and shared (the home-page preview and the Atlas page). */
@@ -59,6 +60,9 @@ export function loadGalaxy(onProgress?: (frac: number) => void): Promise<GalaxyD
 }
 
 async function fetchGalaxy(onProgress?: (frac: number) => void): Promise<GalaxyData> {
+=======
+export async function loadGalaxy(onProgress?: (frac: number) => void): Promise<GalaxyData> {
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
   const [meta, objects, systems] = await Promise.all([
     fetch("/galaxy/meta.json").then(ok).then((r) => r.json() as Promise<GalaxyMeta>),
     fetch("/galaxy/objects.json").then(ok).then((r) => r.json() as Promise<NamedObject[]>),

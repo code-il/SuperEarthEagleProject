@@ -23,7 +23,11 @@ function Shell() {
           <span className="text-[13.5px] font-semibold tracking-tight">SPHEREx <span className="font-normal text-slate-400">Citizen Science</span></span>
         </Link>
         <nav className="ml-auto flex items-center gap-0.5" aria-label="Site">
+<<<<<<< HEAD
           <Link to="/map" className="btn btn-ghost h-8 px-2.5 max-sm:hidden">3D Atlas</Link>
+=======
+          <Link to="/" className="btn btn-ghost h-8 px-2.5 max-sm:hidden">3D Atlas</Link>
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
           <Link to="/explore" className="btn btn-ghost h-8 px-2.5 max-sm:hidden">Images</Link>
           {me ? (
             <>

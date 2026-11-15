@@ -71,8 +71,13 @@ export function InvestigationPage() {
 
   if (err) return <Empty>{err}</Empty>;
   if (!inv) return <Empty>Loading the investigation and its SPHEREx observations…</Empty>;
+<<<<<<< HEAD
   const exploreUrl = `/map?view=explore&ra=${inv.ra.toFixed(5)}&dec=${inv.dec.toFixed(5)}&fov=0.05&det=${inv.category === "spectral" ? 6 : 3}`;
   const atlasUrl = inv.data.atlas_index != null ? `/map?o=${inv.data.atlas_index}` : "/map";
+=======
+  const exploreUrl = `/?view=explore&ra=${inv.ra.toFixed(5)}&dec=${inv.dec.toFixed(5)}&fov=0.05&det=${inv.category === "spectral" ? 6 : 3}`;
+  const atlasUrl = inv.data.atlas_index != null ? `/?o=${inv.data.atlas_index}` : "/";
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 
   const submit = async (payload: Record<string, unknown>) => {
     const r = await post<SubmitResult>(`/investigations/${inv.id}/submit`, payload);

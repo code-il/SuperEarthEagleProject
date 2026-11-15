@@ -194,7 +194,11 @@ export class GalaxyScene {
     this.filters = filters;
     this.renderer = new THREE.WebGLRenderer({ antialias: true, logarithmicDepthBuffer: true, powerPreference: "high-performance" });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+<<<<<<< HEAD
     this.renderer.setClearColor(0x000000, 1);
+=======
+    this.renderer.setClearColor(0x01030a, 1);
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
     host.appendChild(this.renderer.domElement);
     this.renderer.domElement.style.display = "block";
 
@@ -242,7 +246,11 @@ export class GalaxyScene {
     // Distance rings + longitude spokes in the Galactic plane, centred on the Sun.
     for (const r of RINGS) {
       const pts = Array.from({ length: 257 }, (_, k) => { const a = (k / 256) * Math.PI * 2; return g2w(r * Math.cos(a), r * Math.sin(a), 0); });
+<<<<<<< HEAD
       const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x93c5fd, transparent: true, opacity: 0.25, depthWrite: false }));
+=======
+      const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x2dd4bf, transparent: true, opacity: 0.25, depthWrite: false }));
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
       line.userData.r = r;
       this.ringGroup.add(line);
       const lab = document.createElement("div");
@@ -254,7 +262,11 @@ export class GalaxyScene {
     for (let k = 0; k < 12; k++) {
       const a = (k / 12) * Math.PI * 2;
       const pts = [g2w(Math.cos(a) * 0.5, Math.sin(a) * 0.5, 0), g2w(Math.cos(a) * 16000, Math.sin(a) * 16000, 0)];
+<<<<<<< HEAD
       const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x93c5fd, transparent: true, opacity: k % 3 === 0 ? 0.22 : 0.08, depthWrite: false }));
+=======
+      const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x2dd4bf, transparent: true, opacity: k % 3 === 0 ? 0.22 : 0.08, depthWrite: false }));
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
       line.userData.spoke = true;
       this.ringGroup.add(line);
     }

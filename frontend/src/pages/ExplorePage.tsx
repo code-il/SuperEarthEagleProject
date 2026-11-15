@@ -1,5 +1,9 @@
 /**
+<<<<<<< HEAD
  * The SPHEREx time-series viewer. It opens as a pop-up over the 3D Atlas (``/map?view=explore&ra=…``);
+=======
+ * The SPHEREx time-series viewer. It opens as a pop-up over the 3D Atlas (``/?view=explore&ra=…``);
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
  * ``/explore?…`` links redirect there. ``embedded`` + ``onClose`` are set by the Atlas.
  *
  *  ┌──────────────── top bar: search, FOV, detectors ────────────────┐
@@ -34,7 +38,10 @@ import { ObservationPanel, QualityPanel, ReadoutPanel, TargetPanel } from "../co
 import { AladinContext } from "../components/AladinContext";
 import { PlotsPanel } from "../components/PlotsPanel";
 import { Note, Term } from "../components/ui";
+<<<<<<< HEAD
 import { useGlassSpecular } from "../lib/useGlassSpecular";
+=======
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 
 const DEFAULT_OVERLAYS: OverlaySettings = { target: true, gaia: false, catwise: false, sources: true, labels: true, compass: true, maxMag: 18 };
 
@@ -44,7 +51,10 @@ function caption(f?: Frame): string | undefined {
 }
 
 export default function ExplorePage({ embedded = false, onClose }: { embedded?: boolean; onClose?: () => void } = {}) {
+<<<<<<< HEAD
   useGlassSpecular();
+=======
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
   const [sp, setSp] = useSearchParams();
   const navigate = useNavigate();
   const openSearch = (p: ExploreParams) => {
@@ -400,6 +410,7 @@ export default function ExplorePage({ embedded = false, onClose }: { embedded?: 
   };
 
   return (
+<<<<<<< HEAD
     <div className={`cosmic grid grid-rows-[auto_1fr_auto] bg-black text-slate-100 ${embedded ? "h-full overflow-y-auto lg:overflow-hidden" : "min-h-screen lg:h-screen"}`}>
       {/* Top bar */}
       <header className="p-2 pb-0 md:p-3 md:pb-0">
@@ -415,6 +426,22 @@ export default function ExplorePage({ embedded = false, onClose }: { embedded?: 
         )}
         <span className="text-sm font-medium tracking-tight">SPHEREx <span className="text-neutral-400">Explore</span></span>
         <Link to="/about" className="rounded-full px-2.5 py-1.5 text-sm text-neutral-400 transition-colors hover:text-white" title="What SPHEREx is, how to read the viewer, glossary">Help</Link>
+=======
+    <div className={`grid grid-rows-[auto_1fr_auto] bg-slate-950 text-slate-100 ${embedded ? "h-full overflow-y-auto lg:overflow-hidden" : "min-h-screen lg:h-screen"}`}>
+      {/* Top bar */}
+      <header className="flex flex-wrap items-center gap-3 border-b border-white/[0.06] bg-[#070a14]/80 px-4 py-2.5 backdrop-blur-xl">
+        {embedded ? (
+          <button type="button" onClick={onClose} className="btn h-8 px-3" title="Back to the 3D Atlas (Esc)">
+            <span aria-hidden>←</span> Atlas
+          </button>
+        ) : (
+          <Link to="/" className="flex items-center gap-2 pr-2" aria-label="SPHEREx Atlas">
+            <img src="/favicon.svg" alt="" className="h-5 w-5" />
+          </Link>
+        )}
+        <span className="text-[13.5px] font-semibold tracking-tight">SPHEREx <span className="font-normal text-slate-400">Images</span></span>
+        <Link to="/about" className="text-xs text-slate-400 hover:text-slate-200" title="What SPHEREx is, how to read the viewer, glossary">Help</Link>
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
         <SearchBar initial={params} busy={loadingSeries} onSubmit={openSearch} />
         {availability && (
           <span className="chip border-emerald-300/30 text-emerald-200" role="status"
@@ -427,17 +454,29 @@ export default function ExplorePage({ embedded = false, onClose }: { embedded?: 
             <span title="Field centre">{formatRaHms(grid.center_ra)} {formatDecDms(grid.center_dec)}</span>
             <span><Term k="fov">FOV</Term> {formatAngle(grid.fov_deg)}</span>
             <span title="Grid pixel scale and current zoom">{grid.pixel_scale_arcsec.toFixed(2)}″/px · {zoomText}</span>
+<<<<<<< HEAD
             <button type="button" onClick={() => setView(null)} className="btn h-8 px-3 text-xs" title="Reset zoom and pan (0)">Reset view</button>
             <button type="button" onClick={copyLink} className="btn h-8 px-3 text-xs">{copied ? "Copied" : "Copy link"}</button>
           </div>
         )}
         {api.usingMocks && <span className="rounded-full bg-fuchsia-700 px-2 py-0.5 text-[11px] font-semibold">MOCK DATA</span>}
       </div>
+=======
+            <button type="button" onClick={() => setView(null)} className="btn h-7 px-2.5 text-xs" title="Reset zoom and pan (0)">Reset view</button>
+            <button type="button" onClick={copyLink} className="btn h-7 px-2.5 text-xs">{copied ? "Copied" : "Copy link"}</button>
+          </div>
+        )}
+        {api.usingMocks && <span className="rounded-lg bg-fuchsia-700 px-2 py-0.5 text-[11px] font-semibold">MOCK DATA</span>}
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
       </header>
 
       <div className="grid min-h-0 grid-cols-1 md:grid-cols-[17rem_1fr] lg:grid-cols-[17rem_1fr_19rem]">
         {/* Left sidebar */}
+<<<<<<< HEAD
         <aside className="glass order-2 m-2 min-h-0 rounded-[22px] md:order-none md:mr-0 md:overflow-y-auto md:m-3" aria-label="Viewer controls">
+=======
+        <aside className="order-2 min-h-0 border-white/[0.06] bg-white/[0.02] md:order-none md:overflow-y-auto md:border-r" aria-label="Viewer controls">
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
           <ModePanel mode={mode} onMode={setMode} frameA={A} frameB={B} bIsAuto={!pinnedB && compareChannel === null}
             onSetBToCurrent={() => A && setPinnedB(A.observation_id)} onAutoB={() => { setPinnedB(null); setCompareChannel(null); }}
             blinkMs={blinkMs} onBlinkMs={setBlinkMs} compare={compareOpts} onCompare={setCompareOpts} stack={stackOpts} onStack={setStackOpts} />
@@ -457,7 +496,11 @@ export default function ExplorePage({ embedded = false, onClose }: { embedded?: 
         </aside>
 
         {/* Centre */}
+<<<<<<< HEAD
         <main className="order-1 flex min-h-[70vh] min-w-0 flex-col gap-2 p-2 md:order-none md:p-3 lg:min-h-0">
+=======
+        <main className="order-1 flex min-h-[70vh] min-w-0 flex-col gap-2 p-2 md:order-none lg:min-h-0">
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
           <div className="min-h-[50vh] flex-1 lg:min-h-0">{viewer}</div>
           {frames.length > 0 && mode !== "stacked" && (
             <PlaybackBar frames={visible} index={Math.max(0, vIndex)} onIndex={goto} playing={playing} onPlaying={setPlaying}
@@ -468,7 +511,11 @@ export default function ExplorePage({ embedded = false, onClose }: { embedded?: 
         </main>
 
         {/* Right sidebar */}
+<<<<<<< HEAD
         <aside className="glass order-3 m-2 min-h-0 rounded-[22px] md:col-span-2 md:m-3 lg:col-span-1 lg:ml-0 lg:overflow-y-auto" aria-label="Observation details">
+=======
+        <aside className="order-3 min-h-0 border-white/[0.06] bg-white/[0.02] md:col-span-2 md:border-t lg:col-span-1 lg:overflow-y-auto lg:border-t-0 lg:border-l" aria-label="Observation details">
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
           <ReadoutPanel r={hover} units={isCmp ? (cmp.show === "significance" ? "σ" : mode === "ratio" ? "" : "MJy/sr") : A?.units} />
           <ObservationPanel f={A} label={mode === "single" ? "Observation" : "Observation A"} />
           {(mode === "blink" || mode === "side-by-side" || isCmp) && <ObservationPanel f={B} label="Observation B" />}
@@ -496,11 +543,17 @@ function Welcome({ error, embedded }: { error: string | null; embedded?: boolean
   return (
     <div className="flex h-full flex-col items-center justify-center gap-3 p-8 text-center">
       {error && <Note tone="error">{error}</Note>}
+<<<<<<< HEAD
       <p className="font-mono text-xs text-neutral-500">SPHEREx — every image of one spot, in time order</p>
       <h2 className="font-hand text-5xl text-white">Pick a spot in the sky</h2>
       <p className="max-w-md text-sm text-slate-400">
         Enter a target name or coordinates above{embedded ? ", or close this panel, pick a star in the Atlas and press “Open SPHEREx images”" : ""}.
         Try a famous nearby star such as Barnard's Star or WISE 0855.
+=======
+      <p className="max-w-md text-sm text-slate-400">
+        Enter a target name or coordinates above{embedded ? ", or close this panel, pick a star in the Atlas and press “Open SPHEREx images”" : ""}.
+        The <Link className="text-amber-300 underline" to="/targets">challenge targets</Link> are good places to start.
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
       </p>
     </div>
   );

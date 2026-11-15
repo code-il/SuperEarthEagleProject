@@ -5,7 +5,10 @@
  */
 import { useCallback, useEffect, useState } from "react";
 import { gfetch, post, statusLabel, statusTone, useGame, type Obs } from "../../lib/game";
+<<<<<<< HEAD
 import { DemoTag } from "./BoardsPages";
+=======
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 import { CLASSES, ObsPicker } from "./InvestigatePage";
 import { Card, Empty, NeedSignIn, PageTitle, Stat } from "./ScienceLayout";
 
@@ -24,8 +27,13 @@ interface DailyView {
   day: string; number: number; community: Community; run: Run | null; streak?: number;
   reliability?: { anchors_answered: number; exact: number; near: number; score: number };
 }
+<<<<<<< HEAD
 interface BoardEntry { rank: number; user_id: number; name: string; score: number; max_score: number; surveyed: number; tiles: string; me: boolean; demo?: boolean }
 interface Board { total: number; entries: BoardEntry[]; me: BoardEntry | null; room_name: string | null; includes_demo?: boolean }
+=======
+interface BoardEntry { rank: number; user_id: number; name: string; score: number; max_score: number; surveyed: number; tiles: string; me: boolean }
+interface Board { total: number; entries: BoardEntry[]; me: BoardEntry | null; room_name: string | null }
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 interface Room { code: string; name: string; members: number; owner: boolean }
 interface AnswerResult { accepted: boolean; qc_status: string; missing?: string[]; errors?: string[]; warnings?: string[]; finished?: boolean }
 
@@ -152,7 +160,11 @@ function TargetPanel({ item, busy, onAnswer, onSkip }: {
   useEffect(() => { fetchItem(); }, [item.slot]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const t = it ?? item;
+<<<<<<< HEAD
   const exploreUrl = `/map?view=explore&ra=${t.ra.toFixed(5)}&dec=${t.dec.toFixed(5)}&fov=0.05&det=3`;
+=======
+  const exploreUrl = `/?view=explore&ra=${t.ra.toFixed(5)}&dec=${t.dec.toFixed(5)}&fov=0.05&det=3`;
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
   const submit = async () => {
     setSending(true); setRes(null);
     try {
@@ -272,7 +284,11 @@ function BoardCard({ signedIn }: { signedIn: boolean }) {
           {b.entries.slice(0, 15).map((e) => (
             <li key={e.user_id} className={`flex items-center gap-2 rounded-lg px-2 py-1 ${e.me ? "bg-sky-400/10" : ""}`}>
               <span className="num w-6 text-slate-500">{e.rank}</span>
+<<<<<<< HEAD
               <span className="min-w-0 flex-1 truncate text-slate-200">{e.name}{e.demo && <DemoTag />}</span>
+=======
+              <span className="min-w-0 flex-1 truncate text-slate-200">{e.name}</span>
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
               <span className="tracking-tighter">{e.tiles}</span>
               <span className="num w-10 text-right text-slate-300">{order === "score" ? `${e.score}/${e.max_score}` : e.surveyed}</span>
             </li>
@@ -280,7 +296,11 @@ function BoardCard({ signedIn }: { signedIn: boolean }) {
           {b.me && b.me.rank > 15 && <li className="flex gap-2 rounded-lg bg-sky-400/10 px-2 py-1"><span className="num w-6 text-slate-500">{b.me.rank}</span><span className="flex-1 text-slate-200">You</span><span className="num">{order === "score" ? b.me.score : b.me.surveyed}</span></li>}
         </ol>
       )}
+<<<<<<< HEAD
       {b && <p className="mt-2 text-[11px] text-slate-500">{b.total} finished · ties broken by sky surveyed, then finish time{b.includes_demo && " · rows marked demo are sample players"}</p>}
+=======
+      {b && <p className="mt-2 text-[11px] text-slate-500">{b.total} finished · ties broken by sky surveyed, then finish time</p>}
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
     </Card>
   );
 }

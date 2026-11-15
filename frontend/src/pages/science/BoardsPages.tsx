@@ -4,7 +4,11 @@ import { Link, useSearchParams } from "react-router-dom";
 import { CATEGORY_LABEL, fmtPts, gfetch, useGame, type Category } from "../../lib/game";
 import { Card, Empty, Kind, PageTitle, Stat } from "./ScienceLayout";
 
+<<<<<<< HEAD
 interface Entry { rank: number; user_id: number; name: string; points: number; valid_contributions: number; reviews: number; streak: number; level: number; rank_change: number | null; demo?: boolean }
+=======
+interface Entry { rank: number; user_id: number; name: string; points: number; valid_contributions: number; reviews: number; streak: number; level: number; rank_change: number | null }
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 interface Board { entries: Entry[]; me: Entry | null; nearby: Entry[] | null; total_ranked: number; updated_at: string; note: string }
 interface VEntry { rank: number; user_id: number; name: string; validated_contributions: number; outcomes: string[]; organisations: string[]; last_reviewed: string }
 interface VBoard { entries: VEntry[]; note: string; simulated: boolean }
@@ -56,9 +60,12 @@ function GlobalBoard() {
   );
 }
 
+<<<<<<< HEAD
 /** Sample players seeded for a demonstration (scripts.start --demo); never real work. */
 export const DemoTag = () => <span className="chip ml-2 border-fuchsia-300/30 py-0 text-[10px] text-fuchsia-200" title="Sample player seeded for a demonstration, not a real investigator">demo</span>;
 
+=======
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 function Table({ rows, me }: { rows: Entry[]; me?: number }) {
   return (
     <div className="overflow-x-auto">
@@ -68,7 +75,11 @@ function Table({ rows, me }: { rows: Entry[]; me?: number }) {
           {rows.map((r) => (
             <tr key={r.user_id} className={`border-t border-white/[0.05] ${r.user_id === me ? "bg-sky-300/[0.06]" : ""}`}>
               <td className="num py-2 pr-3 text-slate-400">{r.rank}{r.rank_change ? <span className={`ml-1 text-[10px] ${r.rank_change > 0 ? "text-emerald-300" : "text-red-300"}`}>{r.rank_change > 0 ? `↑${r.rank_change}` : `↓${-r.rank_change}`}</span> : null}</td>
+<<<<<<< HEAD
               <td className="py-2 pr-3"><Link to={`/science/players/${r.user_id}`} className="text-slate-100 hover:text-white">{r.name}</Link>{r.user_id === me && <span className="ml-2 text-[11px] text-sky-200">you</span>}{r.demo && <DemoTag />}</td>
+=======
+              <td className="py-2 pr-3"><Link to={`/science/players/${r.user_id}`} className="text-slate-100 hover:text-white">{r.name}</Link>{r.user_id === me && <span className="ml-2 text-[11px] text-sky-200">you</span>}</td>
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
               <td className="num py-2 pr-3 text-right text-white">{fmtPts(r.points)}</td>
               <td className="num py-2 pr-3 text-right text-slate-300">{r.valid_contributions}</td>
               <td className="num py-2 pr-3 text-right text-slate-300">{r.reviews}</td>

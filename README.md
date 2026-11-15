@@ -36,10 +36,13 @@ API at **http://localhost:8000** (API docs at `/docs`). Other modes:
 
 - `python -m scripts.start --dev`: hot reload; the viewer runs on :5173 and the API on :8000.
 - `python -m scripts.start --check`: verifies the installation.
+<<<<<<< HEAD
 - `python -m scripts.start --demo`: also fills the leaderboards with sample players (usernames
   `demo_…`, tagged **demo** on every board) so a demonstration looks alive. They have leaderboard
   points, streaks and Daily Survey runs only: no contributions, so no science output or community
   total includes them. Remove them with `python -m scripts.seed_demo --clear`.
+=======
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 
 Settings are read from `.env`; see [`.env.example`](.env.example). For Docker, run
 `docker compose up --build`.
@@ -48,6 +51,7 @@ Settings are read from `.env`; see [`.env.example`](.env.example). For Docker, r
 exact environment used for validation. The viewer's versions are locked in
 `frontend/package-lock.json`.
 
+<<<<<<< HEAD
 ## Home page (`/`) and design
 
 The home page (hero, search, the CosmIO game card) sets the look of the site: pure black, clear
@@ -59,6 +63,9 @@ The game card shows a live, compact 3D Atlas (`components/AtlasPreview.tsx`): it
 catalogue only when scrolled into view, pauses off-screen, and shares the download with `/map`.
 
 ## 3D Atlas (`/map`)
+=======
+## 3D Atlas (the front page, `/`)
+>>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 
 A zoomable 3D map of the real stellar neighbourhood, from a planetary system (AU) out to the whole
 Milky Way (kpc), one continuous camera. Every point sits at its measured Gaia DR3 distance.
