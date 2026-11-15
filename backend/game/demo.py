@@ -1,7 +1,7 @@
 """Demo players, so the leaderboards look alive in a demonstration.
 
-Opt-in only: ``python -m scripts.start --demo`` (or ``SPHEREX_GAME_DEMO=1``), or
-``python -m scripts.seed_demo``. Every demo account's username starts with ``demo_`` and the
+On by default so the citizen-science pages are never empty in a demonstration; turn it off with
+``SPHEREX_GAME_DEMO=0``. Every demo account's username starts with ``demo_`` and the
 boards mark those rows as *demo*. Remove them all with ``python -m scripts.seed_demo --clear``.
 
 What is seeded, and what is not:
@@ -43,7 +43,7 @@ def is_demo(username: str | None) -> bool:
 
 def enabled() -> bool:
     import os
-    return os.environ.get("SPHEREX_GAME_DEMO", "").strip().lower() in ("1", "true", "yes")
+    return os.environ.get("SPHEREX_GAME_DEMO", "1").strip().lower() not in ("0", "false", "no", "off")
 
 
 def _uid(conn: sqlite3.Connection, suffix: str, name: str) -> int:

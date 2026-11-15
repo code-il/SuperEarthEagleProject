@@ -1,7 +1,12 @@
 /** Shell of the citizen-science section: glass sidebar, player summary, provenance legend and disclaimer. */
-import type { ReactNode } from "react";
+import { Suspense, lazy, type ReactNode } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavBar } from "../../components/NavBar";
 import { GameProvider, fmtPts, useGame } from "../../lib/game";
+import { useGlassSpecular } from "../../lib/useGlassSpecular";
+
+// Same star-field backdrop as the home page, loaded after first paint.
+const Starfield = lazy(() => import("../../components/Starfield"));
 
 const NAV: [string, string, boolean?][] = [
   ["/science", "Explore"], ["/science/daily", "Daily Survey"], ["/science/investigate", "Investigate"], ["/science/review", "Review"], ["/science/leaderboard", "Leaderboard"],
@@ -15,31 +20,24 @@ export default function ScienceLayout() {
 function Shell() {
   const { me, logout } = useGame();
   const loc = useLocation();
+  useGlassSpecular();
   return (
-    <div className="min-h-full bg-[radial-gradient(1200px_600px_at_10%_-10%,rgba(56,168,220,0.12),transparent),radial-gradient(900px_500px_at_110%_10%,rgba(147,112,219,0.08),transparent)] text-slate-200">
-      <header className="glass sticky top-4 z-30 mx-4 mt-4 flex h-12 items-center gap-2 rounded-2xl pl-3 pr-1.5 lg:mx-6">
-        <Link to="/" className="flex items-center gap-2 pr-1">
-          <img src="/favicon.svg" alt="" className="h-5 w-5" />
-          <span className="text-[13.5px] font-semibold tracking-tight">SPHEREx <span className="font-normal text-slate-400">Citizen Science</span></span>
-        </Link>
-        <nav className="ml-auto flex items-center gap-0.5" aria-label="Site">
-          <Link to="/map" className="btn btn-ghost h-8 px-2.5 max-sm:hidden">3D Atlas</Link>
-          <Link to="/explore" className="btn btn-ghost h-8 px-2.5 max-sm:hidden">Images</Link>
-          {me ? (
-            <>
-              <Link to="/science/profile" className="btn h-8 px-2.5">
-                <span className="max-sm:hidden">{me.display_name || me.username}</span>
-                <span className="num text-slate-400">Lv {me.level.level}</span>
-              </Link>
-              <button onClick={logout} className="btn btn-ghost h-8 px-2.5">Sign out</button>
-            </>
-          ) : <Link to={`/science/login?next=${encodeURIComponent(loc.pathname)}`} className="btn btn-primary h-8 px-3">Sign in</Link>}
-        </nav>
-      </header>
+    <div className="home relative min-h-screen overflow-x-clip text-neutral-200 antialiased">
+      <div className="fixed inset-0 -z-10 bg-black" aria-hidden />
+      <Suspense fallback={null}><Starfield /></Suspense>
+      <NavBar />
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-6 lg:grid-cols-[220px_1fr] lg:px-6">
+      <div className="relative z-10 grid w-full grid-cols-1 gap-6 px-4 pb-6 pt-8 sm:px-6 lg:grid-cols-[230px_1fr] lg:px-10 2xl:px-16">
         <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
-          <nav className="glass flex gap-1 overflow-x-auto rounded-2xl p-1.5 lg:flex-col" aria-label="Citizen science">
+          <div className="glass flex items-center gap-2 rounded-[20px] p-3">
+            <div className="min-w-0 flex-1">
+              <div className="font-mono text-[11px] text-neutral-500">Citizen science</div>
+              <div className="truncate text-sm font-medium text-white">{me ? (me.display_name || me.username) : "Not signed in"}</div>
+            </div>
+            {me ? <button onClick={logout} className="glass glass-hover glass-pill px-3 py-1.5 text-xs text-neutral-200">Sign out</button>
+              : <Link to={`/science/login?next=${encodeURIComponent(loc.pathname)}`} className="btn-primary px-3.5 py-1.5 text-xs">Sign in</Link>}
+          </div>
+          <nav className="glass flex gap-1 overflow-x-auto rounded-[20px] p-1.5 lg:flex-col" aria-label="Citizen science">
             {[...NAV, ...(me?.role === "admin" ? [["/science/admin", "Administration"] as [string, string]] : [])].map(([to, label]) => (
               <NavLink key={to} to={to} end={to === "/science"}
                 className={({ isActive }) => `whitespace-nowrap rounded-xl px-3 py-2 text-[13px] transition ${isActive ? "bg-white/[0.09] text-white" : "text-slate-400 hover:bg-white/[0.04] hover:text-slate-200"}`}>
@@ -101,12 +99,12 @@ export function Kind({ k }: { k: "real" | "training" | "simulated" | "illustrati
 
 function Disclaimer() {
   return (
-    <footer className="mx-auto max-w-7xl px-4 pb-10 text-[11.5px] leading-relaxed text-slate-500 lg:px-6">
+    <footer className="relative z-10 w-full px-4 pb-10 text-[11.5px] leading-relaxed text-neutral-500 sm:px-6 lg:px-10 2xl:px-16">
       <div className="border-t border-white/[0.06] pt-4">
         An independent citizen-science project built for the NASA International Space Apps Challenge. It is not produced, endorsed or
         operated by NASA, Caltech/IPAC or the SPHEREx team. Automated quality checks and community agreement are not scientific
         validation; only results recorded from an external scientific review appear as validated. SPHEREx data courtesy of NASA/JPL-Caltech
-        via IRSA. See <a className="text-slate-300 underline decoration-white/20 hover:decoration-white/60" href="https://github.com/code-il/SuperEarthEagleProject/blob/Aadil/docs/SOURCES.md" target="_blank" rel="noreferrer">sources, licences and AI disclosure</a>.
+        via IRSA. See <a className="text-slate-300 underline decoration-white/20 hover:decoration-white/60" href="https://github.com/code-il/cosmIO/blob/main/docs/SOURCES.md" target="_blank" rel="noreferrer">sources, licences and AI disclosure</a>.
       </div>
     </footer>
   );

@@ -4,7 +4,7 @@
     python -m scripts.start --dev      # API with auto-reload on :8000 + Vite dev server on :5173 (hot reload)
     python -m scripts.start --no-build # serve whatever frontend/dist holds (or the API only)
     python -m scripts.start --check    # verify the installation (Python packages, Node, viewer build) and exit
-    python -m scripts.start --demo     # also fill the leaderboards with clearly-marked demo players
+    SPHEREX_GAME_DEMO=0 python -m scripts.start   # no demo players (they are on by default, marked 'demo')
 
 Settings come from the environment and from ``.env`` at the project root
 (see ``.env.example``); variables already set in the environment win.

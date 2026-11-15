@@ -20,6 +20,7 @@ def isolated_settings(tmp_path, monkeypatch):
     """Fresh settings + empty cache directory for every test."""
     for var in ("SPHEREX_RELEASES_FILE", "SPHEREX_DEFAULT_RELEASES"):
         monkeypatch.delenv(var, raising=False)
+    monkeypatch.setenv("SPHEREX_GAME_DEMO", "0")   # demo players are on by default; tests opt in explicitly
     s = Settings(cache_dir=tmp_path / "cache", http_retries=2, http_backoff_s=0.0)
     set_settings(s)
     archive._index.clear()
