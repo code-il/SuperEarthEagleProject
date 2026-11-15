@@ -109,6 +109,22 @@ reproduce the archive, the legend says why and the Kepler orbits stay.
 Endpoints: `GET /api/orbits/solar/validate?days=3650`, `GET /api/orbits/system/{i}?days=30`
 (transit predictions) and `GET /api/orbits/system/{i}/positions` (the viewer's tracks).
 
+## Citizen science (`/science`, `backend/game/`)
+
+Investigations built from real Atlas sources and their real SPHEREx images, automated quality
+checks, blind community review, two separate leaderboards (global contribution and scientifically
+validated), streaks, achievements and an admin area. All scoring happens on the server. No extra
+setup or packages are needed: state is a SQLite file created on first use.
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `SPHEREX_GAME_DB` | `<SPHEREX_CACHE_DIR>/game/game.db` (`./cache/game/game.db`) | Where the game database lives (in Docker: the `/data/cache` volume) |
+| `SPHEREX_GAME_ADMINS` | empty | Comma-separated usernames that become administrators when they register |
+
+Investigations open for submission once IRSA has returned the field's observation list; if the
+archive is down the page says so and nothing is assumed. Sources, licences and AI disclosure:
+[`docs/SOURCES.md`](docs/SOURCES.md).
+
 ## Demonstration
 
 Open the app and pick **WISE 0855** on the home page. It opens by name; the card also links the

@@ -273,7 +273,11 @@ CREATE INDEX IF NOT EXISTS ix_audit_at ON audit_log(at);
 
 
 def db_path() -> Path:
-    return Path(os.environ.get("SPHEREX_GAME_DB", ROOT / "cache" / "game" / "game.db"))
+    """SPHEREX_GAME_DB if set, else <cache dir>/game/game.db, where the cache dir is the same one the
+    archive layer uses (SPHEREX_CACHE_DIR, default ./cache), so Docker keeps it on the writable volume."""
+    if os.environ.get("SPHEREX_GAME_DB"):
+        return Path(os.environ["SPHEREX_GAME_DB"])
+    return Path(os.environ.get("SPHEREX_CACHE_DIR") or ROOT / "cache") / "game" / "game.db"
 
 
 def now() -> str:
