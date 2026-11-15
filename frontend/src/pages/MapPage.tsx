@@ -17,10 +17,7 @@ import { AtlasTour, type TourStep } from "../components/AtlasTour";
 import { SpherexSkyBox, sliceForClass, type SkyTarget } from "../components/SpherexSkyBox";
 import { jdNow, orbitFor, phaseNote } from "../lib/orbits";
 import { type NbodyState, type OrbitEngineMode, useNbody } from "../lib/useNbody";
-<<<<<<< HEAD
 import { useGlassSpecular } from "../lib/useGlassSpecular";
-=======
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 
 const ExplorePage = lazy(() => import("./ExplorePage"));
 
@@ -45,10 +42,7 @@ function zoneName(d: number): string {
 }
 
 export default function MapPage() {
-<<<<<<< HEAD
   useGlassSpecular();
-=======
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
   const host = useRef<HTMLDivElement>(null);
   const engine = useRef<GalaxyScene | null>(null);
   const [data, setData] = useState<GalaxyData | null>(null);
@@ -181,7 +175,7 @@ export default function MapPage() {
     const pct = Math.round((data.meta.model?.accuracy ?? 0.9) * 100);
     const n = data.stars.n.toLocaleString();
     return [
-      { title: "Welcome to the SPHEREx Atlas", run: () => { select(-1, false); reset(); e()?.goHome(); },
+      { title: "Welcome to the cosmIO Atlas", run: () => { select(-1, false); reset(); e()?.goHome(); },
         body: <><p>Every point is a real star, brown dwarf or white dwarf at its measured distance: {n} objects placed with Gaia DR3 parallaxes, typed with SIMBAD and the NASA Exoplanet Archive, and some classified from their SPHEREx spectra.</p>
           <p>You start at the Sun. The rings are distances in parsecs (1 pc = 3.26 light-years).</p></> },
       { title: "Moving around", target: "controls",
@@ -248,40 +242,24 @@ export default function MapPage() {
 
   if (error) {
     return (
-<<<<<<< HEAD
       <div className="cosmic flex h-full items-center justify-center p-8 text-center text-slate-300">
         <div className="max-w-lg space-y-3">
           <p className="text-lg font-semibold text-red-300">The map data could not be loaded.</p>
           <p className="font-mono text-xs text-slate-400">{error}</p>
           <Link to="/" className="text-neutral-200 underline decoration-neutral-600 underline-offset-4 hover:decoration-neutral-200">Back home</Link>
-=======
-      <div className="flex h-full items-center justify-center p-8 text-center text-slate-300">
-        <div className="max-w-lg space-y-3">
-          <p className="text-lg font-semibold text-red-300">The map data could not be loaded.</p>
-          <p className="font-mono text-xs text-slate-400">{error}</p>
-          <Link to="/" className="text-amber-300 underline">Back home</Link>
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
         </div>
       </div>
     );
   }
 
   return (
-<<<<<<< HEAD
     <div className="cosmic relative h-full w-full overflow-hidden bg-black text-slate-200 select-none">
-=======
-    <div className="relative h-full w-full overflow-hidden bg-[#01030a] text-slate-200 select-none">
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
       <div ref={host} className="absolute inset-0" onPointerDown={onPointerDown} onPointerUp={onPointerUp} onDoubleClick={onDoubleClick} />
       {!data && <Loader progress={progress} />}
       <TopBar data={data} onSelect={(i) => select(i)} onHome={() => engine.current?.goHome()} onExplore={() => openExplore()} onTour={() => setTour(0)} />
       {data && (
         <>
-<<<<<<< HEAD
           <aside data-tour="panel" className="glass absolute left-4 top-[84px] bottom-16 z-10 flex w-[296px] flex-col overflow-hidden rounded-[22px] max-md:hidden">
-=======
-          <aside data-tour="panel" className="glass absolute left-4 top-[76px] bottom-16 z-10 flex w-[296px] flex-col overflow-hidden rounded-2xl max-md:hidden">
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
             <div className="seg m-2 mb-0">
               {(["filters", "uncharted", "about"] as const).map((p) => (
                 <button key={p} onClick={() => { setPanel(p); if (p === "uncharted") setFilters((f) => ({ ...f, uncharted: true })); }}
@@ -313,13 +291,8 @@ export default function MapPage() {
       {tour !== null && !exploreOpen && <AtlasTour steps={tourSteps} step={tour} onStep={setTour} onClose={endTour} />}
       {exploreOpen && (
         <div className="absolute inset-0 z-40 bg-black/50 p-2 backdrop-blur-md md:p-4" role="dialog" aria-modal="true" aria-label="SPHEREx image explorer">
-<<<<<<< HEAD
           <div className="h-full overflow-hidden rounded-[26px] border border-white/20 shadow-[0_20px_60px_-20px_rgb(0_0_0/0.8)]">
             <Suspense fallback={<div className="flex h-full items-center justify-center bg-black text-sm text-slate-400">Loading the image viewer…</div>}>
-=======
-          <div className="h-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black">
-            <Suspense fallback={<div className="flex h-full items-center justify-center bg-slate-950 text-sm text-slate-400">Loading the image viewer…</div>}>
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
               <ExplorePage embedded onClose={closeExplore} />
             </Suspense>
           </div>
@@ -333,23 +306,16 @@ export default function MapPage() {
 function Loader({ progress }: { progress: number }) {
   return (
     <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-4 text-xs">
-<<<<<<< HEAD
       <div className="font-hand text-3xl text-white">Charting the neighbourhood…</div>
-=======
-      <div className="text-sm font-medium text-slate-200">Charting the neighbourhood…</div>
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
       <div className="h-1 w-64 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-[var(--accent)] transition-all" style={{ width: `${Math.round(progress * 100)}%` }} /></div>
       <div className="text-slate-500">Gaia DR3 · SIMBAD · NASA Exoplanet Archive · SPHEREx DR1 + QR3</div>
     </div>
   );
 }
 
-<<<<<<< HEAD
 /** The home page's nav-link style (rounded pills, neutral until active). */
 const NAV_LINK = "rounded-full px-2.5 py-1.5 text-sm text-neutral-400 transition-colors hover:text-white sm:px-3";
 
-=======
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 function TopBar({ data, onSelect, onHome, onExplore, onTour }: { data: GalaxyData | null; onSelect: (i: number) => void; onHome: () => void; onExplore: () => void; onTour: () => void }) {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
@@ -374,11 +340,10 @@ function TopBar({ data, onSelect, onHome, onExplore, onTour }: { data: GalaxyDat
     return want.map((w) => data.objects.find((o) => o.n.toLowerCase() === w.toLowerCase()) ?? data.objects.find((o) => o.n.toLowerCase().startsWith(w.toLowerCase()))).filter(Boolean) as NamedObject[];
   }, [data]);
   return (
-<<<<<<< HEAD
     <header className="glass absolute inset-x-4 top-4 z-20 flex h-14 items-center gap-1.5 rounded-[28px] pl-2 pr-2 lg:inset-x-6">
-      <Link to="/" className="flex shrink-0 items-center gap-2 rounded-full py-0.5 pl-1 pr-3" aria-label="SPHEREx Explorer home">
+      <Link to="/" className="flex shrink-0 items-center gap-2 rounded-full py-0.5 pl-1 pr-3" aria-label="cosmIO home">
         <img src="/favicon.svg" alt="" className="h-7 w-7" />
-        <span className="text-sm font-medium tracking-tight max-sm:hidden">SPHEREx <span className="text-neutral-400">Atlas</span></span>
+        <span className="text-sm font-medium tracking-tight max-sm:hidden">cosmIO <span className="text-neutral-400">Atlas</span></span>
       </Link>
       <div className="relative min-w-0 flex-1 md:max-w-sm" data-tour="search">
         <input value={q} onChange={(e) => { setQ(e.target.value); setOpen(true); }} onFocus={() => setOpen(true)} onBlur={() => setTimeout(() => setOpen(false), 150)}
@@ -390,24 +355,6 @@ function TopBar({ data, onSelect, onHome, onExplore, onTour }: { data: GalaxyDat
             {(q ? results : quick.map((o) => ({ o, via: undefined as string | undefined }))).map(({ o, via }) => (
               <li key={o.i}>
                 <button onMouseDown={() => { onSelect(o.i); setQ(""); setOpen(false); }} className="flex w-full items-center justify-between gap-3 px-3.5 py-1.5 text-left hover:bg-white/[0.07]">
-=======
-    <header className="glass absolute inset-x-4 top-4 z-20 flex h-12 items-center gap-2 rounded-2xl pl-3 pr-1.5">
-      <Link to="/" className="flex shrink-0 items-center gap-2 pr-1">
-        <img src="/favicon.svg" alt="" className="h-5 w-5" />
-        <span className="text-[13.5px] font-semibold tracking-tight max-sm:hidden">SPHEREx <span className="font-normal text-slate-400">Atlas</span></span>
-      </Link>
-      <span className="mx-1 h-5 w-px bg-white/10 max-sm:hidden" />
-      <div className="relative min-w-0 flex-1 md:max-w-sm" data-tour="search">
-        <input value={q} onChange={(e) => { setQ(e.target.value); setOpen(true); }} onFocus={() => setOpen(true)} onBlur={() => setTimeout(() => setOpen(false), 150)}
-          placeholder={data ? `Search ${data.objects.length.toLocaleString()} named objects` : "Loading…"} aria-label="Search named objects"
-          className="field h-8 py-0 text-[13px]" />
-        {open && (results.length > 0 || (!q && quick.length > 0)) && (
-          <ul className="absolute mt-2 w-full min-w-[280px] overflow-hidden rounded-xl border border-white/10 bg-[#0b0f1c]/[0.97] py-1 text-[13px] shadow-2xl shadow-black">
-            {!q && <li className="eyebrow px-3 py-1.5">Jump to</li>}
-            {(q ? results : quick.map((o) => ({ o, via: undefined as string | undefined }))).map(({ o, via }) => (
-              <li key={o.i}>
-                <button onMouseDown={() => { onSelect(o.i); setQ(""); setOpen(false); }} className="flex w-full items-center justify-between gap-3 px-3 py-1.5 text-left hover:bg-white/[0.06]">
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
                   <span className="truncate">{o.n}{via && <span className="text-slate-500"> · {via}</span>}</span>
                   <span className="shrink-0 text-[11px] text-slate-500">{data?.meta.classes[o.c]?.label} · <span className="num">{fmtDist(o.d)}</span></span>
                 </button>
@@ -416,7 +363,6 @@ function TopBar({ data, onSelect, onHome, onExplore, onTour }: { data: GalaxyDat
           </ul>
         )}
       </div>
-<<<<<<< HEAD
       <button onClick={onHome} className={`${NAV_LINK} shrink-0`} title="Return to the Sun (H)">Sun</button>
       <button onClick={onTour} disabled={!data} className={`${NAV_LINK} shrink-0 disabled:opacity-40`} title="A guided tour of the Atlas">Tour</button>
       <nav className="ml-auto flex shrink-0 items-center gap-1 max-md:hidden" aria-label="Main">
@@ -427,17 +373,6 @@ function TopBar({ data, onSelect, onHome, onExplore, onTour }: { data: GalaxyDat
         <Link to="/about" className={NAV_LINK}>About &amp; help</Link>
       </nav>
       <Link to="/science" className={`${NAV_LINK} shrink-0 md:hidden`}>Science</Link>
-=======
-      <button onClick={onHome} className="btn btn-ghost h-8 shrink-0 px-2.5" title="Return to the Sun (H)">Sun</button>
-      <button onClick={onTour} disabled={!data} className="btn btn-ghost h-8 shrink-0 px-2.5" title="A guided tour of the Atlas">Tour</button>
-      <nav className="ml-auto flex shrink-0 items-center gap-0.5 max-md:hidden" aria-label="Main">
-        <button onClick={onExplore} className="btn btn-ghost h-8 px-2.5">Images</button>
-        <Link to="/targets" className="btn btn-ghost h-8 px-2.5">Targets</Link>
-        <Link to="/science" className="btn btn-ghost h-8 px-2.5">Citizen science</Link>
-        <Link to="/about" className="btn btn-ghost h-8 px-2.5">About</Link>
-      </nav>
-      <Link to="/science" className="btn btn-ghost h-8 shrink-0 px-2.5 md:hidden">Science</Link>
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
     </header>
   );
 }
@@ -445,23 +380,14 @@ function TopBar({ data, onSelect, onHome, onExplore, onTour }: { data: GalaxyDat
 function Hud({ camDist, focus, uncharted }: { camDist: number; focus: number; uncharted: boolean }) {
   return (
     <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 flex items-end justify-between gap-3 text-[11.5px] text-slate-300">
-<<<<<<< HEAD
       <div data-tour="scale" className="glass flex h-10 items-center gap-3 rounded-full px-4">
-=======
-      <div data-tour="scale" className="glass flex h-9 items-center gap-3 rounded-xl px-3">
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
         <span className="font-medium text-slate-100">{zoneName(camDist).replace(/\b([A-Z])([A-Z]+)/g, (_, a, b) => a + b.toLowerCase())}</span>
         <span className="h-4 w-px bg-white/10" />
         <span className="text-slate-400">Scale <span className="num text-slate-200">{fmtDist(camDist)}</span></span>
         <span className="text-slate-400 max-sm:hidden">Focus <span className="num text-slate-200">{fmtDist(focus)}</span> from the Sun</span>
       </div>
-<<<<<<< HEAD
       {uncharted && <div className="glass flex h-10 items-center gap-2 rounded-full px-4 text-fuchsia-100 max-lg:hidden"><span className="h-2 w-2 rounded-full bg-fuchsia-400" />Frontier mode: pink = unclassified or uncertain (the pulse is a highlight, not variability)</div>}
       <div data-tour="controls" className="glass flex h-10 items-center gap-3 rounded-full px-4 text-slate-400 max-md:hidden">
-=======
-      {uncharted && <div className="glass flex h-9 items-center gap-2 rounded-xl px-3 text-fuchsia-100 max-lg:hidden"><span className="h-2 w-2 rounded-full bg-fuchsia-400" />Frontier mode: pink = unclassified or uncertain (the pulse is a highlight, not variability)</div>}
-      <div data-tour="controls" className="glass flex h-9 items-center gap-3 rounded-xl px-3 text-slate-400 max-md:hidden">
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
         <span>Drag rotate</span><span className="max-xl:hidden">Right-drag pan</span><span>Scroll zoom</span><span className="max-xl:hidden">Double-click fly</span>
         <span><kbd>H</kbd> home</span><span><kbd>F</kbd> focus</span><span><kbd>U</kbd> frontier</span>
       </div>
@@ -679,19 +605,11 @@ function ObjectCard({ i, data, named, onClose, onFly, onExplore, sky, orbit }: {
   const conf = src === "model" ? st.conf[i] / 255 : rec?.confidence;
 
   return (
-<<<<<<< HEAD
     <aside data-tour="card" className="glass-strong absolute right-4 top-[84px] bottom-16 z-10 flex w-[380px] max-w-[calc(100%-32px)] flex-col overflow-hidden rounded-[22px]">
       <div className="flex items-start gap-3 border-b border-white/[0.06] px-4 py-3.5">
         <span className="mt-1 h-3 w-3 shrink-0 rounded-full" style={{ background: cls.color, boxShadow: `0 0 10px ${cls.color}` }} />
         <div className="min-w-0 flex-1">
           <h2 className="truncate text-lg font-medium tracking-tight text-white" title={title}>{title}</h2>
-=======
-    <aside data-tour="card" className="glass-strong absolute right-4 top-[76px] bottom-16 z-10 flex w-[380px] max-w-[calc(100%-32px)] flex-col overflow-hidden rounded-2xl">
-      <div className="flex items-start gap-3 border-b border-white/[0.06] px-4 py-3.5">
-        <span className="mt-1 h-3 w-3 shrink-0 rounded-full" style={{ background: cls.color, boxShadow: `0 0 10px ${cls.color}` }} />
-        <div className="min-w-0 flex-1">
-          <h2 className="truncate text-[15px] font-semibold tracking-tight text-white" title={title}>{title}</h2>
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
           <div className="text-xs text-slate-400">{cls.label} · <span className="num">{fmtDist(dist)}</span></div>
         </div>
         <button onClick={onFly} className="btn px-2.5 py-1 text-xs" title="Fly here (F)">Fly to</button>

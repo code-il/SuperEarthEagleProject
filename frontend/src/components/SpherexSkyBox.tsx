@@ -73,11 +73,7 @@ export function SpherexSkyBox({ target, onDetails, className = "" }: { target: S
       </div>
       <div className={open ? "" : "hidden"}>
         <div className="relative">
-<<<<<<< HEAD
           <div ref={el} className="h-44 w-full bg-black" />
-=======
-          <div ref={el} className="h-44 w-full bg-[#02040c]" />
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
           <div className="absolute bottom-1 left-1 flex gap-0.5">
             <button onClick={() => zoom(0.7)} className="h-6 w-6 rounded-md bg-black/60 text-xs text-slate-200 backdrop-blur hover:bg-black/80" aria-label="Zoom in">+</button>
             <button onClick={() => zoom(1.4)} className="h-6 w-6 rounded-md bg-black/60 text-xs text-slate-200 backdrop-blur hover:bg-black/80" aria-label="Zoom out">−</button>

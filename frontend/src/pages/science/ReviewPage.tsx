@@ -74,11 +74,7 @@ export function ReviewCandidate() {
   return (
     <>
       <PageTitle title={`Review: ${v.source_name}`} sub={<>Blind review of a {v.category.replace("_", " ")} candidate · <span className="num">RA {v.ra.toFixed(5)}°, Dec {v.dec.toFixed(5)}°</span></>}
-<<<<<<< HEAD
         right={<a className="btn btn-primary" target="_blank" rel="noreferrer" href={`/map?view=explore&ra=${v.ra.toFixed(5)}&dec=${v.dec.toFixed(5)}&fov=0.05`}>Open SPHEREx images ↗</a>} />
-=======
-        right={<a className="btn btn-primary" target="_blank" rel="noreferrer" href={`/?view=explore&ra=${v.ra.toFixed(5)}&dec=${v.dec.toFixed(5)}&fov=0.05`}>Open SPHEREx images ↗</a>} />
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
       <div className="grid gap-6 xl:grid-cols-[1fr_360px]">
         <div className="space-y-6">
           <Card title={<span className="flex items-center gap-2">Evidence submitted <Kind k="community" /></span>}>

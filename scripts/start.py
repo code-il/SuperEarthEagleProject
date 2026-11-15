@@ -4,10 +4,7 @@
     python -m scripts.start --dev      # API with auto-reload on :8000 + Vite dev server on :5173 (hot reload)
     python -m scripts.start --no-build # serve whatever frontend/dist holds (or the API only)
     python -m scripts.start --check    # verify the installation (Python packages, Node, viewer build) and exit
-<<<<<<< HEAD
     python -m scripts.start --demo     # also fill the leaderboards with clearly-marked demo players
-=======
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 
 Settings come from the environment and from ``.env`` at the project root
 (see ``.env.example``); variables already set in the environment win.
@@ -135,16 +132,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--check", action="store_true", help="check the installation and exit")
     ap.add_argument("--host", default=None)
     ap.add_argument("--port", type=int, default=None)
-<<<<<<< HEAD
     ap.add_argument("--demo", action="store_true", help="seed demo players into the leaderboards (marked 'demo')")
     a = ap.parse_args(argv)
     load_env()
     if a.demo:
         os.environ["SPHEREX_GAME_DEMO"] = "1"   # the server tops the demo players up once per day
-=======
-    a = ap.parse_args(argv)
-    load_env()
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
     os.environ["PYTHONPATH"] = str(ROOT) + os.pathsep + os.environ.get("PYTHONPATH", "")
     if a.check:
         return check()

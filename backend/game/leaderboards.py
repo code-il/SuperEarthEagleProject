@@ -13,11 +13,7 @@ import sqlite3
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
-<<<<<<< HEAD
 from . import demo, scoring
-=======
-from . import scoring
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 from .db import now
 
 CATS = ("moving", "classification", "image_quality", "spectral", "verification")
@@ -49,7 +45,6 @@ def contribution(conn: sqlite3.Connection, period: str = "all", category: str | 
 
     def entry(k, r):
         uid_ = r["user_id"]
-<<<<<<< HEAD
         is_demo = demo.is_demo(r["username"])
         if is_demo:   # demo players have ledger events only (no contributions or reviews in the science pipeline)
             ev = lambda kind: conn.execute("SELECT COUNT(*) FROM score_events WHERE user_id=? AND kind=?" + (" AND category=?" if category else ""),  # noqa: E731
@@ -59,20 +54,11 @@ def contribution(conn: sqlite3.Connection, period: str = "all", category: str | 
             valid = conn.execute("SELECT COUNT(*) FROM contributions WHERE user_id=? AND training=0 AND qc_status IN ('passed','passed_with_warnings')"
                                  + (" AND category=?" if category else ""), (uid_, category) if category else (uid_,)).fetchone()[0]
             reviews = conn.execute("SELECT COUNT(*) FROM reviews WHERE reviewer_id=?", (uid_,)).fetchone()[0]
-=======
-        valid = conn.execute("SELECT COUNT(*) FROM contributions WHERE user_id=? AND training=0 AND qc_status IN ('passed','passed_with_warnings')"
-                             + (" AND category=?" if category else ""), (uid_, category) if category else (uid_,)).fetchone()[0]
-        reviews = conn.execute("SELECT COUNT(*) FROM reviews WHERE reviewer_id=?", (uid_,)).fetchone()[0]
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
         st = conn.execute("SELECT current FROM streaks WHERE user_id=?", (uid_,)).fetchone()
         tot = scoring.totals(conn, uid_)
         return {"rank": k, "user_id": uid_, "name": _name(r), "points": round(r["points"], 2), "valid_contributions": valid,
                 "reviews": reviews, "streak": st["current"] if st else 0, "level": scoring.level_for(conn, tot["total_xp"])["level"],
-<<<<<<< HEAD
                 "rank_change": (prev[uid_] - k) if uid_ in prev else None, "demo": is_demo}
-=======
-                "rank_change": (prev[uid_] - k) if uid_ in prev else None}
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 
     top = [entry(k, r) for k, r in enumerate(rows[:limit], 1)]
     me = near = None
@@ -81,19 +67,12 @@ def contribution(conn: sqlite3.Connection, period: str = "all", category: str | 
         if pos is not None:
             me = entry(pos, rows[pos - 1])
             near = [entry(k, rows[k - 1]) for k in range(max(1, pos - 2), min(len(rows), pos + 2) + 1)]
-<<<<<<< HEAD
     has_demo = any(demo.is_demo(r["username"]) for r in rows)
     return {"board": "global_contribution", "period": period, "category": category, "updated_at": now(),
             "total_ranked": len(rows), "entries": top, "me": me, "nearby": near, "includes_demo": has_demo,
             "note": "Points for contributions that passed automated quality checks and for independent reviews. "
                     "This measures participation in the project, not scientific validation."
                     + (" Rows marked demo are sample players seeded for a demonstration." if has_demo else "")}
-=======
-    return {"board": "global_contribution", "period": period, "category": category, "updated_at": now(),
-            "total_ranked": len(rows), "entries": top, "me": me, "nearby": near,
-            "note": "Points for contributions that passed automated quality checks and for independent reviews. "
-                    "This measures participation in the project, not scientific validation."}
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 
 
 def validated(conn: sqlite3.Connection, simulated: bool = False) -> dict[str, Any]:
@@ -117,11 +96,7 @@ def progress(conn: sqlite3.Connection) -> dict[str, Any]:
     q = lambda sql, *a: conn.execute(sql, a).fetchone()[0] or 0  # noqa: E731
     passed = "qc_status IN ('passed','passed_with_warnings') AND training=0"
     totals = {
-<<<<<<< HEAD
         "investigators": q("SELECT COUNT(*) FROM users WHERE status='active' AND username NOT LIKE 'demo\\_%' ESCAPE '\\'"),
-=======
-        "investigators": q("SELECT COUNT(*) FROM users WHERE status='active'"),
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
         "investigations_completed": q(f"SELECT COUNT(*) FROM contributions WHERE {passed}"),
         "sources_classified": q(f"SELECT COUNT(DISTINCT investigation_id) FROM contributions WHERE {passed} AND category='classification'"),
         "uncharted_sources_classified": q(f"SELECT COUNT(DISTINCT c.investigation_id) FROM contributions c JOIN investigations i ON i.id=c.investigation_id "

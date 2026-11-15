@@ -15,11 +15,7 @@ from typing import Any
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from fastapi.responses import Response
 
-<<<<<<< HEAD
 from backend.game import (admin, auth, challenges, contributions, daily, demo, integration, investigations, leaderboards, players,
-=======
-from backend.game import (admin, auth, challenges, contributions, daily, integration, investigations, leaderboards, players,
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
                           reviews, scoring)
 from backend.game import config as gconfig
 from backend.game.db import read, tx, uj
@@ -233,10 +229,7 @@ def leaderboard(period: str = "all", category: str | None = None, user=Depends(o
         raise HTTPException(400, "period must be all, week or month")
     try:
         with tx() as conn:
-<<<<<<< HEAD
             demo.ensure_today(conn)
-=======
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
             return leaderboards.contribution(conn, period, category, user["id"] if user else None)
     except ValueError as e:
         _bad(e)
@@ -329,11 +322,8 @@ def daily_bonus(user=Depends(current_user)):
 
 @router.get("/daily/leaderboard")
 def daily_board(room: str | None = None, order: str = "score", day: str | None = None, user=Depends(optional_user)):
-<<<<<<< HEAD
     with tx() as conn:
         demo.ensure_today(conn)
-=======
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
     return _daily(daily.leaderboard, day, room, user["id"] if user else None, order)
 
 

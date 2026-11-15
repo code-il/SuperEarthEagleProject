@@ -311,11 +311,7 @@ export function SkyCanvas(props: SkyCanvasProps) {
   };
 
   return (
-<<<<<<< HEAD
     <div ref={wrapRef} className={`relative overflow-hidden rounded-[18px] bg-[#050505] select-none ${props.className ?? ""}`}
-=======
-    <div ref={wrapRef} className={`relative overflow-hidden rounded-md bg-[#0a0d18] select-none ${props.className ?? ""}`}
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
       role="img" aria-label={props.caption ? `SPHEREx image: ${props.caption}` : "SPHEREx image viewer"}>
       {!plane && props.fallbackUrl && (
         <img src={props.fallbackUrl} alt="" className="absolute inset-0 m-auto max-h-full max-w-full object-contain opacity-80" />

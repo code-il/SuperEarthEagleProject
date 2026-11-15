@@ -111,7 +111,7 @@ export default function AtlasPreview({ className = "" }: { className?: string })
         <>
           <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-3 bg-gradient-to-b from-black/70 to-transparent p-4 sm:p-5">
             <div>
-              <div className="font-mono text-xs text-neutral-400">SPHEREx Atlas — live</div>
+              <div className="font-mono text-xs text-neutral-400">cosmIO Atlas — live</div>
               <div className="mt-1 text-sm text-neutral-200">{data.stars.n.toLocaleString()} real objects at their measured distances</div>
             </div>
             <span className="rounded-full bg-black/50 px-3 py-1 font-mono text-[11px] text-neutral-400 backdrop-blur">

@@ -1,0 +1,88 @@
+SPHEREx Atlas & Explorer - Sources
+===================================
+
+Every value in the Atlas and Explorer comes from the public sources below, or is
+computed from them. None of them needs an account or API key.
+
+
+DATA SOURCES
+------------
+
+1. NASA SPHEREx - Level 2 spectral images and all-sky HiPS (DR1, QR3), via NASA/IPAC IRSA
+   Used in:  Atlas and Explorer
+   Used for: time-lapse frames, spectra, measured classes, object-card images
+   Terms:    Public NASA data. Acknowledge: "This publication makes use of data from
+             SPHEREx, a NASA mission managed by JPL/Caltech, obtained from IRSA."
+   Links:    https://www.jpl.nasa.gov/missions/spherex/
+             https://irsa.ipac.caltech.edu/Missions/spherex.html
+
+2. Gaia DR3 (ESA/Gaia/DPAC)
+   Used in:  Atlas and Explorer
+   Used for: Atlas positions and distances; Explorer overlays and motion checks
+   Terms:    CC BY-SA 3.0 IGO. Cite Gaia Collaboration 2016, 2023.
+   Link:     https://www.cosmos.esa.int/web/gaia/dr3
+
+3. SIMBAD (CDS, Strasbourg)
+   Used in:  Atlas
+   Used for: names, aliases, object types and spectral types
+   Terms:    Free for scientific use. Cite Wenger et al. 2000.
+   Link:     https://simbad.cds.unistra.fr/
+
+4. NASA Exoplanet Archive (pscomppars table)
+   Used in:  Atlas
+   Used for: planet orbits, masses and host stars
+   Terms:    Public. Acknowledge the NASA Exoplanet Archive, operated by Caltech under
+             contract with NASA.
+   Link:     https://exoplanetarchive.ipac.caltech.edu/
+
+5. JPL Horizons
+   Used in:  Atlas
+   Used for: Solar System positions used to check the N-body orbit engine
+   Terms:    Public (JPL Solar System Dynamics).
+   Link:     https://ssd.jpl.nasa.gov/horizons/
+
+6. Kopparapu et al. 2014, ApJL 787, L29
+   Used in:  Atlas
+   Used for: habitable-zone edges
+   Terms:    Published paper.
+
+7. CatWISE2020 (via IRSA)
+   Used in:  Explorer
+   Used for: catalogue overlays, infrared proper motions
+   Terms:    Public. Cite Marocco et al. 2021.
+   Link:     https://irsa.ipac.caltech.edu/data/WISE/CatWISE/overview.html
+
+8. CDS Sesame
+   Used in:  Atlas and Explorer
+   Used for: object names to coordinates
+   Terms:    Free service of CDS.
+   Link:     https://cds.unistra.fr/cgi-bin/Sesame
+
+9. IMCCE SkyBoT
+   Used in:  Explorer
+   Used for: known asteroids in the field on each date
+   Terms:    Free service of IMCCE.
+   Link:     https://ssp.imcce.fr/webservices/skybot/
+
+10. Aladin Lite (CDS), with AllWISE, 2MASS and DSS2 surveys
+   Used in:  Explorer
+   Used for: sky context panel
+   Terms:    GPL-3.0.
+   Link:     https://aladin.cds.unistra.fr/AladinLite/
+
+
+SOFTWARE
+--------
+
+Python:     FastAPI, NumPy, Astropy, Astroquery, SciPy
+JavaScript: React, React Router, three.js, Tailwind CSS, Vite, Plotly
+Fonts:      Inter, JetBrains Mono (SIL Open Font License 1.1)
+
+
+DISCLOSURE
+----------
+
+This is an independent NASA Space Apps 2026 entry. It is not produced or endorsed by
+NASA, JPL, Caltech/IPAC or the SPHEREx team. Code was written with help from an AI
+assistant (Anthropic Claude). No AI-generated images are used, and no AI model
+classifies sources at runtime.

@@ -125,7 +125,7 @@ function SourceDetail({ s, productsLoading }: { s: SourceSummary; productsLoadin
   const [copied, setCopied] = useState(false);
   const report = () => {
     const lines = [
-      `SPHEREx Explorer source report (preliminary; not a confirmed discovery)`,
+      `cosmIO source report (preliminary; not a confirmed discovery)`,
       `View: ${window.location.href}`,
       `Source ${s.source_id}: ${s.label} (${s.classification}, confidence ${s.confidence.toFixed(2)}, status ${s.status})`,
       `Position (ref MJD ${fmt(s.ref_mjd, 2)}): RA ${s.ra.toFixed(6)} Dec ${s.dec.toFixed(6)} deg`,

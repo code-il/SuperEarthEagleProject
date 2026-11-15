@@ -21,21 +21,13 @@ const ScientificPage = lazy(() => import("./pages/science/BoardsPages").then((m)
 const MyProfile = lazy(() => import("./pages/science/ProfilePage").then((m) => ({ default: m.MyProfile })));
 const PlayerProfile = lazy(() => import("./pages/science/ProfilePage").then((m) => ({ default: m.PlayerProfile })));
 
-<<<<<<< HEAD
 /** /explore?… → the Atlas (/map) with the Explore pop-up open on that field. */
-=======
-/** Old links: /map → the Atlas; /explore?… → the Atlas with the Explore pop-up open on that field. */
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 function Redirect({ explore = false }: { explore?: boolean }) {
   const { search } = useLocation();
   const s = new URLSearchParams(search);
   if (explore) s.set("view", "explore");
   const q = s.toString();
-<<<<<<< HEAD
   return <Navigate to={q ? `/map?${q}` : "/map"} replace />;
-=======
-  return <Navigate to={q ? `/?${q}` : "/"} replace />;
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
 }
 
 const Loading = () => <div className="p-8 text-sm text-slate-500">Loading…</div>;
@@ -45,17 +37,10 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
         <Routes>
-<<<<<<< HEAD
           <Route path="/" element={<HomePage />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/targets" element={<Navigate to="/" replace />} />
           <Route path="/explore" element={<Redirect explore />} />
-=======
-          <Route path="/" element={<MapPage />} />
-          <Route path="/targets" element={<HomePage />} />
-          <Route path="/explore" element={<Redirect explore />} />
-          <Route path="/map" element={<Redirect />} />
->>>>>>> 15015553c6e704fff68626c1145fa538697a9c25
           <Route path="/about" element={<AboutPage />} />
           <Route path="/science" element={<ScienceLayout />}>
             <Route index element={<Suspense fallback={<Loading />}><ScienceHome /></Suspense>} />
