@@ -79,14 +79,14 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* CosmIO game card (template: title, description, Play, links on the left; interactive asset on the right) */}
+          {/* cosmIO game card (template: title, description, Play, links on the left; interactive asset on the right) */}
           <section className="mt-28 lg:mt-36">
             {/* card edges reach 24px past the content width (negative margin + matching padding) so the text and box stay put */}
             <div className="mx-auto max-w-[1440px]">
             <div className="glass grid items-center gap-10 p-6 shadow-[inset_0_1px_0_rgb(255_255_255/0.16),0_0_140px_-30px_rgb(59_130_246/0.55),0_30px_80px_-30px_rgb(0_0_0/0.9)] sm:p-10 lg:-mx-6 lg:grid-cols-[minmax(0,440px)_minmax(0,1fr)] lg:gap-16 xl:grid-cols-[minmax(0,560px)_minmax(0,1fr)] lg:px-16 lg:py-16">
               <div className="relative flex flex-col">
                 <FramesSketch className="mb-8 h-auto w-full max-w-[500px]" />
-                <h2 className="text-5xl font-medium tracking-[-0.03em] text-white sm:text-6xl 2xl:text-7xl">CosmIO</h2>
+                <h2 className="text-5xl font-medium tracking-[-0.03em] text-white sm:text-6xl 2xl:text-7xl">cosmIO</h2>
                 <p className="mt-5 max-w-lg text-base leading-relaxed text-neutral-300 lg:text-lg">
                   A citizen-science game played on real NASA SPHEREx infrared images. Hunt for stars that move or change
                   in brightness, compare the sky across months, read their infrared spectra and send in what you find.

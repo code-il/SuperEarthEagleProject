@@ -7,10 +7,10 @@ cosmIO is our entry to the NASA Space Apps Challenge 2026, *"Planet X and SPHERE
 app built on NASA's SPHEREx all-sky infrared survey: a time-lapse image explorer, a 3D atlas of
 573,000 real objects, and a citizen-science game played on real SPHEREx data.
 
-> **Presentation for judges:** [**CosmIO.pptx**](CosmIO.pptx), 7 slides: the problem, our
+> **Presentation for judges:** [**cosmIO.pptx**](cosmIO.pptx), 7 slides: the problem, our
 > solution, how science becomes gameplay, why people keep playing, and the team. It's at the top
 > level of this repository; on GitHub, open it and press **Download** (or use the
-> [direct link](https://github.com/code-il/cosmIO/raw/main/CosmIO.pptx)).
+> [direct link](https://github.com/code-il/cosmIO/raw/main/cosmIO.pptx)).
 
 ![cosmIO home page](docs/images/home.jpg)
 
