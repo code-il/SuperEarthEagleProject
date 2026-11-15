@@ -63,39 +63,62 @@ Other ways to run it:
 
 ## The three parts
 
-### 1. Explorer: the infrared sky as a time-lapse
+### 1. cosmIO game: citizen science on real SPHEREx data (`/science`)
 
-SPHEREx photographs the whole sky in 102 infrared colours (0.75–5 µm) and comes back to each
-spot about every six months. The Explorer stacks those visits into a time-lapse, so nearby stars
-and brown dwarfs creep across the field and variable stars brighten and fade.
+The heart of cosmIO. Players look at real SPHEREx images of real sources, many of which no
+catalogue has ever classified, and every answer they give is checked, reviewed and scored.
 
-![Explorer time-lapse of a SPHEREx field](frontend/docs/screenshots/01-single-timelapse.jpg)
+![The cosmIO game: where help is needed, today's challenges and recommended targets](docs/images/science-home.jpg)
 
-| Side by side: Aug 2025 vs Mar 2026 | Difference image: Barnard's Star moving north |
+| Daily Survey: today's shared puzzle and board | Investigate: open tasks on real sources |
 | --- | --- |
-| ![](frontend/docs/screenshots/02-side-by-side.jpg) | ![](frontend/docs/screenshots/03-difference.jpg) |
-| **Per-visit median stacks** | **WISE 0855 with its light curve** |
-| ![](frontend/docs/screenshots/04-stacked.jpg) | ![](frontend/docs/screenshots/05-wise0855-lightcurve.jpg) |
+| ![](docs/images/daily-survey.jpg) | ![](docs/images/investigate.jpg) |
 
-*All five use real SPHEREx DR1/QR3 data from NASA/IPAC IRSA: detector D6 (4.4–5.0 µm), 3′ field.*
+**How to play**
 
-How it works:
+1. **Daily Survey.** Every player gets the same few catalogued "anchor" stars to classify,
+   scored Wordle-style: 🟩 exact, 🟨 a neighbouring class, ⬛ wrong. Mixed in, and indistinguishable
+   from the anchors, are real sources that no catalogue has classified, picked so the community
+   covers as much new sky as possible. You only learn which targets were scored at the end, so
+   every one gets the same care.
+2. **Investigate.** Pick a task in one of four kinds:
+   - **Moving objects:** measure a fast-moving star at two dates and test it against its Gaia proper motion.
+   - **Classification:** classify sources that no catalogue has a class for.
+   - **Image quality:** find artefacts (ghosts, saturation, trails) in bright-star fields.
+   - **Spectral:** read absorption bands in a measured SPHEREx spectrum.
+3. **Automated checks.** Every submission is checked against the real observations: are the
+   cited images real, are the dates valid, is the measured motion consistent with Gaia? You get
+   the result straight away, with what passed and what didn't.
+4. **Blind review.** Other players review each candidate without seeing who submitted it.
+   Agreement between independent investigators builds a community consensus.
+5. **Rewards.** You earn XP and levels, daily streaks, achievements and daily challenges.
 
-1. **Find.** Your search is resolved to coordinates, and IRSA's image search lists every SPHEREx
-   image of that spot.
-2. **Prepare.** Each image is cut out, masked and background-subtracted, then reprojected onto
-   one sky grid.
-3. **Compare.** You can:
-   - play the frames in time order;
-   - *blink* between two dates, or show them *side by side*;
-   - take PSF-matched *difference* and *ratio* images;
-   - make median or mean *stacks*.
-4. **Analyse.** cosmIO:
-   - detects sources and measures their proper motion with errors;
-   - builds light curves and spectra;
-   - cross-matches against Gaia DR3, CatWISE2020 and known asteroids.
+**Two separate leaderboards**
 
-### 2. 3D Atlas: the real neighbourhood in 3D
+- **Global contribution** counts participation that passed the automated checks.
+- **Scientifically validated** counts only results that an external scientific team has accepted.
+- Community agreement is never presented as validation.
+
+![Global contribution leaderboard](docs/images/leaderboard.jpg)
+
+**Demo players**
+
+24 sample players fill the leaderboards and the Daily Survey board, so the game never looks empty
+in a demonstration.
+
+- Each of them is marked **demo**.
+- They never count towards community totals, candidates or science results.
+- Turn them off with `SPHEREX_GAME_DEMO=0`, or remove them with `python -m scripts.seed_demo --clear`.
+
+**Fair play**
+
+- All scoring happens on the server; the browser never sends points.
+- Each reward can be paid only once, even if a request is repeated.
+- Training tasks earn XP, not contribution points.
+- Rewards shrink for repeated identical work.
+- The game state is a SQLite file created on first use.
+
+### 2. 3D Atlas: the real neighbourhood in 3D (`/map`)
 
 ![The Atlas preview and the cosmIO game card on the home page](docs/images/game-and-atlas.jpg)
 
@@ -103,39 +126,36 @@ How it works:
   and its distance from its parallax; the two are converted to Galactic x, y, z in parsecs.
   Flying to a star puts you at its real place.
 - **Contents:**
-  - every Gaia DR3 star within 100 pc with parallax/error ≥ 10 (329,824 objects);
-  - bright stars out to 4 kpc (243,022, a 1-in-3 sample);
-  - 4,332 SIMBAD objects that Gaia has no parallax for, such as WISE 0855;
+  - 329,824 Gaia DR3 stars within 100 pc;
+  - 243,022 bright stars out to 4 kpc;
+  - 4,332 SIMBAD objects that Gaia has no parallax for;
   - 6,470 planets in 4,862 systems, drawn to scale with habitable zones.
 - **Classes, each labelled with where it came from:**
   - *measured* from a SPHEREx spectrum;
-  - *catalogued* in SIMBAD (77,847);
-  - *predicted* by our **k-nearest-neighbour machine-learning model** on Gaia photometry
-    (481,372), with **89.7% accuracy** on held-out stars.
-- **Orbits:** two-body Kepler orbits at 1 simulated day per second. An optional **N-body engine**
-  is checked against JPL Horizons.
+  - *catalogued* in SIMBAD;
+  - *predicted* by our **k-nearest-neighbour machine-learning model** on Gaia photometry, with
+    **89.7% accuracy** on held-out stars.
+- **Orbits:** Kepler orbits. An optional **N-body engine** is checked against JPL Horizons.
 - **Frontier mode** ranks regions of space by how much in them is still unclassified.
 
-### 3. cosmIO game: citizen science on real data (`/science`)
+### 3. Explorer: the infrared sky as a time-lapse (`/explore`)
 
-![Citizen-science leaderboard with demo players](docs/images/leaderboard.jpg)
+<img src="frontend/docs/screenshots/03-difference.jpg" alt="Difference image showing Barnard's Star moving north" width="460" align="right">
 
-- **Daily Survey:** a shared daily puzzle, scored Wordle-style. Everyone classifies the same
-  catalogued "anchor" stars. Mixed in, and indistinguishable from them, are real sources that no
-  catalogue has classified, so every run surveys new sky.
-- **Investigate:** hunt moving objects, classify stars, read spectra and flag image artefacts on
-  real SPHEREx observations. Every submission goes through automated quality checks.
-- **Review:** independent players check each other's results without seeing who made them.
-- **Rewards:** XP, levels, streaks, achievements, weekly challenges and two separate boards. The
-  *global contribution* board counts participation; the *scientifically validated* board counts
-  only results accepted by an external review.
-- **Demo players:** 24 sample players fill the leaderboards and the Daily Survey, so the game
-  never looks empty in a demonstration.
-  - Every one is marked **demo**.
-  - They never count towards community totals, candidates or science results.
-  - Turn them off with `SPHEREX_GAME_DEMO=0`, or remove them with `python -m scripts.seed_demo --clear`.
+SPHEREx photographs the whole sky in 102 infrared colours (0.75–5 µm) and comes back to each
+spot about every six months.
 
-All scoring happens on the server; the game state is a SQLite file created on first use.
+1. **Search** a name or coordinates.
+2. **Prepare.** cosmIO fetches every SPHEREx image of that spot from IRSA and aligns them on one
+   sky grid.
+3. **Compare.** Play them as a time-lapse, *blink* between dates, or take PSF-matched
+   *difference* images.
+4. **Analyse.** It measures motion, light curves and spectra, and cross-matches against Gaia,
+   CatWISE and known asteroids.
+
+*Right: a real SPHEREx difference image of Barnard's Star moving north between two visits.*
+
+<br clear="right">
 
 ---
 

@@ -248,7 +248,7 @@ def progress():
 
 
 @router.get("/challenges")
-def daily(user=Depends(optional_user)):
+def challenges_today(user=Depends(optional_user)):   # not "daily": that name is the Daily Survey module
     with tx() as conn:
         return {"challenges": challenges.for_user(conn, user["id"]) if user else challenges.ensure_today(conn)}
 

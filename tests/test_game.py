@@ -135,6 +135,8 @@ def test_api_role_checks_and_no_client_scoring(tmp_path, monkeypatch):
         tok = c.post("/api/game/auth/register", json={"username": "carol", "password": "longenough"}).json()["token"]
         h = {"Authorization": f"Bearer {tok}"}
         assert c.get("/api/game/me").status_code == 401
+        assert c.get("/api/game/daily").status_code == 200       # signed-out view of the Daily Survey
+        assert c.get("/api/game/challenges").status_code == 200
         assert c.get("/api/game/admin/metrics", headers=h).status_code == 403
         assert c.put("/api/game/admin/config/scoring", headers=h, json={"valid_investigation": 9999}).status_code == 403
         inv = next(i for i in c.get("/api/game/investigations?category=classification", headers=h).json()["investigations"]
