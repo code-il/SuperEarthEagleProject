@@ -1,5 +1,6 @@
 /**
- * /explore — the SPHEREx time-series viewer.
+ * The SPHEREx time-series viewer. It opens as a pop-up over the 3D Atlas (``/?view=explore&ra=…``);
+ * ``/explore?…`` links redirect there. ``embedded`` + ``onClose`` are set by the Atlas.
  *
  *  ┌──────────────── top bar: search, FOV, detectors ────────────────┐
  *  │ left: mode, channels,   │ centre: viewer(s)    │ right: metadata, │
@@ -11,7 +12,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import type { Channel, DisplaySettings, ImagePlane, Marker, OverlaySettings, PixelReadout, ViewMode, ViewState } from "../types";
 import { api, apiUrl } from "../lib/api";
 import type { ExploreParams } from "../lib/api";
-import { buildUrl, parseUrl } from "../lib/urlState";
+import { EXPLORE_KEYS, buildUrl, exploreSearch, parseUrl } from "../lib/urlState";
 import { DEFAULT_DISPLAY, limitsFor } from "../lib/render";
 import { frameDurationMs, formatDate, formatDateTime, formatDuration } from "../lib/time";
 import { formatAngle, formatDecDms, formatRaHms } from "../lib/coords";
@@ -41,9 +42,16 @@ function caption(f?: Frame): string | undefined {
   return `${formatDateTime(f.observation_time)} · ${f.wavelength.toFixed(3)} µm · D${f.detector}`;
 }
 
-export default function ExplorePage() {
+export default function ExplorePage({ embedded = false, onClose }: { embedded?: boolean; onClose?: () => void } = {}) {
   const [sp, setSp] = useSearchParams();
   const navigate = useNavigate();
+  const openSearch = (p: ExploreParams) => {
+    if (!embedded) return navigate(buildUrl(p, { mode }));
+    const next = new URLSearchParams(sp);
+    for (const k of EXPLORE_KEYS) next.delete(k);
+    exploreSearch(p, { mode }).forEach((v, k) => next.set(k, v));
+    setSp(next);
+  };
   const url = useMemo(() => parseUrl(sp), [sp]);
   const pkey = paramsKey(url.params);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,18 +122,19 @@ export default function ExplorePage() {
     return autoReference(visible, A);
   }, [compareChannel, pinnedB, frames, visible, A]);
 
-  const { planes, failed } = usePlanes(frames, cur ?? 0);
+  const { planes, failed } = usePlanes(frames, cur ?? 0, display.plane ?? "SCI");
   const planeA = A ? planes.get(A.seriesIndex) ?? null : null;
   const planeB = B ? planes.get(B.seriesIndex) ?? null : null;
 
   // ---- display limits -----------------------------------------------------
   const seriesLimits = useMemo(() => {
     const out = new Map<number, [number, number]>();
-    if (display.limitsMode !== "series") return out;
+    if (display.limitsMode === "frame") return out;
     const byDet = new Map<number, ImagePlane[]>();
     for (const f of visible) {
       const pl = planes.get(f.seriesIndex);
-      if (pl) byDet.set(f.detector, [...(byDet.get(f.detector) ?? []), pl]);
+      const k = limitGroup(f, display.limitsMode);
+      if (pl) byDet.set(k, [...(byDet.get(k) ?? []), pl]);
     }
     for (const [d, pls] of byDet) out.set(d, limitsFor(pls, display.percentiles));
     return out;
@@ -135,10 +144,10 @@ export default function ExplorePage() {
 
   const limitsOf = useCallback((f: Frame | undefined, pl: ImagePlane | null): [number, number] => {
     if (!f) return [0, 1];
-    if (display.limitsMode === "series") {
-      const l = seriesLimits.get(f.detector);
+    if (display.limitsMode !== "frame") {
+      const l = seriesLimits.get(limitGroup(f, display.limitsMode));
       if (l) return l;
-      if (f.display_limits) return f.display_limits;
+      if (f.display_limits && display.limitsMode === "channel" && (display.plane ?? "SCI") === "SCI") return f.display_limits;
     }
     return pl ? limitsFor([pl], display.percentiles) : f.display_limits ?? [0, 1];
   }, [display.limitsMode, display.percentiles, seriesLimits]);
@@ -297,7 +306,7 @@ export default function ExplorePage() {
   const loadingSeries = series.status === "searching" || series.status === "processing";
 
   const viewer = (() => {
-    if (!params) return <Welcome error={url.error} />;
+    if (!params) return <Welcome error={url.error} embedded={embedded} />;
     if (loadingSeries) return (
       <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
         <Spinner label={series.message} />
@@ -389,15 +398,21 @@ export default function ExplorePage() {
   };
 
   return (
-    <div className="grid min-h-screen grid-rows-[auto_1fr_auto] bg-slate-950 text-slate-100 lg:h-screen">
+    <div className={`grid grid-rows-[auto_1fr_auto] bg-slate-950 text-slate-100 ${embedded ? "h-full overflow-y-auto lg:overflow-hidden" : "min-h-screen lg:h-screen"}`}>
       {/* Top bar */}
       <header className="flex flex-wrap items-center gap-3 border-b border-slate-800 bg-slate-900 px-3 pt-2 pb-4">
-        <Link to="/" className="flex items-center gap-2 pr-2" aria-label="SPHEREx Explorer home">
-          <img src="/favicon.svg" alt="" className="h-7 w-7" />
-          <span className="text-sm font-bold tracking-wide">SPHEREx <span className="text-amber-400">Explorer</span></span>
-        </Link>
+        {embedded ? (
+          <button type="button" onClick={onClose} className="flex items-center gap-2 rounded border border-teal-500/40 px-2 py-1 text-xs text-teal-100 hover:border-teal-300" title="Back to the 3D Atlas (Esc)">
+            <span aria-hidden>←</span> Atlas
+          </button>
+        ) : (
+          <Link to="/" className="flex items-center gap-2 pr-2" aria-label="SPHEREx Atlas">
+            <img src="/favicon.svg" alt="" className="h-7 w-7" />
+          </Link>
+        )}
+        <span className="text-sm font-bold tracking-wide">SPHEREx <span className="text-amber-400">Explorer</span></span>
         <Link to="/about" className="text-xs text-slate-400 hover:text-slate-200" title="What SPHEREx is, how to read the viewer, glossary">Help</Link>
-        <SearchBar initial={params} busy={loadingSeries} onSubmit={(p) => navigate(buildUrl(p, { mode }))} />
+        <SearchBar initial={params} busy={loadingSeries} onSubmit={openSearch} />
         {availability && (
           <span className="rounded bg-emerald-900/50 px-2 py-0.5 text-[11px] text-emerald-200" role="status"
             title={`${availability.n} SPHEREx frames in ${availability.visits} visits, ${formatDate(availability.first)} to ${formatDate(availability.last)} (${availability.releases})`}>
@@ -425,7 +440,7 @@ export default function ExplorePage() {
           <ChannelSelector channels={channels} counts={channelCounts} value={filter} onChange={setFilter}
             compareChannel={compareChannel} onCompareChannel={setCompareChannel} showCompare={mode === "side-by-side" || mode === "blink"}
             nVisible={visible.length} nTotal={frames.length} />
-          <DisplayControls value={display} onChange={setDisplay} limits={limitsOf(A, planeA)} units={A?.units} diverging={isCmp} />
+          <DisplayControls value={display} onChange={setDisplay} limits={limitsOf(A, planeA)} units={A?.units} diverging={isCmp} showPlane={!isCmp} />
           <OverlayControls value={overlays} onChange={setOverlays} st={{
             hasTarget: frames.some((f) => f.predicted) || !!series.processed?.query?.target,
             gaia: overlays.gaia ? { count: gaia.data?.count ?? 0, loading: gaia.loading, error: gaia.error } : undefined,
@@ -473,13 +488,19 @@ export default function ExplorePage() {
   );
 }
 
-function Welcome({ error }: { error: string | null }) {
+function Welcome({ error, embedded }: { error: string | null; embedded?: boolean }) {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-3 p-8 text-center">
       {error && <Note tone="error">{error}</Note>}
       <p className="max-w-md text-sm text-slate-400">
-        Enter a target name or coordinates above, or open one of the challenge targets from the <Link className="text-amber-300 underline" to="/">home page</Link>.
+        Enter a target name or coordinates above{embedded ? ", or close this panel, pick a star in the Atlas and press “Open SPHEREx images”" : ""}.
+        The <Link className="text-amber-300 underline" to="/targets">challenge targets</Link> are good places to start.
       </p>
     </div>
   );
+}
+
+/** Display-limit group of a frame: its wavelength channel ("channel" mode) or its detector. */
+function limitGroup(f: Frame, mode: string): number {
+  return mode === "channel" && f.channel ? 1000 + f.channel.index : f.detector;
 }

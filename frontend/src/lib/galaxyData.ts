@@ -21,7 +21,7 @@ export interface GalaxyMeta {
 }
 
 /** Named object: i = index into stars, n = name, c = class, f = flags, d = distance pc, t = SIMBAD type, s = spectral type. */
-export interface NamedObject { i: number; n: string; c: number; f: number; d: number; t: string; s: string }
+export interface NamedObject { i: number; n: string; c: number; f: number; d: number; t: string; s: string; a?: string[] }
 
 export interface Planet { name: string; a_au: number | null; period_d: number | null; radius_re: number | null; mass_me: number | null;
   teq_k: number | null; ecc: number | null; method: string; year: string }
@@ -198,4 +198,22 @@ export async function fetchSurvey(): Promise<{ i: number; status: string; class_
   const r = await fetch("/api/galaxy/survey");
   if (!r.ok) return [];
   return (await r.json()).objects;
+}
+
+/** ICRS -> Galactic rotation (Hipparcos / ESA 1997); its transpose maps Galactic back to ICRS. */
+const ICRS_TO_GAL = [
+  [-0.0548755604162154, -0.873437090234885, -0.4838350155487132],
+  [0.4941094278755837, -0.4448296299600112, 0.7469822444972189],
+  [-0.8676661490190047, -0.1980763734312015, 0.4559837761750669],
+];
+
+/** Sky position (ICRS RA, Dec in degrees) of a heliocentric Galactic cartesian point. */
+export function galToRaDec(x: number, y: number, z: number): [number, number] {
+  const M = ICRS_TO_GAL;
+  const ex = M[0][0] * x + M[1][0] * y + M[2][0] * z;
+  const ey = M[0][1] * x + M[1][1] * y + M[2][1] * z;
+  const ez = M[0][2] * x + M[1][2] * y + M[2][2] * z;
+  const r = Math.hypot(ex, ey, ez) || 1;
+  const ra = (Math.atan2(ey, ex) * 180) / Math.PI;
+  return [(ra + 360) % 360, (Math.asin(Math.max(-1, Math.min(1, ez / r))) * 180) / Math.PI];
 }

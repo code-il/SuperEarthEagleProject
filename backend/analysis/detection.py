@@ -100,6 +100,12 @@ def _frame_arrays(image: Any):
                 "flag_definitions": getattr(image, "flag_definitions", {}) or {}}
         data = np.array(image.data, dtype=float)
         var = None if image.variance is None else np.array(image.variance, dtype=float)
+        # Resampled pixels are correlated: VAR is right per pixel, but PSF fits / sums over a
+        # stamp see more noise. Inflate by the frame's large-area factor (conservative).
+        corr = getattr(image, "noise_correlation", None)
+        if var is not None and corr and corr > 1:
+            var = var * float(corr)
+        meta["noise_correlation"] = corr
         meta["raw"] = getattr(image, "raw", None)
         meta["wavelength_map"] = getattr(image, "wavelength_map", None)
         meta["data_release"] = getattr(image, "data_release", None)

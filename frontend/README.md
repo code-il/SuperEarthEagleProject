@@ -180,7 +180,7 @@ treated as "no analysis".
 
 **Person 5, integration.** The app is a static bundle (`npm run build` → `dist/`). Serve it
 with any static host and route `/api` to the FastAPI app (or set `VITE_API_BASE` and CORS).
-Client routes are `/` and `/explore`, so configure the host's SPA fallback to `index.html`.
+Client routes are `/` (Atlas), `/targets`, `/about` and `/explore` (redirects into the Atlas), so configure the host's SPA fallback to `index.html`.
 
 ## Limitations and notes
 

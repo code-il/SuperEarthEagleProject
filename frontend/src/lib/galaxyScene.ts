@@ -28,6 +28,7 @@ export interface PickResult { i: number; screen: [number, number] }
 const SRC_COLORS = ["#ff4fd8", "#f5b942", "#4ade80", "#38bdf8"];
 const RINGS = [1, 2, 5, 10, 25, 50, 100, 250, 500, 1000, 2000, 4000, 8000, 16000];
 const GC_DIST = 8178; // pc (GRAVITY 2019)
+const R_SUN_PC = 2.2547e-8;     // solar radius in pc
 
 const g2w = (x: number, y: number, z: number) => new THREE.Vector3(x, z, -y);
 
@@ -140,6 +141,8 @@ export class GalaxyScene {
   private ringGroup = new THREE.Group();
   private disk: THREE.Mesh;
   private sun: THREE.Sprite;
+  private sunBody: THREE.Mesh;
+  private sunLabel: HTMLDivElement;
   private system: THREE.Group | null = null;
   private systemPlanets: { mesh: THREE.Mesh; a: number; period: number; phase: number; label: HTMLDivElement; name: string }[] = [];
   private labelLayer: HTMLDivElement;
@@ -152,12 +155,25 @@ export class GalaxyScene {
   private simDays = 0;
   filters: Filters;
   selected = -1;
+  /** Skip rendering (e.g. while the Explore pop-up covers the map). */
+  paused = false;
   exposureBase = 9.5;
   /** Limiting apparent magnitude that still renders bright: rises slower than distance so kpc views do not saturate. */
   exposureFor(camDist: number) {
     const L = Math.log10(Math.max(camDist, 1e-6) / 10);
     return this.exposureBase + (L < 1 ? 4.2 * L : 4.2 - 2.2 * (L - 1));
   }
+  /** On-screen size (CSS px) and opacity the star shader gives a star of absolute magnitude M seen from d pc. */
+  starLook(M: number, d: number, nearSun: boolean): { px: number; alpha: number } {
+    const u = this.mat.uniforms;
+    const m = M + 5 * Math.log10(Math.max(d, 1e-7) / 10);
+    const flux = Math.pow(10, -0.4 * (m - u.uExposure.value));
+    let px = THREE.MathUtils.clamp(2.2 * Math.pow(flux, 0.22), 1.1, 26);
+    let alpha = THREE.MathUtils.clamp(u.uMinAlpha.value + 0.75 * Math.pow(flux, 0.35), u.uMinAlpha.value, 1);
+    if (nearSun) { const k = THREE.MathUtils.clamp(120 / u.uCamDist.value, 0.05, 1); alpha *= k; px = THREE.MathUtils.lerp(Math.min(px, 1.6), px, k); }
+    return { px, alpha };
+  }
+
   onFrame?: (info: { camDist: number; focusDistFromSun: number }) => void;
   onLabelClick?: (i: number) => void;
 
@@ -178,6 +194,10 @@ export class GalaxyScene {
     this.labelLayer = document.createElement("div");
     this.labelLayer.className = "pointer-events-none absolute inset-0 overflow-hidden";
     host.appendChild(this.labelLayer);
+    this.sunLabel = document.createElement("div");
+    this.sunLabel.className = "absolute whitespace-nowrap font-mono text-[11px] text-amber-200 [text-shadow:0_0_4px_#000]";
+    this.sunLabel.textContent = "Sun";
+    this.labelLayer.appendChild(this.sunLabel);
 
     // Stars.
     const geo = new THREE.BufferGeometry();
@@ -198,10 +218,13 @@ export class GalaxyScene {
     this.stars.frustumCulled = false;
     this.scene.add(this.stars);
 
-    // Sun.
-    this.sun = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture("#ffe9a8"), blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: false }));
+    // Sun: a fixed-size marker glow so you can always find home, plus a true-size sphere (1 R_sun) that
+    // shows when you zoom right in.
+    this.sun = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture("#fff1d6"), blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: false, transparent: true }));
     this.sun.scale.set(0.03, 0.03, 1);
     this.scene.add(this.sun);
+    this.sunBody = new THREE.Mesh(new THREE.SphereGeometry(R_SUN_PC, 48, 24), new THREE.MeshBasicMaterial({ color: "#fff4e0" }));
+    this.scene.add(this.sunBody);
 
     // Distance rings + longitude spokes in the Galactic plane, centred on the Sun.
     for (const r of RINGS) {
@@ -323,6 +346,24 @@ export class GalaxyScene {
     this.flyTo(this.galPos(i), d, 2200);
   }
 
+  /** Galactic position (pc) of the point the camera orbits. */
+  focusGal(): THREE.Vector3 {
+    const t = this.controls.target;
+    return new THREE.Vector3(this.origin.x + t.x, this.origin.y - t.z, this.origin.z + t.y);
+  }
+
+  /** Index of the visible star nearest Galactic point g, within maxDist pc (or -1). */
+  nearestTo(g: THREE.Vector3, maxDist: number): number {
+    const xyz = this.data.xyz;
+    let best = -1, bd = maxDist * maxDist;
+    for (let i = 0; i < this.data.n; i++) {
+      const dx = xyz[i * 3] - g.x, dy = xyz[i * 3 + 1] - g.y, dz = xyz[i * 3 + 2] - g.z;
+      const d2 = dx * dx + dy * dy + dz * dz;
+      if (d2 < bd && this.visible(i)) { bd = d2; best = i; }
+    }
+    return best;
+  }
+
   goHome() {
     this.select(-1);
     this.flyTo(new THREE.Vector3(), 12, 1800);
@@ -351,7 +392,7 @@ export class GalaxyScene {
     const starR = Math.max((sys.st_rad ?? 0.5) * 0.00465047 * pc, 1e-9);
     const star = new THREE.Mesh(new THREE.SphereGeometry(starR, 32, 16), new THREE.MeshBasicMaterial({ color: starCol }));
     grp.add(star);
-    const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(starCol), blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: false }));
+    const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(starCol), blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: false, transparent: true }));
     glow.scale.set(0.06, 0.06, 1);
     grp.add(glow);
     // Habitable zone (conservative, Kopparapu-like scaling from luminosity).
@@ -416,6 +457,7 @@ export class GalaxyScene {
   private loop = () => {
     this.raf = requestAnimationFrame(this.loop);
     const dt = Math.min(this.clock.getDelta(), 0.1);
+    if (this.paused) return;
     const now = performance.now();
     if (this.anim) {
       const a = this.anim;
@@ -438,7 +480,10 @@ export class GalaxyScene {
 
     const sunW = this.toWorld(new THREE.Vector3());
     this.sun.position.copy(sunW);
+    this.sunBody.position.copy(sunW);
     this.ringGroup.position.copy(sunW);
+    const H = Math.max(this.host.clientHeight, 1);
+    this.sunScreen = { d: sunW.distanceTo(this.camera.position), px: (0.03 * H) / (2 * Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2))) };
     const gcW = this.toWorld(new THREE.Vector3(GC_DIST, 0, 0));
     this.disk.position.copy(gcW);
     const distFromSunToFocus = this.origin.length() + this.controls.target.length();
@@ -473,8 +518,16 @@ export class GalaxyScene {
     return [(p.x * 0.5 + 0.5) * w, (1 - (p.y * 0.5 + 0.5)) * h, p.z < 1 && p.z > -1];
   }
 
+  private sunScreen = { d: 1, px: 1 };
+
   private updateLabels(camDist: number) {
     const w = this.host.clientWidth, h = this.host.clientHeight;
+    {
+      const [x, y, ok] = this.project(this.sun.position);
+      const show = ok && x > 0 && x < w && y > 0 && y < h && this.sunScreen.d < 60;
+      this.sunLabel.style.display = show ? "block" : "none";
+      this.sunLabel.style.transform = `translate(${x + 6 + this.sunScreen.px / 2}px, ${y - 7}px)`;
+    }
     // Ring labels.
     this.ringGroup.children.forEach((obj, k) => {
       const lab = this.ringLabels[k];

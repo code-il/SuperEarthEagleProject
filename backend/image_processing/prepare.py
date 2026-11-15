@@ -38,7 +38,10 @@ MASK_PROFILES: dict[str, list[str] | None] = {
     "strict": None,  # all non-informational flags present in the file
 }
 
-BACKGROUND_METHODS = ("none", "zodi", "median", "zodi+median")
+BACKGROUND_METHODS = ("none", "zodi", "median", "zodi+median", "mesh", "zodi+mesh")
+"""``median`` = one sigma-clipped constant (uniform skies, small cutouts); ``mesh`` = a smooth 2-D
+background from sigma-clipped medians in boxes (gradients); ``zodi`` = only the pipeline's
+zodiacal-light model; ``none`` = keep everything (diffuse-emission studies)."""
 
 
 @dataclass
@@ -51,7 +54,11 @@ class PreparedImage:
     original: np.ndarray
     """Untouched input values (for provenance / 'raw' products)."""
     background_level: float | None = None
-    """Residual constant background removed after the zodi model (MJy/sr)."""
+    """Residual background removed after the zodi model (MJy/sr; the mesh median for ``mesh``)."""
+    zodi_subtracted: np.ndarray | None = None
+    """Original minus the ZODI model, unmasked (None without a ZODI model)."""
+    background_map: np.ndarray | None = None
+    """Residual background that was removed after ZODI (constant or 2-D), MJy/sr."""
     zodi_median: float | None = None
     masked_flags: list[str] = field(default_factory=list)
     history: list[str] = field(default_factory=list)
@@ -94,6 +101,33 @@ def estimate_background(data: np.ndarray, valid: np.ndarray, sigma: float = 3.0)
     return float(median)
 
 
+def estimate_background_mesh(data: np.ndarray, valid: np.ndarray, box: int | None = None,
+                             sigma: float = 3.0) -> np.ndarray | None:
+    """Smooth 2-D background: sigma-clipped medians in boxes, median-filtered and interpolated.
+
+    The box (default: a quarter of the image, at least 8 px = 49") is much
+    larger than the PSF, so stars are clipped out, but anything extended on
+    that scale (nebulae, large galaxies) is treated as background: use
+    ``zodi`` or ``none`` to keep it. Returns None if the image is too small.
+    """
+    from photutils.background import Background2D, MedianBackground
+    from astropy.stats import SigmaClip
+
+    ny, nx = data.shape
+    b = box or max(8, min(ny, nx) // 4)
+    if min(ny, nx) < 2 * b or (valid & np.isfinite(data)).sum() < 25:
+        return None
+    try:
+        # A 3x3 median filter over the box grid only helps when there are enough boxes.
+        fs = (3, 3) if min(ny, nx) // b >= 6 else (1, 1)
+        bkg = Background2D(np.where(valid, data, np.nan), (b, b), filter_size=fs,
+                           sigma_clip=SigmaClip(sigma=sigma, maxiters=10), bkg_estimator=MedianBackground(),
+                           coverage_mask=~valid, fill_value=np.nan, exclude_percentile=50)
+    except ValueError:
+        return None
+    return np.asarray(bkg.background, float)
+
+
 def prepare_image(
     image: np.ndarray,
     uncertainty: np.ndarray | None = None,
@@ -115,13 +149,16 @@ def prepare_image(
     flag_definitions : decoded FLAGS header (``fits_meta.decode_flag_definitions``).
     zodi : zodiacal-light model (SPHEREx ``ZODI`` extension).
     mask_profile : ``"none" | "minimal" | "standard" | "strict"`` or a list of flag names.
-    background : ``"none" | "zodi" | "median" | "zodi+median"``.
+    background : one of ``BACKGROUND_METHODS``.
         ``zodi`` subtracts the pipeline's zodiacal-light model; ``median``
-        subtracts a sigma-clipped median of valid pixels. The default does
-        both: the model removes the bulk, the median removes the small
-        residual (typically 0.03-0.06 MJy/sr in D6 cutouts). A constant
-        level is appropriate for small cutouts. It will over-subtract in
-        fields dominated by extended emission (nebulae, galaxies).
+        subtracts a sigma-clipped median of valid pixels; ``mesh`` a smooth
+        2-D background (for gradients). The default does zodi + median: the
+        model removes the bulk, the median the small residual (typically
+        0.03-0.06 MJy/sr in D6 cutouts), which keeps a time-lapse at a
+        steady level. A constant level is appropriate for small cutouts. It
+        will remove real signal in fields dominated by extended emission
+        (nebulae, galaxies): use ``zodi`` or ``none`` there. The original
+        and ZODI-subtracted images are kept either way.
     """
     if background not in BACKGROUND_METHODS:
         raise ValueError(f"background must be one of {BACKGROUND_METHODS}")
@@ -152,7 +189,11 @@ def prepare_image(
                        f"{int(fmask.sum())} pixels masked")
 
     zodi_median = None
-    if background in ("zodi", "zodi+median"):
+    zsub = None
+    if zodi is not None:
+        z = np.asarray(zodi, np.float64)
+        zsub = original - z
+    if background in ("zodi", "zodi+median", "zodi+mesh"):
         if zodi is None:
             history.append("zodi background requested but no ZODI model available; skipped")
         else:
@@ -162,15 +203,28 @@ def prepare_image(
             history.append(f"subtracted SPHEREx ZODI model (median {zodi_median:.4f} MJy/sr)")
 
     level = None
+    bmap = None
+    if background in ("mesh", "zodi+mesh"):
+        bmap = estimate_background_mesh(data, mask == 0)
+        if bmap is None:
+            history.append("image too small for a 2-D background; used a constant median instead")
+            background = "median"
+        else:
+            data = data - bmap
+            level = float(np.nanmedian(bmap))
+            history.append(f"subtracted 2-D mesh background (median {level:.4f}, range "
+                           f"{np.nanmin(bmap):.4f} to {np.nanmax(bmap):.4f} MJy/sr)")
     if background in ("median", "zodi+median"):
         level = estimate_background(data, mask == 0)
         if level is None:
             history.append("residual background not estimated (too few valid pixels)")
         else:
             data = data - level
+            bmap = np.full(data.shape, level)
             history.append(f"subtracted sigma-clipped median background {level:.4f} MJy/sr")
 
     data = np.where(mask == 0, data, np.nan)
     return PreparedImage(data=data, variance=variance, mask=mask, original=original,
                          background_level=level, zodi_median=zodi_median,
+                         zodi_subtracted=zsub, background_map=bmap,
                          masked_flags=masked_flags, history=history)

@@ -68,7 +68,8 @@ def test_save_and_load_roundtrip(processed, tmp_path):
     path = save_processed_observation(p, {"SRCURL": "x"}, tmp_path / "out" / "p.fits")
     with fits.open(path) as h:
         names = [x.name for x in h]
-        assert names == ["PRIMARY", "SCI", "VAR", "MASK", "FLAGS", "RAW"]
+        assert names == ["PRIMARY", "SCI", "VAR", "MASK", "FLAGS", "RAW", "ZSUB", "WGT"]
+        assert h[0].header["NOISECOR"] >= 1.0
         assert h["SCI"].header["CTYPE1"] == "RA---TAN" and h["MASK"].header["MASKB1"] == "NO_COVERAGE"
         assert h["FLAGS"].header["MSKN0000"] == "TRANSIENT"
         assert h[0].header["OBS_ID"] == "E0A_D6" and h[0].header["MASKPROF"] == "standard"
@@ -165,7 +166,11 @@ def test_make_stacks(processed, tmp_path):
         assert h[0].header["NFRAMES"] == 2 and "NFRAMES" in [x.name for x in h]
     processed[0].wavelength = 4.45
     processed[1].wavelength = 4.95
-    p2 = make_stacks(processed[:2], "detector", output_dir=tmp_path / "st2")
+    # different wavelengths are never stacked silently: split by channel (default) ...
+    split = make_stacks(processed[:2], "detector", output_dir=tmp_path / "st3")
+    assert len(split) == 2 and all(p["key"].startswith("D6_ch") and p["wavelength_compatible"] for p in split)
+    # ... or kept together with a warning
+    p2 = make_stacks(processed[:2], "detector", output_dir=tmp_path / "st2", wavelength_policy="warn")
     assert any("more than one" in w for w in p2[0]["warnings"])
     with pytest.raises(ValueError):
         make_stacks(processed, "epoch", "max")

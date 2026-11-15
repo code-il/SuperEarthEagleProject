@@ -75,3 +75,16 @@ def test_infrared_excess_flagged():
 def test_too_faint():
     c = classify_spectrum(_spectrum(np.full(102, 0.01), snr=0.5))
     assert c["class_id"] is None
+
+
+@pytest.mark.parametrize("main_id, names, expected", [
+    ("NAME Proxima Centauri", ["Proxima", "Proxima Cen", "Proxima Centauri"], "Proxima Centauri"),
+    ("* alf CMa", ["Sirius", "Sirius A"], "Sirius"),
+    ("* alf CMa B", ["Sirius B", "Sirius BC", "Sirius C"], "Sirius B"),
+    ("* alf UMi", ["Lodestar", "North Star", "Polaris"], "Polaris"),
+    ("Wolf   28", ["van Maanen 2", "van Maanen Star", "van Maanen's Star", "vMA 2"], "van Maanen's Star"),
+    ("LP  791-18", [], "LP 791-18"),
+])
+def test_display_names(main_id, names, expected):
+    from scripts.build_galaxy_map import best_name
+    assert best_name(main_id, names) == expected

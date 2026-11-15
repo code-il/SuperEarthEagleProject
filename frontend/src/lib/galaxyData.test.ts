@@ -50,3 +50,15 @@ describe("galaxy data helpers", () => {
     expect(sec.frontier).toBeCloseTo((1 + 1 + 0.5) / 4);
   });
 });
+
+describe("galactic to equatorial", () => {
+  it("maps the Galactic centre and north pole to their ICRS positions", async () => {
+    const { galToRaDec } = await import("./galaxyData");
+    const [ra, dec] = galToRaDec(1, 0, 0);
+    expect(ra).toBeCloseTo(266.405, 2);
+    expect(dec).toBeCloseTo(-28.936, 2);
+    const [rp, dp] = galToRaDec(0, 0, 5);
+    expect(rp).toBeCloseTo(192.859, 2);
+    expect(dp).toBeCloseTo(27.128, 2);
+  });
+});

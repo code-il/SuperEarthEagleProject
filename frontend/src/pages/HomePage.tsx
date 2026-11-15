@@ -24,12 +24,12 @@ export default function HomePage() {
           variable stars brighten and fade.
         </p>
 
-        <Link to="/map" className="group mt-6 flex items-center justify-between gap-4 rounded-lg border border-teal-500/40 bg-[radial-gradient(ellipse_at_left,#134e4a_0%,#0f172a_70%)] p-4 hover:border-teal-300">
+        <Link to="/" className="group mt-6 flex items-center justify-between gap-4 rounded-lg border border-teal-500/40 bg-[radial-gradient(ellipse_at_left,#134e4a_0%,#0f172a_70%)] p-4 hover:border-teal-300">
           <div>
             <div className="font-mono text-xs font-bold tracking-[0.3em] text-teal-300">SPHEREx ATLAS · 3D</div>
-            <p className="mt-1 text-sm text-slate-200">Fly through 617,000 real stars, brown dwarfs and 4,800 planetary systems at their measured distances. Filter by class, hunt the uncharted, and measure any object's SPHEREx spectrum.</p>
+            <p className="mt-1 text-sm text-slate-200">Fly through 570,000 real stars, brown dwarfs and 4,800 planetary systems at their measured distances. Filter by class, hunt the uncharted, and measure any object's SPHEREx spectrum.</p>
           </div>
-          <span className="shrink-0 rounded border border-teal-400/60 px-3 py-1.5 text-sm text-teal-100 group-hover:bg-teal-500/20">Open the map →</span>
+          <span className="shrink-0 rounded border border-teal-400/60 px-3 py-1.5 text-sm text-teal-100 group-hover:bg-teal-500/20">Back to the Atlas →</span>
         </Link>
 
         <div className="mt-8 rounded-lg border border-slate-800 bg-slate-900/70 p-4 pb-6">

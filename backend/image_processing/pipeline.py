@@ -14,6 +14,8 @@ from __future__ import annotations
 import json
 import logging
 import math
+import os
+import threading
 import warnings
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -32,7 +34,7 @@ from backend.data_acquisition.cache import stable_hash
 from backend.data_acquisition.fits_meta import quiet_wcs_logging
 
 from .align import (NATIVE_PIXEL_SCALE_ARCSEC, cutout_size_for_grid, make_reference_wcs,
-                    reproject_bitmask, reproject_observation)
+                    propagate_bilinear, reproject_bitmask, reproject_observation)
 from .channels import channel_for, channel_width_um
 from .combine import (STACK_METHODS, ComparisonResult, divide_images, psf_match,
                       stack_observations, subtract_images)
@@ -42,7 +44,10 @@ from .prepare import MASK_BITS, MASK_FLAGGED, MASK_NO_COVERAGE, MASK_NONFINITE, 
 
 log = logging.getLogger(__name__)
 
-PROCESSING_VERSION = "1.2"  # 1.2: per-pixel wavelengths from CWAVE/CBAND calibration
+PROCESSING_VERSION = "1.3"
+# 1.2: per-pixel wavelengths from CWAVE/CBAND calibration
+# 1.3: variance resampled with squared weights, flags OR-ed over contributors, ZSUB/WGT planes,
+#      per-channel display limits, wavelength-split stacks
 MASK_INTERP_EDGE = 16  # valid input, but interpolation touched an invalid neighbour
 ALL_MASK_BITS = {**MASK_BITS, "INTERP_EDGE": MASK_INTERP_EDGE}
 
@@ -74,6 +79,12 @@ class ProcessedObservation:
     """Reprojected original values: no background subtraction, no masking."""
     wavelength_map: np.ndarray | None
     wcs: WCS
+    zodi_subtracted: np.ndarray | None = None
+    """Reprojected original minus the ZODI model (no further background, no masking)."""
+    interp_weight: np.ndarray | None = None
+    """Fraction of each pixel's interpolation weight that came from valid input pixels."""
+    noise_correlation: float | None = None
+    """var(sum over a large area) / sum(VAR): multiply VAR by this for aperture sums / PSF fits."""
     psf_fwhm: float | None = None
     background_level: float | None = None
     zodi_median: float | None = None
@@ -135,14 +146,31 @@ def process_observation(
     history = [f"source: {Path(src).name if src else 'in-memory image'}"] + prep.history
 
     sci, fp = reproject_observation(prep.data, img.wcs, reference_wcs, shape, method)
-    var = None
-    if prep.variance is not None:
-        v_in = np.where(prep.valid, prep.variance, np.nan)
-        var, _ = reproject_observation(v_in, img.wcs, reference_wcs, shape, "interp")
     raw, _ = reproject_observation(prep.original, img.wcs, reference_wcs, shape, method)
-    flags = (reproject_bitmask(img.flags, img.wcs, reference_wcs, shape)
-             if img.flags is not None else np.zeros(shape, np.int64))
-    src_mask = reproject_bitmask(prep.mask.astype(np.int64), img.wcs, reference_wcs, shape).astype(np.uint8)
+    zsub = None
+    if prep.zodi_subtracted is not None:
+        zsub, _ = reproject_observation(prep.zodi_subtracted, img.wcs, reference_wcs, shape, method)
+    var = weight = corr = None
+    if method == "interp":
+        # Same bilinear weights as the science image: variance sum(w^2 var), bits OR-ed over all
+        # contributing input pixels, and the valid fraction of the weight.
+        pr = propagate_bilinear(img.wcs, reference_wcs, shape, valid=prep.valid, variance=prep.variance,
+                                bits=prep.mask.astype(np.int64))
+        var, weight, corr = pr.variance, pr.valid_weight, pr.noise_correlation
+        src_mask = pr.bits.astype(np.uint8)
+        flags = (propagate_bilinear(img.wcs, reference_wcs, shape, valid=prep.valid, bits=img.flags).bits
+                 if img.flags is not None else np.zeros(shape, np.int64))
+        history.append(f"variance resampled with squared bilinear weights; quality bits OR-ed over the 4 "
+                       f"contributing pixels; noise correlation factor {corr:.2f} (multiply VAR by it for "
+                       "sums over areas >> 1 px)")
+    else:
+        if prep.variance is not None:
+            v_in = np.where(prep.valid, prep.variance, np.nan)
+            var, _ = reproject_observation(v_in, img.wcs, reference_wcs, shape, method)
+            history.append(f"variance resampled with the '{method}' method (approximate for this method)")
+        flags = (reproject_bitmask(img.flags, img.wcs, reference_wcs, shape)
+                 if img.flags is not None else np.zeros(shape, np.int64))
+        src_mask = reproject_bitmask(prep.mask.astype(np.int64), img.wcs, reference_wcs, shape).astype(np.uint8)
     wl_map = None
     if img.wavelength is not None:
         wl_map, _ = reproject_observation(img.wavelength, img.wcs, reference_wcs, shape, "interp")
@@ -189,7 +217,8 @@ def process_observation(
         observation_id=obs_id, observation_time=t, mjd=float(mjd) if mjd is not None else None,
         detector=int(det) if det is not None else None, wavelength=wl, bandwidth=bw,
         data=sci, variance=var, mask=mask, flags=flags, raw=raw, wavelength_map=wl_map,
-        wcs=reference_wcs, psf_fwhm=img.meta.get("psf_fwhm_arcsec"),
+        wcs=reference_wcs, zodi_subtracted=zsub, interp_weight=weight, noise_correlation=corr,
+        psf_fwhm=img.meta.get("psf_fwhm_arcsec"),
         background_level=prep.background_level, zodi_median=prep.zodi_median,
         quality_flags=qf, masked_flags=prep.masked_flags, flag_definitions=img.flag_definitions,
         history=history, source_path=img.meta.get("source_path"), source_sha256=source_sha256,
@@ -229,10 +258,12 @@ def save_processed_observation(image: ProcessedObservation, metadata: dict[str, 
                                output_path: str | Path) -> Path:
     """Write a processed observation as a multi-extension FITS.
 
-    Extensions: SCI (MJy/sr, background-subtracted, NaN = invalid), VAR,
-    MASK (uint8; bits in MASKB* cards), FLAGS (original SPHEREx bits,
-    nearest-neighbour resampled; definitions in MSKN/MSKM/MSKD cards), RAW
-    (reprojected original values) and WAVE (um per pixel). Every extension
+    Extensions: SCI (MJy/sr, background-subtracted, NaN = invalid), VAR
+    (per-pixel variance; NOISECOR card for area sums), MASK (uint8; bits in
+    MASKB* cards), FLAGS (original SPHEREx bits, OR of the contributing
+    input pixels; definitions in MSKN/MSKM/MSKD cards), RAW (reprojected
+    calibrated values, untouched), ZSUB (RAW minus the ZODI model), WGT
+    (valid fraction of the interpolation weight) and WAVE (um per pixel). Every extension
     carries the common grid's celestial WCS. The primary header holds
     provenance and the processing history.
     """
@@ -272,6 +303,8 @@ def save_processed_observation(image: ProcessedObservation, metadata: dict[str, 
     if image.zodi_median is not None:
         ph["ZODIMED"] = (image.zodi_median, "[MJy/sr] median of subtracted ZODI model")
     ph["REPROJ"] = (p.get("reproject_method"), "reprojection method")
+    if image.noise_correlation is not None:
+        ph["NOISECOR"] = (round(float(image.noise_correlation), 4), "VAR x this = variance of large-area sums")
     ph["PIXSCALE"] = (round(p.get("pixel_scale_arcsec", 0), 4), "[arcsec/px] output grid")
     ph["PROCVER"] = (PROCESSING_VERSION, "SPHEREx Explorer processing version")
     ph["PROCDATE"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
@@ -298,9 +331,14 @@ def save_processed_observation(image: ProcessedObservation, metadata: dict[str, 
     if image.variance is not None:
         hdus.append(_image_hdu(image.variance, "VAR", w, "(MJy / sr)2", np.float32))
     hdus += [mask_hdu, flags_hdu, _image_hdu(image.raw, "RAW", w, "MJy / sr", np.float32)]
+    if image.zodi_subtracted is not None:
+        hdus.append(_image_hdu(image.zodi_subtracted, "ZSUB", w, "MJy / sr", np.float32))
+    if image.interp_weight is not None:
+        hdus.append(_image_hdu(image.interp_weight, "WGT", w, None, np.float32))
     if image.wavelength_map is not None:
         hdus.append(_image_hdu(image.wavelength_map, "WAVE", w, "um", np.float32))
-    tmp = output_path.with_name(output_path.name + ".part")
+    # Unique temp name: two requests processing the same field must not write the same file.
+    tmp = output_path.with_name(output_path.name + f".{os.getpid()}.{threading.get_ident()}.part")
     _writeto(fits.HDUList(hdus), tmp)
     tmp.replace(output_path)
     image.fits_path = str(output_path)
@@ -322,7 +360,8 @@ def load_processed_observation(path: str | Path) -> ProcessedObservation:
             mjd=ph.get("MJD-OBS"), detector=ph.get("DETECTOR"), wavelength=ph.get("WAVELEN"),
             bandwidth=ph.get("BANDWID"), data=get("SCI"), variance=get("VAR"),
             mask=get("MASK", np.uint8), flags=get("FLAGS", np.int64), raw=get("RAW"),
-            wavelength_map=get("WAVE"), wcs=wcs, psf_fwhm=ph.get("PSF_FWHM"),
+            wavelength_map=get("WAVE"), wcs=wcs, zodi_subtracted=get("ZSUB"), interp_weight=get("WGT"),
+            noise_correlation=ph.get("NOISECOR"), psf_fwhm=ph.get("PSF_FWHM"),
             background_level=ph.get("BKGLEVEL"), zodi_median=ph.get("ZODIMED"),
             quality_flags=[q for q in (ph.get("QUALFLAG") or "").split(",") if q],
             flag_definitions=decode_flag_definitions(h["FLAGS"].header),
@@ -378,6 +417,8 @@ def product_dict(p: ProcessedObservation, display_limits: tuple[float, float] | 
         "background_level": p.background_level,
         "zodi_median": p.zodi_median,
         "psf_fwhm_arcsec": p.psf_fwhm,
+        "noise_correlation": p.noise_correlation,
+        "planes": ["SCI", "RAW"] + (["ZSUB"] if p.zodi_subtracted is not None else []),
         "masked_flags": p.masked_flags,
         "display_limits": list(display_limits) if display_limits else None,
         "units": "MJy/sr",
@@ -406,6 +447,12 @@ class SeriesResult:
         return {"grid": self.grid, "count": len(self.products), "observations": self.products,
                 "animations": {k: file_url(v) for k, v in self.animations.items()},
                 "errors": self.errors, "skipped": self.skipped}
+
+
+def limits_key(p: ProcessedObservation) -> str:
+    """Display-limit group: the nominal wavelength channel, else the detector."""
+    ch = p.channel
+    return f"ch{ch.index:03d}" if ch is not None else f"D{p.detector}"
 
 
 def series_key(ra: float, dec: float, fov: float, pixel_scale: float, mask_profile, background: str,
@@ -492,14 +539,14 @@ def process_series(
             errors.append({"observation_id": rec.observation_id, "error": f"processing: {exc}"})
 
     processed.sort(key=lambda p: (p.mjd or 0, p.detector or 0))
-    # shared display limits per detector -> no flicker in the time-lapse
+    # Shared display limits per wavelength channel: no flicker between frames at one wavelength,
+    # and a bright frame at one wavelength cannot set the range of another.
     limits: dict[str, tuple[float, float]] = {}
-    for det in sorted({p.detector for p in processed}, key=lambda d: d or 0):
-        frames = [p.data for p in processed if p.detector == det]
-        limits[f"D{det}"] = compute_limits(frames, (1.0, 99.7))
+    for k in sorted({limits_key(p) for p in processed}):
+        limits[k] = compute_limits([p.data for p in processed if limits_key(p) == k], (1.0, 99.7))
     animations: dict[str, str] = {}
     for p in processed:
-        lim = limits[f"D{p.detector}"]
+        lim = limits[limits_key(p)]
         png = sdir / f"{p.observation_id}.png"
         save_png(generate_display_image(p.data, stretch=stretch, vmin=lim[0], vmax=lim[1]), png)
         p.png_path = str(png)
@@ -507,12 +554,11 @@ def process_series(
         for det in sorted({p.detector for p in processed}, key=lambda d: d or 0):
             frames = [p for p in processed if p.detector == det]
             if len(frames) >= 2:
-                lim = limits[f"D{det}"]
                 factor = max(1, 256 // max(shape))
-                rgba = [upscale(generate_display_image(f.data, stretch=stretch, vmin=lim[0], vmax=lim[1]), factor)
-                        for f in frames]
+                rgba = [upscale(generate_display_image(f.data, stretch=stretch, vmin=limits[limits_key(f)][0],
+                                                       vmax=limits[limits_key(f)][1]), factor) for f in frames]
                 animations[f"D{det}"] = str(make_animation(rgba, sdir / f"timelapse_D{det}.gif", 400))
-    products = [product_dict(p, limits.get(f"D{p.detector}")) for p in processed]
+    products = [product_dict(p, limits.get(limits_key(p))) for p in processed]
     return SeriesResult(grid=grid_info(ref_wcs, shape, ra, dec, fov), observations=processed,
                         products=products, series_dir=sdir, errors=errors, skipped=skipped,
                         animations=animations, display_limits=limits)
@@ -611,9 +657,13 @@ def _group_summary(members: Sequence[ProcessedObservation]) -> dict[str, Any]:
     }
     if len(dets) > 1:
         out["warnings"].append(f"mixes detectors {dets}: different wavelength ranges and PSFs")
+    out["wavelength_compatible"] = True
+    nc = [m.noise_correlation for m in members if m.noise_correlation]
+    out["noise_correlation"] = float(np.mean(nc)) if nc else None
     if wls and dets and len(dets) == 1:
         width = channel_width_um(dets[0], float(np.median(wls)))
         if max(wls) - min(wls) > width:
+            out["wavelength_compatible"] = False
             out["warnings"].append(
                 f"members span {min(wls):.3f}-{max(wls):.3f} um (more than one ~{width:.3f} um channel): "
                 "this combines different wavelengths, so flux reflects the source's spectrum as well as time")
@@ -638,25 +688,61 @@ def stack_group(members: Sequence[ProcessedObservation], method: str = "median",
     return res, _group_summary(members)
 
 
+WAVELENGTH_POLICIES = ("split", "warn")
+
+
+def split_by_wavelength(groups: dict[str, list[ProcessedObservation]]) -> dict[str, list[ProcessedObservation]]:
+    """Split any group whose members span more than one channel into one group per channel.
+
+    SPHEREx's linear variable filters put a source at a different wavelength
+    in each exposure, so "same sky, same epoch" is not "same measurement".
+    Keys of split groups get a ``_chNNN`` suffix.
+    """
+    out: dict[str, list[ProcessedObservation]] = {}
+    for k, mem in groups.items():
+        if _group_summary(mem).get("wavelength_compatible", True):
+            out[k] = mem
+            continue
+        for m in mem:
+            ch = m.channel
+            out.setdefault(f"{k}_ch{ch.index:03d}" if ch is not None else f"{k}_chNA", []).append(m)
+    return dict(sorted(out.items()))
+
+
 def make_stacks(observations: Sequence[ProcessedObservation], group_by: str = "epoch",
                 method: str = "median", min_frames: int = 1, output_dir: str | Path | None = None,
-                stretch: str = "asinh") -> list[dict[str, Any]]:
-    """Stack each group and write ``stack_<key>.fits`` / ``.png``. Returns product dicts."""
+                stretch: str = "asinh", wavelength_policy: str = "split") -> list[dict[str, Any]]:
+    """Stack each group and write ``stack_<key>.fits`` / ``.png``. Returns product dicts.
+
+    ``wavelength_policy="split"`` (default) stacks only frames at compatible
+    wavelengths (one nominal channel), splitting mixed groups by channel;
+    ``"warn"`` keeps the group and records a warning.
+    """
     if method not in STACK_METHODS:
         raise ValueError(f"method must be one of {STACK_METHODS}")
+    if wavelength_policy not in WAVELENGTH_POLICIES:
+        raise ValueError(f"wavelength_policy must be one of {WAVELENGTH_POLICIES}")
     if not observations:
         return []
     out_dir = Path(output_dir) if output_dir else processed_root() / "stacks"
     wcs = observations[0].wcs
     products = []
     groups = group_observations(observations, group_by)
+    if wavelength_policy == "split":
+        groups = split_by_wavelength(groups)
     stacks = {k: stack_group(v, method, min_frames) for k, v in groups.items()}
-    # shared limits per detector
-    lims: dict[Any, tuple[float, float]] = {}
-    for k, (res, summ) in stacks.items():
-        lims.setdefault(tuple(summ["detectors"]), None)
-    for dk in lims:
-        lims[dk] = compute_limits([r.data for r, s in stacks.values() if tuple(s["detectors"]) == dk], (1.0, 99.7))
+
+    # shared limits per wavelength channel (detector when the stack spans several channels)
+    def lkey(summ):
+        dets = summ["detectors"]
+        if summ.get("wavelength_compatible") and summ["wavelength_mean"] is not None and len(dets) == 1:
+            ch = channel_for(dets[0], summ["wavelength_mean"])
+            if ch is not None:
+                return f"ch{ch.index:03d}"
+        return "D" + "".join(str(d) for d in dets)
+    lims: dict[str, tuple[float, float]] = {}
+    for dk in {lkey(s) for _, s in stacks.values()}:
+        lims[dk] = compute_limits([r.data for r, s in stacks.values() if lkey(s) == dk], (1.0, 99.7))
     for k, (res, summ) in stacks.items():
         name = f"stack_{group_by}_{method}_{k}"
         path = out_dir / f"{name}.fits"
@@ -670,6 +756,8 @@ def make_stacks(observations: Sequence[ProcessedObservation], group_by: str = "e
             ph["WAVELEN"] = (round(summ["wavelength_mean"], 5), "[um] mean wavelength of members")
         ph["BUNIT"] = "MJy / sr"
         ph["PROCVER"] = PROCESSING_VERSION
+        if summ.get("noise_correlation"):
+            ph["NOISECOR"] = (round(summ["noise_correlation"], 4), "VAR x this = variance of large-area sums")
         for oid in summ["observation_ids"]:
             ph.add_history(f"member {oid}")
         for w in summ["warnings"]:
@@ -680,7 +768,7 @@ def make_stacks(observations: Sequence[ProcessedObservation], group_by: str = "e
         hdus.append(_image_hdu(res.n_used, "NFRAMES", h, None, np.int16))
         path.parent.mkdir(parents=True, exist_ok=True)
         _writeto(fits.HDUList(hdus), path)
-        lim = lims[tuple(summ["detectors"])]
+        lim = lims[lkey(summ)]
         png = save_png(generate_display_image(res.data, stretch=stretch, vmin=lim[0], vmax=lim[1]),
                        path.with_suffix(".png"))
         products.append({"key": k, "group_by": group_by, "method": method, **summ,
@@ -791,6 +879,8 @@ def compare(a: Sequence[ProcessedObservation], b: Sequence[ProcessedObservation]
                            f"{sb['wavelength_mean']:.3f} um, > 1 channel): flux differences may be spectral, "
                            "not changes in time. Use match_wavelength=True for a like-for-like comparison.")
     caveats += [f"A: {w}" for w in sa["warnings"]] + [f"B: {w}" for w in sb["warnings"]]
+    caveats.append("Significance assumes A and B have independent errors; resampling correlates neighbouring "
+                   "pixels, so sums over several pixels are noisier than the per-pixel sigma suggests.")
     caveats.append("Residuals can come from PSF differences, background, calibration or noise; "
                    "a residual is a candidate for inspection, not a detected moving object.")
     if (len(a) == 1 or len(b) == 1) and not smooth_fwhm_arcsec:

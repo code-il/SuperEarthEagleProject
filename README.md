@@ -44,23 +44,35 @@ Settings are read from `.env`; see [`.env.example`](.env.example). For Docker, r
 exact environment used for validation. The viewer's versions are locked in
 `frontend/package-lock.json`.
 
-## 3D Atlas (`/map`)
+## 3D Atlas (the front page, `/`)
 
 A zoomable 3D map of the real stellar neighbourhood, from a planetary system (AU) out to the whole
 Milky Way (kpc), one continuous camera. Every point sits at its measured Gaia DR3 distance.
 
-- **617k objects**: every Gaia DR3 star within 100 pc (parallax/error ≥ 10), a 1-in-3 sample of
-  bright stars to 4 kpc, 2.7k SIMBAD objects Gaia cannot see (cold brown dwarfs such as WISE 0855),
-  and 4.8k planetary systems from the NASA Exoplanet Archive drawn to scale with habitable zones.
+- **573k objects**: every Gaia DR3 star within 100 pc (parallax/error ≥ 10, minus 46k faint
+  G > 19 sources with RUWE > 1.4, which are mostly spurious parallaxes in crowded Galactic-plane
+  fields), a 1-in-3 sample of bright stars to 4 kpc, 4.3k SIMBAD objects Gaia has no parallax for
+  (cold brown dwarfs such as WISE 0855, the Luhman 16 binary), and 4.8k planetary systems from the
+  NASA Exoplanet Archive drawn to scale with habitable zones. Names use SIMBAD's common names and
+  every alias is searchable (Sirius, Polaris, Proxima Centauri, Barnard's star).
 - **Classified**, with the source of every class shown: *measured* from the object's SPHEREx
   DR1+QR3 spectrum (blackbody + H₂O/CH₄ band indices), *catalogued* (SIMBAD spectral type), or
-  *predicted* by a k-NN model on Gaia photometry (89.7 % held-out accuracy, shown in the app).
+  *predicted* by a k-NN model on Gaia photometry (89.7 % held-out accuracy, shown in the app;
+  below G = 19, where BP−RP is unreliable, a second model on M_G and G−RP, flagged uncertain).
+  SPHEREx replaces a class only when no catalogue gave one or when it sees brown-dwarf molecular
+  bands: a 0.75–5 µm colour temperature cannot tell a white dwarf or giant from a dwarf.
 - **Filters** by class, classification source, model confidence, distance and flags (planet hosts,
   variables, binaries, halo stars, invisible to Gaia); colour by class, true colour or source.
 - **Frontier mode** highlights what is still unknown and ranks sectors of space by how uncharted
   they are. Pick an object and press *Measure SPHEREx spectrum* to classify it from the images.
-- Each object card shows the SPHEREx DR1 all-sky image (HiPS cube, wavelength slider) and links to
-  the time-lapse viewer.
+- Each object card shows the SPHEREx DR1 all-sky image (HiPS cube, wavelength slider) and opens the
+  time-lapse viewer (Explore) as a pop-up over the map (`/?view=explore&ra=…&dec=…`; old
+  `/explore?…` links redirect there). Images are bicubic-smoothed for display by default; the
+  "Smooth pixels" toggle shows the raw 6.15″ pixels.
+- Stars are drawn by their apparent brightness from the camera. The Sun keeps a fixed-size marker
+  glow so home is always visible, plus a true-size disk when you zoom in close.
+- **Tour**: a guided walkthrough (opens on the first visit, and from the *Tour* button).
+- The challenge targets page moved to `/targets`.
 
 Build the map data once (≈5 min download, then cached in `cache/galaxy/`), and optionally measure
 SPHEREx spectra for a set of nearby objects:

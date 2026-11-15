@@ -39,8 +39,17 @@ Measured from 26 real DR1/QR3 cutouts of the five targets:
 2. **Prepare** (`prepare_image`):
    - non-finite pixels and bad variances are marked invalid;
    - quality flags are masked according to a profile;
-   - background is removed (`zodi+median` by default);
-   - the original values are kept separately (`RAW`).
+   - background is removed (`zodi+median` by default); the choices are below;
+   - three products are kept: the calibrated image as delivered (`RAW`), the image minus the ZODI model (`ZSUB`) and the final background-subtracted image (`SCI`). The viewer can show any of them.
+
+   | Background | Use it for |
+   |---|---|
+   | `zodi+median` (default) | small cutouts with a uniform sky: ZODI model, then one sigma-clipped constant |
+   | `zodi+mesh` / `mesh` | gradients: a smooth 2-D background from sigma-clipped medians in boxes (¼ of the cutout, at least 8 px) |
+   | `zodi` | diffuse emission (nebulae, galaxies): only the zodiacal-light model is removed |
+   | `none` | nothing removed |
+
+   A constant or mesh background also removes real emission that is extended on the cutout's scale. Use `zodi` or `none` for such fields.
 
    | Mask profile | Masks |
    |---|---|
@@ -50,15 +59,19 @@ Measured from 26 real DR1/QR3 cutouts of the five targets:
    | `strict` | every non-informational flag (adds BLOOM, HALO, GHOST*, CROSSTALK, STREAK, SNOWBALL, TRANSIENT, …) |
 
    `SOURCE` and `FULLSAMPLE` are informational and never masked. A list of flag names can be given instead of a profile.
-3. **Align** (`make_reference_wcs`, `reproject_observation`): every frame is resampled with its own WCS onto a north-up, east-left TAN grid. The grid is centred exactly on the requested position (odd pixel count) at the native 6.15″/px, or a chosen scale. Methods are `interp` (bilinear, default), `exact` (flux-conserving) and `nearest`; flags use nearest-neighbour, so bits are never blended. Cutouts are requested √2× larger than the field, so any rotation still covers the grid. Footprint masks mark areas with no coverage.
-4. **Combine** (`stack_observations`): `mean`, `median` or inverse-variance `weighted`, NaN-aware, with propagated variance and a per-pixel frame count. Stacks are grouped by `epoch`, `date`, `detector`, `channel` or `epoch_channel`. Detectors are never mixed unless explicitly allowed, and stacks that span more than one spectral channel carry a warning.
+3. **Align** (`make_reference_wcs`, `reproject_observation`): every frame is resampled with its own WCS onto a north-up, east-left TAN grid. The grid is centred exactly on the requested position (odd pixel count) at the native 6.15″/px, or a chosen scale. Methods are `interp` (bilinear, default), `exact` (flux-conserving) and `nearest`. With `interp`, `propagate_bilinear` reuses the same four weights *w* that build each output pixel:
+   - **Variance** is Σ*w*²σ², the exact per-pixel variance for independent inputs. Interpolating the variance map (Σ*w*σ²) is wrong.
+   - **Quality bits** are the OR of every contributing input pixel, so a bad pixel is never skipped the way nearest-neighbour can skip it. Bits are never blended.
+   - **`WGT`** stores the valid fraction of the weight for each pixel. Any pixel that touches an invalid input is rejected, so the tolerance is zero.
+   - **`NOISECOR`** is a per-frame factor: var(sum over a large area) / ΣVAR, about 2.2 at the native scale. Resampled pixels share inputs, so they are correlated. Multiply VAR by this factor for aperture sums and PSF fits; detection does this automatically. Cutouts are requested √2× larger than the field, so any rotation still covers the grid. Footprint masks mark areas with no coverage.
+4. **Combine** (`stack_observations`): `mean`, `median` or inverse-variance `weighted`, NaN-aware, with propagated variance and a per-pixel frame count. Stacks are grouped by `epoch`, `date`, `detector`, `channel` or `epoch_channel`. Detectors are never mixed unless explicitly allowed. SPHEREx's linear variable filters put a source at a different wavelength in every exposure, so a group whose members span more than one channel is **split by channel** (`wavelength_policy="split"`, the default). With `"warn"`, the group stays together and carries a warning.
 5. **Compare** (`subtract_images`, `divide_images`, `compare`):
    - **difference A − B:** background offset removal, Gaussian PSF matching to the broader FWHM, an optional common smoothing, and a significance map (Δ/σ);
-   - **ratio A / B:** computed only where B has S/N ≥ 5, so it is defined on sources and not on noise;
+   - **ratio A / B:** computed only where A and B are both valid and B is positive with S/N ≥ 5, so it is defined on sources and not on noise. The variance is σ_A²/B² + A²σ_B²/B⁴ for independent A and B. This form stays finite where A ≈ 0. A ratio between different wavelengths measures a colour, not a change in time;
    - **wavelength matching:** `match_wavelength=True` keeps only frame pairs observed within one channel of each other.
 
    Every comparison reports its statistics and auto-generated caveats.
-6. **Render** (`generate_display_image`): asinh, linear, sqrt or log greyscale. Diverging blue-white-red is used for differences (zero is exactly white). Invalid pixels are transparent. One set of display limits is shared per detector across a whole time series, so the time-lapse doesn't flicker. GIF time-lapses are made per detector.
+6. **Render** (`generate_display_image`): asinh, linear, sqrt or log greyscale. Diverging blue-white-red is used for differences (zero is exactly white). Invalid pixels are transparent. Display limits are shared per wavelength channel across a whole time series. The time-lapse doesn't flicker, and a bright frame at one wavelength cannot set the range of another. The viewer can also share limits per detector or per frame. GIF time-lapses are made per detector.
 
 ## Python interface
 
@@ -120,7 +133,7 @@ curl -X POST http://localhost:8000/api/compare -H "Content-Type: application/jso
   "fits_url": "/api/files/processed/<series>/2025W33_2C_0321_1_D6.fits",
   "wcs": {"CTYPE1": "RA---TAN", "CRVAL1": 269.4462, "CDELT1": -0.001708, "...": "..."},
   "quality_flags": ["BLOOM", "OVERFLOW", "SUR_ERROR", "TRANSIENT"],
-  "processing_method": "mask=standard; background=zodi+median; reproject=interp @ 6.15\"/px; v1.1",
+  "processing_method": "mask=standard; background=zodi+median; reproject=interp @ 6.15\"/px; v1.3",
   "detector": 6,
   "channel": {"index": 99, "label": "D6-14 (4.917 um)"},
   "valid_fraction": 0.9677,
@@ -215,7 +228,7 @@ wavelengths. Every comparison product (stacks, differences) warns when it combin
 ## Known limitations and scientific caveats
 
 1. **The PSF is undersampled.** FWHM 7.5–9″ on 6.15″ pixels means a star's pixel values depend on where it falls within a pixel (in tests the peak varied by up to 40%). No resampling method removes this. Single-frame differences of bright stationary stars therefore leave residuals of ~10–40% of the peak. Stacking several frames per side averages this out; `smooth_fwhm_arcsec=15` cuts it to ~5–12% at the cost of resolution. Accurate positions and fluxes need PSF fitting with the `EPSF` extension (Workstream 4).
-2. **Difference noise is above the propagated noise:** about 1.4× on Barnard's Star. Interpolation correlates neighbouring pixels and the variance is interpolated, not formally propagated through the resampling kernel. Treat significance maps as indicative, not as exact σ. Each comparison reports `significance_robust_std` so this is visible.
+2. **Difference noise is above the propagated noise:** about 1.4× on Barnard's Star. The per-pixel variance is propagated exactly (Σ*w*²σ²), but resampling correlates neighbouring pixels, and PSF residuals add noise. Significance assumes A and B have independent errors. Treat significance maps as indicative, not as exact σ. Each comparison reports `significance_robust_std` so this is visible.
 3. **The same detector does not mean the same wavelength.** D6 exposures of one target span 4.41–5.00 µm. Stacks across a detector, or comparisons between epochs observed at different wavelengths, mix spectral and temporal change. Use `match_wavelength=True`, or `channel` / `epoch_channel` grouping. Warnings are attached automatically.
 4. **Reprojection does not fix bad astrometry.** If a frame's WCS is wrong, its aligned image is wrong by the same amount. Validation found no such case (offsets below), but no independent astrometric re-fit is done.
 5. **Background is a constant** (zodi model + clipped median). This is right for small fields, but it will over- or under-subtract around extended emission (nebulae, galaxies, star-forming regions such as RW Aur's).
