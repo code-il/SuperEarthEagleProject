@@ -1,0 +1,4125 @@
+[
+  {
+    "target": "Barnard's Star",
+    "n_frames": 58,
+    "n_epochs": 4,
+    "grid": {
+      "shape": [
+        31,
+        31
+      ],
+      "pixel_scale_arcsec": 6.149999999999999,
+      "orientation": "north up, east left"
+    },
+    "errors": [],
+    "skipped": 3,
+    "target_offset_from_predicted_arcsec": {
+      "n": 58,
+      "median": 0.6824305402956491,
+      "p90": 1.1506194021742124
+    },
+    "native_vs_aligned_position_arcsec": {
+      "n": 57,
+      "median": 0.09739885327208357,
+      "p90": 0.16287151192078672
+    },
+    "aligned_over_native_flux": {
+      "n": 57,
+      "median": 0.9956282893530864,
+      "p90": 1.004052286841632
+    },
+    "field_star": null,
+    "first_vs_last_epoch": {
+      "wavelength_matched": true,
+      "stats": {
+        "valid_fraction": 0.9875,
+        "significance_robust_std": 1.4330994711700575,
+        "n_pixels_abs_sig_gt_5": 149,
+        "max_abs_significance": 181.72330777643862,
+        "delta_t_days": 362.058
+      },
+      "a_wavelength": 4.697813529411765,
+      "b_wavelength": 4.686881333333333,
+      "caveats": [
+        "A: members span 4.429-4.972 um (more than one ~0.035 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time",
+        "B: members span 4.414-4.960 um (more than one ~0.035 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time",
+        "Residuals can come from PSF differences, background, calibration or noise; a residual is a candidate for inspection, not a detected moving object.",
+        "Some frames have problem flags at the target (e.g. saturation); see quality_flags."
+      ]
+    },
+    "detector_stack_warnings": [
+      "members span 4.394-5.002 um (more than one ~0.035 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time"
+    ],
+    "frames": [
+      {
+        "observation_id": "2025W33_2C_0321_1_D6",
+        "time": "2025-08-15T20:45:11.376Z",
+        "wavelength": 4.92326,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.1229258718795314,
+        "native_vs_aligned_position_arcsec": 0.031165967091548438,
+        "aligned_over_native_flux": 0.9887828873797977
+      },
+      {
+        "observation_id": "2025W33_2C_0321_2_D6",
+        "time": "2025-08-15T20:47:20.285Z",
+        "wavelength": 4.95959,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.4235285789036516,
+        "native_vs_aligned_position_arcsec": 0.08162100162873796,
+        "aligned_over_native_flux": 0.9883417588091044
+      },
+      {
+        "observation_id": "2025W33_2C_0321_3_D6",
+        "time": "2025-08-15T20:49:29.194Z",
+        "wavelength": 4.99597,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.42487000287001486,
+        "native_vs_aligned_position_arcsec": 0.146788356364237,
+        "aligned_over_native_flux": 0.9881773804813808
+      },
+      {
+        "observation_id": "2025W33_2C_0386_3_D6",
+        "time": "2025-08-16T03:19:14.822Z",
+        "wavelength": 4.41391,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.11119538350459107,
+        "native_vs_aligned_position_arcsec": 0.10337671041186539,
+        "aligned_over_native_flux": 0.9964565473454912
+      },
+      {
+        "observation_id": "2025W33_2C_0386_4_D6",
+        "time": "2025-08-16T03:21:23.731Z",
+        "wavelength": 4.44579,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7628689375718252,
+        "native_vs_aligned_position_arcsec": 0.12600150319170106,
+        "aligned_over_native_flux": 1.0070910009974956
+      },
+      {
+        "observation_id": "2025W34_1B_0164_1_D6",
+        "time": "2025-08-18T20:28:41.405Z",
+        "wavelength": 4.47809,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.952698128349688,
+        "native_vs_aligned_position_arcsec": 0.09739885327208357,
+        "aligned_over_native_flux": 1.0050287761786618
+      },
+      {
+        "observation_id": "2025W34_1B_0164_2_D6",
+        "time": "2025-08-18T20:30:50.314Z",
+        "wavelength": 4.51087,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6072558457085144,
+        "native_vs_aligned_position_arcsec": 0.10248268242712556,
+        "aligned_over_native_flux": 0.9977720003298527
+      },
+      {
+        "observation_id": "2025W34_2B_0030_1_D6",
+        "time": "2025-08-21T15:20:26.016Z",
+        "wavelength": 4.57771,
+        "quality_flags": [
+          "BLOOM",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.0668947673606644,
+        "native_vs_aligned_position_arcsec": 0.04952084963546786,
+        "aligned_over_native_flux": 0.9971980926439085
+      },
+      {
+        "observation_id": "2025W34_2B_0030_2_D6",
+        "time": "2025-08-21T15:22:34.925Z",
+        "wavelength": 4.61111,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.48119510232860685,
+        "native_vs_aligned_position_arcsec": 0.04315110554765699,
+        "aligned_over_native_flux": 1.0017912339017003
+      },
+      {
+        "observation_id": "2025W34_2B_0030_3_D6",
+        "time": "2025-08-21T15:24:43.834Z",
+        "wavelength": 4.64535,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.1785968026912248,
+        "native_vs_aligned_position_arcsec": 0.11384067137478858,
+        "aligned_over_native_flux": 0.9995451975036748
+      },
+      {
+        "observation_id": "2025W34_2B_0030_4_D6",
+        "time": "2025-08-21T15:26:52.742Z",
+        "wavelength": 4.67932,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.1386290876669212,
+        "native_vs_aligned_position_arcsec": 0.09083922532098006,
+        "aligned_over_native_flux": 0.9953782877187353
+      },
+      {
+        "observation_id": "2025W35_1A_0008_1_D6",
+        "time": "2025-08-25T00:49:34.320Z",
+        "wavelength": 4.71361,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.0495858001814606,
+        "native_vs_aligned_position_arcsec": 0.10760926970656101,
+        "aligned_over_native_flux": 0.9943883607431294
+      },
+      {
+        "observation_id": "2025W35_1A_0008_2_D6",
+        "time": "2025-08-25T00:51:43.229Z",
+        "wavelength": 4.74857,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5527296637286547,
+        "native_vs_aligned_position_arcsec": 0.1201788760966456,
+        "aligned_over_native_flux": 0.995396483444973
+      },
+      {
+        "observation_id": "2025W35_1A_0008_3_D6",
+        "time": "2025-08-25T00:53:52.138Z",
+        "wavelength": 4.78422,
+        "quality_flags": [
+          "BLOOM",
+          "NONFUNC",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.3361414307093757,
+        "native_vs_aligned_position_arcsec": 0.09651087917041976,
+        "aligned_over_native_flux": 0.9959678842413533
+      },
+      {
+        "observation_id": "2025W35_1A_0008_4_D6",
+        "time": "2025-08-25T00:56:01.046Z",
+        "wavelength": 4.8186,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.8038575624560667,
+        "native_vs_aligned_position_arcsec": 0.06911447124915247,
+        "aligned_over_native_flux": 0.9987241186193234
+      },
+      {
+        "observation_id": "2025W35_1A_0484_1_D6",
+        "time": "2025-08-27T11:34:56.035Z",
+        "wavelength": 4.85283,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.9133995278979391,
+        "native_vs_aligned_position_arcsec": 0.07616121297531357,
+        "aligned_over_native_flux": 0.9927059001710539
+      },
+      {
+        "observation_id": "2025W35_1A_0484_2_D6",
+        "time": "2025-08-27T11:37:04.944Z",
+        "wavelength": 4.88896,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6874440729263668,
+        "native_vs_aligned_position_arcsec": 0.09061411460162261,
+        "aligned_over_native_flux": 0.9859503012119037
+      },
+      {
+        "observation_id": "2026W12_1A_0598_1_D6",
+        "time": "2026-03-19T07:25:17.558Z",
+        "wavelength": 4.5482,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7582997552029884,
+        "native_vs_aligned_position_arcsec": 0.12588456389014427,
+        "aligned_over_native_flux": 0.9999922704193333
+      },
+      {
+        "observation_id": "2026W12_1A_0598_2_D6",
+        "time": "2026-03-19T07:27:26.554Z",
+        "wavelength": 4.58299,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7949125357206557,
+        "native_vs_aligned_position_arcsec": 0.06164146012885803,
+        "aligned_over_native_flux": 0.9980887355338048
+      },
+      {
+        "observation_id": "2026W12_1A_0598_3_D6",
+        "time": "2026-03-19T07:29:35.462Z",
+        "wavelength": 4.61663,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.9933489013932337,
+        "native_vs_aligned_position_arcsec": 0.0380515109500056,
+        "aligned_over_native_flux": 0.9956384571539063
+      },
+      {
+        "observation_id": "2026W12_1A_0598_4_D6",
+        "time": "2026-03-19T07:31:44.371Z",
+        "wavelength": 4.65056,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.3531918025154066,
+        "native_vs_aligned_position_arcsec": 0.2723220013796397,
+        "aligned_over_native_flux": 0.9613602266564452
+      },
+      {
+        "observation_id": "2026W12_1A_0610_1_D6",
+        "time": "2026-03-19T09:02:56.256Z",
+        "wavelength": 4.68501,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5977933460317335,
+        "native_vs_aligned_position_arcsec": 0.05351502428921016,
+        "aligned_over_native_flux": 0.9952983663126881
+      },
+      {
+        "observation_id": "2026W12_1A_0610_2_D6",
+        "time": "2026-03-19T09:05:05.165Z",
+        "wavelength": 4.71958,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6778213369151634,
+        "native_vs_aligned_position_arcsec": 0.03443268531291749,
+        "aligned_over_native_flux": 0.9941088220708965
+      },
+      {
+        "observation_id": "2026W12_1A_0610_3_D6",
+        "time": "2026-03-19T09:07:14.160Z",
+        "wavelength": 4.75356,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7687516507507058,
+        "native_vs_aligned_position_arcsec": 0.04537791261760778,
+        "aligned_over_native_flux": 0.9930910224587198
+      },
+      {
+        "observation_id": "2026W12_1A_0610_4_D6",
+        "time": "2026-03-19T09:09:23.069Z",
+        "wavelength": 4.78851,
+        "quality_flags": [
+          "BLOOM",
+          "NONFUNC",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5741921345777816,
+        "native_vs_aligned_position_arcsec": 0.09276317613282328,
+        "aligned_over_native_flux": 0.9942008093846167
+      },
+      {
+        "observation_id": "2026W12_2A_0324_1_D6",
+        "time": "2026-03-21T06:41:10.954Z",
+        "wavelength": 4.96596,
+        "quality_flags": [
+          "NONFUNC",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.8031837282203336
+      },
+      {
+        "observation_id": "2026W12_2A_0324_2_D6",
+        "time": "2026-03-21T06:43:19.862Z",
+        "wavelength": 5.00213,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6559009426027961,
+        "native_vs_aligned_position_arcsec": 0.07800681765221058,
+        "aligned_over_native_flux": 0.9856449153730076
+      },
+      {
+        "observation_id": "2026W12_2A_0520_1_D6",
+        "time": "2026-03-22T08:44:20.400Z",
+        "wavelength": 4.82325,
+        "quality_flags": [
+          "BLOOM",
+          "NONFUNC",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5319885301411547,
+        "native_vs_aligned_position_arcsec": 0.14020587585430344,
+        "aligned_over_native_flux": 0.9869460357372448
+      },
+      {
+        "observation_id": "2026W12_2A_0520_2_D6",
+        "time": "2026-03-22T08:46:29.309Z",
+        "wavelength": 4.85816,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6389164609404081,
+        "native_vs_aligned_position_arcsec": 0.04013665697050153,
+        "aligned_over_native_flux": 0.9852035016821529
+      },
+      {
+        "observation_id": "2026W12_2A_0520_3_D6",
+        "time": "2026-03-22T08:48:38.218Z",
+        "wavelength": 4.89378,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6575171047291061,
+        "native_vs_aligned_position_arcsec": 0.03265864567662502,
+        "aligned_over_native_flux": 0.9899370143903898
+      },
+      {
+        "observation_id": "2026W12_2A_0520_4_D6",
+        "time": "2026-03-22T08:50:47.213Z",
+        "wavelength": 4.92981,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.4312613668916975,
+        "native_vs_aligned_position_arcsec": 0.12926482461500027,
+        "aligned_over_native_flux": 0.9893818264565233
+      },
+      {
+        "observation_id": "2026W13_1A_0129_1_D6",
+        "time": "2026-03-23T15:41:56.486Z",
+        "wavelength": 4.39442,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.4436339838984975,
+        "native_vs_aligned_position_arcsec": 0.0573533551085605,
+        "aligned_over_native_flux": 1.0024683745870673
+      },
+      {
+        "observation_id": "2026W13_1A_0129_2_D6",
+        "time": "2026-03-23T15:44:05.395Z",
+        "wavelength": 4.43695,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.9018207630061188,
+        "native_vs_aligned_position_arcsec": 0.07629848076635001,
+        "aligned_over_native_flux": 1.004241179654552
+      },
+      {
+        "observation_id": "2026W13_1A_0129_3_D6",
+        "time": "2026-03-23T15:46:14.304Z",
+        "wavelength": 4.46841,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.776391100688522,
+        "native_vs_aligned_position_arcsec": 0.06933788605445372,
+        "aligned_over_native_flux": 1.0017302604389662
+      },
+      {
+        "observation_id": "2026W13_1A_0129_4_D6",
+        "time": "2026-03-23T15:48:23.213Z",
+        "wavelength": 4.50125,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7634040326124586,
+        "native_vs_aligned_position_arcsec": 0.07343195119037198,
+        "aligned_over_native_flux": 1.0079343439038346
+      },
+      {
+        "observation_id": "2026W13_1A_0549_1_D6",
+        "time": "2026-03-25T21:27:44.582Z",
+        "wavelength": 4.53444,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5812695292840991,
+        "native_vs_aligned_position_arcsec": 0.07417570921772954,
+        "aligned_over_native_flux": 1.0039263582996854
+      },
+      {
+        "observation_id": "2026W15_2A_0137_1_D6",
+        "time": "2026-04-10T00:43:17.270Z",
+        "wavelength": 4.54877,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6870397436761347,
+        "native_vs_aligned_position_arcsec": 0.11247209113847204,
+        "aligned_over_native_flux": 0.9949710027716848
+      },
+      {
+        "observation_id": "2026W19_1A_0046_1_D6",
+        "time": "2026-05-04T03:11:42.778Z",
+        "wavelength": 4.78848,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.11741385014606939,
+        "native_vs_aligned_position_arcsec": 0.09384490852610902,
+        "aligned_over_native_flux": 0.9900191472001386
+      },
+      {
+        "observation_id": "2026W19_1A_0216_1_D6",
+        "time": "2026-05-04T14:34:15.168Z",
+        "wavelength": 4.82305,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.2954090988918969,
+        "native_vs_aligned_position_arcsec": 0.1707745412639228,
+        "aligned_over_native_flux": 0.9899770557920395
+      },
+      {
+        "observation_id": "2026W19_1A_0326_1_D6",
+        "time": "2026-05-04T21:05:55.882Z",
+        "wavelength": 4.85771,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.45005385892434374,
+        "native_vs_aligned_position_arcsec": 0.15572979373414067,
+        "aligned_over_native_flux": 0.9946730163443409
+      },
+      {
+        "observation_id": "2026W19_1A_0403_1_D6",
+        "time": "2026-05-05T01:59:28.781Z",
+        "wavelength": 4.89376,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.10448871976684555,
+        "native_vs_aligned_position_arcsec": 0.11371701807698956,
+        "aligned_over_native_flux": 0.9852866618164194
+      },
+      {
+        "observation_id": "2026W33_2A_0594_4_D6",
+        "time": "2026-08-16T15:08:22.157Z",
+        "wavelength": 4.42939,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.49668509273116823,
+        "native_vs_aligned_position_arcsec": 0.16752768633303555,
+        "aligned_over_native_flux": 1.003285612772021
+      },
+      {
+        "observation_id": "2026W34_1A_0007_1_D6",
+        "time": "2026-08-17T00:48:07.315Z",
+        "wavelength": 4.46146,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7029085052494288,
+        "native_vs_aligned_position_arcsec": 0.15260520941980102,
+        "aligned_over_native_flux": 1.0051506815187932
+      },
+      {
+        "observation_id": "2026W34_1A_0007_2_D6",
+        "time": "2026-08-17T00:50:16.310Z",
+        "wavelength": 4.49159,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.9163071510687374,
+        "native_vs_aligned_position_arcsec": 0.2068602786269744,
+        "aligned_over_native_flux": 1.003005323117286
+      },
+      {
+        "observation_id": "2026W34_1A_0007_3_D6",
+        "time": "2026-08-17T00:52:25.219Z",
+        "wavelength": 4.52674,
+        "quality_flags": [
+          "BLOOM",
+          "NONFUNC",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6653513114799945,
+        "native_vs_aligned_position_arcsec": 0.14433011327442233,
+        "aligned_over_native_flux": 1.0046743323528171
+      },
+      {
+        "observation_id": "2026W34_1A_0007_4_D6",
+        "time": "2026-08-17T00:54:34.128Z",
+        "wavelength": 4.55999,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.591511583852866,
+        "native_vs_aligned_position_arcsec": 0.0935381876117622,
+        "aligned_over_native_flux": 1.0005912203536351
+      },
+      {
+        "observation_id": "2026W34_1A_0176_1_D6",
+        "time": "2026-08-17T20:23:12.566Z",
+        "wavelength": 4.90092,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5397585249519047,
+        "native_vs_aligned_position_arcsec": 0.15976739564595419,
+        "aligned_over_native_flux": 0.9941509348996715
+      },
+      {
+        "observation_id": "2026W34_1A_0176_2_D6",
+        "time": "2026-08-17T20:25:21.475Z",
+        "wavelength": 4.93595,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.42921497245295276,
+        "native_vs_aligned_position_arcsec": 0.09254548462268374,
+        "aligned_over_native_flux": 0.9934817733032484
+      },
+      {
+        "observation_id": "2026W34_1A_0238_1_D6",
+        "time": "2026-08-18T04:31:38.237Z",
+        "wavelength": 4.97244,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.33964147045783505,
+        "native_vs_aligned_position_arcsec": 0.12072966035687764,
+        "aligned_over_native_flux": 0.99910697388592
+      },
+      {
+        "observation_id": "2026W34_1A_0308_1_D6",
+        "time": "2026-08-18T14:16:28.906Z",
+        "wavelength": 4.59404,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5545575662789483,
+        "native_vs_aligned_position_arcsec": 0.05619355430968089,
+        "aligned_over_native_flux": 1.0016126659334454
+      },
+      {
+        "observation_id": "2026W34_1A_0308_2_D6",
+        "time": "2026-08-18T14:18:37.814Z",
+        "wavelength": 4.6279,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6546424839380816,
+        "native_vs_aligned_position_arcsec": 0.0987773863914569,
+        "aligned_over_native_flux": 1.0023602900202293
+      },
+      {
+        "observation_id": "2026W34_1A_0308_3_D6",
+        "time": "2026-08-18T14:20:46.810Z",
+        "wavelength": 4.66217,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7381539850620512,
+        "native_vs_aligned_position_arcsec": 0.2062647612695145,
+        "aligned_over_native_flux": 1.0004276164634942
+      },
+      {
+        "observation_id": "2026W34_1A_0308_4_D6",
+        "time": "2026-08-18T14:22:55.718Z",
+        "wavelength": 4.6956,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6543882012738503,
+        "native_vs_aligned_position_arcsec": 0.15886986355543778,
+        "aligned_over_native_flux": 1.0006161815100136
+      },
+      {
+        "observation_id": "2026W34_1A_0431_1_D6",
+        "time": "2026-08-19T04:56:44.534Z",
+        "wavelength": 4.73071,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7306669748803615,
+        "native_vs_aligned_position_arcsec": 0.0990579516306003,
+        "aligned_over_native_flux": 0.99842240918846
+      },
+      {
+        "observation_id": "2026W34_1A_0431_2_D6",
+        "time": "2026-08-19T04:58:53.443Z",
+        "wavelength": 4.76764,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.439306937261597,
+        "native_vs_aligned_position_arcsec": 0.19679881223910972,
+        "aligned_over_native_flux": 0.9954549443707755
+      },
+      {
+        "observation_id": "2026W34_1A_0431_3_D6",
+        "time": "2026-08-19T05:01:02.352Z",
+        "wavelength": 4.80073,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7696794247433771,
+        "native_vs_aligned_position_arcsec": 0.14637013541836155,
+        "aligned_over_native_flux": 0.9953193536678754
+      },
+      {
+        "observation_id": "2026W34_1A_0431_4_D6",
+        "time": "2026-08-19T05:03:11.261Z",
+        "wavelength": 4.83521,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7256111351627055,
+        "native_vs_aligned_position_arcsec": 0.15388300468736893,
+        "aligned_over_native_flux": 0.9956282893530864
+      },
+      {
+        "observation_id": "2026W34_2A_0081_1_D6",
+        "time": "2026-08-20T21:44:53.520Z",
+        "wavelength": 4.87035,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.8412905086499336,
+        "native_vs_aligned_position_arcsec": 0.03701666260786029,
+        "aligned_over_native_flux": 0.9883069166985694
+      }
+    ]
+  },
+  {
+    "target": "Epsilon Indi B",
+    "n_frames": 93,
+    "n_epochs": 6,
+    "grid": {
+      "shape": [
+        31,
+        31
+      ],
+      "pixel_scale_arcsec": 6.149999999999999,
+      "orientation": "north up, east left"
+    },
+    "errors": [],
+    "skipped": 5,
+    "target_offset_from_predicted_arcsec": {
+      "n": 93,
+      "median": 0.9939927361200286,
+      "p90": 1.2907236280031387
+    },
+    "native_vs_aligned_position_arcsec": {
+      "n": 91,
+      "median": 0.13605878043751213,
+      "p90": 0.2786794560437569
+    },
+    "aligned_over_native_flux": {
+      "n": 91,
+      "median": 0.9964350194866839,
+      "p90": 1.0194817079795828
+    },
+    "field_star": null,
+    "first_vs_last_epoch": {
+      "wavelength_matched": true,
+      "stats": {
+        "valid_fraction": 1.0,
+        "significance_robust_std": 0.7030586496942267,
+        "n_pixels_abs_sig_gt_5": 18,
+        "max_abs_significance": 68.71545902372846,
+        "delta_t_days": 511.689
+      },
+      "a_wavelength": 4.681060098432335,
+      "b_wavelength": 4.640678906346032,
+      "caveats": [
+        "A and B were observed at different wavelengths (4.681 vs 4.641 um, > 1 channel): flux differences may be spectral, not changes in time. Use match_wavelength=True for a like-for-like comparison.",
+        "A: members span 4.401-4.997 um (more than one ~0.035 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time",
+        "B: members span 4.427-4.972 um (more than one ~0.034 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time",
+        "Residuals can come from PSF differences, background, calibration or noise; a residual is a candidate for inspection, not a detected moving object.",
+        "Some frames have problem flags at the target (e.g. saturation); see quality_flags."
+      ]
+    },
+    "detector_stack_warnings": [
+      "members span 4.401-5.012 um (more than one ~0.035 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time"
+    ],
+    "frames": [
+      {
+        "observation_id": "2025W18_1B_0081_2_D6",
+        "time": "2025-04-29T01:33:19.843Z",
+        "wavelength": 4.426699159843209,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8312915888356172,
+        "native_vs_aligned_position_arcsec": 0.11336481674752408,
+        "aligned_over_native_flux": 1.015200993105158
+      },
+      {
+        "observation_id": "2025W18_1B_0081_3_D6",
+        "time": "2025-04-29T01:35:28.752Z",
+        "wavelength": 4.458550672767431,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.754747642369446,
+        "native_vs_aligned_position_arcsec": 0.09780739659450352,
+        "aligned_over_native_flux": 0.973035177317019
+      },
+      {
+        "observation_id": "2025W18_1B_0081_4_D6",
+        "time": "2025-04-29T01:37:37.661Z",
+        "wavelength": 4.491380450423874,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9697868453307428,
+        "native_vs_aligned_position_arcsec": 0.0894490728676107,
+        "aligned_over_native_flux": 1.0106152586666206
+      },
+      {
+        "observation_id": "2025W18_1B_0091_1_D6",
+        "time": "2025-04-29T03:09:29.462Z",
+        "wavelength": 4.52403374386623,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.7422571882661037,
+        "native_vs_aligned_position_arcsec": 0.19477361487536948,
+        "aligned_over_native_flux": 1.005706904374648
+      },
+      {
+        "observation_id": "2025W18_1B_0091_2_D6",
+        "time": "2025-04-29T03:11:38.371Z",
+        "wavelength": 4.557478718447863,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.5655982259923599,
+        "native_vs_aligned_position_arcsec": 0.11245497557347733,
+        "aligned_over_native_flux": 1.0005204320837986
+      },
+      {
+        "observation_id": "2025W18_1B_0091_3_D6",
+        "time": "2025-04-29T03:13:47.366Z",
+        "wavelength": 4.59144484203148,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8963245752149968,
+        "native_vs_aligned_position_arcsec": 0.06393071160648607,
+        "aligned_over_native_flux": 0.9779590671157664
+      },
+      {
+        "observation_id": "2025W18_1B_0091_4_D6",
+        "time": "2025-04-29T03:15:56.275Z",
+        "wavelength": 4.624915605263526,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8842143788308203,
+        "native_vs_aligned_position_arcsec": 0.13989692759806593,
+        "aligned_over_native_flux": 1.0147084404057283
+      },
+      {
+        "observation_id": "2025W18_1B_0175_1_D6",
+        "time": "2025-04-29T16:17:11.818Z",
+        "wavelength": 4.658707382974624,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.7630376689510026,
+        "native_vs_aligned_position_arcsec": 0.06727331523654738,
+        "aligned_over_native_flux": 1.003988316931711
+      },
+      {
+        "observation_id": "2025W18_1B_0175_2_D6",
+        "time": "2025-04-29T16:19:20.726Z",
+        "wavelength": 4.69320042783524,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.6208083885570332,
+        "native_vs_aligned_position_arcsec": 0.09901775553261243,
+        "aligned_over_native_flux": 1.010246498094799
+      },
+      {
+        "observation_id": "2025W18_1B_0238_1_D6",
+        "time": "2025-04-30T01:59:04.330Z",
+        "wavelength": 4.72743615595811,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8966639804161426,
+        "native_vs_aligned_position_arcsec": 0.06823227649510842,
+        "aligned_over_native_flux": 1.0154638647945071
+      },
+      {
+        "observation_id": "2025W18_1B_0238_2_D6",
+        "time": "2025-04-30T02:01:13.325Z",
+        "wavelength": 4.762511769967153,
+        "quality_flags": [
+          "HALO",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.24633686355689383,
+        "native_vs_aligned_position_arcsec": 0.15461521715900725,
+        "aligned_over_native_flux": 0.978730403920959
+      },
+      {
+        "observation_id": "2025W18_1B_0238_3_D6",
+        "time": "2025-04-30T02:03:22.234Z",
+        "wavelength": 4.797088271153944,
+        "quality_flags": [
+          "HALO",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.2470473627507626,
+        "native_vs_aligned_position_arcsec": 0.6877211437596922,
+        "aligned_over_native_flux": 0.9875300361597037
+      },
+      {
+        "observation_id": "2025W18_1B_0238_4_D6",
+        "time": "2025-04-30T02:05:31.142Z",
+        "wavelength": 4.831755737669546,
+        "quality_flags": [
+          "NONFUNC"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6045519423080044,
+        "native_vs_aligned_position_arcsec": 0.2551403467434016,
+        "aligned_over_native_flux": 0.9759258530832482
+      },
+      {
+        "observation_id": "2025W18_1B_0363_1_D6",
+        "time": "2025-04-30T21:38:10.464Z",
+        "wavelength": 4.971648019951521,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.837722855222182,
+        "native_vs_aligned_position_arcsec": 0.03126025914257119,
+        "aligned_over_native_flux": 0.9731479842263697
+      },
+      {
+        "observation_id": "2025W18_2B_0011_2_D6",
+        "time": "2025-05-01T13:55:43.190Z",
+        "wavelength": 4.426709839535867,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9939927361200286,
+        "native_vs_aligned_position_arcsec": 0.15764336309328641,
+        "aligned_over_native_flux": 1.0139135510908184
+      },
+      {
+        "observation_id": "2025W18_2B_0011_3_D6",
+        "time": "2025-05-01T13:57:52.099Z",
+        "wavelength": 4.458878086621858,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9482447211076951,
+        "native_vs_aligned_position_arcsec": 0.1411672853604992,
+        "aligned_over_native_flux": 1.028346736894165
+      },
+      {
+        "observation_id": "2025W18_2B_0011_4_D6",
+        "time": "2025-05-01T14:00:01.094Z",
+        "wavelength": 4.491943475258983,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.7333534651956414,
+        "native_vs_aligned_position_arcsec": 0.09737468387987329,
+        "aligned_over_native_flux": 1.0072889096288098
+      },
+      {
+        "observation_id": "2025W19_1B_0274_1_D6",
+        "time": "2025-05-06T17:45:24.077Z",
+        "wavelength": 4.971502391408077,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8865852415887551,
+        "native_vs_aligned_position_arcsec": 0.1434619144022129,
+        "aligned_over_native_flux": 0.994533128512871
+      },
+      {
+        "observation_id": "2025W19_1B_0344_3_D6",
+        "time": "2025-05-07T05:14:15.590Z",
+        "wavelength": 4.458779359158805,
+        "quality_flags": [
+          "HALO",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7852827325911763,
+        "native_vs_aligned_position_arcsec": 0.0508814887357428,
+        "aligned_over_native_flux": 0.9605555575128755
+      },
+      {
+        "observation_id": "2025W19_1B_0344_4_D6",
+        "time": "2025-05-07T05:16:24.499Z",
+        "wavelength": 4.491314836714784,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.2132940953378284,
+        "native_vs_aligned_position_arcsec": 0.04879157700032222,
+        "aligned_over_native_flux": 0.9847082939801339
+      },
+      {
+        "observation_id": "2025W21_1B_0227_1_D6",
+        "time": "2025-05-20T03:08:55.853Z",
+        "wavelength": 4.524951849726567,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9867086290770777,
+        "native_vs_aligned_position_arcsec": 0.11884803153325847,
+        "aligned_over_native_flux": 1.0178933699175754
+      },
+      {
+        "observation_id": "2025W24_1A_0245_2_D6",
+        "time": "2025-06-10T04:29:01.853Z",
+        "wavelength": 4.591314429869018,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9926614164624227,
+        "native_vs_aligned_position_arcsec": 0.08478154480728547,
+        "aligned_over_native_flux": 1.0381695270501994
+      },
+      {
+        "observation_id": "2025W24_1A_0245_3_D6",
+        "time": "2025-06-10T04:31:10.762Z",
+        "wavelength": 4.624984048182723,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.6928585560643044,
+        "native_vs_aligned_position_arcsec": 0.08260727532584589,
+        "aligned_over_native_flux": 0.9932074719622841
+      },
+      {
+        "observation_id": "2025W24_1A_0245_4_D6",
+        "time": "2025-06-10T04:33:19.757Z",
+        "wavelength": 4.659078358505656,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9225318243138196,
+        "native_vs_aligned_position_arcsec": 0.04262783720108744,
+        "aligned_over_native_flux": 1.0216937621008746
+      },
+      {
+        "observation_id": "2025W39_2A_0693_3_D6",
+        "time": "2025-09-28T23:08:19.190Z",
+        "wavelength": 4.416385156563865,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9984999425535478,
+        "native_vs_aligned_position_arcsec": 0.13605878043751213,
+        "aligned_over_native_flux": 1.0143086737202354
+      },
+      {
+        "observation_id": "2025W39_2A_0693_4_D6",
+        "time": "2025-09-28T23:10:28.099Z",
+        "wavelength": 4.448654753843825,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.053851299877445,
+        "native_vs_aligned_position_arcsec": 0.16407179168109717,
+        "aligned_over_native_flux": 1.0634956720374062
+      },
+      {
+        "observation_id": "2025W40_1A_0067_1_D6",
+        "time": "2025-09-29T07:14:48.221Z",
+        "wavelength": 4.538625957833522,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.2716612946002346,
+        "native_vs_aligned_position_arcsec": 0.055350490843855835,
+        "aligned_over_native_flux": 0.992838392145061
+      },
+      {
+        "observation_id": "2025W40_1A_0067_2_D6",
+        "time": "2025-09-29T07:16:57.130Z",
+        "wavelength": 4.5719721956629975,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.4905496026059537,
+        "native_vs_aligned_position_arcsec": 0.2641488481025292,
+        "aligned_over_native_flux": 1.0054497917246707
+      },
+      {
+        "observation_id": "2025W40_1A_0067_3_D6",
+        "time": "2025-09-29T07:19:06.125Z",
+        "wavelength": 4.605461601874104,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.3281061466505995,
+        "native_vs_aligned_position_arcsec": 0.20807019146170574,
+        "aligned_over_native_flux": 1.0488437525317922
+      },
+      {
+        "observation_id": "2025W40_1A_0067_4_D6",
+        "time": "2025-09-29T07:21:15.034Z",
+        "wavelength": 4.638928721258903,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9979465287102038,
+        "native_vs_aligned_position_arcsec": 0.035717617100922576,
+        "aligned_over_native_flux": 0.9842162541969919
+      },
+      {
+        "observation_id": "2025W40_1A_0125_1_D6",
+        "time": "2025-09-29T13:44:21.581Z",
+        "wavelength": 4.673995233305204,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.244650252226503,
+        "native_vs_aligned_position_arcsec": 0.12629685572897792,
+        "aligned_over_native_flux": 1.002631566456326
+      },
+      {
+        "observation_id": "2025W40_1A_0125_2_D6",
+        "time": "2025-09-29T13:46:30.490Z",
+        "wavelength": 4.708411315986203,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.0558639904028784,
+        "native_vs_aligned_position_arcsec": 0.06254479807650504,
+        "aligned_over_native_flux": 1.0019259084139054
+      },
+      {
+        "observation_id": "2025W40_1A_0125_3_D6",
+        "time": "2025-09-29T13:48:39.398Z",
+        "wavelength": 4.742804403209897,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.536852668680406,
+        "native_vs_aligned_position_arcsec": 0.5706281189827562,
+        "aligned_over_native_flux": 1.0724067134924065
+      },
+      {
+        "observation_id": "2025W40_1A_0125_4_D6",
+        "time": "2025-09-29T13:50:48.307Z",
+        "wavelength": 4.777082051904525,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.736059939995976,
+        "native_vs_aligned_position_arcsec": 0.06010248751152552,
+        "aligned_over_native_flux": 0.9928075586481159
+      },
+      {
+        "observation_id": "2025W40_1A_0444_1_D6",
+        "time": "2025-09-30T23:58:57.792Z",
+        "wavelength": 4.8120340477836825,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8266092919687726,
+        "native_vs_aligned_position_arcsec": 0.2805320557915448,
+        "aligned_over_native_flux": 0.9889380552020124
+      },
+      {
+        "observation_id": "2025W40_1A_0444_3_D6",
+        "time": "2025-10-01T00:03:15.696Z",
+        "wavelength": 4.882217447906333,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.0930036387681377,
+        "native_vs_aligned_position_arcsec": 0.13303799655870988,
+        "aligned_over_native_flux": 0.9898076650124269
+      },
+      {
+        "observation_id": "2025W40_1A_0444_4_D6",
+        "time": "2025-10-01T00:05:24.605Z",
+        "wavelength": 4.918116144066209,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.7868957611331375,
+        "native_vs_aligned_position_arcsec": 0.1634727528436002,
+        "aligned_over_native_flux": 0.9881319135425435
+      },
+      {
+        "observation_id": "2025W40_1A_0473_1_D6",
+        "time": "2025-10-01T03:14:27.456Z",
+        "wavelength": 4.480802603881215,
+        "quality_flags": [
+          "HALO"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.974273960474881,
+        "native_vs_aligned_position_arcsec": 0.17564409217876917,
+        "aligned_over_native_flux": 0.986390921972042
+      },
+      {
+        "observation_id": "2025W40_1A_0489_1_D6",
+        "time": "2025-10-01T04:53:56.659Z",
+        "wavelength": 4.953789174564201,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.6269794368334486,
+        "native_vs_aligned_position_arcsec": 0.239217484290563,
+        "aligned_over_native_flux": 0.9968893449378372
+      },
+      {
+        "observation_id": "2025W40_1A_0489_2_D6",
+        "time": "2025-10-01T04:56:05.568Z",
+        "wavelength": 4.989528206346595,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.052937148898508,
+        "native_vs_aligned_position_arcsec": 0.10938013890084762,
+        "aligned_over_native_flux": 0.973149419948833
+      },
+      {
+        "observation_id": "2025W40_1A_0559_1_D6",
+        "time": "2025-10-01T13:01:10.186Z",
+        "wavelength": 4.506098362974747,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.195190048130627,
+        "native_vs_aligned_position_arcsec": 0.1152661283358187,
+        "aligned_over_native_flux": 1.0652837177446046
+      },
+      {
+        "observation_id": "2025W41_1A_0052_1_D6",
+        "time": "2025-10-06T05:29:40.502Z",
+        "wavelength": 4.8463687887780145,
+        "quality_flags": [
+          "HALO",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.1875616888458584,
+        "native_vs_aligned_position_arcsec": 0.10363594726586747,
+        "aligned_over_native_flux": 0.9945177463622155
+      },
+      {
+        "observation_id": "2025W44_2B_0494_1_D6",
+        "time": "2025-11-01T10:40:11.107Z",
+        "wavelength": 4.505931638417683,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.2676685297781196,
+        "native_vs_aligned_position_arcsec": 0.4096740157183918,
+        "aligned_over_native_flux": 0.9824031195962455
+      },
+      {
+        "observation_id": "2025W45_1A_0003_1_D6",
+        "time": "2025-11-03T00:10:09.379Z",
+        "wavelength": 4.538782538366846,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.2924586523575898,
+        "native_vs_aligned_position_arcsec": 0.26124825444732425,
+        "aligned_over_native_flux": 0.9877864796119958
+      },
+      {
+        "observation_id": "2025W45_1A_0251_1_D6",
+        "time": "2025-11-04T03:56:42.950Z",
+        "wavelength": 4.604582481905594,
+        "quality_flags": [
+          "HALO",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6917542683318002,
+        "native_vs_aligned_position_arcsec": 0.13470766114472135,
+        "aligned_over_native_flux": 0.9828310462224833
+      },
+      {
+        "observation_id": "2025W45_1A_0327_1_D6",
+        "time": "2025-11-04T12:05:07.066Z",
+        "wavelength": 4.641771096531387,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.0218711025762781,
+        "native_vs_aligned_position_arcsec": 0.18267425055995665,
+        "aligned_over_native_flux": 0.9931861754431938
+      },
+      {
+        "observation_id": "2026W18_1A_0444_1_D6",
+        "time": "2026-04-29T03:53:51.187Z",
+        "wavelength": 4.557355857924225,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.5861011187457054,
+        "native_vs_aligned_position_arcsec": 0.08067545830593363,
+        "aligned_over_native_flux": 0.9904093768873962
+      },
+      {
+        "observation_id": "2026W18_1A_0457_2_D6",
+        "time": "2026-04-29T05:34:17.155Z",
+        "wavelength": 4.72758596985469,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.6201495980276936,
+        "native_vs_aligned_position_arcsec": 0.21373976587179147,
+        "aligned_over_native_flux": 0.982240966626918
+      },
+      {
+        "observation_id": "2026W18_1A_0475_1_D6",
+        "time": "2026-04-29T07:10:28.330Z",
+        "wavelength": 4.762310274513834,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8197802551517951,
+        "native_vs_aligned_position_arcsec": 0.06770740225027287,
+        "aligned_over_native_flux": 0.998162593432954
+      },
+      {
+        "observation_id": "2026W18_1A_0475_2_D6",
+        "time": "2026-04-29T07:12:37.238Z",
+        "wavelength": 4.79693654954307,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9359060430153351,
+        "native_vs_aligned_position_arcsec": 0.05483694900148667,
+        "aligned_over_native_flux": 0.9964350194866839
+      },
+      {
+        "observation_id": "2026W18_1A_0490_1_D6",
+        "time": "2026-04-29T08:46:57.907Z",
+        "wavelength": 4.831398100540827,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.33619548820126455,
+        "native_vs_aligned_position_arcsec": 0.16034104845132108,
+        "aligned_over_native_flux": 0.9991337879129645
+      },
+      {
+        "observation_id": "2026W18_1A_0490_2_D6",
+        "time": "2026-04-29T08:49:06.902Z",
+        "wavelength": 4.866867930988417,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9098207183243758,
+        "native_vs_aligned_position_arcsec": 0.06610302116645464,
+        "aligned_over_native_flux": 0.9682184430337774
+      },
+      {
+        "observation_id": "2026W18_1A_0502_1_D6",
+        "time": "2026-04-29T10:23:36.730Z",
+        "wavelength": 4.902663023714818,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.6433332774711892,
+        "native_vs_aligned_position_arcsec": 0.16603676350220653,
+        "aligned_over_native_flux": 0.9995316598429592
+      },
+      {
+        "observation_id": "2026W18_1A_0516_1_D6",
+        "time": "2026-04-29T12:04:50.304Z",
+        "wavelength": 4.940175184763916,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.41601974085306537,
+        "native_vs_aligned_position_arcsec": 0.1352319528298937,
+        "aligned_over_native_flux": 0.971811385857332
+      },
+      {
+        "observation_id": "2026W18_1A_0529_1_D6",
+        "time": "2026-04-29T13:37:58.829Z",
+        "wavelength": 4.831516836648614,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.0859445577087514,
+        "native_vs_aligned_position_arcsec": 0.1441931008225081,
+        "aligned_over_native_flux": 0.9887209085054736
+      },
+      {
+        "observation_id": "2026W18_2A_0174_2_D6",
+        "time": "2026-05-01T06:26:17.059Z",
+        "wavelength": 4.418498464009883,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.1853321502421168,
+        "native_vs_aligned_position_arcsec": 0.065657246543055,
+        "aligned_over_native_flux": 1.0170701350889557
+      },
+      {
+        "observation_id": "2026W19_1A_0041_1_D6",
+        "time": "2026-05-04T02:48:24.480Z",
+        "wavelength": 4.692629408477407,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.6556426655363633,
+        "native_vs_aligned_position_arcsec": 0.1800846127088556,
+        "aligned_over_native_flux": 0.995668019266357
+      },
+      {
+        "observation_id": "2026W39_1A_0276_1_D6",
+        "time": "2026-09-22T05:26:44.678Z",
+        "wavelength": 4.481858883998695,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8252409530004817,
+        "native_vs_aligned_position_arcsec": 0.17468928423242297,
+        "aligned_over_native_flux": 1.0042349561341448
+      },
+      {
+        "observation_id": "2026W39_1A_0276_2_D6",
+        "time": "2026-09-22T05:28:53.587Z",
+        "wavelength": 4.515141019310903,
+        "quality_flags": [
+          "OVERFLOW",
+          "PERSIST",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.5348565082815195
+      },
+      {
+        "observation_id": "2026W39_1A_0276_3_D6",
+        "time": "2026-09-22T05:31:02.582Z",
+        "wavelength": 4.549482614099946,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.0143139551694706,
+        "native_vs_aligned_position_arcsec": 0.26105482116444295,
+        "aligned_over_native_flux": 1.0173041742784035
+      },
+      {
+        "observation_id": "2026W39_1A_0276_4_D6",
+        "time": "2026-09-22T05:33:11.491Z",
+        "wavelength": 4.5771116358704935,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8017140905228696,
+        "native_vs_aligned_position_arcsec": 0.10500956367410044,
+        "aligned_over_native_flux": 1.0181207203343041
+      },
+      {
+        "observation_id": "2026W39_1A_0434_3_D6",
+        "time": "2026-09-22T21:48:20.016Z",
+        "wavelength": 4.681301623209052,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.1786375260282533,
+        "native_vs_aligned_position_arcsec": 0.21114953175199905,
+        "aligned_over_native_flux": 0.9945823411010828
+      },
+      {
+        "observation_id": "2026W39_1A_0434_4_D6",
+        "time": "2026-09-22T21:50:28.925Z",
+        "wavelength": 4.715596156081737,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.2122241293742357,
+        "native_vs_aligned_position_arcsec": 0.07371283310049871,
+        "aligned_over_native_flux": 1.0045063463229784
+      },
+      {
+        "observation_id": "2026W39_1A_0578_1_D6",
+        "time": "2026-09-23T17:16:30.720Z",
+        "wavelength": 4.749848177434995,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.1445560076836965,
+        "native_vs_aligned_position_arcsec": 0.03915893146352723,
+        "aligned_over_native_flux": 1.0140040507149657
+      },
+      {
+        "observation_id": "2026W39_1A_0578_2_D6",
+        "time": "2026-09-23T17:18:39.715Z",
+        "wavelength": 4.783768672299837,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.0944125460554275,
+        "native_vs_aligned_position_arcsec": 0.13691202199035415,
+        "aligned_over_native_flux": 0.9936108683200121
+      },
+      {
+        "observation_id": "2026W39_1A_0578_3_D6",
+        "time": "2026-09-23T17:20:48.624Z",
+        "wavelength": 4.818792448262283,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.190231011741572,
+        "native_vs_aligned_position_arcsec": 0.30270885906441775,
+        "aligned_over_native_flux": 0.9984341967225601
+      },
+      {
+        "observation_id": "2026W39_1A_0578_4_D6",
+        "time": "2026-09-23T17:22:59.088Z",
+        "wavelength": 4.853981707097775,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9316120214819613,
+        "native_vs_aligned_position_arcsec": 0.07920927721019008,
+        "aligned_over_native_flux": 1.012119683670328
+      },
+      {
+        "observation_id": "2026W39_2A_0155_1_D6",
+        "time": "2026-09-25T05:08:50.294Z",
+        "wavelength": 4.888858693317602,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.845997228360654,
+        "native_vs_aligned_position_arcsec": 0.15503259726491553,
+        "aligned_over_native_flux": 0.9733955688333201
+      },
+      {
+        "observation_id": "2026W39_2A_0155_2_D6",
+        "time": "2026-09-25T05:10:59.290Z",
+        "wavelength": 4.9250696029273,
+        "quality_flags": [
+          "HALO"
+        ],
+        "aligned_offset_from_predicted_arcsec": 12.890295937069267,
+        "native_vs_aligned_position_arcsec": 1.0695393303791858,
+        "aligned_over_native_flux": 1.080965814104958
+      },
+      {
+        "observation_id": "2026W39_2A_0155_3_D6",
+        "time": "2026-09-25T05:13:08.198Z",
+        "wavelength": 4.960760068714326,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.236353443745384,
+        "native_vs_aligned_position_arcsec": 0.3057115695230767,
+        "aligned_over_native_flux": 1.0148726865970172
+      },
+      {
+        "observation_id": "2026W39_2A_0155_4_D6",
+        "time": "2026-09-25T05:15:17.107Z",
+        "wavelength": 4.996848228990146,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8756618385143693,
+        "native_vs_aligned_position_arcsec": 0.2786794560437569,
+        "aligned_over_native_flux": 0.9834639733029845
+      },
+      {
+        "observation_id": "2026W39_2A_0169_1_D6",
+        "time": "2026-09-25T06:45:01.555Z",
+        "wavelength": 4.6136585842943605,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.7708455573929099,
+        "native_vs_aligned_position_arcsec": 0.052318036212678116,
+        "aligned_over_native_flux": 1.0086642388302656
+      },
+      {
+        "observation_id": "2026W39_2A_0169_2_D6",
+        "time": "2026-09-25T06:47:12.019Z",
+        "wavelength": 4.6469956211449555,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9557992716348613,
+        "native_vs_aligned_position_arcsec": 0.19344266888815584,
+        "aligned_over_native_flux": 0.9872303910691638
+      },
+      {
+        "observation_id": "2026W39_2A_0312_3_D6",
+        "time": "2026-09-25T23:06:16.848Z",
+        "wavelength": 4.401314466233048,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.1078864045702679,
+        "native_vs_aligned_position_arcsec": 0.19697166024748058,
+        "aligned_over_native_flux": 1.0151360757921069
+      },
+      {
+        "observation_id": "2026W39_2A_0312_4_D6",
+        "time": "2026-09-25T23:08:25.757Z",
+        "wavelength": 4.433120678119242,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.071557065068987,
+        "native_vs_aligned_position_arcsec": 0.08269491445243125,
+        "aligned_over_native_flux": 1.0034387764087518
+      },
+      {
+        "observation_id": "2026W39_2A_0398_1_D6",
+        "time": "2026-09-26T08:48:52.474Z",
+        "wavelength": 4.694448088882904,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.1528553586190156,
+        "native_vs_aligned_position_arcsec": 0.06378898184963441,
+        "aligned_over_native_flux": 0.9724772028939943
+      },
+      {
+        "observation_id": "2026W39_2A_0398_2_D6",
+        "time": "2026-09-26T08:51:01.382Z",
+        "wavelength": 4.728894542287412,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.4143817448247515,
+        "native_vs_aligned_position_arcsec": 1.0922476594545647,
+        "aligned_over_native_flux": 0.982458490757563
+      },
+      {
+        "observation_id": "2026W39_2A_0398_3_D6",
+        "time": "2026-09-26T08:53:10.291Z",
+        "wavelength": 4.763241079089246,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.045114542926396,
+        "native_vs_aligned_position_arcsec": 0.30743828168607346,
+        "aligned_over_native_flux": 1.0201567793745816
+      },
+      {
+        "observation_id": "2026W39_2A_0398_4_D6",
+        "time": "2026-09-26T08:55:19.286Z",
+        "wavelength": 4.7986377905563735,
+        "quality_flags": [
+          "NONFUNC",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.1503907855133109,
+        "native_vs_aligned_position_arcsec": 0.21237739926722202,
+        "aligned_over_native_flux": 0.9952401217851585
+      },
+      {
+        "observation_id": "2026W39_2A_0581_1_D6",
+        "time": "2026-09-27T05:58:12.173Z",
+        "wavelength": 4.465066221639074,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.190234089005721,
+        "native_vs_aligned_position_arcsec": 0.2784951090568763,
+        "aligned_over_native_flux": 0.9725239439537996
+      },
+      {
+        "observation_id": "2026W39_2A_0597_1_D6",
+        "time": "2026-09-27T07:36:59.990Z",
+        "wavelength": 4.832366469702851,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.0456915858467468,
+        "native_vs_aligned_position_arcsec": 0.1889336850990432,
+        "aligned_over_native_flux": 1.0023669998643732
+      },
+      {
+        "observation_id": "2026W39_2A_0597_2_D6",
+        "time": "2026-09-27T07:39:08.899Z",
+        "wavelength": 4.867407102193386,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.7960681742806416,
+        "native_vs_aligned_position_arcsec": 0.07617256081832492,
+        "aligned_over_native_flux": 0.9819757774240211
+      },
+      {
+        "observation_id": "2026W39_2A_0597_3_D6",
+        "time": "2026-09-27T07:41:17.808Z",
+        "wavelength": 4.903558059974157,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.0297656414804215,
+        "native_vs_aligned_position_arcsec": 0.02397910238767967,
+        "aligned_over_native_flux": 0.9799036099932564
+      },
+      {
+        "observation_id": "2026W39_2A_0597_4_D6",
+        "time": "2026-09-27T07:43:26.717Z",
+        "wavelength": 4.939470867515597,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.1644417278918706
+      },
+      {
+        "observation_id": "2026W39_2A_0647_1_D6",
+        "time": "2026-09-27T14:07:45.408Z",
+        "wavelength": 4.493038034169139,
+        "quality_flags": [
+          "HALO"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.1000424203534247,
+        "native_vs_aligned_position_arcsec": 0.17280932738361818,
+        "aligned_over_native_flux": 1.0063278223942835
+      },
+      {
+        "observation_id": "2026W39_2A_0659_1_D6",
+        "time": "2026-09-27T15:46:22.426Z",
+        "wavelength": 4.975319327632079,
+        "quality_flags": [
+          "HALO",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.6126958066989225,
+        "native_vs_aligned_position_arcsec": 0.24293451529987534,
+        "aligned_over_native_flux": 0.9957203992794211
+      },
+      {
+        "observation_id": "2026W39_2A_0659_2_D6",
+        "time": "2026-09-27T15:48:31.334Z",
+        "wavelength": 5.0116091794202795,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.2837835305853342,
+        "native_vs_aligned_position_arcsec": 0.12563647045890125,
+        "aligned_over_native_flux": 0.9832902110459014
+      },
+      {
+        "observation_id": "2026W39_2A_0682_1_D6",
+        "time": "2026-09-27T19:01:01.373Z",
+        "wavelength": 4.492855561251363,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.006321189921312,
+        "native_vs_aligned_position_arcsec": 0.04182617613390228,
+        "aligned_over_native_flux": 0.9948780141725021
+      },
+      {
+        "observation_id": "2026W39_2A_0682_2_D6",
+        "time": "2026-09-27T19:03:10.368Z",
+        "wavelength": 4.525862662775731,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8405939037247586,
+        "native_vs_aligned_position_arcsec": 0.013976985309089822,
+        "aligned_over_native_flux": 1.0048936412507412
+      },
+      {
+        "observation_id": "2026W39_2A_0682_3_D6",
+        "time": "2026-09-27T19:05:19.277Z",
+        "wavelength": 4.558935772471988,
+        "quality_flags": [
+          "HALO",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.3013741574392272,
+        "native_vs_aligned_position_arcsec": 0.2259530296017802,
+        "aligned_over_native_flux": 1.0093057874927311
+      },
+      {
+        "observation_id": "2026W39_2A_0682_4_D6",
+        "time": "2026-09-27T19:07:28.186Z",
+        "wavelength": 4.592788738560586,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.058802397852466,
+        "native_vs_aligned_position_arcsec": 0.0742077484927556,
+        "aligned_over_native_flux": 0.9745314660425929
+      },
+      {
+        "observation_id": "2026W40_1A_0070_1_D6",
+        "time": "2026-09-28T08:02:35.405Z",
+        "wavelength": 4.625816752704381,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8723713863476,
+        "native_vs_aligned_position_arcsec": 0.18249529586298116,
+        "aligned_over_native_flux": 0.9958618989784763
+      },
+      {
+        "observation_id": "2026W40_1A_0070_2_D6",
+        "time": "2026-09-28T08:04:44.314Z",
+        "wavelength": 4.660193553240833,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.7901329298627114,
+        "native_vs_aligned_position_arcsec": 0.1960928800434525,
+        "aligned_over_native_flux": 1.0194817079795828
+      }
+    ]
+  },
+  {
+    "target": "WISE 0855",
+    "n_frames": 45,
+    "n_epochs": 4,
+    "grid": {
+      "shape": [
+        31,
+        31
+      ],
+      "pixel_scale_arcsec": 6.149999999999999,
+      "orientation": "north up, east left"
+    },
+    "errors": [],
+    "skipped": 0,
+    "target_offset_from_predicted_arcsec": {
+      "n": 45,
+      "median": 1.8920987528095479,
+      "p90": 3.6997329291804086
+    },
+    "native_vs_aligned_position_arcsec": {
+      "n": 45,
+      "median": 0.8127969874366259,
+      "p90": 1.806362529963403
+    },
+    "aligned_over_native_flux": {
+      "n": 40,
+      "median": 0.9254068474029877,
+      "p90": 1.3225866370245678
+    },
+    "field_star": null,
+    "first_vs_last_epoch": {
+      "wavelength_matched": true,
+      "stats": {
+        "valid_fraction": 0.9886,
+        "significance_robust_std": 0.5499299061462354,
+        "n_pixels_abs_sig_gt_5": 2,
+        "max_abs_significance": 18.129419315509384,
+        "delta_t_days": 364.545
+      },
+      "a_wavelength": 4.8911478908967725,
+      "b_wavelength": 4.913488890823752,
+      "caveats": [
+        "A: members span 4.825-4.967 um (more than one ~0.036 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time",
+        "B: members span 4.860-4.967 um (more than one ~0.037 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time",
+        "Residuals can come from PSF differences, background, calibration or noise; a residual is a candidate for inspection, not a detected moving object."
+      ]
+    },
+    "detector_stack_warnings": [
+      "members span 4.412-5.003 um (more than one ~0.035 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time"
+    ],
+    "frames": [
+      {
+        "observation_id": "2025W19_1B_0116_1_D6",
+        "time": "2025-05-05T16:48:02.419Z",
+        "wavelength": 4.967427250120557,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 3.571396372344987,
+        "native_vs_aligned_position_arcsec": 0.6365373031365924,
+        "aligned_over_native_flux": 5.695407959164813
+      },
+      {
+        "observation_id": "2025W19_1B_0116_2_D6",
+        "time": "2025-05-05T16:50:11.414Z",
+        "wavelength": 5.003429739597999,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.5075209271194479,
+        "native_vs_aligned_position_arcsec": 1.95848797683921,
+        "aligned_over_native_flux": 0.6741580253002978
+      },
+      {
+        "observation_id": "2025W19_1B_0138_1_D6",
+        "time": "2025-05-05T20:01:35.443Z",
+        "wavelength": 4.859550531526946,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.8256778915399512,
+        "native_vs_aligned_position_arcsec": 1.2136492247276012,
+        "aligned_over_native_flux": 0.8639403230210562
+      },
+      {
+        "observation_id": "2025W46_1A_0075_4_D6",
+        "time": "2025-11-10T07:07:24.125Z",
+        "wavelength": 4.41240333468135,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 2.432887379266102,
+        "native_vs_aligned_position_arcsec": 0.9709016335798663,
+        "aligned_over_native_flux": 0.0003554239707366818
+      },
+      {
+        "observation_id": "2025W46_1A_0076_1_D6",
+        "time": "2025-11-10T07:09:54.547Z",
+        "wavelength": 4.444198677595707,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.5316375252071497,
+        "native_vs_aligned_position_arcsec": 0.5754288270574061,
+        "aligned_over_native_flux": 0.9528207044068541
+      },
+      {
+        "observation_id": "2025W46_1A_0076_2_D6",
+        "time": "2025-11-10T07:12:03.542Z",
+        "wavelength": 4.47684168415177,
+        "quality_flags": [
+          "NONFUNC",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 6.091616226930488,
+        "native_vs_aligned_position_arcsec": 0.28208026438396616,
+        "aligned_over_native_flux": 0.983243109423454
+      },
+      {
+        "observation_id": "2025W46_1A_0076_3_D6",
+        "time": "2025-11-10T07:14:12.451Z",
+        "wavelength": 4.509684794927539,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.103964527063636,
+        "native_vs_aligned_position_arcsec": 1.8486880937176642,
+        "aligned_over_native_flux": 0.8064497458973217
+      },
+      {
+        "observation_id": "2025W46_1A_0090_1_D6",
+        "time": "2025-11-10T08:45:16.646Z",
+        "wavelength": 4.54203296261772,
+        "quality_flags": [
+          "PERSIST"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.3190307480154559,
+        "native_vs_aligned_position_arcsec": 0.5293636614508956,
+        "aligned_over_native_flux": 0.9582309487169686
+      },
+      {
+        "observation_id": "2025W46_1A_0090_2_D6",
+        "time": "2025-11-10T08:47:25.555Z",
+        "wavelength": 4.576180486565331,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 9.557394929023827,
+        "native_vs_aligned_position_arcsec": 0.14564034182270122
+      },
+      {
+        "observation_id": "2025W46_1A_0090_3_D6",
+        "time": "2025-11-10T08:49:34.550Z",
+        "wavelength": 4.610751198451674,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 2.934234988508796,
+        "native_vs_aligned_position_arcsec": 1.3642605758913253,
+        "aligned_over_native_flux": 0.9169698692991222
+      },
+      {
+        "observation_id": "2025W46_1A_0238_1_D6",
+        "time": "2025-11-10T23:26:52.022Z",
+        "wavelength": 4.628629560828637,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.5066242414663353,
+        "native_vs_aligned_position_arcsec": 0.46606723267363487,
+        "aligned_over_native_flux": 1.1543354942363033
+      },
+      {
+        "observation_id": "2025W46_1A_0238_2_D6",
+        "time": "2025-11-10T23:29:01.018Z",
+        "wavelength": 4.66320435739137,
+        "quality_flags": [
+          "NONFUNC",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 6.463545730757252,
+        "native_vs_aligned_position_arcsec": 1.374664589037401,
+        "aligned_over_native_flux": 1.083835386631717
+      },
+      {
+        "observation_id": "2025W46_2A_0214_1_D6",
+        "time": "2025-11-14T12:07:21.418Z",
+        "wavelength": 4.697674424694814,
+        "quality_flags": [
+          "NONFUNC",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5711081314571647,
+        "native_vs_aligned_position_arcsec": 0.20339424355960847,
+        "aligned_over_native_flux": 0.8187803343175675
+      },
+      {
+        "observation_id": "2025W46_2A_0214_2_D6",
+        "time": "2025-11-14T12:09:30.326Z",
+        "wavelength": 4.732066424621511,
+        "quality_flags": [
+          "HALO",
+          "NONFUNC",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.9899700242926857,
+        "native_vs_aligned_position_arcsec": 1.1628667205029033,
+        "aligned_over_native_flux": 0.9854343551778529
+      },
+      {
+        "observation_id": "2025W46_2A_0214_3_D6",
+        "time": "2025-11-14T12:11:39.235Z",
+        "wavelength": 4.766546618787787,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 2.7206574958829606,
+        "native_vs_aligned_position_arcsec": 1.3378565921756413,
+        "aligned_over_native_flux": 0.7379936242832866
+      },
+      {
+        "observation_id": "2025W46_2A_0214_4_D6",
+        "time": "2025-11-14T12:13:48.230Z",
+        "wavelength": 4.801249874116095,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 3.2797149800132948,
+        "native_vs_aligned_position_arcsec": 1.7428741843320108,
+        "aligned_over_native_flux": 0.9903196688933962
+      },
+      {
+        "observation_id": "2025W46_2A_0226_1_D6",
+        "time": "2025-11-14T13:46:55.200Z",
+        "wavelength": 4.83557403155235,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.7340795800735753,
+        "native_vs_aligned_position_arcsec": 1.188390205125517,
+        "aligned_over_native_flux": 0.39785990173723607
+      },
+      {
+        "observation_id": "2025W46_2A_0226_2_D6",
+        "time": "2025-11-14T13:49:04.109Z",
+        "wavelength": 4.871409076247911,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 3.218264489335287,
+        "native_vs_aligned_position_arcsec": 0.7561238498978352,
+        "aligned_over_native_flux": 0.7592953298678271
+      },
+      {
+        "observation_id": "2025W46_2A_0226_3_D6",
+        "time": "2025-11-14T13:51:13.018Z",
+        "wavelength": 4.907338443721236,
+        "quality_flags": [
+          "HALO"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.12492331041397,
+        "native_vs_aligned_position_arcsec": 1.4943906351110015
+      },
+      {
+        "observation_id": "2025W46_2A_0226_4_D6",
+        "time": "2025-11-14T13:53:22.013Z",
+        "wavelength": 4.943367196576564,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.998566470863269,
+        "native_vs_aligned_position_arcsec": 2.269769542877381,
+        "aligned_over_native_flux": -28.947381875319103
+      },
+      {
+        "observation_id": "2025W46_2A_0289_1_D6",
+        "time": "2025-11-14T21:54:33.264Z",
+        "wavelength": 4.97902227803987,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 2.068961815121795,
+        "native_vs_aligned_position_arcsec": 1.6110559512243314,
+        "aligned_over_native_flux": 0.7190555407272448
+      },
+      {
+        "observation_id": "2025W50_2A_0232_1_D6",
+        "time": "2025-12-12T06:47:16.253Z",
+        "wavelength": 4.6288161760285815,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.5817411038000169,
+        "native_vs_aligned_position_arcsec": 1.297263768961228,
+        "aligned_over_native_flux": 1.0089897273488129
+      },
+      {
+        "observation_id": "2025W50_2A_0254_1_D6",
+        "time": "2025-12-12T08:26:02.515Z",
+        "wavelength": 4.697448006452893,
+        "quality_flags": [
+          "NONFUNC"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.4131611117628373,
+        "native_vs_aligned_position_arcsec": 0.56201070452556,
+        "aligned_over_native_flux": 0.3897968057716424
+      },
+      {
+        "observation_id": "2025W50_2A_0428_1_D6",
+        "time": "2025-12-13T00:41:57.091Z",
+        "wavelength": 4.73200947866655,
+        "quality_flags": [
+          "NONFUNC"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.0901711770173765,
+        "native_vs_aligned_position_arcsec": 0.626229169399667,
+        "aligned_over_native_flux": 1.0001211737892373
+      },
+      {
+        "observation_id": "2026W17_1B_0227_2_D6",
+        "time": "2026-04-21T04:45:01.411Z",
+        "wavelength": 4.41395835653952,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.8920987528095479,
+        "native_vs_aligned_position_arcsec": 0.27891856277631166,
+        "aligned_over_native_flux": 1.4312281393679238
+      },
+      {
+        "observation_id": "2026W17_1B_0227_3_D6",
+        "time": "2026-04-21T04:47:10.320Z",
+        "wavelength": 4.4466125695202265,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.32973878272861373,
+        "native_vs_aligned_position_arcsec": 0.5498871258267394,
+        "aligned_over_native_flux": 0.7385869251468539
+      },
+      {
+        "observation_id": "2026W17_1B_0227_4_D6",
+        "time": "2026-04-21T04:49:19.315Z",
+        "wavelength": 4.477816614183826,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.1126750006298292,
+        "native_vs_aligned_position_arcsec": 1.542743438088305,
+        "aligned_over_native_flux": 0.9569465049110804
+      },
+      {
+        "observation_id": "2026W17_1B_0507_1_D6",
+        "time": "2026-04-22T18:10:31.066Z",
+        "wavelength": 4.509516476966372,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.9770799491438709,
+        "native_vs_aligned_position_arcsec": 0.4668969757323283,
+        "aligned_over_native_flux": 0.7774219355723516
+      },
+      {
+        "observation_id": "2026W17_1B_0507_2_D6",
+        "time": "2026-04-22T18:12:39.974Z",
+        "wavelength": 4.54236418500991,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.456727286397428,
+        "native_vs_aligned_position_arcsec": 0.6005545007980919,
+        "aligned_over_native_flux": 0.9338438255068534
+      },
+      {
+        "observation_id": "2026W17_1B_0507_3_D6",
+        "time": "2026-04-22T18:14:48.883Z",
+        "wavelength": 4.577915499772441,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.3769653845120266,
+        "native_vs_aligned_position_arcsec": 1.4443548764933927,
+        "aligned_over_native_flux": 0.959809522827543
+      },
+      {
+        "observation_id": "2026W17_1B_0634_1_D6",
+        "time": "2026-04-23T10:28:29.885Z",
+        "wavelength": 4.6091089930609535,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.7867618908117405,
+        "native_vs_aligned_position_arcsec": 0.2833847539573169,
+        "aligned_over_native_flux": 3.1358051975623704
+      },
+      {
+        "observation_id": "2026W17_1B_0634_2_D6",
+        "time": "2026-04-23T10:30:38.794Z",
+        "wavelength": 4.643595255976545,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.5234327929682658,
+        "native_vs_aligned_position_arcsec": 0.8923180577560743,
+        "aligned_over_native_flux": 0.936487806874314
+      },
+      {
+        "observation_id": "2026W17_1B_0634_3_D6",
+        "time": "2026-04-23T10:32:47.789Z",
+        "wavelength": 4.667202547981672,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.9743966488858082,
+        "native_vs_aligned_position_arcsec": 0.7381081667176663,
+        "aligned_over_native_flux": 1.1796879084840814
+      },
+      {
+        "observation_id": "2026W17_1B_0634_4_D6",
+        "time": "2026-04-23T10:34:56.698Z",
+        "wavelength": 4.710448248747907,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 2.5911150905497364,
+        "native_vs_aligned_position_arcsec": 0.3888637173963774,
+        "aligned_over_native_flux": 0.8680757026922001
+      },
+      {
+        "observation_id": "2026W17_2A_0591_1_D6",
+        "time": "2026-04-26T02:03:08.150Z",
+        "wavelength": 4.814795182403867,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.3840400731806274,
+        "native_vs_aligned_position_arcsec": 0.563454188514504,
+        "aligned_over_native_flux": 1.3147640376411263
+      },
+      {
+        "observation_id": "2026W17_2A_0609_1_D6",
+        "time": "2026-04-26T03:39:54.662Z",
+        "wavelength": 4.744136445150593,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 2.3328637215622123,
+        "native_vs_aligned_position_arcsec": 0.8831213309942814
+      },
+      {
+        "observation_id": "2026W17_2A_0609_2_D6",
+        "time": "2026-04-26T03:42:05.126Z",
+        "wavelength": 4.780101921024915,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 3.422684094688482,
+        "native_vs_aligned_position_arcsec": 1.4414988191455285,
+        "aligned_over_native_flux": 0.9090903520645571
+      },
+      {
+        "observation_id": "2026W17_2A_0692_1_D6",
+        "time": "2026-04-26T11:50:10.838Z",
+        "wavelength": 4.894974837036952,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 3.7852906337373557,
+        "native_vs_aligned_position_arcsec": 0.9883912158819522
+      },
+      {
+        "observation_id": "2026W17_2A_0692_2_D6",
+        "time": "2026-04-26T11:52:19.747Z",
+        "wavelength": 4.9315515209587115,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 6.4872440020094055,
+        "native_vs_aligned_position_arcsec": 0.6666762325924092,
+        "aligned_over_native_flux": 1.3929900314755401
+      },
+      {
+        "observation_id": "2026W18_2A_0065_1_D6",
+        "time": "2026-04-30T18:29:58.589Z",
+        "wavelength": 4.82471455900573,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 0.7701188572551738,
+        "native_vs_aligned_position_arcsec": 2.058243923058681,
+        "aligned_over_native_flux": 0.8098634586532525
+      },
+      {
+        "observation_id": "2026W19_2A_0568_1_D6",
+        "time": "2026-05-08T23:38:01.363Z",
+        "wavelength": 4.824656668279828,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.115251587305572,
+        "native_vs_aligned_position_arcsec": 0.8127969874366259,
+        "aligned_over_native_flux": 0.3778453340119525
+      },
+      {
+        "observation_id": "2026W19_2A_0651_1_D6",
+        "time": "2026-05-09T04:39:40.867Z",
+        "wavelength": 4.859553943056679,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.2929147007942596,
+        "native_vs_aligned_position_arcsec": 2.4393188987815777,
+        "aligned_over_native_flux": 0.8867832303374399
+      },
+      {
+        "observation_id": "2026W19_2A_0782_1_D6",
+        "time": "2026-05-09T12:39:49.219Z",
+        "wavelength": 4.895097002181587,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 1.2636467108694671,
+        "native_vs_aligned_position_arcsec": 0.7592942692186088
+      },
+      {
+        "observation_id": "2026W19_2A_0952_1_D6",
+        "time": "2026-05-09T22:23:49.171Z",
+        "wavelength": 4.931264967670148,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 2.844476671121511,
+        "native_vs_aligned_position_arcsec": 0.7022303225996764,
+        "aligned_over_native_flux": 1.1849605224367914
+      },
+      {
+        "observation_id": "2026W20_1A_0033_1_D6",
+        "time": "2026-05-11T02:18:44.640Z",
+        "wavelength": 4.967369628984541,
+        "quality_flags": [],
+        "aligned_offset_from_predicted_arcsec": 2.2672471260170513,
+        "native_vs_aligned_position_arcsec": 0.49874392696930314,
+        "aligned_over_native_flux": 0.5155213487147005
+      }
+    ]
+  },
+  {
+    "target": "RW Aurigae",
+    "n_frames": 56,
+    "n_epochs": 3,
+    "grid": {
+      "shape": [
+        31,
+        31
+      ],
+      "pixel_scale_arcsec": 6.149999999999999,
+      "orientation": "north up, east left"
+    },
+    "errors": [],
+    "skipped": 0,
+    "target_offset_from_predicted_arcsec": {
+      "n": 56,
+      "median": 0.49027683645652176,
+      "p90": 1.1466255666892542
+    },
+    "native_vs_aligned_position_arcsec": {
+      "n": 56,
+      "median": 0.05383105661371053,
+      "p90": 0.10567837264913477
+    },
+    "aligned_over_native_flux": {
+      "n": 55,
+      "median": 0.9993358537639633,
+      "p90": 1.0062439693731717
+    },
+    "field_star": null,
+    "first_vs_last_epoch": {
+      "wavelength_matched": true,
+      "stats": {
+        "valid_fraction": 0.9969,
+        "significance_robust_std": 1.447862063221499,
+        "n_pixels_abs_sig_gt_5": 135,
+        "max_abs_significance": 280.4280471866126,
+        "delta_t_days": 362.163
+      },
+      "a_wavelength": 4.69900207469529,
+      "b_wavelength": 4.711673239619874,
+      "caveats": [
+        "A: members span 4.420-4.977 um (more than one ~0.035 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time",
+        "B: members span 4.433-4.992 um (more than one ~0.035 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time",
+        "Residuals can come from PSF differences, background, calibration or noise; a residual is a candidate for inspection, not a detected moving object.",
+        "Some frames have problem flags at the target (e.g. saturation); see quality_flags."
+      ]
+    },
+    "detector_stack_warnings": [
+      "members span 4.400-5.005 um (more than one ~0.035 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time"
+    ],
+    "frames": [
+      {
+        "observation_id": "2025W37_2A_0051_1_D6",
+        "time": "2025-09-11T16:15:33.926Z",
+        "wavelength": 4.956531080875931,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.17107178387232724,
+        "native_vs_aligned_position_arcsec": 0.08473271528259259,
+        "aligned_over_native_flux": 0.9960760198110173
+      },
+      {
+        "observation_id": "2025W38_1A_0538_1_D6",
+        "time": "2025-09-17T02:33:33.437Z",
+        "wavelength": 4.400001664310374,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.4665909188847175,
+        "native_vs_aligned_position_arcsec": 0.05406873389093173,
+        "aligned_over_native_flux": 1.0045836592121147
+      },
+      {
+        "observation_id": "2025W38_1A_0538_2_D6",
+        "time": "2025-09-17T02:35:42.346Z",
+        "wavelength": 4.433115233836941,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.26078502773223644,
+        "native_vs_aligned_position_arcsec": 0.06273365772804715,
+        "aligned_over_native_flux": 1.004145254014015
+      },
+      {
+        "observation_id": "2025W38_1A_0538_3_D6",
+        "time": "2025-09-17T02:37:51.254Z",
+        "wavelength": 4.465658354966292,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5182958517694227,
+        "native_vs_aligned_position_arcsec": 0.054208766617378966,
+        "aligned_over_native_flux": 1.0074491010921753
+      },
+      {
+        "observation_id": "2025W38_1A_0691_1_D6",
+        "time": "2025-09-17T22:07:35.702Z",
+        "wavelength": 4.497034702435617,
+        "quality_flags": [
+          "BLOOM",
+          "COLD",
+          "NONFUNC",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.9147867835272093,
+        "native_vs_aligned_position_arcsec": 0.1216627015390326,
+        "aligned_over_native_flux": 1.0029114295773318
+      },
+      {
+        "observation_id": "2025W38_1A_0691_2_D6",
+        "time": "2025-09-17T22:09:44.611Z",
+        "wavelength": 4.530579096496758,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.3930608586648174,
+        "native_vs_aligned_position_arcsec": 0.08052200921443615,
+        "aligned_over_native_flux": 1.0023555814718956
+      },
+      {
+        "observation_id": "2025W38_1A_0691_3_D6",
+        "time": "2025-09-17T22:11:53.520Z",
+        "wavelength": 4.564158362001664,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.2479412783842811,
+        "native_vs_aligned_position_arcsec": 0.07589353763241008,
+        "aligned_over_native_flux": 1.0003833703727765
+      },
+      {
+        "observation_id": "2025W38_1A_0691_4_D6",
+        "time": "2025-09-17T22:14:02.515Z",
+        "wavelength": 4.597681675145606,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.3257820695701503,
+        "native_vs_aligned_position_arcsec": 0.018876820147479455,
+        "aligned_over_native_flux": 0.9993358537639633
+      },
+      {
+        "observation_id": "2025W38_1A_0738_1_D6",
+        "time": "2025-09-18T04:39:04.147Z",
+        "wavelength": 4.813420796935254,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6885319238972197,
+        "native_vs_aligned_position_arcsec": 0.10254113441050675,
+        "aligned_over_native_flux": 0.9958304530393429
+      },
+      {
+        "observation_id": "2025W38_1A_0738_2_D6",
+        "time": "2025-09-18T04:41:13.056Z",
+        "wavelength": 4.84993662280568,
+        "quality_flags": [
+          "BLOOM",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 10.449618995893244,
+        "native_vs_aligned_position_arcsec": 0.2136364272256711,
+        "aligned_over_native_flux": 1.0028067602554391
+      },
+      {
+        "observation_id": "2025W38_1A_0738_3_D6",
+        "time": "2025-09-18T04:43:21.965Z",
+        "wavelength": 4.885249613278582,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7844470206668854,
+        "native_vs_aligned_position_arcsec": 0.047294866831455645,
+        "aligned_over_native_flux": 0.9930271258877613
+      },
+      {
+        "observation_id": "2025W38_1A_0738_4_D6",
+        "time": "2025-09-18T04:45:30.874Z",
+        "wavelength": 4.921373421057297,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.3324093748893728,
+        "native_vs_aligned_position_arcsec": 0.06988726172331323,
+        "aligned_over_native_flux": 0.9905515444488029
+      },
+      {
+        "observation_id": "2025W38_2C_0023_1_D6",
+        "time": "2025-09-18T14:22:16.579Z",
+        "wavelength": 4.630930122359036,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7348181973254786,
+        "native_vs_aligned_position_arcsec": 0.0499509391534049,
+        "aligned_over_native_flux": 0.9987222201632787
+      },
+      {
+        "observation_id": "2025W38_2C_0023_2_D6",
+        "time": "2025-09-18T14:24:25.488Z",
+        "wavelength": 4.66574644215294,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.37059480507376447,
+        "native_vs_aligned_position_arcsec": 0.05359337933648933,
+        "aligned_over_native_flux": 0.9990391645501889
+      },
+      {
+        "observation_id": "2025W38_2C_0023_3_D6",
+        "time": "2025-09-18T14:26:34.397Z",
+        "wavelength": 4.699816822957453,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.9222444192497414,
+        "native_vs_aligned_position_arcsec": 0.06845497861191986,
+        "aligned_over_native_flux": 0.9999223034043384
+      },
+      {
+        "observation_id": "2025W38_2C_0023_4_D6",
+        "time": "2025-09-18T14:28:43.392Z",
+        "wavelength": 4.734350339104421,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.4118178388025302,
+        "native_vs_aligned_position_arcsec": 0.08977689960155467,
+        "aligned_over_native_flux": 1.0020337242918356
+      },
+      {
+        "observation_id": "2025W38_2C_0124_1_D6",
+        "time": "2025-09-19T03:28:40.656Z",
+        "wavelength": 4.992491725090138,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6210463698074516,
+        "native_vs_aligned_position_arcsec": 0.08179400481031564,
+        "aligned_over_native_flux": 0.9848350822850714
+      },
+      {
+        "observation_id": "2025W38_2C_0342_1_D6",
+        "time": "2025-09-20T05:32:00.902Z",
+        "wavelength": 4.768694796900675,
+        "quality_flags": [
+          "BLOOM",
+          "NONFUNC",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.4943254291481078,
+        "native_vs_aligned_position_arcsec": 0.05533425951190311,
+        "aligned_over_native_flux": 0.9966837592482448
+      },
+      {
+        "observation_id": "2025W38_2C_0342_2_D6",
+        "time": "2025-09-20T05:34:09.811Z",
+        "wavelength": 4.80334910475746,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7893414563984134,
+        "native_vs_aligned_position_arcsec": 0.013089512239635896,
+        "aligned_over_native_flux": 0.9922079592594825
+      },
+      {
+        "observation_id": "2026W08_2A_0233_1_D6",
+        "time": "2026-02-20T17:16:14.822Z",
+        "wavelength": 4.654446734564354,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.3848710173671916,
+        "native_vs_aligned_position_arcsec": 0.03852611507735393,
+        "aligned_over_native_flux": 1.0005807129721662
+      },
+      {
+        "observation_id": "2026W08_2A_0233_2_D6",
+        "time": "2026-02-20T17:18:23.731Z",
+        "wavelength": 4.688823322824051,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5464395319575086,
+        "native_vs_aligned_position_arcsec": 0.05252723213884759,
+        "aligned_over_native_flux": 0.9968690478136915
+      },
+      {
+        "observation_id": "2026W08_2A_0233_3_D6",
+        "time": "2026-02-20T17:20:32.640Z",
+        "wavelength": 4.722947503761702,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6085479654805003,
+        "native_vs_aligned_position_arcsec": 0.07402828144869122,
+        "aligned_over_native_flux": 1.0023566363278678
+      },
+      {
+        "observation_id": "2026W08_2A_0233_4_D6",
+        "time": "2026-02-20T17:22:41.635Z",
+        "wavelength": 4.757326627623146,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.3199574520446533,
+        "native_vs_aligned_position_arcsec": 0.02320642467726525,
+        "aligned_over_native_flux": 0.9964025709018857
+      },
+      {
+        "observation_id": "2026W08_2A_0361_1_D6",
+        "time": "2026-02-21T09:32:47.760Z",
+        "wavelength": 4.791408695191177,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5800951669229573,
+        "native_vs_aligned_position_arcsec": 0.024766057684915802,
+        "aligned_over_native_flux": 1.0004637015184443
+      },
+      {
+        "observation_id": "2026W08_2A_0361_2_D6",
+        "time": "2026-02-21T09:34:58.224Z",
+        "wavelength": 4.826107261319898,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.3886831983585191,
+        "native_vs_aligned_position_arcsec": 0.07634352421154368,
+        "aligned_over_native_flux": 0.997054492927263
+      },
+      {
+        "observation_id": "2026W08_2A_0361_3_D6",
+        "time": "2026-02-21T09:37:07.133Z",
+        "wavelength": 4.860775002214656,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.4862282437649357,
+        "native_vs_aligned_position_arcsec": 0.020876581175844913,
+        "aligned_over_native_flux": 0.9964973865991658
+      },
+      {
+        "observation_id": "2026W08_2A_0361_4_D6",
+        "time": "2026-02-21T09:39:16.042Z",
+        "wavelength": 4.896444309020216,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5623167942499052,
+        "native_vs_aligned_position_arcsec": 0.14601880276518364,
+        "aligned_over_native_flux": 0.9963107635853461
+      },
+      {
+        "observation_id": "2026W09_2A_0224_2_D6",
+        "time": "2026-02-27T15:28:16.723Z",
+        "wavelength": 4.414203524663899,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5224187881297923,
+        "native_vs_aligned_position_arcsec": 0.08975815738477257,
+        "aligned_over_native_flux": 1.0091794556164009
+      },
+      {
+        "observation_id": "2026W09_2A_0224_3_D6",
+        "time": "2026-02-27T15:30:25.632Z",
+        "wavelength": 4.446144129957974,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5941712044887774,
+        "native_vs_aligned_position_arcsec": 0.02134661720728734,
+        "aligned_over_native_flux": 1.0004926084933123
+      },
+      {
+        "observation_id": "2026W09_2A_0224_4_D6",
+        "time": "2026-02-27T15:32:34.541Z",
+        "wavelength": 4.4772432694789295,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6178945091044029,
+        "native_vs_aligned_position_arcsec": 0.042485998476880796,
+        "aligned_over_native_flux": 1.0058103001530523
+      },
+      {
+        "observation_id": "2026W09_2A_0289_1_D6",
+        "time": "2026-02-27T23:38:11.386Z",
+        "wavelength": 4.932595952680956,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5344717619831397,
+        "native_vs_aligned_position_arcsec": 0.081746838130292,
+        "aligned_over_native_flux": 0.9955359051575963
+      },
+      {
+        "observation_id": "2026W09_2A_0289_2_D6",
+        "time": "2026-02-27T23:40:20.294Z",
+        "wavelength": 4.969101449972417,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5150067271276065,
+        "native_vs_aligned_position_arcsec": 0.046866361657449826,
+        "aligned_over_native_flux": 0.9971803735989606
+      },
+      {
+        "observation_id": "2026W09_2A_0289_3_D6",
+        "time": "2026-02-27T23:42:29.203Z",
+        "wavelength": 5.005096016103261,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.3649261626669673,
+        "native_vs_aligned_position_arcsec": 0.10881561088776279,
+        "aligned_over_native_flux": 0.9957150962990627
+      },
+      {
+        "observation_id": "2026W09_2A_0552_1_D6",
+        "time": "2026-03-01T11:27:28.310Z",
+        "wavelength": 4.509876422225922,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.4602290040914198,
+        "native_vs_aligned_position_arcsec": 0.08056829330977455,
+        "aligned_over_native_flux": 1.0064558717834824
+      },
+      {
+        "observation_id": "2026W09_2A_0552_2_D6",
+        "time": "2026-03-01T11:29:37.219Z",
+        "wavelength": 4.542297241481023,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5121646377557737,
+        "native_vs_aligned_position_arcsec": 0.7843215664808821,
+        "aligned_over_native_flux": 0.9335990986594118
+      },
+      {
+        "observation_id": "2026W09_2A_0552_3_D6",
+        "time": "2026-03-01T11:31:46.128Z",
+        "wavelength": 4.5761799204240265,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6513144468176818,
+        "native_vs_aligned_position_arcsec": 0.09555170065142604,
+        "aligned_over_native_flux": 0.999632719864113
+      },
+      {
+        "observation_id": "2026W09_2A_0552_4_D6",
+        "time": "2026-03-01T11:33:55.037Z",
+        "wavelength": 4.609597894611468,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.3495563468605036,
+        "native_vs_aligned_position_arcsec": 0.058539674854348585,
+        "aligned_over_native_flux": 1.006765231259531
+      },
+      {
+        "observation_id": "2026W10_1A_0120_1_D6",
+        "time": "2026-03-02T13:31:14.563Z",
+        "wavelength": 4.6434167059680735,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.2644808756656935,
+        "native_vs_aligned_position_arcsec": 0.02904979045112362,
+        "aligned_over_native_flux": 1.002322882706717
+      },
+      {
+        "observation_id": "2026W37_2A_0581_1_D6",
+        "time": "2026-09-13T07:08:31.862Z",
+        "wavelength": 4.838256597680626,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.11635729084764153,
+        "native_vs_aligned_position_arcsec": 0.01337342426118704,
+        "aligned_over_native_flux": 0.9942416351117135
+      },
+      {
+        "observation_id": "2026W37_2A_0581_2_D6",
+        "time": "2026-09-13T07:10:40.771Z",
+        "wavelength": 4.868758031072337,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.24690286237199946,
+        "native_vs_aligned_position_arcsec": 0.029912479138723327,
+        "aligned_over_native_flux": 0.9935132709503708
+      },
+      {
+        "observation_id": "2026W37_2A_0581_3_D6",
+        "time": "2026-09-13T07:12:49.680Z",
+        "wavelength": 4.904804759231594,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.10358350753718172,
+        "native_vs_aligned_position_arcsec": 0.038985857394716224,
+        "aligned_over_native_flux": 0.9958399076646434
+      },
+      {
+        "observation_id": "2026W37_2A_0581_4_D6",
+        "time": "2026-09-13T07:14:58.589Z",
+        "wavelength": 4.941044244072091,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.3596031025435715,
+        "native_vs_aligned_position_arcsec": 0.04238973759703398,
+        "aligned_over_native_flux": 0.9913943164165359
+      },
+      {
+        "observation_id": "2026W38_1A_0162_1_D6",
+        "time": "2026-09-14T20:31:49.498Z",
+        "wavelength": 4.419889385993182,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.15397404323923697,
+        "native_vs_aligned_position_arcsec": 0.03354275039967114,
+        "aligned_over_native_flux": 1.0078847685479146
+      },
+      {
+        "observation_id": "2026W38_1A_0162_2_D6",
+        "time": "2026-09-14T20:33:58.406Z",
+        "wavelength": 4.452323082966785,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.2379056009303648,
+        "native_vs_aligned_position_arcsec": 0.022310396206382664,
+        "aligned_over_native_flux": 1.0059261157577055
+      },
+      {
+        "observation_id": "2026W38_1A_0162_3_D6",
+        "time": "2026-09-14T20:36:07.315Z",
+        "wavelength": 4.4848392998727205,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 7.222058641057105,
+        "native_vs_aligned_position_arcsec": 0.20226641779166193,
+        "aligned_over_native_flux": 1.0096140472574784
+      },
+      {
+        "observation_id": "2026W38_1A_0162_4_D6",
+        "time": "2026-09-14T20:38:16.224Z",
+        "wavelength": 4.514473064518906,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.038385663673111844,
+        "native_vs_aligned_position_arcsec": 0.06156095241525254,
+        "aligned_over_native_flux": 1.0050728482243307
+      },
+      {
+        "observation_id": "2026W38_1A_0213_1_D6",
+        "time": "2026-09-15T03:06:02.102Z",
+        "wavelength": 4.976893049532367,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.16325699009066788,
+        "native_vs_aligned_position_arcsec": 0.036370504348231816,
+        "aligned_over_native_flux": 0.9910997863531147
+      },
+      {
+        "observation_id": "2026W38_1A_0359_1_D6",
+        "time": "2026-09-15T21:02:36.470Z",
+        "wavelength": 4.5490818582440955,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6103922979393612,
+        "native_vs_aligned_position_arcsec": 0.025291012325484512,
+        "aligned_over_native_flux": 1.0050448838084958
+      },
+      {
+        "observation_id": "2026W38_1A_0359_2_D6",
+        "time": "2026-09-15T21:04:45.379Z",
+        "wavelength": 4.590898269338502,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.009519877253113854,
+        "native_vs_aligned_position_arcsec": 0.056024247902224766,
+        "aligned_over_native_flux": 1.0014692115293264
+      },
+      {
+        "observation_id": "2026W38_1A_0359_3_D6",
+        "time": "2026-09-15T21:06:54.374Z",
+        "wavelength": 4.621479975264205,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.0453098549942272,
+        "native_vs_aligned_position_arcsec": 0.03910417824117525,
+        "aligned_over_native_flux": 1.0025542167578751
+      },
+      {
+        "observation_id": "2026W38_1A_0359_4_D6",
+        "time": "2026-09-15T21:09:04.838Z",
+        "wavelength": 4.650579543094345,
+        "quality_flags": [
+          "HALO",
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.06666457502546469,
+        "native_vs_aligned_position_arcsec": 0.04165215750898296,
+        "aligned_over_native_flux": 1.0014124980542354
+      },
+      {
+        "observation_id": "2026W38_1A_0435_1_D6",
+        "time": "2026-09-16T06:48:20.880Z",
+        "wavelength": 4.684848465495672,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.06485810767560427,
+        "native_vs_aligned_position_arcsec": 0.025715608218411585,
+        "aligned_over_native_flux": 0.9982250463007506
+      },
+      {
+        "observation_id": "2026W38_1A_0435_2_D6",
+        "time": "2026-09-16T06:50:29.789Z",
+        "wavelength": 4.719600960407423,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.3535165458900179,
+        "native_vs_aligned_position_arcsec": 0.052278288566211896,
+        "aligned_over_native_flux": 0.9989301388737546
+      },
+      {
+        "observation_id": "2026W38_1A_0435_3_D6",
+        "time": "2026-09-16T06:52:38.698Z",
+        "wavelength": 4.754286306918742,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.18719978296052653,
+        "native_vs_aligned_position_arcsec": 0.023651984195242774
+      },
+      {
+        "observation_id": "2026W38_1A_0435_4_D6",
+        "time": "2026-09-16T06:54:47.693Z",
+        "wavelength": 4.788550031636037,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.2141867421600353,
+        "native_vs_aligned_position_arcsec": 0.026380806957191683,
+        "aligned_over_native_flux": 0.9948872376625006
+      },
+      {
+        "observation_id": "2026W38_1A_0565_1_D6",
+        "time": "2026-09-16T21:30:05.501Z",
+        "wavelength": 4.821430419175596,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.1848880656215162,
+        "native_vs_aligned_position_arcsec": 0.07525851845126903,
+        "aligned_over_native_flux": 0.9978706435961852
+      }
+    ]
+  },
+  {
+    "target": "R Draconis",
+    "n_frames": 91,
+    "n_epochs": 3,
+    "grid": {
+      "shape": [
+        31,
+        31
+      ],
+      "pixel_scale_arcsec": 6.149999999999999,
+      "orientation": "north up, east left"
+    },
+    "errors": [],
+    "skipped": 0,
+    "target_offset_from_predicted_arcsec": {
+      "n": 91,
+      "median": 2.629607128164144,
+      "p90": 4.603758183214666
+    },
+    "native_vs_aligned_position_arcsec": {
+      "n": 0,
+      "median": null,
+      "p90": null
+    },
+    "aligned_over_native_flux": {
+      "n": 0,
+      "median": null,
+      "p90": null
+    },
+    "field_star": null,
+    "first_vs_last_epoch": {
+      "wavelength_matched": true,
+      "stats": {
+        "valid_fraction": 0.9292,
+        "significance_robust_std": 26.064799906555844,
+        "n_pixels_abs_sig_gt_5": 736,
+        "max_abs_significance": 120.41492115189895,
+        "delta_t_days": 346.573
+      },
+      "a_wavelength": 4.665552312394892,
+      "b_wavelength": 4.639556104670352,
+      "caveats": [
+        "A: members span 4.411-4.993 um (more than one ~0.035 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time",
+        "B: members span 4.406-4.992 um (more than one ~0.034 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time",
+        "Residuals can come from PSF differences, background, calibration or noise; a residual is a candidate for inspection, not a detected moving object.",
+        "Some frames have problem flags at the target (e.g. saturation); see quality_flags.",
+        "Noise in the comparison is 26.1x the propagated uncertainty (interpolation/PSF/background effects): treat significances as upper bounds."
+      ]
+    },
+    "detector_stack_warnings": [
+      "members span 4.406-4.993 um (more than one ~0.035 um channel): this combines different wavelengths, so flux reflects the source's spectrum as well as time"
+    ],
+    "frames": [
+      {
+        "observation_id": "2025W20_2D_0243_1_D6",
+        "time": "2025-05-16T22:56:23.626Z",
+        "wavelength": 4.427636172044782,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.539706296875519
+      },
+      {
+        "observation_id": "2025W20_2D_0243_2_D6",
+        "time": "2025-05-16T22:58:32.534Z",
+        "wavelength": 4.459252694440949,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 5.28724322905601
+      },
+      {
+        "observation_id": "2025W20_2D_0243_3_D6",
+        "time": "2025-05-16T23:00:41.530Z",
+        "wavelength": 4.490160594804147,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.476815528196258
+      },
+      {
+        "observation_id": "2025W20_2D_0243_4_D6",
+        "time": "2025-05-16T23:02:50.438Z",
+        "wavelength": 4.523989237700291,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.644880189751884
+      },
+      {
+        "observation_id": "2025W21_1B_0329_1_D6",
+        "time": "2025-05-20T16:37:27.552Z",
+        "wavelength": 4.556563516100236,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.7238591089944557
+      },
+      {
+        "observation_id": "2025W21_1B_0329_2_D6",
+        "time": "2025-05-20T16:39:36.547Z",
+        "wavelength": 4.590524131399639,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 6.588284740206883
+      },
+      {
+        "observation_id": "2025W23_1C_0021_1_D6",
+        "time": "2025-06-02T03:01:42.816Z",
+        "wavelength": 4.814342857943306,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.783596549052126
+      },
+      {
+        "observation_id": "2025W23_1C_0021_2_D6",
+        "time": "2025-06-02T03:03:53.280Z",
+        "wavelength": 4.848679523350561,
+        "quality_flags": [
+          "BLOOM",
+          "NONFUNC",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.5040620176306247
+      },
+      {
+        "observation_id": "2025W23_1C_0021_3_D6",
+        "time": "2025-06-02T03:06:02.189Z",
+        "wavelength": 4.884123986649596,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6573866862762545
+      },
+      {
+        "observation_id": "2025W23_1C_0021_4_D6",
+        "time": "2025-06-02T03:08:11.098Z",
+        "wavelength": 4.920473627380952,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.9583185063093884
+      },
+      {
+        "observation_id": "2025W23_1C_0607_3_D6",
+        "time": "2025-06-05T04:28:08.976Z",
+        "wavelength": 4.405616558618155,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 5.752730181906762
+      },
+      {
+        "observation_id": "2025W23_2B_0129_2_D6",
+        "time": "2025-06-06T03:17:02.458Z",
+        "wavelength": 4.991939154611772,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.1271600840858333
+      },
+      {
+        "observation_id": "2025W23_2B_0130_1_D6",
+        "time": "2025-06-06T03:19:32.880Z",
+        "wavelength": 4.9563033592705,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.5845980420942416
+      },
+      {
+        "observation_id": "2025W24_1A_0457_1_D6",
+        "time": "2025-06-11T07:14:46.838Z",
+        "wavelength": 4.740133980928793,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.240909630311563
+      },
+      {
+        "observation_id": "2025W24_1A_0631_1_D6",
+        "time": "2025-06-12T06:04:07.968Z",
+        "wavelength": 4.569001834723701,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 5.243005761054071
+      },
+      {
+        "observation_id": "2025W24_1A_0631_2_D6",
+        "time": "2025-06-12T06:06:16.877Z",
+        "wavelength": 4.602613988491617,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.603758183214666
+      },
+      {
+        "observation_id": "2025W24_1A_0631_3_D6",
+        "time": "2025-06-12T06:08:25.786Z",
+        "wavelength": 4.637105259549592,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.0559921847270335
+      },
+      {
+        "observation_id": "2025W24_2D_0033_1_D6",
+        "time": "2025-06-12T15:50:44.477Z",
+        "wavelength": 4.437977882755489,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.9903117019035523
+      },
+      {
+        "observation_id": "2025W24_2D_0033_2_D6",
+        "time": "2025-06-12T15:52:53.472Z",
+        "wavelength": 4.469985793018628,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.085056737524237
+      },
+      {
+        "observation_id": "2025W24_2D_0033_3_D6",
+        "time": "2025-06-12T15:55:02.381Z",
+        "wavelength": 4.502999451016307,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 8.272818415884604
+      },
+      {
+        "observation_id": "2025W24_2D_0033_4_D6",
+        "time": "2025-06-12T15:57:11.290Z",
+        "wavelength": 4.535522413734563,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.00923903178481
+      },
+      {
+        "observation_id": "2025W24_2D_0074_1_D6",
+        "time": "2025-06-12T20:44:49.603Z",
+        "wavelength": 4.705288284214178,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.155741999572316
+      },
+      {
+        "observation_id": "2025W52_2A_0161_2_D6",
+        "time": "2025-12-26T05:13:59.779Z",
+        "wavelength": 4.422143807597879,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.9703132846343632
+      },
+      {
+        "observation_id": "2025W52_2A_0161_3_D6",
+        "time": "2025-12-26T05:16:08.688Z",
+        "wavelength": 4.454802617242691,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.4916930823196124
+      },
+      {
+        "observation_id": "2025W52_2A_0161_4_D6",
+        "time": "2025-12-26T05:18:17.683Z",
+        "wavelength": 4.492543758901466,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.220157723799984
+      },
+      {
+        "observation_id": "2025W52_2A_0227_1_D6",
+        "time": "2025-12-26T13:20:37.968Z",
+        "wavelength": 4.519219190147552,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.448291191426046
+      },
+      {
+        "observation_id": "2025W52_2A_0227_2_D6",
+        "time": "2025-12-26T13:22:46.963Z",
+        "wavelength": 4.552734917348175,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.15412277057633453
+      },
+      {
+        "observation_id": "2025W52_2A_0227_3_D6",
+        "time": "2025-12-26T13:24:55.872Z",
+        "wavelength": 4.586527462262306,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.513683897602209
+      },
+      {
+        "observation_id": "2025W52_2A_0227_4_D6",
+        "time": "2025-12-26T13:27:06.336Z",
+        "wavelength": 4.619902130843446,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.039036106354042
+      },
+      {
+        "observation_id": "2026W01_1A_0257_1_D6",
+        "time": "2025-12-30T03:38:58.243Z",
+        "wavelength": 4.626804791916961,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.4958485195779443
+      },
+      {
+        "observation_id": "2026W01_1A_0257_2_D6",
+        "time": "2025-12-30T03:41:07.152Z",
+        "wavelength": 4.661371996349558,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.7941880784202264
+      },
+      {
+        "observation_id": "2026W01_1A_0257_3_D6",
+        "time": "2025-12-30T03:43:16.147Z",
+        "wavelength": 4.6960733412291225,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.8284063966051463
+      },
+      {
+        "observation_id": "2026W01_1A_0257_4_D6",
+        "time": "2025-12-30T03:45:25.056Z",
+        "wavelength": 4.730436292745287,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.5617764316894065
+      },
+      {
+        "observation_id": "2026W01_1A_0404_1_D6",
+        "time": "2025-12-30T21:34:28.157Z",
+        "wavelength": 4.653835643791492,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.191426165337434
+      },
+      {
+        "observation_id": "2026W01_1A_0534_3_D6",
+        "time": "2025-12-31T13:57:33.955Z",
+        "wavelength": 4.833684102598967,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.9883993847057423
+      },
+      {
+        "observation_id": "2026W01_1A_0534_4_D6",
+        "time": "2025-12-31T13:59:42.864Z",
+        "wavelength": 4.869154244510563,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.6310049496556056
+      },
+      {
+        "observation_id": "2026W01_1A_0656_1_D6",
+        "time": "2026-01-01T04:32:13.402Z",
+        "wavelength": 4.904752842402358,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.400679239141472
+      },
+      {
+        "observation_id": "2026W01_1A_0656_2_D6",
+        "time": "2026-01-01T04:34:22.310Z",
+        "wavelength": 4.940652799526181,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.8340354498675561
+      },
+      {
+        "observation_id": "2026W01_1A_0656_3_D6",
+        "time": "2026-01-01T04:36:31.306Z",
+        "wavelength": 4.976556864268021,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.23576161949349
+      },
+      {
+        "observation_id": "2026W01_2A_0426_1_D6",
+        "time": "2026-01-03T13:36:55.325Z",
+        "wavelength": 4.764398613223846,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.9423769045520805
+      },
+      {
+        "observation_id": "2026W01_2A_0426_2_D6",
+        "time": "2026-01-03T13:39:04.320Z",
+        "wavelength": 4.799323738495378,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.7492794584033556
+      },
+      {
+        "observation_id": "2026W01_2A_0426_3_D6",
+        "time": "2026-01-03T13:41:13.229Z",
+        "wavelength": 4.833830700903677,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.0240948880540874
+      },
+      {
+        "observation_id": "2026W03_1A_0304_1_D6",
+        "time": "2026-01-13T09:50:36.874Z",
+        "wavelength": 4.409470719604917,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5654843625858368
+      },
+      {
+        "observation_id": "2026W03_1A_0304_2_D6",
+        "time": "2026-01-13T09:52:45.782Z",
+        "wavelength": 4.441215007579852,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.778726165533899
+      },
+      {
+        "observation_id": "2026W03_1A_0304_3_D6",
+        "time": "2026-01-13T09:54:54.691Z",
+        "wavelength": 4.472643213343436,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.286000442945341
+      },
+      {
+        "observation_id": "2026W03_1A_0304_4_D6",
+        "time": "2026-01-13T09:57:03.686Z",
+        "wavelength": 4.505355510582686,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.788511098522007
+      },
+      {
+        "observation_id": "2026W17_1B_0434_1_D6",
+        "time": "2026-04-22T07:56:42.893Z",
+        "wavelength": 4.624029278566606,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.916306802114944
+      },
+      {
+        "observation_id": "2026W17_1B_0434_2_D6",
+        "time": "2026-04-22T07:58:51.802Z",
+        "wavelength": 4.6586733144989765,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.019896090360959
+      },
+      {
+        "observation_id": "2026W17_1B_0434_3_D6",
+        "time": "2026-04-22T08:01:00.710Z",
+        "wavelength": 4.692777729262497,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.5639826402094115
+      },
+      {
+        "observation_id": "2026W17_1B_0434_4_D6",
+        "time": "2026-04-22T08:03:11.174Z",
+        "wavelength": 4.727044702141983,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.4386274976136746
+      },
+      {
+        "observation_id": "2026W17_1B_0517_1_D6",
+        "time": "2026-04-22T19:24:39.110Z",
+        "wavelength": 4.761208598373176,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.6892750990316383
+      },
+      {
+        "observation_id": "2026W17_1B_0517_2_D6",
+        "time": "2026-04-22T19:26:48.106Z",
+        "wavelength": 4.795584350604464,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.234766757390325
+      },
+      {
+        "observation_id": "2026W17_1B_0517_3_D6",
+        "time": "2026-04-22T19:28:57.014Z",
+        "wavelength": 4.830195527612004,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.976886405759265
+      },
+      {
+        "observation_id": "2026W17_1B_0517_4_D6",
+        "time": "2026-04-22T19:31:07.478Z",
+        "wavelength": 4.8648945983576075,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.9177041759352367
+      },
+      {
+        "observation_id": "2026W17_2A_0255_1_D6",
+        "time": "2026-04-24T15:19:17.501Z",
+        "wavelength": 4.900781973243022,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.816544193099069
+      },
+      {
+        "observation_id": "2026W17_2A_0255_2_D6",
+        "time": "2026-04-24T15:21:26.410Z",
+        "wavelength": 4.936750185621076,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6150829452016646
+      },
+      {
+        "observation_id": "2026W17_2A_0255_3_D6",
+        "time": "2026-04-24T15:23:35.405Z",
+        "wavelength": 4.972777280280078,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.1765418580435698
+      },
+      {
+        "observation_id": "2026W19_1A_0842_1_D6",
+        "time": "2026-05-06T06:04:36.566Z",
+        "wavelength": 4.427094505451607,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.363353394668182
+      },
+      {
+        "observation_id": "2026W19_1A_0842_2_D6",
+        "time": "2026-05-06T06:06:45.562Z",
+        "wavelength": 4.4592903353939075,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.9427515231640227
+      },
+      {
+        "observation_id": "2026W19_2A_0976_1_D6",
+        "time": "2026-05-09T23:44:07.267Z",
+        "wavelength": 4.556647414807574,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.8860620857299442
+      },
+      {
+        "observation_id": "2026W19_2A_1286_1_D6",
+        "time": "2026-05-10T19:12:50.285Z",
+        "wavelength": 4.590549030498446,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.09893533234595
+      },
+      {
+        "observation_id": "2026W19_2A_1286_2_D6",
+        "time": "2026-05-10T19:14:59.194Z",
+        "wavelength": 4.623936731857929,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.749100115473497
+      },
+      {
+        "observation_id": "2026W19_2A_1339_1_D6",
+        "time": "2026-05-10T22:29:47.386Z",
+        "wavelength": 4.658176588150832,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.8156187481517067
+      },
+      {
+        "observation_id": "2026W19_2A_1339_2_D6",
+        "time": "2026-05-10T22:31:56.294Z",
+        "wavelength": 4.693829747470863,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.579040930900557
+      },
+      {
+        "observation_id": "2026W20_1A_0101_1_D6",
+        "time": "2026-05-11T06:36:04.147Z",
+        "wavelength": 4.726674712464968,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.147049950520471
+      },
+      {
+        "observation_id": "2026W20_1A_0101_2_D6",
+        "time": "2026-05-11T06:38:13.056Z",
+        "wavelength": 4.76177668094124,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.3025139572078484
+      },
+      {
+        "observation_id": "2026W20_1A_0101_3_D6",
+        "time": "2026-05-11T06:40:21.965Z",
+        "wavelength": 4.79523773335126,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.33598731226784084
+      },
+      {
+        "observation_id": "2026W20_1A_0795_1_D6",
+        "time": "2026-05-13T05:51:37.584Z",
+        "wavelength": 4.830014314213762,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.0986521050960674
+      },
+      {
+        "observation_id": "2026W20_1A_0795_2_D6",
+        "time": "2026-05-13T05:53:46.493Z",
+        "wavelength": 4.864713008535929,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.7421631283556194
+      },
+      {
+        "observation_id": "2026W20_1A_0795_3_D6",
+        "time": "2026-05-13T05:55:56.957Z",
+        "wavelength": 4.900076320350643,
+        "quality_flags": [
+          "BLOOM",
+          "NONFUNC",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.797106740624336
+      },
+      {
+        "observation_id": "2026W20_2A_0294_2_D6",
+        "time": "2026-05-16T08:43:47.482Z",
+        "wavelength": 4.419781141453143,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.629607128164144
+      },
+      {
+        "observation_id": "2026W20_2A_0294_3_D6",
+        "time": "2026-05-16T08:45:56.390Z",
+        "wavelength": 4.451571920021172,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.279016074057317
+      },
+      {
+        "observation_id": "2026W20_2A_0294_4_D6",
+        "time": "2026-05-16T08:48:05.299Z",
+        "wavelength": 4.4833709116042355,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.612138494644389
+      },
+      {
+        "observation_id": "2026W21_2A_0035_1_D6",
+        "time": "2026-05-21T17:25:11.280Z",
+        "wavelength": 4.992896172836582,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.499143148479249
+      },
+      {
+        "observation_id": "2026W21_2A_0104_1_D6",
+        "time": "2026-05-22T03:10:52.579Z",
+        "wavelength": 4.5159582388112165,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.763365934129944
+      },
+      {
+        "observation_id": "2026W21_2A_0104_2_D6",
+        "time": "2026-05-22T03:13:01.488Z",
+        "wavelength": 4.54887439679192,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.236063397257501
+      },
+      {
+        "observation_id": "2026W21_2A_0104_3_D6",
+        "time": "2026-05-22T03:15:10.483Z",
+        "wavelength": 4.582795424270473,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.22358436171673
+      },
+      {
+        "observation_id": "2026W21_2A_0104_4_D6",
+        "time": "2026-05-22T03:17:19.392Z",
+        "wavelength": 4.614671436616212,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.220485639458145
+      },
+      {
+        "observation_id": "2026W21_2A_0325_1_D6",
+        "time": "2026-05-23T11:46:19.632Z",
+        "wavelength": 4.650066168284815,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.7877734885880892
+      },
+      {
+        "observation_id": "2026W21_2A_0325_2_D6",
+        "time": "2026-05-23T11:48:28.541Z",
+        "wavelength": 4.684604317065422,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.911765924414528
+      },
+      {
+        "observation_id": "2026W21_2A_0325_3_D6",
+        "time": "2026-05-23T11:50:37.536Z",
+        "wavelength": 4.7205339653930976,
+        "quality_flags": [
+          "BLOOM",
+          "NONFUNC",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.3159565494129966
+      },
+      {
+        "observation_id": "2026W21_2A_0325_4_D6",
+        "time": "2026-05-23T11:52:46.445Z",
+        "wavelength": 4.753607012330971,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 1.8043140428600584
+      },
+      {
+        "observation_id": "2026W23_2A_0642_4_D6",
+        "time": "2026-06-07T23:21:18.432Z",
+        "wavelength": 4.411111283381313,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.6038349775868599
+      },
+      {
+        "observation_id": "2026W24_1A_0125_1_D6",
+        "time": "2026-06-08T13:54:47.290Z",
+        "wavelength": 4.44292970876865,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.9327153424807662
+      },
+      {
+        "observation_id": "2026W24_1A_0125_2_D6",
+        "time": "2026-06-08T13:56:56.198Z",
+        "wavelength": 4.474991303537065,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.9243091779883179
+      },
+      {
+        "observation_id": "2026W24_1A_0125_3_D6",
+        "time": "2026-06-08T13:59:05.107Z",
+        "wavelength": 4.508070087460677,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.200888425887865
+      },
+      {
+        "observation_id": "2026W24_1A_0125_4_D6",
+        "time": "2026-06-08T14:01:14.102Z",
+        "wavelength": 4.5405272050059,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.2809718760266903
+      },
+      {
+        "observation_id": "2026W24_2B_0242_1_D6",
+        "time": "2026-06-12T20:33:15.379Z",
+        "wavelength": 4.5739496446915435,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 0.5456506422881633
+      },
+      {
+        "observation_id": "2026W24_2B_0242_2_D6",
+        "time": "2026-06-12T20:35:24.288Z",
+        "wavelength": 4.608132957884193,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 3.52801780747325
+      },
+      {
+        "observation_id": "2026W24_2B_0242_3_D6",
+        "time": "2026-06-12T20:37:33.197Z",
+        "wavelength": 4.641986669948792,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 2.9636179200330153
+      },
+      {
+        "observation_id": "2026W24_2B_0242_4_D6",
+        "time": "2026-06-12T20:39:42.192Z",
+        "wavelength": 4.676689429562323,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "aligned_offset_from_predicted_arcsec": 4.468769339799935
+      }
+    ]
+  }
+]

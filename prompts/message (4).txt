@@ -1,0 +1,250 @@
+# DEVELOPMENT PROMPT 5: SPHEREx EXPLORER APPLICATION INTEGRATION
+
+You are responsible for building the main application framework and integrating all four other development workstreams into one functional public-facing web application.
+
+You are also responsible for ensuring the application is easy to navigate, understandable to the general public and ready for demonstration.
+
+## 1. Your objective
+
+Build the main SPHEREx Explorer application.
+
+The application must allow a user to:
+1. Enter astronomical coordinates or an object name.
+2. Retrieve SPHEREx observations.
+3. View the observations as a time-lapse.
+4. Compare images from different dates.
+5. Investigate possible moving objects.
+6. Examine brightness changes.
+7. Explore infrared spectral information.
+8. View observation metadata.
+
+You are not expected to independently implement the scientific algorithms. You are responsible for integrating the other modules.
+
+## 2. Required research
+
+Study:
+
+- WiseView: http://byw.tools/wiseview
+- SPHEREx archive: https://irsa.ipac.caltech.edu/Missions/spherex.html
+- SPHEREx Data Explorer.
+- Aladin Lite: https://aladin.cds.unistra.fr/AladinLite/
+- NASA SPHEREx science and mission information.
+
+Consider what makes a public-facing scientific discovery platform understandable and engaging.
+
+## 3. Application structure
+
+Create the application shell using React, TypeScript and Tailwind CSS.
+
+Suggested pages:
+
+### A. Home page
+
+Include:
+- SPHEREx Explorer branding.
+- Explanation of the SPHEREx mission.
+- A prominent coordinate/object search.
+- Example targets.
+- Instructions for exploring the sky.
+- A brief explanation of how the application works.
+
+### B. Explore page
+
+This is the primary application interface.
+
+Integrate Person 3's astronomical viewer.
+
+Provide:
+- Search parameters.
+- Observation timeline.
+- Playback controls.
+- Image comparison modes.
+- Spectral channel controls.
+- Astronomical overlays.
+
+### C. Analysis page or panel
+
+Integrate Person 4's scientific analysis module.
+
+Display:
+- Moving-object candidates.
+- Source positions.
+- Angular motion.
+- Light curves.
+- Spectral profiles.
+- Known catalogue matches.
+
+### D. Observation information panel
+
+Display metadata supplied by Person 1 and Person 2.
+
+Include:
+- Observation date.
+- Wavelength.
+- Detector/array, where available.
+- Data release.
+- Calibration information.
+- Quality and contamination flags.
+
+### E. About and help section
+
+Explain:
+- What SPHEREx is.
+- Why astronomical objects move.
+- How to interpret a time-lapse.
+- What difference images show.
+- How users can report interesting candidates.
+- Why a candidate is not necessarily a confirmed discovery.
+
+## 4. Backend integration
+
+Integrate the following workstreams:
+
+Person 1:
+SPHEREx archive querying, coordinate searches, FITS downloads and observation metadata.
+
+Person 2:
+Image preparation, alignment, stacking and difference imaging.
+
+Person 3:
+Astronomical viewer and time-lapse playback.
+
+Person 4:
+Source detection, motion analysis, variability and spectral analysis.
+
+Create a central API integration layer.
+
+Use FastAPI for the backend and establish clear endpoint contracts with each developer.
+
+Suggested API structure:
+
+GET /api/observations
+POST /api/search
+GET /api/observations/{id}
+POST /api/cutouts
+POST /api/process
+POST /api/compare
+POST /api/analysis/detect
+GET /api/analysis/{source_id}
+GET /api/spectrum/{source_id}
+
+These routes are suggestions. Coordinate with the respective developers before implementing them.
+
+## 5. User experience requirements
+
+The platform should be accessible to both beginners and astronomy enthusiasts.
+
+Implement:
+- Clear coordinate input.
+- Example astronomical targets.
+- Loading states.
+- Error messages.
+- Observation availability indicators.
+- Tooltips explaining technical terms.
+- Responsive layouts.
+- Downloadable images where appropriate.
+- Shareable URLs.
+
+A user should not need to understand FITS files, WCS or SIA2 to use the application.
+
+## 6. Mandatory example targets
+
+Create quick-access search buttons for:
+
+- Barnard's Star.
+- Epsilon Indi B.
+- WISE 0855.
+- RW Aurigae.
+- R Draconis.
+
+Use a coordinate/name resolver rather than hardcoding potentially outdated coordinates for high-proper-motion objects.
+
+For WISE 0855, include the supplied coordinates:
+
+RA: 08h55m10.831s
+Dec: -07d14m42.53s
+
+Allow the user to inspect all available observations for each object.
+
+## 7. Integration and testing
+
+Create a common GitHub repository structure.
+
+Suggested layout:
+
+spherex-explorer/
+    frontend/
+    backend/
+        api/
+        data_acquisition/
+        image_processing/
+        scientific_analysis/
+    tests/
+    docs/
+    sample_data/
+    README.md
+
+Adapt the structure to the actual modules delivered by the other members.
+
+Create:
+- A central requirements file or documented dependency installation process.
+- Environment configuration.
+- A single startup procedure.
+- API documentation.
+- Integration tests.
+- Error handling.
+- A reproducible demonstration workflow.
+
+Do not allow different developers' dependency versions or data formats to break the application.
+
+## 8. Deployment
+
+Prepare the application for public demonstration.
+
+Consider:
+- Frontend hosting.
+- Backend hosting.
+- Temporary storage for FITS files.
+- Caching of frequently requested coordinates.
+- Request limits.
+- Large download handling.
+- API timeouts.
+- Error logging.
+
+Never expose private credentials or archive access tokens.
+
+Avoid downloading large datasets unnecessarily.
+
+## 9. Final acceptance criteria
+
+The final application must demonstrate the following workflow:
+
+1. Open the website.
+2. Search for WISE 0855.
+3. Retrieve available SPHEREx observations.
+4. Display the images chronologically.
+5. Play the time-lapse.
+6. Pause on an observation.
+7. Compare two observation dates.
+8. Display a difference image.
+9. Display relevant metadata.
+10. Run the scientific analysis module.
+11. Display the source's measured position and motion.
+12. Share the search through a URL.
+
+Repeat the demonstration for the other four required targets.
+
+## 10. Deliverables
+
+Provide:
+- Complete integrated application.
+- Main frontend.
+- API integration.
+- README.
+- Installation instructions.
+- Deployment instructions.
+- Test suite.
+- Demonstration scenarios.
+- Known limitations.
+
+Your priority is to make all four other workstreams function together as one polished and usable application.

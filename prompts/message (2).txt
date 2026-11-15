@@ -1,0 +1,241 @@
+# DEVELOPMENT PROMPT 3: INTERACTIVE SPHEREx SKY VIEWER
+
+You are responsible for building the main astronomical visualization component of SPHEREx Explorer.
+
+This is the central feature of the application. Users should be able to enter celestial coordinates and visually investigate how a region of the sky changes over time.
+
+## 1. Your objective
+
+Build a polished, interactive web-based astronomical viewer that displays SPHEREx images from different observation dates.
+
+The experience should be inspired by WiseView (http://byw.tools/wiseview), but designed specifically for SPHEREx and its spectral data.
+
+The viewer should be accessible to members of the public who may not have any astronomical or programming knowledge.
+
+## 2. Required research
+
+Study:
+
+- WiseView: http://byw.tools/wiseview
+- Aladin Lite: https://aladin.cds.unistra.fr/AladinLite/
+- Firefly: https://irsa.ipac.caltech.edu/irsaviewer/
+- SPHEREx image examples: https://caltech-ipac.github.io/irsa-tutorials/spherex-intro/
+
+Investigate the best way to display astronomical FITS images in a React application.
+
+Prefer Aladin Lite or an appropriate Firefly integration rather than building an astronomical coordinate viewer from scratch.
+
+## 3. Features to implement
+
+### A. Main sky viewer
+
+Create a large interactive image viewer.
+
+It should support:
+- Zooming in and out.
+- Panning.
+- Resetting the view.
+- Displaying Right Ascension and Declination.
+- Displaying image scale and field of view.
+- Identifying the currently displayed observation.
+- Displaying a loading indicator while images are retrieved.
+
+The viewer must preserve the relationship between screen positions and actual celestial coordinates.
+
+### B. Coordinate search
+
+Create an input interface that supports:
+- RA in decimal degrees.
+- Declination in decimal degrees.
+- Sexagesimal coordinates.
+- Object names where possible.
+
+Allow users to adjust the field of view.
+
+Provide validation and useful error messages.
+
+Support URL-based queries, for example:
+
+/explore?ra=269.452&dec=4.693&fov=0.1
+
+Loading a URL with coordinates should automatically initialize the viewer.
+
+### C. Time-lapse playback
+
+This is the most important feature.
+
+Create a playback controller that:
+- Displays observations chronologically.
+- Allows users to play and pause.
+- Allows users to move to the previous and next observations.
+- Includes a timeline slider.
+- Displays the observation date.
+- Displays the total number of available observations.
+- Allows playback speed adjustment.
+- Allows users to jump to a specific observation.
+
+The viewer should use actual observation timestamps supplied by the backend.
+
+Do not assume observations are equally spaced in time.
+
+### D. Comparison modes
+
+Implement the following viewing modes:
+
+1. Single observation.
+2. Blink mode: rapidly alternate between two selected observations.
+3. Side-by-side comparison.
+4. Difference image.
+5. Ratio image.
+6. Stacked image.
+
+Request processed images from Person 2 rather than implementing image-processing algorithms in the browser.
+
+### E. Spectral channel selector
+
+Provide a user interface to explore SPHEREx's 102 spectral channels.
+
+Users should be able to:
+- Select an individual channel.
+- Filter channels by wavelength.
+- Display wavelength information.
+- Compare selected channels.
+- Switch between available spectral observations.
+
+Clearly distinguish spectral-channel selection from temporal playback.
+
+### F. Display controls
+
+Implement:
+- Brightness adjustment.
+- Contrast adjustment.
+- Image stretch selection (linear, logarithmic, asinh).
+- Colormap selection.
+- Inversion.
+- Image reset.
+
+Do not alter the underlying scientific data when applying visual adjustments.
+
+### G. Astronomical overlays
+
+Prepare the viewer for optional overlays:
+- Gaia DR3 sources.
+- WISE sources.
+- Source markers from Person 4.
+- Object names and coordinates.
+
+Overlays must be independently toggleable.
+
+## 4. Interface design
+
+Aim for a professional astronomy research interface with an approachable public-facing design.
+
+Suggested layout:
+
+TOP BAR:
+- SPHEREx Explorer logo/name.
+- Coordinate search.
+- Help and about.
+
+LEFT SIDEBAR:
+- Search parameters.
+- Field of view.
+- Observation filters.
+- Spectral channel selection.
+- Overlay controls.
+
+CENTRE:
+- Main astronomical image viewer.
+- Playback controls.
+- Timeline.
+
+RIGHT SIDEBAR:
+- Observation metadata.
+- Selected source information.
+- Analysis results.
+- Image quality information.
+
+BOTTOM OR SECONDARY PANEL:
+- Optional light curve and spectrum plots.
+
+Prioritize the sky image itself. Avoid overcrowding the interface.
+
+## 5. Technology
+
+Use:
+- React.
+- TypeScript.
+- Tailwind CSS.
+- Aladin Lite or Firefly.
+- Plotly where required.
+
+Build reusable components rather than one large component.
+
+## 6. Integration contract
+
+The viewer must receive observation records from Person 1 and processed image products from Person 2.
+
+Implement a clean data interface.
+
+At minimum, support:
+
+{
+  "observations": [
+    {
+      "observation_id": "id",
+      "observation_time": "ISO timestamp",
+      "image_url": "URL",
+      "wavelength": 1.0
+    }
+  ]
+}
+
+The frontend must be able to request:
+- New coordinates.
+- New field of view.
+- Different date ranges.
+- Different wavelengths.
+- Different comparison modes.
+
+Coordinate with Person 5 regarding the shared API and application routing.
+
+## 7. Testing
+
+Use the five required objects:
+- Barnard's Star.
+- Epsilon Indi B.
+- WISE 0855.
+- RW Aurigae.
+- R Draconis.
+
+Verify:
+- Coordinate entry.
+- Correct image loading.
+- Timeline functionality.
+- Playback.
+- Image comparison.
+- Zoom and pan.
+- URL-based searches.
+- Loading and error states.
+
+## 8. Deliverables
+
+Provide:
+- Complete React component.
+- Reusable UI components.
+- TypeScript interfaces.
+- CSS/Tailwind styling.
+- Example mock data.
+- README with setup instructions.
+- Integration instructions.
+- Screenshots of the functioning viewer.
+
+## 9. Important constraints
+
+Do not build the archive downloader.
+
+Do not process raw FITS files independently unless necessary for viewer compatibility.
+
+Do not implement scientific detection algorithms.
+
+Your priority is a responsive, intuitive, scientifically accurate visual experience.
