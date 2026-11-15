@@ -63,11 +63,11 @@ export function SpherexSkyBox({ target, onDetails, className = "" }: { target: S
   const zoom = (f: number) => { const a = al.current?.a; const cur = a?.getFov?.()[0] ?? FOV_START; a?.setFoV(Math.min(FOV_MAX, Math.max(FOV_MIN, cur * f))); };
 
   return (
-    <div data-tour="skybox" className={`w-[290px] overflow-hidden rounded-md border border-teal-500/30 bg-slate-950/90 shadow-xl shadow-black/60 backdrop-blur-md ${className}`}>
-      <div className="flex items-center gap-2 border-b border-teal-500/20 px-2 py-1.5">
-        <span className="font-mono text-[10px] font-semibold tracking-[0.2em] text-teal-300">SPHEREx</span>
-        <span className="min-w-0 flex-1 truncate text-[11px] text-slate-200" title={target.name}>{target.nearest ? "near " : ""}{target.name}</span>
-        <button onClick={onDetails} className="rounded border border-amber-400/60 bg-amber-500/10 px-2 py-0.5 text-[11px] font-semibold text-amber-100 hover:bg-amber-500/25"
+    <div data-tour="skybox" className={`glass-strong w-[290px] overflow-hidden rounded-2xl ${className}`}>
+      <div className="flex items-center gap-2 border-b border-white/[0.06] px-3 py-2">
+        <span className="text-[11px] font-semibold text-teal-200">SPHEREx</span>
+        <span className="min-w-0 flex-1 truncate text-xs text-slate-200" title={target.name}>{target.nearest ? "near " : ""}{target.name}</span>
+        <button onClick={onDetails} className="btn px-2 py-0.5 text-[11px]"
           title="Open the full SPHEREx Explorer here: every image in time order, blink, difference, light curves">Details →</button>
         <button onClick={() => setOpen((o) => !o)} className="px-1 text-xs text-slate-400 hover:text-white" aria-label={open ? "Collapse" : "Expand"}>{open ? "▾" : "▸"}</button>
       </div>
@@ -75,15 +75,15 @@ export function SpherexSkyBox({ target, onDetails, className = "" }: { target: S
         <div className="relative">
           <div ref={el} className="h-44 w-full bg-[#02040c]" />
           <div className="absolute bottom-1 left-1 flex gap-0.5">
-            <button onClick={() => zoom(0.7)} className="h-5 w-5 rounded bg-black/70 text-xs text-slate-200 hover:bg-black" aria-label="Zoom in">+</button>
-            <button onClick={() => zoom(1.4)} className="h-5 w-5 rounded bg-black/70 text-xs text-slate-200 hover:bg-black" aria-label="Zoom out">−</button>
+            <button onClick={() => zoom(0.7)} className="h-6 w-6 rounded-md bg-black/60 text-xs text-slate-200 backdrop-blur hover:bg-black/80" aria-label="Zoom in">+</button>
+            <button onClick={() => zoom(1.4)} className="h-6 w-6 rounded-md bg-black/60 text-xs text-slate-200 backdrop-blur hover:bg-black/80" aria-label="Zoom out">−</button>
           </div>
-          <span className="pointer-events-none absolute bottom-1 right-1 rounded bg-black/60 px-1 font-mono text-[9px] text-slate-400">DR1 all-sky · 12.9″/px</span>
+          <span className="pointer-events-none absolute bottom-1 right-1 rounded-md bg-black/60 px-1.5 text-[10px] text-slate-400">DR1 all-sky · 12.9″/px</span>
         </div>
-        <label className="flex items-center gap-2 px-2 py-1 text-[10px] text-slate-400">λ
-          <input type="range" min={1} max={101} value={slice} className="flex-1 accent-sky-400" aria-label="SPHEREx wavelength channel"
+        <label className="flex items-center gap-2 px-3 py-2 text-[11px] text-slate-400">λ
+          <input type="range" min={1} max={101} value={slice} className="flex-1" aria-label="SPHEREx wavelength channel"
             onChange={(e) => { const v = Number(e.target.value); setSlice(v === 50 || v === 51 ? (v > slice ? 52 : 49) : v); }} />
-          <span className="w-12 text-right font-mono text-slate-300">{CH_UM[slice - 1]?.toFixed(2)} µm</span>
+          <span className="num w-14 text-right text-slate-300">{CH_UM[slice - 1]?.toFixed(2)} µm</span>
         </label>
         {err && <p className="px-2 pb-1 text-[10px] text-red-300">{err}</p>}
       </div>

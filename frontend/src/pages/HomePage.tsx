@@ -29,17 +29,17 @@ export default function HomePage() {
             <div className="font-mono text-xs font-bold tracking-[0.3em] text-teal-300">SPHEREx ATLAS · 3D</div>
             <p className="mt-1 text-sm text-slate-200">Fly through 570,000 real stars, brown dwarfs and 4,800 planetary systems at their measured distances. Filter by class, hunt the uncharted, and measure any object's SPHEREx spectrum.</p>
           </div>
-          <span className="shrink-0 rounded border border-teal-400/60 px-3 py-1.5 text-sm text-teal-100 group-hover:bg-teal-500/20">Back to the Atlas →</span>
+          <span className="shrink-0 rounded-lg border border-teal-400/60 px-3 py-1.5 text-sm text-teal-100 group-hover:bg-teal-500/20">Back to the Atlas →</span>
         </Link>
 
-        <div className="mt-8 rounded-lg border border-slate-800 bg-slate-900/70 p-4 pb-6">
+        <div className="mt-8 rounded-lg border border-white/[0.06] bg-slate-900/70 p-4 pb-6">
           <SearchBar initial={null} onSubmit={(p) => navigate(buildUrl(p))} />
         </div>
 
         <h2 className="mt-10 text-sm font-semibold uppercase tracking-wider text-slate-400">Challenge targets</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {MANDATORY_TARGETS.map((t) => (
-            <div key={t.key} className="group relative rounded-lg border border-slate-800 bg-slate-900/70 p-4 hover:border-amber-500/70">
+            <div key={t.key} className="group relative rounded-lg border border-white/[0.06] bg-slate-900/70 p-4 hover:border-amber-500/70">
               <Link to={buildUrl({ q: t.query, fov: t.key === "r-draconis" ? 0.08 : 0.05, detectors: [6] })} className="after:absolute after:inset-0">
                 <div className="font-semibold group-hover:text-amber-300">{t.label}</div>
               </Link>
@@ -54,7 +54,7 @@ export default function HomePage() {
               )}
             </div>
           ))}
-          <Link to="/explore?ra=269.452&dec=4.693&fov=0.1" className="rounded-lg border border-dashed border-slate-700 p-4 hover:border-amber-500/70">
+          <Link to="/explore?ra=269.452&dec=4.693&fov=0.1" className="rounded-lg border border-dashed border-white/10 p-4 hover:border-amber-500/70">
             <div className="font-semibold">By coordinates</div>
             <p className="mt-1 font-mono text-xs text-slate-400">/explore?ra=269.452&amp;dec=4.693&amp;fov=0.1</p>
             <p className="mt-2 text-xs text-slate-400">Any URL like this opens the viewer directly, so you can share or bookmark a field.</p>
@@ -64,7 +64,7 @@ export default function HomePage() {
         <h2 className="mt-12 text-sm font-semibold uppercase tracking-wider text-slate-400">How it works</h2>
         <ol className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map(([t, d], i) => (
-            <li key={t} className="rounded-lg border border-slate-800 bg-slate-900/50 p-4">
+            <li key={t} className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-4">
               <div className="text-xs font-semibold text-amber-400">{i + 1}</div>
               <div className="font-semibold text-slate-100">{t}</div>
               <p className="mt-1 text-sm text-slate-400">{d}</p>

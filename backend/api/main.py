@@ -38,6 +38,7 @@ from .analysis_routes import router as analysis_router
 from .catalog_routes import router as catalog_router
 from .data_routes import router as data_router
 from .galaxy_routes import router as galaxy_router
+from .game_routes import router as game_router
 from .orbit_routes import router as orbit_router
 from .processing_routes import router as processing_router
 
@@ -161,6 +162,7 @@ app.include_router(catalog_router)
 app.include_router(analysis_router)
 app.include_router(galaxy_router)
 app.include_router(orbit_router)
+app.include_router(game_router)
 
 
 @app.get("/api/version", tags=["meta"])

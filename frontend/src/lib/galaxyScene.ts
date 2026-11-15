@@ -208,7 +208,7 @@ export class GalaxyScene {
     this.labelLayer.className = "pointer-events-none absolute inset-0 overflow-hidden";
     host.appendChild(this.labelLayer);
     this.sunLabel = document.createElement("div");
-    this.sunLabel.className = "absolute whitespace-nowrap font-mono text-[11px] text-amber-200 [text-shadow:0_0_4px_#000]";
+    this.sunLabel.className = "absolute whitespace-nowrap text-[11.5px] font-medium text-amber-100 [text-shadow:0_1px_3px_#000]";
     this.sunLabel.textContent = "Sun";
     this.labelLayer.appendChild(this.sunLabel);
 
@@ -246,7 +246,7 @@ export class GalaxyScene {
       line.userData.r = r;
       this.ringGroup.add(line);
       const lab = document.createElement("div");
-      lab.className = "absolute font-mono text-[10px] text-teal-300/70 whitespace-nowrap";
+      lab.className = "absolute text-[10.5px] text-teal-200/60 whitespace-nowrap";
       lab.textContent = r >= 1000 ? `${r / 1000} kpc` : `${r} pc`;
       this.labelLayer.appendChild(lab);
       this.ringLabels.push(lab);
@@ -489,7 +489,7 @@ export class GalaxyScene {
       mesh.add(dot);
       grp.add(mesh);
       const label = document.createElement("div");
-      label.className = "absolute font-mono text-[10px] text-sky-200 whitespace-nowrap";
+      label.className = "absolute text-[10.5px] text-sky-100 whitespace-nowrap [text-shadow:0_1px_3px_#000]";
       label.textContent = short;
       this.labelLayer.appendChild(label);
       this.systemPlanets.push({ mesh, orbit, arc, label, name: p.name });
@@ -689,7 +689,7 @@ export class GalaxyScene {
 
   private newLabel(): HTMLDivElement {
     const el = document.createElement("div");
-    el.className = "pointer-events-auto absolute cursor-pointer whitespace-nowrap font-mono text-[11px] opacity-90 hover:opacity-100 hover:underline [text-shadow:0_0_4px_#000]";
+    el.className = "pointer-events-auto absolute cursor-pointer whitespace-nowrap text-[11px] opacity-80 hover:opacity-100 hover:underline [text-shadow:0_1px_3px_#000]";
     el.addEventListener("click", (ev) => { ev.stopPropagation(); this.onLabelClick?.(Number(el.dataset.i)); });
     this.labelLayer.appendChild(el);
     this.labelPool.push(el);

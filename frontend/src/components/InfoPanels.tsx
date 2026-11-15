@@ -48,7 +48,7 @@ export function ObservationPanel({ f, label = "Observation" }: { f?: Frame; labe
         <p className="mb-1 text-[11px] text-slate-400">Flags at target</p>
         <div className="flex flex-wrap gap-1">
           {f.quality_flags.length ? f.quality_flags.map((q) => (
-            <span key={q} className={`rounded px-1.5 py-0.5 font-mono text-[10px] ${SERIOUS.has(q) ? "bg-amber-900/60 text-amber-200" : "bg-slate-800 text-slate-300"}`}>{q}</span>
+            <span key={q} className={`rounded px-1.5 py-0.5 font-mono text-[10px] ${SERIOUS.has(q) ? "bg-amber-900/60 text-amber-200" : "bg-white/[0.06] text-slate-300"}`}>{q}</span>
           )) : <span className="text-xs text-emerald-400">none</span>}
         </div>
       </div>
@@ -96,7 +96,7 @@ export function QualityPanel({ frames, errors, skipped }: { frames: Frame[]; err
         {sorted.map(([k, n]) => (
           <div key={k} className="flex items-center gap-2 text-[11px]">
             <span className={`w-24 font-mono ${SERIOUS.has(k) ? "text-amber-200" : "text-slate-300"}`}>{k}</span>
-            <div className="h-1.5 flex-1 rounded bg-slate-800"><div className="h-1.5 rounded bg-slate-500" style={{ width: `${(100 * n) / Math.max(1, frames.length)}%` }} /></div>
+            <div className="h-1.5 flex-1 rounded-lg bg-white/[0.06]"><div className="h-1.5 rounded-lg bg-slate-500" style={{ width: `${(100 * n) / Math.max(1, frames.length)}%` }} /></div>
             <span className="w-8 text-right text-slate-400">{n}</span>
           </div>
         ))}

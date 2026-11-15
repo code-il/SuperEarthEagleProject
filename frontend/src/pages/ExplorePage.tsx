@@ -334,8 +334,8 @@ export default function ExplorePage({ embedded = false, onClose }: { embedded?: 
     }
     if (mode === "side-by-side") return (
       <div className="grid h-full grid-cols-2 gap-2">
-        <div className="relative min-h-0"><SkyCanvas {...commonCanvas} className="h-full w-full border-2 border-amber-400/60" plane={planeA} limits={limitsOf(A, planeA)} markers={markersAt(A)} caption={caption(A)} badge={`A · ${badge}`} loading={!planeA} /></div>
-        <div className="relative min-h-0"><SkyCanvas {...commonCanvas} className="h-full w-full border-2 border-sky-400/60" plane={planeB} limits={limitsOf(B, planeB)} markers={markersAt(B)} caption={caption(B)} badge={B && A ? `B · Δt ${formatDuration(B.mjd - A.mjd)}` : "B"} loading={!!B && !planeB} emptyText="No reference frame" /></div>
+        <div className="relative min-h-0"><SkyCanvas {...commonCanvas} className="h-full w-full rounded-xl ring-2 ring-amber-300/50" plane={planeA} limits={limitsOf(A, planeA)} markers={markersAt(A)} caption={caption(A)} badge={`A · ${badge}`} loading={!planeA} /></div>
+        <div className="relative min-h-0"><SkyCanvas {...commonCanvas} className="h-full w-full rounded-xl ring-2 ring-sky-300/50" plane={planeB} limits={limitsOf(B, planeB)} markers={markersAt(B)} caption={caption(B)} badge={B && A ? `B · Δt ${formatDuration(B.mjd - A.mjd)}` : "B"} loading={!!B && !planeB} emptyText="No reference frame" /></div>
       </div>
     );
     if (isCmp) {
@@ -372,14 +372,14 @@ export default function ExplorePage({ embedded = false, onClose }: { embedded?: 
           badge={stacks.data ? `${stackIdx + 1} / ${stacks.data.length}` : undefined} emptyText={stacks.error ?? "No stacks"} />
         {stacks.data && (
           <div className="flex flex-wrap items-center gap-1">
-            <button type="button" className="rounded bg-slate-800 px-2 py-1 text-xs hover:bg-slate-700" onClick={() => setStackIdx((i) => Math.max(0, i - 1))}>◀</button>
+            <button type="button" className="btn h-7 px-2 text-xs" onClick={() => setStackIdx((i) => Math.max(0, i - 1))}>◀</button>
             {stacks.data.map((s, i) => (
               <button key={s.key} type="button" title={s.key} onClick={() => setStackIdx(i)}
-                className={`rounded px-2 py-1 text-[11px] ${i === stackIdx ? "bg-amber-500 font-semibold text-slate-950" : "bg-slate-800 text-slate-300 hover:bg-slate-700"}`}>
+                className={`rounded px-2 py-1 text-[11px] ${i === stackIdx ? "bg-[var(--accent)] font-semibold text-slate-950" : "bg-white/[0.06] text-slate-300 hover:bg-white/10"}`}>
                 {s.group_by === "channel" ? `${s.wavelength_mean.toFixed(2)} µm` : formatDate(s.time_start)}
               </button>
             ))}
-            <button type="button" className="rounded bg-slate-800 px-2 py-1 text-xs hover:bg-slate-700" onClick={() => setStackIdx((i) => Math.min((stacks.data?.length ?? 1) - 1, i + 1))}>▶</button>
+            <button type="button" className="btn h-7 px-2 text-xs" onClick={() => setStackIdx((i) => Math.min((stacks.data?.length ?? 1) - 1, i + 1))}>▶</button>
           </div>
         )}
         {stack?.warnings?.length ? <Note tone="warn">{stack.warnings.join(" ")}</Note> : null}
@@ -400,40 +400,40 @@ export default function ExplorePage({ embedded = false, onClose }: { embedded?: 
   return (
     <div className={`grid grid-rows-[auto_1fr_auto] bg-slate-950 text-slate-100 ${embedded ? "h-full overflow-y-auto lg:overflow-hidden" : "min-h-screen lg:h-screen"}`}>
       {/* Top bar */}
-      <header className="flex flex-wrap items-center gap-3 border-b border-slate-800 bg-slate-900 px-3 pt-2 pb-4">
+      <header className="flex flex-wrap items-center gap-3 border-b border-white/[0.06] bg-[#070a14]/80 px-4 py-2.5 backdrop-blur-xl">
         {embedded ? (
-          <button type="button" onClick={onClose} className="flex items-center gap-2 rounded border border-teal-500/40 px-2 py-1 text-xs text-teal-100 hover:border-teal-300" title="Back to the 3D Atlas (Esc)">
+          <button type="button" onClick={onClose} className="btn h-8 px-3" title="Back to the 3D Atlas (Esc)">
             <span aria-hidden>←</span> Atlas
           </button>
         ) : (
           <Link to="/" className="flex items-center gap-2 pr-2" aria-label="SPHEREx Atlas">
-            <img src="/favicon.svg" alt="" className="h-7 w-7" />
+            <img src="/favicon.svg" alt="" className="h-5 w-5" />
           </Link>
         )}
-        <span className="text-sm font-bold tracking-wide">SPHEREx <span className="text-amber-400">Explorer</span></span>
+        <span className="text-[13.5px] font-semibold tracking-tight">SPHEREx <span className="font-normal text-slate-400">Images</span></span>
         <Link to="/about" className="text-xs text-slate-400 hover:text-slate-200" title="What SPHEREx is, how to read the viewer, glossary">Help</Link>
         <SearchBar initial={params} busy={loadingSeries} onSubmit={openSearch} />
         {availability && (
-          <span className="rounded bg-emerald-900/50 px-2 py-0.5 text-[11px] text-emerald-200" role="status"
+          <span className="chip border-emerald-300/30 text-emerald-200" role="status"
             title={`${availability.n} SPHEREx frames in ${availability.visits} visits, ${formatDate(availability.first)} to ${formatDate(availability.last)} (${availability.releases})`}>
             {availability.n} observations · {availability.visits} visits · {formatDate(availability.first)} → {formatDate(availability.last)}
           </span>
         )}
         {grid && (
-          <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] text-slate-400">
+          <div className="flex flex-wrap items-center gap-3 text-[11.5px] text-slate-400">
             <span title="Field centre">{formatRaHms(grid.center_ra)} {formatDecDms(grid.center_dec)}</span>
             <span><Term k="fov">FOV</Term> {formatAngle(grid.fov_deg)}</span>
             <span title="Grid pixel scale and current zoom">{grid.pixel_scale_arcsec.toFixed(2)}″/px · {zoomText}</span>
-            <button type="button" onClick={() => setView(null)} className="rounded bg-slate-800 px-2 py-1 font-sans text-xs text-slate-200 hover:bg-slate-700" title="Reset zoom and pan (0)">Reset view</button>
-            <button type="button" onClick={copyLink} className="rounded bg-slate-800 px-2 py-1 font-sans text-xs text-slate-200 hover:bg-slate-700">{copied ? "Copied" : "Copy link"}</button>
+            <button type="button" onClick={() => setView(null)} className="btn h-7 px-2.5 text-xs" title="Reset zoom and pan (0)">Reset view</button>
+            <button type="button" onClick={copyLink} className="btn h-7 px-2.5 text-xs">{copied ? "Copied" : "Copy link"}</button>
           </div>
         )}
-        {api.usingMocks && <span className="rounded bg-fuchsia-700 px-2 py-0.5 text-[11px] font-semibold">MOCK DATA</span>}
+        {api.usingMocks && <span className="rounded-lg bg-fuchsia-700 px-2 py-0.5 text-[11px] font-semibold">MOCK DATA</span>}
       </header>
 
       <div className="grid min-h-0 grid-cols-1 md:grid-cols-[17rem_1fr] lg:grid-cols-[17rem_1fr_19rem]">
         {/* Left sidebar */}
-        <aside className="order-2 min-h-0 border-slate-800 bg-slate-900/60 md:order-none md:overflow-y-auto md:border-r" aria-label="Viewer controls">
+        <aside className="order-2 min-h-0 border-white/[0.06] bg-white/[0.02] md:order-none md:overflow-y-auto md:border-r" aria-label="Viewer controls">
           <ModePanel mode={mode} onMode={setMode} frameA={A} frameB={B} bIsAuto={!pinnedB && compareChannel === null}
             onSetBToCurrent={() => A && setPinnedB(A.observation_id)} onAutoB={() => { setPinnedB(null); setCompareChannel(null); }}
             blinkMs={blinkMs} onBlinkMs={setBlinkMs} compare={compareOpts} onCompare={setCompareOpts} stack={stackOpts} onStack={setStackOpts} />
@@ -464,7 +464,7 @@ export default function ExplorePage({ embedded = false, onClose }: { embedded?: 
         </main>
 
         {/* Right sidebar */}
-        <aside className="order-3 min-h-0 border-slate-800 bg-slate-900/60 md:col-span-2 md:border-t lg:col-span-1 lg:overflow-y-auto lg:border-t-0 lg:border-l" aria-label="Observation details">
+        <aside className="order-3 min-h-0 border-white/[0.06] bg-white/[0.02] md:col-span-2 md:border-t lg:col-span-1 lg:overflow-y-auto lg:border-t-0 lg:border-l" aria-label="Observation details">
           <ReadoutPanel r={hover} units={isCmp ? (cmp.show === "significance" ? "σ" : mode === "ratio" ? "" : "MJy/sr") : A?.units} />
           <ObservationPanel f={A} label={mode === "single" ? "Observation" : "Observation A"} />
           {(mode === "blink" || mode === "side-by-side" || isCmp) && <ObservationPanel f={B} label="Observation B" />}

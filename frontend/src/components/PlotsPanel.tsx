@@ -141,11 +141,11 @@ export function PlotsPanel(p: PlotsPanelProps) {
       : `${withValue}/${p.frames.length} frames have usable pixels at the target`;
 
   return (
-    <section aria-label="Plots" className="flex min-h-0 flex-col border-t border-slate-800 bg-slate-950">
+    <section aria-label="Plots" className="flex min-h-0 flex-col border-t border-white/[0.06] bg-slate-950">
       <div className="flex items-center gap-1 px-3 pt-1.5">
         {(["coverage", "lightcurve", "spectrum"] as Tab[]).map((t) => (
           <button key={t} type="button" onClick={() => { setTab(t); setOpen(true); }}
-            className={`rounded-t px-3 py-1 text-xs ${tab === t && open ? "bg-slate-800 font-semibold text-amber-300" : "text-slate-400 hover:text-slate-200"}`}>
+            className={`rounded-t px-3 py-1 text-xs ${tab === t && open ? "bg-white/[0.06] font-semibold text-amber-300" : "text-slate-400 hover:text-slate-200"}`}>
             {t === "coverage" ? "Coverage" : t === "lightcurve" ? "Light curve" : "Spectrum"}
           </button>
         ))}

@@ -136,7 +136,7 @@ function SourceDetail({ s, productsLoading }: { s: SourceSummary; productsLoadin
     navigator.clipboard?.writeText(lines.filter(Boolean).join("\n")).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1500); }).catch(() => undefined);
   };
   return (
-    <div className="space-y-2 rounded border border-slate-700 bg-slate-950/60 p-2">
+    <div className="space-y-2 rounded-lg border border-white/10 bg-slate-950/60 p-2">
       <p className="text-xs font-semibold text-slate-200">{s.source_id} · {s.label}{s.subtype ? ` · ${s.subtype.split(" ")[0].replace(/_/g, " ")}` : ""}</p>
       <dl className="space-y-0.5">
         <KV k="Position" v={`${formatRaHms(s.ra)} ${formatDecDms(s.dec)}`} />
@@ -180,7 +180,7 @@ function SourceDetail({ s, productsLoading }: { s: SourceSummary; productsLoadin
       )}
       {s.note && <p className="text-[11px] leading-snug text-slate-400">{s.note}</p>}
       <div className="flex items-center gap-3 text-[11px]">
-        <button type="button" onClick={report} className="rounded bg-slate-800 px-2 py-1 text-slate-200 hover:bg-slate-700">{copied ? "Copied" : "Copy report"}</button>
+        <button type="button" onClick={report} className="rounded-lg bg-white/[0.06] px-2 py-1 text-slate-200 hover:bg-white/10">{copied ? "Copied" : "Copy report"}</button>
         <span className="text-slate-500">{productsLoading ? "Loading light curve and spectrum…" : s.has_light_curve ? "Light curve & spectrum shown below." : "No photometry for this source."}</span>
       </div>
     </div>

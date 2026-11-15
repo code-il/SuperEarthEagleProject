@@ -254,20 +254,19 @@ export default function MapPage() {
     <div className="relative h-full w-full overflow-hidden bg-[#01030a] text-slate-200 select-none">
       <div ref={host} className="absolute inset-0" onPointerDown={onPointerDown} onPointerUp={onPointerUp} onDoubleClick={onDoubleClick} />
       {!data && <Loader progress={progress} />}
-      <Scanlines />
       <TopBar data={data} onSelect={(i) => select(i)} onHome={() => engine.current?.goHome()} onExplore={() => openExplore()} onTour={() => setTour(0)} />
       {data && (
         <>
-          <aside data-tour="panel" className="absolute left-3 top-16 bottom-14 z-10 flex w-[300px] flex-col overflow-hidden rounded-md border border-teal-500/25 bg-slate-950/80 backdrop-blur-md max-md:hidden">
-            <div className="flex border-b border-teal-500/20 text-[11px] font-semibold tracking-widest">
+          <aside data-tour="panel" className="glass absolute left-4 top-[76px] bottom-16 z-10 flex w-[296px] flex-col overflow-hidden rounded-2xl max-md:hidden">
+            <div className="seg m-2 mb-0">
               {(["filters", "uncharted", "about"] as const).map((p) => (
                 <button key={p} onClick={() => { setPanel(p); if (p === "uncharted") setFilters((f) => ({ ...f, uncharted: true })); }}
-                  className={`flex-1 py-2 uppercase ${panel === p ? "bg-teal-500/15 text-teal-200" : "text-slate-400 hover:text-slate-200"}`}>
+                  aria-pressed={panel === p} className="capitalize">
                   {p === "uncharted" ? "Frontier" : p}
                 </button>
               ))}
             </div>
-            <div className="flex-1 overflow-y-auto p-3 text-xs">
+            <div className="flex-1 overflow-y-auto px-4 py-3 text-[12.5px]">
               {panel === "filters" && <FiltersPanel data={data} filters={filters} setFilters={setFilters} />}
               {panel === "uncharted" && sectors && (
                 <FrontierPanel sectors={sectors.sectors} filters={filters} setFilters={setFilters}
@@ -278,19 +277,19 @@ export default function MapPage() {
             </div>
           </aside>
           {sel >= 0 && <ObjectCard key={sel} i={sel} data={data} named={nameIndex.get(sel)} onClose={() => select(-1, false)} onFly={() => engine.current?.flyToObject(sel)} onExplore={openExplore}
-            sky={boxInCard && !exploreOpen ? skyBox : null} />}
+            sky={boxInCard && !exploreOpen ? skyBox : null}
+            orbit={hud.orbitJd != null ? <OrbitLegend jd={hud.orbitJd} unplotted={engine.current?.unplottedPlanets ?? []} noPosition={engine.current?.positionUnknown ?? []} hz={engine.current?.hzDrawn ?? false} starScaled={engine.current?.starRadiusKnown ?? false}
+              mode={nbody.mode} setMode={nbody.setMode} nb={nbody.state} active={hud.engine} /> : null} />}
           {skyBox && !boxInCard && !exploreOpen && (
             <div className={`absolute bottom-14 z-10 max-md:hidden ${sel >= 0 ? "right-[396px]" : "right-3"}`}>{skyBox}</div>
           )}
           <Hud camDist={hud.camDist} focus={hud.focus} uncharted={filters.uncharted} />
-          {hud.orbitJd != null && sel >= 0 && <OrbitLegend jd={hud.orbitJd} unplotted={engine.current?.unplottedPlanets ?? []} noPosition={engine.current?.positionUnknown ?? []} hz={engine.current?.hzDrawn ?? false} starScaled={engine.current?.starRadiusKnown ?? false}
-            mode={nbody.mode} setMode={nbody.setMode} nb={nbody.state} active={hud.engine} />}
         </>
       )}
       {tour !== null && !exploreOpen && <AtlasTour steps={tourSteps} step={tour} onStep={setTour} onClose={endTour} />}
       {exploreOpen && (
-        <div className="absolute inset-0 z-40 bg-slate-950/70 p-2 backdrop-blur-sm md:p-4" role="dialog" aria-modal="true" aria-label="SPHEREx image explorer">
-          <div className="h-full overflow-hidden rounded-lg border border-teal-500/30 shadow-2xl shadow-black">
+        <div className="absolute inset-0 z-40 bg-black/50 p-2 backdrop-blur-md md:p-4" role="dialog" aria-modal="true" aria-label="SPHEREx image explorer">
+          <div className="h-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black">
             <Suspense fallback={<div className="flex h-full items-center justify-center bg-slate-950 text-sm text-slate-400">Loading the image viewer…</div>}>
               <ExplorePage embedded onClose={closeExplore} />
             </Suspense>
@@ -304,16 +303,12 @@ export default function MapPage() {
 // ---------------------------------------------------------------------------
 function Loader({ progress }: { progress: number }) {
   return (
-    <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 font-mono text-xs text-teal-200">
-      <div className="text-sm tracking-[0.4em]">CHARTING THE NEIGHBOURHOOD</div>
-      <div className="h-1 w-64 overflow-hidden rounded bg-slate-800"><div className="h-full bg-teal-400 transition-all" style={{ width: `${Math.round(progress * 100)}%` }} /></div>
-      <div className="text-slate-500">Gaia DR3 · SIMBAD · NASA Exoplanet Archive · SPHEREx DR1+QR3</div>
+    <div className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-4 text-xs">
+      <div className="text-sm font-medium text-slate-200">Charting the neighbourhood…</div>
+      <div className="h-1 w-64 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-[var(--accent)] transition-all" style={{ width: `${Math.round(progress * 100)}%` }} /></div>
+      <div className="text-slate-500">Gaia DR3 · SIMBAD · NASA Exoplanet Archive · SPHEREx DR1 + QR3</div>
     </div>
   );
-}
-
-function Scanlines() {
-  return <div className="pointer-events-none absolute inset-0 z-[1] opacity-[0.025] [background:repeating-linear-gradient(0deg,#fff_0,#fff_1px,transparent_1px,transparent_4px)]" />;
 }
 
 function TopBar({ data, onSelect, onHome, onExplore, onTour }: { data: GalaxyData | null; onSelect: (i: number) => void; onHome: () => void; onExplore: () => void; onTour: () => void }) {
@@ -340,50 +335,56 @@ function TopBar({ data, onSelect, onHome, onExplore, onTour }: { data: GalaxyDat
     return want.map((w) => data.objects.find((o) => o.n.toLowerCase() === w.toLowerCase()) ?? data.objects.find((o) => o.n.toLowerCase().startsWith(w.toLowerCase()))).filter(Boolean) as NamedObject[];
   }, [data]);
   return (
-    <header className="absolute inset-x-3 top-3 z-20 flex items-center gap-3">
-      <Link to="/" className="flex items-center gap-2 rounded-md border border-teal-500/25 bg-slate-950/80 px-3 py-2 backdrop-blur-md">
+    <header className="glass absolute inset-x-4 top-4 z-20 flex h-12 items-center gap-2 rounded-2xl pl-3 pr-1.5">
+      <Link to="/" className="flex shrink-0 items-center gap-2 pr-1">
         <img src="/favicon.svg" alt="" className="h-5 w-5" />
-        <span className="font-mono text-xs font-bold tracking-[0.25em]">SPHEREx <span className="text-teal-300">ATLAS</span></span>
+        <span className="text-[13.5px] font-semibold tracking-tight max-sm:hidden">SPHEREx <span className="font-normal text-slate-400">Atlas</span></span>
       </Link>
-      <div className="relative w-full max-w-md" data-tour="search">
+      <span className="mx-1 h-5 w-px bg-white/10 max-sm:hidden" />
+      <div className="relative min-w-0 flex-1 md:max-w-sm" data-tour="search">
         <input value={q} onChange={(e) => { setQ(e.target.value); setOpen(true); }} onFocus={() => setOpen(true)} onBlur={() => setTimeout(() => setOpen(false), 150)}
-          placeholder={data ? `Search ${data.objects.length.toLocaleString()} named objects… (e.g. TRAPPIST-1)` : "Loading…"}
-          className="w-full rounded-md border border-teal-500/25 bg-slate-950/80 px-3 py-2 font-mono text-xs backdrop-blur-md placeholder:text-slate-500 focus:border-teal-300 focus:outline-none" />
+          placeholder={data ? `Search ${data.objects.length.toLocaleString()} named objects` : "Loading…"} aria-label="Search named objects"
+          className="field h-8 py-0 text-[13px]" />
         {open && (results.length > 0 || (!q && quick.length > 0)) && (
-          <ul className="absolute mt-1 w-full overflow-hidden rounded-md border border-teal-500/25 bg-slate-950/95 text-xs shadow-xl">
-            {!q && <li className="px-3 py-1 text-[10px] uppercase tracking-widest text-slate-500">Jump to</li>}
+          <ul className="absolute mt-2 w-full min-w-[280px] overflow-hidden rounded-xl border border-white/10 bg-[#0b0f1c]/[0.97] py-1 text-[13px] shadow-2xl shadow-black">
+            {!q && <li className="eyebrow px-3 py-1.5">Jump to</li>}
             {(q ? results : quick.map((o) => ({ o, via: undefined as string | undefined }))).map(({ o, via }) => (
               <li key={o.i}>
-                <button onMouseDown={() => { onSelect(o.i); setQ(""); setOpen(false); }} className="flex w-full items-center justify-between gap-2 px-3 py-1.5 text-left hover:bg-teal-500/10">
+                <button onMouseDown={() => { onSelect(o.i); setQ(""); setOpen(false); }} className="flex w-full items-center justify-between gap-3 px-3 py-1.5 text-left hover:bg-white/[0.06]">
                   <span className="truncate">{o.n}{via && <span className="text-slate-500"> · {via}</span>}</span>
-                  <span className="shrink-0 font-mono text-[10px] text-slate-500">{data?.meta.classes[o.c]?.label} · {fmtDist(o.d)}</span>
+                  <span className="shrink-0 text-[11px] text-slate-500">{data?.meta.classes[o.c]?.label} · <span className="num">{fmtDist(o.d)}</span></span>
                 </button>
               </li>
             ))}
           </ul>
         )}
       </div>
-      <button onClick={onHome} className="rounded-md border border-teal-500/25 bg-slate-950/80 px-3 py-2 font-mono text-xs backdrop-blur-md hover:text-teal-200" title="Return to the Sun (H)">☉ Sun</button>
-      <button onClick={onTour} disabled={!data} className="rounded-md border border-amber-400/50 bg-slate-950/80 px-3 py-2 font-mono text-xs text-amber-200 backdrop-blur-md hover:bg-amber-500/10 disabled:opacity-40" title="A guided tour of the Atlas">? Tour</button>
-      <nav className="ml-auto flex gap-1 rounded-md border border-teal-500/25 bg-slate-950/80 px-2 py-1.5 text-xs backdrop-blur-md max-sm:hidden">
-        <button onClick={onExplore} className="px-2 py-0.5 text-slate-300 hover:text-white">Explore images</button>
-        <Link to="/targets" className="px-2 py-0.5 text-slate-300 hover:text-white">Challenge targets</Link>
-        <Link to="/about" className="px-2 py-0.5 text-slate-300 hover:text-white">About</Link>
+      <button onClick={onHome} className="btn btn-ghost h-8 shrink-0 px-2.5" title="Return to the Sun (H)">Sun</button>
+      <button onClick={onTour} disabled={!data} className="btn btn-ghost h-8 shrink-0 px-2.5" title="A guided tour of the Atlas">Tour</button>
+      <nav className="ml-auto flex shrink-0 items-center gap-0.5 max-md:hidden" aria-label="Main">
+        <button onClick={onExplore} className="btn btn-ghost h-8 px-2.5">Images</button>
+        <Link to="/targets" className="btn btn-ghost h-8 px-2.5">Targets</Link>
+        <Link to="/science" className="btn btn-ghost h-8 px-2.5">Citizen science</Link>
+        <Link to="/about" className="btn btn-ghost h-8 px-2.5">About</Link>
       </nav>
+      <Link to="/science" className="btn btn-ghost h-8 shrink-0 px-2.5 md:hidden">Science</Link>
     </header>
   );
 }
 
 function Hud({ camDist, focus, uncharted }: { camDist: number; focus: number; uncharted: boolean }) {
   return (
-    <div className="pointer-events-none absolute inset-x-3 bottom-3 z-10 flex items-end justify-between gap-3 font-mono text-[10px] text-teal-200/80">
-      <div data-tour="scale" className="rounded-md border border-teal-500/20 bg-slate-950/70 px-3 py-1.5 backdrop-blur">
-        <div className="tracking-[0.3em] text-teal-300">{zoneName(camDist)}</div>
-        <div>VIEW SCALE {fmtDist(camDist)} · FOCUS {fmtDist(focus)} FROM SUN</div>
+    <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 flex items-end justify-between gap-3 text-[11.5px] text-slate-300">
+      <div data-tour="scale" className="glass flex h-9 items-center gap-3 rounded-xl px-3">
+        <span className="font-medium text-slate-100">{zoneName(camDist).replace(/\b([A-Z])([A-Z]+)/g, (_, a, b) => a + b.toLowerCase())}</span>
+        <span className="h-4 w-px bg-white/10" />
+        <span className="text-slate-400">Scale <span className="num text-slate-200">{fmtDist(camDist)}</span></span>
+        <span className="text-slate-400 max-sm:hidden">Focus <span className="num text-slate-200">{fmtDist(focus)}</span> from the Sun</span>
       </div>
-      {uncharted && <div className="rounded-md border border-fuchsia-400/40 bg-fuchsia-950/50 px-3 py-1.5 tracking-widest text-fuchsia-200">FRONTIER MODE · pink = unclassified or uncertain · the pulsing is a highlight, not variability</div>}
-      <div data-tour="controls" className="rounded-md border border-teal-500/20 bg-slate-950/70 px-3 py-1.5 text-right backdrop-blur max-sm:hidden">
-        drag rotate · right-drag pan · scroll zoom to cursor · click select · dbl-click fly · <b>H</b> home · <b>F</b> focus · <b>U</b> frontier
+      {uncharted && <div className="glass flex h-9 items-center gap-2 rounded-xl px-3 text-fuchsia-100 max-lg:hidden"><span className="h-2 w-2 rounded-full bg-fuchsia-400" />Frontier mode: pink = unclassified or uncertain (the pulse is a highlight, not variability)</div>}
+      <div data-tour="controls" className="glass flex h-9 items-center gap-3 rounded-xl px-3 text-slate-400 max-md:hidden">
+        <span>Drag rotate</span><span className="max-xl:hidden">Right-drag pan</span><span>Scroll zoom</span><span className="max-xl:hidden">Double-click fly</span>
+        <span><kbd>H</kbd> home</span><span><kbd>F</kbd> focus</span><span><kbd>U</kbd> frontier</span>
       </div>
     </div>
   );
@@ -391,8 +392,8 @@ function Hud({ camDist, focus, uncharted }: { camDist: number; focus: number; un
 
 function Section({ title, children, right, tour }: { title: string; children: React.ReactNode; right?: React.ReactNode; tour?: string }) {
   return (
-    <section className="mb-4" data-tour={tour}>
-      <div className="mb-1.5 flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.2em] text-teal-300/90"><span>{title}</span>{right}</div>
+    <section className="mb-5" data-tour={tour}>
+      <div className="eyebrow mb-2 flex items-center justify-between"><span>{title}</span>{right}</div>
       {children}
     </section>
   );
@@ -412,7 +413,7 @@ function FiltersPanel({ data, filters, setFilters }: { data: GalaxyData; filters
               <input type="checkbox" checked={filters.classMask[c.id]} onChange={(e) => setClass(c.id, e.target.checked)} className="accent-teal-400" aria-label={c.label} />
               <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: c.color, boxShadow: `0 0 6px ${c.color}` }} />
               <button className="flex-1 truncate text-left hover:text-white" title={`${c.desc}. Click to show only this class.`} onClick={() => only(c.id)}>{c.label}</button>
-              <span className="font-mono text-[10px] text-slate-500">{(meta.counts[c.key] ?? 0).toLocaleString()}</span>
+              <span className="num text-[11px] text-slate-500">{(meta.counts[c.key] ?? 0).toLocaleString()}</span>
             </li>
           ))}
         </ul>
@@ -425,7 +426,7 @@ function FiltersPanel({ data, filters, setFilters }: { data: GalaxyData; filters
                 onChange={(e) => setFilters((f) => { const m = [...f.sourceMask]; m[k] = e.target.checked; return { ...f, sourceMask: m }; })} />
               <span className="h-2.5 w-2.5 rounded-sm" style={{ background: SRC_SWATCH[s] }} />
               <span className="flex-1">{SOURCE_LABEL[s]}</span>
-              <span className="font-mono text-[10px] text-slate-500">{(meta.class_sources[s] ?? 0).toLocaleString()}</span>
+              <span className="num text-[11px] text-slate-500">{(meta.class_sources[s] ?? 0).toLocaleString()}</span>
             </li>
           ))}
         </ul>
@@ -438,20 +439,20 @@ function FiltersPanel({ data, filters, setFilters }: { data: GalaxyData; filters
           {FLAG_FILTERS.map(({ bit, label }) => {
             const on = (filters.requireFlags & bit) !== 0;
             return <button key={bit} onClick={() => setFilters((f) => ({ ...f, requireFlags: f.requireFlags ^ bit }))}
-              className={`rounded border px-2 py-0.5 ${on ? "border-teal-300 bg-teal-500/20 text-teal-100" : "border-slate-700 text-slate-400 hover:text-slate-200"}`}>{label}</button>;
+              className={`chip ${on ? "chip-on" : "hover:text-slate-200"}`}>{label}</button>;
           })}
         </div>
         <p className="mt-1 text-[10px] text-slate-500">Several selected = any of them.</p>
       </Section>
       <Section title="Distance from the Sun">
         <input type="range" min={0.5} max={3.7} step={0.01} value={logMax} onChange={(e) => setFilters((f) => ({ ...f, maxDist: Math.pow(10, Number(e.target.value)) }))} className="w-full accent-teal-400" aria-label="Maximum distance" />
-        <div className="flex justify-between font-mono text-[10px] text-slate-400"><span>3 pc</span><b className="text-slate-200">≤ {fmtDist(filters.maxDist)}</b><span>5 kpc</span></div>
+        <div className="num flex justify-between text-[11px] text-slate-400"><span>3 pc</span><b className="text-slate-200">≤ {fmtDist(filters.maxDist)}</b><span>5 kpc</span></div>
       </Section>
       <Section title="Colour stars by">
-        <div className="grid grid-cols-3 gap-1">
+        <div className="seg">
           {(["Class", "True colour", "Source"] as const).map((l, k) => (
             <button key={l} onClick={() => setFilters((f) => ({ ...f, colorMode: k as 0 | 1 | 2 }))}
-              className={`rounded border px-1 py-1 ${filters.colorMode === k ? "border-teal-300 bg-teal-500/20" : "border-slate-700 text-slate-400"}`}>{l}</button>
+              aria-pressed={filters.colorMode === k}>{l}</button>
           ))}
         </div>
       </Section>
@@ -479,7 +480,7 @@ function FrontierPanel({ sectors, filters, setFilters, onFly, data, sectorIndex,
   }, [open, data, sectorIndex]);
   return (
     <>
-      <label className="mb-3 flex items-center gap-2 rounded border border-fuchsia-400/40 bg-fuchsia-950/30 p-2">
+      <label className="mb-3 flex items-center gap-2 rounded-xl border border-fuchsia-400/25 bg-fuchsia-500/[0.07] p-2.5">
         <input type="checkbox" checked={filters.uncharted} onChange={(e) => setFilters((f) => ({ ...f, uncharted: e.target.checked }))} className="accent-fuchsia-400" />
         <span>Highlight the uncharted <span className="text-slate-400">(unclassified, or model confidence &lt; 60 %)</span></span>
       </label>
@@ -491,10 +492,10 @@ function FrontierPanel({ sectors, filters, setFilters, onFly, data, sectorIndex,
       <Section title="Most uncharted sectors">
         <ul className="space-y-1">
           {ranked.slice(0, 24).map((s) => (
-            <li key={s.id} className="rounded border border-slate-800 bg-slate-900/50">
-              <button className="w-full px-2 py-1.5 text-left hover:bg-slate-800/60" onClick={() => { setOpen(open === s.id ? null : s.id); onFly(s); }}>
+            <li key={s.id} className="overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.02]">
+              <button className="w-full px-3 py-2 text-left hover:bg-white/[0.04]" onClick={() => { setOpen(open === s.id ? null : s.id); onFly(s); }}>
                 <div className="flex items-center justify-between"><b className="text-slate-100">{s.name}</b><span className="font-mono text-fuchsia-300">{Math.round(s.frontier * 100)}%</span></div>
-                <div className="font-mono text-[10px] text-slate-500">{s.shell[0]}–{s.shell[1]} pc · l {s.l[0]}–{s.l[1]}° · b {s.b[0]}…{s.b[1]}° · {s.total.toLocaleString()} obj</div>
+                <div className="num text-[10.5px] text-slate-500">{s.shell[0]}–{s.shell[1]} pc · l {s.l[0]}–{s.l[1]}° · b {s.b[0]}…{s.b[1]}° · {s.total.toLocaleString()} obj</div>
                 <div className="mt-1 flex h-1 overflow-hidden rounded bg-slate-800">
                   <span style={{ width: `${(s.spherex / s.total) * 100}%`, background: SRC_SWATCH.spherex }} />
                   <span style={{ width: `${(s.catalogue / s.total) * 100}%`, background: SRC_SWATCH.catalogue }} />
@@ -503,7 +504,7 @@ function FrontierPanel({ sectors, filters, setFilters, onFly, data, sectorIndex,
                 </div>
               </button>
               {open === s.id && (
-                <ul className="border-t border-slate-800 px-2 py-1">
+                <ul className="border-t border-white/[0.06] px-3 py-1.5">
                   {targets.length === 0 && <li className="text-slate-500">Nothing uncharted here.</li>}
                   {targets.map(({ i }) => (
                     <li key={i}><button onClick={() => onSelect(i)} className="flex w-full justify-between py-0.5 text-left hover:text-white">
@@ -539,21 +540,21 @@ function AboutPanel({ data }: { data: GalaxyData }) {
         <p>{m.model.method}, trained on {m.model.n_train.toLocaleString()} {m.model.labels}.</p>
         <p className="mt-1">Held-out accuracy: <b className="text-amber-300">{Math.round(m.model.accuracy * 100)}%</b> on {m.model.n_test.toLocaleString()} stars
           {m.model.accuracy_within_one_type_main_sequence != null && <> ({Math.round(m.model.accuracy_within_one_type_main_sequence * 100)}% within one spectral type on the main sequence)</>}.</p>
-        <table className="mt-2 w-full font-mono text-[10px]">
+        <table className="num mt-2 w-full text-[10.5px]">
           <tbody>{Object.entries(m.model.per_class).map(([k, v]) => (
             <tr key={k}><td className="text-slate-400">{m.classes.find((c) => c.key === k)?.label}</td><td className="text-right">{Math.round(v.recall * 100)}% recall</td><td className="text-right text-slate-500">n={v.n_test}</td></tr>
           ))}</tbody>
         </table>
         <p className="mt-2 text-slate-400">A SPHEREx spectrum overrides the catalogue type and the prediction when its confidence is ≥ 50 %. Predictions are not discoveries.</p>
       </Section>
-      <p className="font-mono text-[10px] text-slate-500">Built {m.built}</p>
+      <p className="text-[11px] text-slate-500">Built <span className="num">{m.built}</span></p>
     </div>
   );
 }
 
 // ---------------------------------------------------------------------------
-function ObjectCard({ i, data, named, onClose, onFly, onExplore, sky }: {
-  i: number; data: GalaxyData; named?: NamedObject; onClose: () => void; onFly: () => void; onExplore: (q: Record<string, string>) => void; sky?: React.ReactNode;
+function ObjectCard({ i, data, named, onClose, onFly, onExplore, sky, orbit }: {
+  i: number; data: GalaxyData; named?: NamedObject; onClose: () => void; onFly: () => void; onExplore: (q: Record<string, string>) => void; sky?: React.ReactNode; orbit?: React.ReactNode;
 }) {
   const [rec, setRec] = useState<ObjectRecord | null>(null);
   const [err, setErr] = useState<string | null>(null);
@@ -599,19 +600,20 @@ function ObjectCard({ i, data, named, onClose, onFly, onExplore, sky }: {
   const conf = src === "model" ? st.conf[i] / 255 : rec?.confidence;
 
   return (
-    <aside data-tour="card" className="absolute right-3 top-16 bottom-14 z-10 flex w-[380px] max-w-[calc(100%-24px)] flex-col overflow-hidden rounded-md border border-teal-500/25 bg-slate-950/85 backdrop-blur-md">
-      <div className="flex items-start gap-2 border-b border-teal-500/20 p-3">
+    <aside data-tour="card" className="glass-strong absolute right-4 top-[76px] bottom-16 z-10 flex w-[380px] max-w-[calc(100%-32px)] flex-col overflow-hidden rounded-2xl">
+      <div className="flex items-start gap-3 border-b border-white/[0.06] px-4 py-3.5">
         <span className="mt-1 h-3 w-3 shrink-0 rounded-full" style={{ background: cls.color, boxShadow: `0 0 10px ${cls.color}` }} />
         <div className="min-w-0 flex-1">
-          <h2 className="truncate text-sm font-semibold text-white" title={title}>{title}</h2>
-          <div className="text-[11px] text-slate-400">{cls.label} · {fmtDist(dist)}</div>
+          <h2 className="truncate text-[15px] font-semibold tracking-tight text-white" title={title}>{title}</h2>
+          <div className="text-xs text-slate-400">{cls.label} · <span className="num">{fmtDist(dist)}</span></div>
         </div>
-        <button onClick={onFly} className="rounded border border-slate-700 px-2 py-0.5 text-[11px] hover:border-teal-300" title="Fly here (F)">Fly</button>
-        <button onClick={onClose} className="rounded border border-slate-700 px-2 py-0.5 text-[11px] hover:border-teal-300" aria-label="Close">✕</button>
+        <button onClick={onFly} className="btn px-2.5 py-1 text-xs" title="Fly here (F)">Fly to</button>
+        <button onClick={onClose} className="btn btn-ghost px-2 py-1 text-xs" aria-label="Close">✕</button>
       </div>
-      <div className="flex-1 space-y-4 overflow-y-auto p-3 text-xs">
+      <div className="flex-1 space-y-1 overflow-y-auto px-4 py-3 text-[12.5px] leading-relaxed">
+        {orbit}
         <Section title="Classification">
-          <div className="rounded border border-slate-800 bg-slate-900/60 p-2">
+          <div className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-3">
             <div className="flex items-center justify-between">
               <b style={{ color: cls.color }}>{cls.label}</b>
               <span className="rounded px-1.5 py-0.5 text-[10px]" style={{ background: `${SRC_SWATCH[src]}22`, color: SRC_SWATCH[src] }}>{SOURCE_LABEL[src]}</span>
@@ -628,7 +630,7 @@ function ObjectCard({ i, data, named, onClose, onFly, onExplore, sky }: {
             <div className="space-y-2">
               <p className="text-slate-400">Measure this object's 0.75–5 µm spectrum from every SPHEREx image of it (all six detectors, DR1 + QR3), then classify it from the spectrum.</p>
               <button disabled={measuring || !rec} onClick={measure}
-                className="w-full rounded border border-sky-400/60 bg-sky-500/15 py-2 font-semibold text-sky-100 hover:bg-sky-500/25 disabled:opacity-50">
+                className="btn btn-primary w-full py-2">
                 {measuring ? `Measuring… ${elapsed.toFixed(0)} s (first visit downloads every image, 1–3 min)` : "Measure SPHEREx spectrum"}
               </button>
             </div>
@@ -638,7 +640,7 @@ function ObjectCard({ i, data, named, onClose, onFly, onExplore, sky }: {
         <Section title="2D view: SPHEREx images">
           {sky ?? <p className="text-slate-400">The SPHEREx box beside this card shows the all-sky image around it; <b>Details</b> there (or the button below) opens every SPHEREx image of it.</p>}
           {exploreQuery && (
-            <button onClick={() => onExplore(exploreQuery)} data-tour="explore-button" className="mt-2 w-full rounded border border-amber-400/60 bg-amber-500/10 py-2 font-semibold text-amber-100 hover:bg-amber-500/20">
+            <button onClick={() => onExplore(exploreQuery)} data-tour="explore-button" className="btn mt-2 w-full py-2">
               Open SPHEREx images (time-lapse, spectra) →
             </button>
           )}
@@ -647,7 +649,7 @@ function ObjectCard({ i, data, named, onClose, onFly, onExplore, sky }: {
         {system && <SystemView sys={system} />}
 
         <Section title="Measurements">
-          <dl className="grid grid-cols-2 gap-x-3 gap-y-1 font-mono text-[11px]">
+          <dl className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs">
             <Row k="Distance" v={fmtDist(dist)} />
             <Row k="Parallax" v={rec?.parallax_mas != null ? `${rec.parallax_mas.toFixed(2)} mas` : "–"} />
             <Row k="RA, Dec" v={ra != null && dec != null ? `${ra.toFixed(4)}°, ${dec.toFixed(4)}°` : "–"} />
@@ -669,14 +671,14 @@ function ObjectCard({ i, data, named, onClose, onFly, onExplore, sky }: {
 }
 
 function Row({ k, v }: { k: string; v: string }) {
-  return <><dt className="text-slate-500">{k}</dt><dd className="truncate text-right text-slate-200" title={v}>{v}</dd></>;
+  return <><dt className="text-slate-500">{k}</dt><dd className="num truncate text-right text-slate-200" title={v}>{v}</dd></>;
 }
 
 function SpectrumView({ s, classes, mapClass }: { s: SpherexSpectrum; classes: { id: number; label: string; color: string }[]; mapClass?: number }) {
   if (s.status !== "ok" || !s.spectrum.length) {
     const why = { saturated: "The star is too bright: its core is saturated in most SPHEREx frames, so no reliable spectrum.",
       too_faint: "Too faint: fewer than eight channels have a usable measurement.", no_data: "SPHEREx has not observed this position yet." }[s.status as "saturated"] ?? s.status;
-    return <p className="rounded border border-slate-800 bg-slate-900/60 p-2 text-slate-400">{why} ({s.n_frames} frames, {s.releases.join("+") || "DR1+QR3"})</p>;
+    return <p className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-3 text-slate-400">{why} ({s.n_frames} frames, {s.releases.join("+") || "DR1+QR3"})</p>;
   }
   const W = 340, H = 150, pad = { l: 34, r: 8, t: 8, b: 22 };
   const pts = s.spectrum.filter((p) => p.f != null && Number.isFinite(p.f));
@@ -690,7 +692,7 @@ function SpectrumView({ s, classes, mapClass }: { s: SpherexSpectrum; classes: {
   const bands = [[1.33, 1.45, "H₂O"], [3.2, 3.4, "CH₄"], [4.2, 4.4, "CO₂"], [4.5, 4.8, "CO"]] as const;
   return (
     <div className="space-y-2">
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded border border-slate-800 bg-slate-950">
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl border border-white/[0.06] bg-black/30">
         {bands.map(([a, b, l]) => (
           <g key={l}><rect x={lw(a)} y={pad.t} width={lw(b) - lw(a)} height={H - pad.t - pad.b} fill="#38bdf8" opacity={0.07} />
             <text x={(lw(a) + lw(b)) / 2} y={pad.t + 9} fontSize={8} fill="#7dd3fc" textAnchor="middle">{l}</text></g>
@@ -711,7 +713,7 @@ function SpectrumView({ s, classes, mapClass }: { s: SpherexSpectrum; classes: {
         ))}
       </svg>
       {c && (
-        <div className="rounded border border-sky-500/30 bg-sky-950/30 p-2">
+        <div className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-3">
           <div className="flex items-center justify-between"><b style={{ color: cc?.color }}>{c.label}</b><span className="font-mono">{Math.round(c.confidence * 100)}% conf.</span></div>
           {c.features && c.features.length > 0 && <div className="mt-1 flex flex-wrap gap-1">{c.features.map((f) => <span key={f} className="rounded bg-sky-500/20 px-1.5 text-[10px] text-sky-100">{f}</span>)}</div>}
           <ul className="mt-1 list-disc space-y-0.5 pl-4 text-[11px] text-slate-300">{c.evidence.map((e) => <li key={e}>{e}</li>)}</ul>
@@ -736,10 +738,10 @@ function SystemView({ sys }: { sys: NonNullable<GalaxyData["systems"]>[number] }
   return (
     <Section title={`Planetary system · ${sys.planets.length} planet${sys.planets.length > 1 ? "s" : ""}`}>
       <p className="mb-1 text-slate-400">Zoom in (or press Fly) to see the orbits to scale. Elements from the NASA Exoplanet Archive; ± is 1σ. Values marked * are derived with Kepler's third law from the star's mass.</p>
-      <table className="w-full font-mono text-[10px]">
+      <table className="num w-full text-[10.5px]">
         <thead className="text-slate-500"><tr><th className="text-left">Planet</th><th className="text-right">P (d)</th><th className="text-right">a (AU)</th><th className="text-right">e</th><th className="text-right">R⊕</th></tr></thead>
         <tbody>{rows.map(({ p, o }) => (
-          <tr key={p.name} className="border-t border-slate-800/70" title={o ? `Position today: ${phaseNote(o, jd)}` : "Not drawn: the archive has neither its period nor its orbit size"}>
+          <tr key={p.name} className="border-t border-white/[0.06]" title={o ? `Position today: ${phaseNote(o, jd)}` : "Not drawn: the archive has neither its period nor its orbit size"}>
             <td className="truncate py-0.5 text-slate-200">{p.name}{!o && <span className="text-slate-500"> (not drawn)</span>}</td>
             <td className="text-right">{o?.P_source === "kepler3" ? `${o.P.toFixed(2)}*` : pm(p.period_d, p.period_err, p.period_d != null && p.period_d < 10 ? 4 : 2)}</td>
             <td className="text-right">{o?.a_source === "kepler3" ? `${o.a.toFixed(4)}*` : pm(p.a_au, p.a_err, 4)}</td>
@@ -761,14 +763,18 @@ function OrbitLegend({ jd, unplotted, noPosition, hz, starScaled, mode, setMode,
   mode: OrbitEngineMode; setMode: (m: OrbitEngineMode) => void; nb: NbodyState; active: "kepler" | "nbody";
 }) {
   const date = new Date((jd - 2440587.5) * 86400000).toISOString().slice(0, 10);
-  const btn = (m: OrbitEngineMode, label: string) => (
-    <button type="button" onClick={() => setMode(m)}
-      className={`pointer-events-auto rounded border px-1.5 py-0.5 ${mode === m ? "border-sky-300 bg-sky-400/20 text-sky-100" : "border-slate-600 text-slate-400 hover:text-slate-200"}`}>{label}</button>
-  );
+  const [more, setMore] = useState(false);
   return (
-    <div className="pointer-events-none absolute left-1/2 top-16 z-10 w-[min(560px,calc(100%-24px))] -translate-x-1/2 rounded-md border border-sky-400/30 bg-slate-950/85 px-3 py-2 font-mono text-[10px] leading-relaxed text-slate-300 backdrop-blur">
-      <div className="flex justify-between gap-2 tracking-[0.2em] text-sky-300"><span>ORBIT PREDICTION · NOT AN OBSERVATION</span><span className="tracking-normal text-slate-200">{date}</span></div>
-      <div className="my-1 flex flex-wrap items-center gap-1.5"><b className="text-slate-100">Engine:</b>{btn("kepler", "Kepler (two-body)")}{btn("nbody", "N-body (planets interact)")}
+    <section className="mb-4 rounded-xl border border-sky-300/20 bg-sky-300/[0.05] p-3 text-[11.5px] leading-relaxed text-slate-300">
+      <div className="flex items-center justify-between gap-2">
+        <span className="font-semibold text-sky-100">Orbit prediction <span className="font-normal text-sky-200/70">· not an observation</span></span>
+        <span className="num text-slate-300">{date}</span>
+      </div>
+      <div className="seg mt-2" role="radiogroup" aria-label="Orbit engine">
+        <button type="button" role="radio" aria-checked={mode === "kepler"} onClick={() => setMode("kepler")}>Kepler (two-body)</button>
+        <button type="button" role="radio" aria-checked={mode === "nbody"} onClick={() => setMode("nbody")}>N-body (interacting)</button>
+      </div>
+      <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
         {mode === "nbody" && <span className={active === "nbody" ? "text-emerald-300" : "text-amber-300"}>
           {nb.status === "loading" ? "computing… (first time up to a minute; Kepler shown meanwhile)"
             : nb.status === "ok" ? (active === "nbody" ? "in use" : "loading next stretch…")
@@ -776,12 +782,15 @@ function OrbitLegend({ jd, unplotted, noPosition, hz, starScaled, mode, setMode,
             : nb.status === "not_converged" ? "cannot reproduce the archive: Kepler shown"
             : nb.status === "error" ? "engine unavailable: Kepler shown" : ""}
         </span>}
+        <span className="text-slate-400">1 s = 1 day, starting today.</span>
+        <button type="button" onClick={() => setMore(!more)} className="ml-auto text-sky-200 hover:text-white" aria-expanded={more}>{more ? "Less" : "How this is drawn"}</button>
       </div>
+      {mode === "nbody" && nb.problems.length > 0 && <div className="mt-1 text-amber-200/90">N-body: {nb.problems.join("; ")}</div>}
+      {more && <div className="mt-2 space-y-1 border-t border-white/[0.06] pt-2">
       <div><b className="text-slate-100">Time:</b> 1 s = 1 day for every system (Mercury would take 88 s), starting today.</div>
       {active === "nbody"
         ? <div><b className="text-slate-100">Motion:</b> full N-body integration (Newtonian gravity between star and all planets, DOP853), started from NASA Exoplanet Archive elements and masses and corrected until its transits reproduce the archive's measured transit times and periods within 1σ. Drawn paths are the archive's Kepler orbits; dots may drift slightly off them as planets perturb each other.</div>
         : <div><b className="text-slate-100">Motion:</b> two-body Kepler orbits from NASA Exoplanet Archive elements (P, a, e, ω); planet–planet gravity ignored.</div>}
-      {mode === "nbody" && nb.problems.length > 0 && <div className="text-amber-200/90">N-body: {nb.problems.join("; ")}</div>}
       {active === "nbody" && nb.notes.length > 0 && <div className="text-slate-400">N-body assumptions: {nb.notes.join("; ")}</div>}
       <div><b className="text-slate-100">Start:</b> positions predicted from each planet's measured transit or periastron time; <span className="text-amber-300">yellow arc = ±1σ</span> from the period and epoch errors. A planet without a measured time gets no dot.</div>
       <div><b className="text-slate-100">Measured, to scale:</b> orbit sizes, tilt to our line of sight (inclination), the direction to the Sun, {starScaled ? "the star's radius, " : ""}and solid orbit shapes. Dashed = eccentricity not measured (circle of radius a). Double ring = eccentricity measured but not its orientation (range a(1−e) to a(1+e)).</div>
@@ -789,7 +798,8 @@ function OrbitLegend({ jd, unplotted, noPosition, hz, starScaled, mode, setMode,
       <div>{hz ? <><span className="text-emerald-300">Green</span> = conservative habitable zone (Kopparapu et al. 2014) from the star's measured temperature and radius.</> : "No habitable zone drawn: the star's temperature or radius is not measured, or lies outside the 2600–7200 K range of the Kopparapu et al. (2014) fit."}</div>
       {noPosition.length > 0 && <div className="text-slate-500">Orbit drawn, position not measured: {noPosition.join(", ")}</div>}
       {unplotted.length > 0 && <div className="text-slate-500">Not drawn (no period or orbit size): {unplotted.join(", ")}</div>}
-    </div>
+      </div>}
+    </section>
   );
 }
 

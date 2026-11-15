@@ -14,7 +14,7 @@ const TERMS: [string, string][] = [
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <section id={id} className="scroll-mt-6 border-t border-slate-800 pt-6">
+    <section id={id} className="scroll-mt-6 border-t border-white/[0.06] pt-6">
       <h2 className="text-lg font-semibold text-slate-100">{title}</h2>
       <div className="mt-2 space-y-3 text-sm leading-relaxed text-slate-300">{children}</div>
     </section>

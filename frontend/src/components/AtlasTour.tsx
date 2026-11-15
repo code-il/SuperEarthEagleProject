@@ -49,23 +49,23 @@ export function AtlasTour({ steps, step, onStep, onClose }: { steps: TourStep[];
   return (
     <>
       {rect && (
-        <div className="pointer-events-none fixed z-[45] rounded-md border-2 border-amber-300 shadow-[0_0_0_9999px_rgba(1,3,10,0.45),0_0_24px_rgba(252,211,77,0.6)] transition-all duration-300"
+        <div className="pointer-events-none fixed z-[45] rounded-2xl border-2 border-[var(--accent)] shadow-[0_0_0_9999px_rgba(1,3,10,0.5),0_0_24px_rgba(143,216,248,0.45)] transition-all duration-300"
           style={{ left: rect.left - 6, top: rect.top - 6, width: rect.width + 12, height: rect.height + 12 }} />
       )}
       <div role="dialog" aria-label={`Tour step ${step + 1} of ${steps.length}: ${s.title}`}
-        className="fixed bottom-16 left-1/2 z-50 w-[min(440px,calc(100%-24px))] -translate-x-1/2 rounded-lg border border-amber-300/50 bg-slate-950/95 p-4 text-sm text-slate-200 shadow-2xl shadow-black backdrop-blur-md">
-        <div className="mb-1 flex items-center justify-between font-mono text-[10px] tracking-[0.25em] text-amber-300">
-          <span>TOUR · {step + 1} / {steps.length}</span>
+        className="glass-strong fixed bottom-16 left-1/2 z-50 w-[min(440px,calc(100%-24px))] -translate-x-1/2 rounded-2xl p-5 text-sm text-slate-200">
+        <div className="eyebrow mb-1 flex items-center justify-between">
+          <span>Tour · {step + 1} of {steps.length}</span>
           <button onClick={onClose} className="tracking-normal text-slate-400 hover:text-white" aria-label="End the tour">✕</button>
         </div>
         <h3 className="text-base font-semibold text-white">{s.title}</h3>
         <div className="mt-1.5 space-y-1.5 text-[13px] leading-relaxed text-slate-300">{s.body}</div>
         <div className="mt-3 flex items-center gap-2">
           <div className="flex flex-1 gap-1" aria-hidden>
-            {steps.map((_, k) => <button key={k} tabIndex={-1} onClick={() => onStep(k)} className={`h-1.5 flex-1 rounded-full ${k <= step ? "bg-amber-300" : "bg-slate-700"}`} />)}
+            {steps.map((_, k) => <button key={k} tabIndex={-1} onClick={() => onStep(k)} className={`h-1 flex-1 rounded-full ${k <= step ? "bg-[var(--accent)]" : "bg-white/10"}`} />)}
           </div>
-          <button disabled={step === 0} onClick={() => onStep(step - 1)} className="rounded border border-slate-700 px-3 py-1 text-xs disabled:opacity-40 hover:border-slate-400">Back</button>
-          <button onClick={() => (last ? onClose() : onStep(step + 1))} className="rounded bg-amber-400 px-3 py-1 text-xs font-semibold text-slate-950 hover:bg-amber-300">{last ? "Start exploring" : "Next"}</button>
+          <button disabled={step === 0} onClick={() => onStep(step - 1)} className="btn px-3 py-1 text-xs">Back</button>
+          <button onClick={() => (last ? onClose() : onStep(step + 1))} className="btn btn-primary px-3 py-1 text-xs">{last ? "Start exploring" : "Next"}</button>
         </div>
       </div>
     </>

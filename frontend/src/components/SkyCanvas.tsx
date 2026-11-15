@@ -332,13 +332,13 @@ export function SkyCanvas(props: SkyCanvasProps) {
         onDoubleClick={() => onViewChange(null)}
       />
       {props.caption && (
-        <div className="pointer-events-none absolute left-2 top-2 rounded bg-black/60 px-2 py-1 font-mono text-xs text-slate-100">{props.caption}</div>
+        <div className="pointer-events-none absolute left-2 top-2 rounded-lg bg-black/60 px-2 py-1 font-mono text-xs text-slate-100">{props.caption}</div>
       )}
       {props.badge && (
-        <div className="pointer-events-none absolute right-2 top-2 rounded bg-black/60 px-2 py-1 font-mono text-xs text-slate-200">{props.badge}</div>
+        <div className="pointer-events-none absolute right-2 top-2 rounded-lg bg-black/60 px-2 py-1 font-mono text-xs text-slate-200">{props.badge}</div>
       )}
       {hoverMarker && (
-        <div className="pointer-events-none absolute z-10 max-w-64 rounded border border-slate-600 bg-slate-900/95 px-2 py-1 text-xs text-slate-100 shadow"
+        <div className="pointer-events-none absolute z-10 max-w-64 rounded-lg border border-slate-600 bg-slate-900/95 px-2 py-1 text-xs text-slate-100 shadow"
           style={{ left: Math.min(hoverMarker.sx + 12, size.W - 220), top: hoverMarker.sy + 12 }}>
           <div className="font-semibold" style={{ color: markerColor(hoverMarker.m) }}>{hoverMarker.m.label ?? hoverMarker.m.id}</div>
           {hoverMarker.m.title && <div className="text-slate-300">{hoverMarker.m.title}</div>}
