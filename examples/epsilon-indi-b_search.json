@@ -1,0 +1,149 @@
+{
+  "query": {
+    "ra": 331.09699524957153,
+    "dec": -56.80075972520478,
+    "fov": 0.05
+  },
+  "count": 472,
+  "observations": [
+    {
+      "observation_id": "2025W17_4B_0017_1_D2",
+      "observation_time": "2025-04-24T20:31:57.101Z",
+      "ra": 327.84719168621376,
+      "dec": -56.3423036090928,
+      "wavelength_min": 1.1033,
+      "wavelength_max": 1.6499,
+      "band": "SPHEREx-D2",
+      "detector": 2,
+      "data_release": "DR1",
+      "calibration_level": 2,
+      "quality_flags": [],
+      "fits_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/2/level2_2025W17_4B_0017_1D2_spx_l2b-v27-2026-196.fits",
+      "local_path": null,
+      "obs_id": "2025W17_4B_0017_1",
+      "publisher_did": "ivo://irsa.ipac/spherex_dr1?2025W17_4B_0017_1/D2",
+      "collection": "spherex_dr1",
+      "observation_time_end": "2025-04-24T20:33:52.186Z",
+      "mjd_start": 60789.855522,
+      "mjd_end": 60789.856854,
+      "exposure_time_s": 113.5826,
+      "instrument": "SPHEREx",
+      "pixel_scale_arcsec": 6.15,
+      "image_size_px": [
+        2040,
+        2040
+      ],
+      "image_fov_deg": 3.485,
+      "spectral_resolving_power": 41.4,
+      "s_region": "POLYGON ICRS 332.0928164030633 -57.08949978718416 326.26426345337757 -58.634975761320156 323.7367268844053 -55.43300374085567 329.2486417042966 -53.99856324422125 332.0928164030633 -57.08949978718416",
+      "covers_position": true,
+      "archive_release_date": "2026-09-27 23:59:28",
+      "estimated_size_kb": 65544,
+      "survey_field": "SPS_055351_S12",
+      "cloud_access": {
+        "aws": {
+          "bucket_name": "nasa-irsa-spherex",
+          "key": "dr1/level2/2025W17_4B/l2b-v27-2026-196/2/level2_2025W17_4B_0017_1D2_spx_l2b-v27-2026-196.fits",
+          "region": "us-east-1"
+        }
+      },
+      "wavelength_at_target": null,
+      "bandwidth_at_target": null,
+      "quality": null,
+      "cutout": null
+    },
+    {
+      "observation_id": "2025W17_4B_0017_1_D5",
+      "observation_time": "2025-04-24T20:31:57.101Z",
+      "ra": 327.8398870715528,
+      "dec": -56.32514500034796,
+      "wavelength_min": 3.8113,
+      "wavelength_max": 4.43,
+      "band": "SPHEREx-D5",
+      "detector": 5,
+      "data_release": "DR1",
+      "calibration_level": 2,
+      "quality_flags": [],
+      "fits_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/5/level2_2025W17_4B_0017_1D5_spx_l2b-v27-2026-196.fits",
+      "local_path": null,
+      "obs_id": "2025W17_4B_0017_1",
+      "publisher_did": "ivo://irsa.ipac/spherex_dr1?2025W17_4B_0017_1/D5",
+      "collection": "spherex_dr1",
+      "observation_time_end": "2025-04-24T20:33:52.186Z",
+      "mjd_start": 60789.855522,
+      "mjd_end": 60789.856854,
+      "exposure_time_s": 113.5826,
+      "instrument": "SPHEREx",
+      "pixel_scale_arcsec": 6.15,
+      "image_size_px": [
+        2040,
+        2040
+      ],
+      "image_fov_deg": 3.485,
+      "spectral_resolving_power": 111.6,
+      "s_region": "POLYGON ICRS 332.08175737700947 -57.08471089094068 326.2340186739277 -58.61591711097761 323.7361233122109 -55.403966353258454 329.2614725593182 -53.98280747741295 332.08175737700947 -57.08471089094068",
+      "covers_position": true,
+      "archive_release_date": "2026-09-27 23:59:28",
+      "estimated_size_kb": 66111,
+      "survey_field": "SPS_055351_S12",
+      "cloud_access": {
+        "aws": {
+          "bucket_name": "nasa-irsa-spherex",
+          "key": "dr1/level2/2025W17_4B/l2b-v27-2026-196/5/level2_2025W17_4B_0017_1D5_spx_l2b-v27-2026-196.fits",
+          "region": "us-east-1"
+        }
+      },
+      "wavelength_at_target": null,
+      "bandwidth_at_target": null,
+      "quality": null,
+      "cutout": null
+    },
+    {
+      "observation_id": "2025W17_4B_0017_2_D2",
+      "observation_time": "2025-04-24T20:34:06.010Z",
+      "ra": 327.6949930448318,
+      "dec": -56.16422049745388,
+      "wavelength_min": 1.1033,
+      "wavelength_max": 1.6499,
+      "band": "SPHEREx-D2",
+      "detector": 2,
+      "data_release": "DR1",
+      "calibration_level": 2,
+      "quality_flags": [],
+      "fits_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/2/level2_2025W17_4B_0017_2D2_spx_l2b-v27-2026-196.fits",
+      "local_path": null,
+      "obs_id": "2025W17_4B_0017_2",
+      "publisher_did": "ivo://irsa.ipac/spherex_dr1?2025W17_4B_0017_2/D2",
+      "collection": "spherex_dr1",
+      "observation_time_end": "2025-04-24T20:36:01.094Z",
+      "mjd_start": 60789.857014,
+      "mjd_end": 60789.858346,
+      "exposure_time_s": 113.5826,
+      "instrument": "SPHEREx",
+      "pixel_scale_arcsec": 6.15,
+      "image_size_px": [
+        2040,
+        2040
+      ],
+      "image_fov_deg": 3.485,
+      "spectral_resolving_power": 41.4,
+      "s_region": "POLYGON ICRS 331.91753686190555 -56.9171869783166 326.11043987530496 -58.455069704403435 323.6069297078629 -55.250192861928966 329.09933348343816 -53.82220973451161 331.91753686190555 -56.9171869783166",
+      "covers_position": true,
+      "archive_release_date": "2026-09-27 23:59:28",
+      "estimated_size_kb": 65201,
+      "survey_field": "SPS_055350_S12",
+      "cloud_access": {
+        "aws": {
+          "bucket_name": "nasa-irsa-spherex",
+          "key": "dr1/level2/2025W17_4B/l2b-v27-2026-196/2/level2_2025W17_4B_0017_2D2_spx_l2b-v27-2026-196.fits",
+          "region": "us-east-1"
+        }
+      },
+      "wavelength_at_target": null,
+      "bandwidth_at_target": null,
+      "quality": null,
+      "cutout": null
+    }
+  ],
+  "note": "Truncated to 3 of 472 observations."
+}

@@ -1,0 +1,4814 @@
+{
+ "analysis_version": "1.1",
+ "field": {
+  "ra": 133.7577883142161,
+  "dec": -7.242019400557261,
+  "fov_deg": 0.05,
+  "radius_deg": 0.04150000000000001
+ },
+ "target": {
+  "name": "WISEA J085510.74-071442.5",
+  "source_id": "S001",
+  "reliable_astrometry": true,
+  "median_offset_from_prediction_arcsec": 0.955,
+  "offsets_per_visit_arcsec": [
+   0.955,
+   0.432,
+   1.25
+  ],
+  "catalogue_pm_mas_yr": [
+   -8123.7,
+   673.2
+  ],
+  "measured_pm_mas_yr": [
+   -8717.391523106433,
+   2413.608085693273
+  ],
+  "measured_pm_err_mas_yr": [
+   2016.6113940460991,
+   2356.7206697779743
+  ]
+ },
+ "provenance": {
+  "releases": [
+   "DR1"
+  ],
+  "wavelength_source": [
+   "CWAVE/CBAND"
+  ],
+  "wavelength_calibration": [
+   "cal-swcs-v5-2026-191"
+  ],
+  "pipeline_versions": [
+   "7.0.5"
+  ],
+  "psf_header_fix_needed": false,
+  "psf_model": "pixel-integrated circular Gaussian, FWHM from PSF_FWHM header (EPSF not used)"
+ },
+ "summary": {
+  "n_observations": 44,
+  "n_visits": 4,
+  "n_sources": 3,
+  "n_frame_detections": 20,
+  "n_orphan_detections": 8,
+  "classes": {
+   "high_proper_motion_candidate": 1,
+   "stationary": 1,
+   "insufficient_data": 1
+  },
+  "runtime_s": 16.62
+ },
+ "visits": [
+  {
+   "epoch": 0,
+   "detector": 6,
+   "mjd": 60800.74532900866,
+   "mjd_range": [
+    60800.700028461,
+    60800.834437847
+   ],
+   "n_frames": 3,
+   "wavelength_range": [
+    4.858961527263701,
+    5.003934521358603
+   ],
+   "releases": [
+    "DR1"
+   ],
+   "n_detections": 0,
+   "registration": {
+    "dra_arcsec": 0.0,
+    "ddec_arcsec": 0.0,
+    "sigma_arcsec": 0.5,
+    "n_stars": 0,
+    "applied": false,
+    "reference": "Gaia DR3",
+    "reason": "no detections"
+   }
+  },
+  {
+   "epoch": 1,
+   "detector": 6,
+   "mjd": 60991.52774646607,
+   "mjd_range": [
+    60989.296807454,
+    60993.912885139
+   ],
+   "n_frames": 18,
+   "wavelength_range": [
+    4.4120130926418915,
+    4.979984052112623
+   ],
+   "releases": [
+    "DR1"
+   ],
+   "n_detections": 3,
+   "registration": {
+    "dra_arcsec": 0.0,
+    "ddec_arcsec": 0.0,
+    "sigma_arcsec": 0.5,
+    "n_stars": 0,
+    "applied": false,
+    "reference": "Gaia DR3",
+    "reason": "only 0 matched reference star(s)"
+   }
+  },
+  {
+   "epoch": 2,
+   "detector": 6,
+   "mjd": 61021.554459344334,
+   "mjd_range": [
+    61021.282827477,
+    61022.029132639
+   ],
+   "n_frames": 3,
+   "wavelength_range": [
+    4.628828247580278,
+    4.732519247211055
+   ],
+   "releases": [
+    "DR1"
+   ],
+   "n_detections": 1,
+   "registration": {
+    "dra_arcsec": 0.0,
+    "ddec_arcsec": 0.0,
+    "sigma_arcsec": 0.5,
+    "n_stars": 0,
+    "applied": false,
+    "reference": "Gaia DR3",
+    "reason": "only 0 matched reference star(s)"
+   }
+  },
+  {
+   "epoch": 3,
+   "detector": 6,
+   "mjd": 61157.78729619385,
+   "mjd_range": [
+    61151.197933206,
+    61171.096350255
+   ],
+   "n_frames": 20,
+   "wavelength_range": [
+    4.4134022474441705,
+    4.967077823336787
+   ],
+   "releases": [
+    "DR1"
+   ],
+   "n_detections": 2,
+   "registration": {
+    "dra_arcsec": 0.0,
+    "ddec_arcsec": 0.0,
+    "sigma_arcsec": 0.5,
+    "n_stars": 1,
+    "applied": false,
+    "reference": "Gaia DR3",
+    "reason": "only 1 matched reference star(s)"
+   }
+  }
+ ],
+ "registration_calibration": {
+  "method": "default floor",
+  "sigma_arcsec": 0.5,
+  "n_reference_sources": 0,
+  "reference_sources": [],
+  "dof": 0,
+  "reason": "fewer than 4 degrees of freedom from stationary field sources"
+ },
+ "catalogues": {
+  "gaia": {
+   "status": "ok",
+   "count": 45
+  },
+  "catwise": {
+   "status": "ok",
+   "count": 212
+  },
+  "simbad": {
+   "status": "ok",
+   "count": 2
+  }
+ },
+ "sources": [
+  {
+   "source_id": "S001",
+   "ra": 133.75939857259937,
+   "dec": -7.242042883967743,
+   "ref_mjd": 61070.989456139374,
+   "detections": [
+    {
+     "kind": "visit_stack",
+     "observation_id": "visit1_D6",
+     "mjd": 60991.52774646607,
+     "observation_time": null,
+     "epoch": 1,
+     "wavelength": 4.688608175730279,
+     "detector": 6,
+     "ra": 133.75982789538241,
+     "dec": -7.242102565409488,
+     "ra_err_arcsec": 0.3812723913786101,
+     "dec_err_arcsec": 0.9610724312280353,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 0.6287834575015185,
+     "dec_err_total_arcsec": 1.083355997844922,
+     "x": 13.815623372513613,
+     "y": 14.951315477843274,
+     "flux_mjy": 0.5223495644291064,
+     "flux_err_mjy": 0.043716977658237226,
+     "snr": 11.948437252745089,
+     "significance": 12.250013826865004,
+     "quality_flags": [
+      "saturation_nearby"
+     ],
+     "quality": 0.75,
+     "n_frames": 18
+    },
+    {
+     "kind": "visit_stack",
+     "observation_id": "visit2_D6",
+     "mjd": 61021.554459344334,
+     "observation_time": null,
+     "epoch": 2,
+     "wavelength": 4.686349875432754,
+     "detector": 6,
+     "ra": 133.76000461704194,
+     "dec": -7.242217079024744,
+     "ra_err_arcsec": 0.7924407506196335,
+     "dec_err_arcsec": 0.8254090216872775,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 0.9369964478281698,
+     "dec_err_total_arcsec": 0.9650388868241261,
+     "x": 13.71300213825545,
+     "y": 14.884282637179878,
+     "flux_mjy": 0.6391915370082907,
+     "flux_err_mjy": 0.0879213174035044,
+     "snr": 7.2700404848894316,
+     "significance": 7.506820855032804,
+     "quality_flags": [],
+     "quality": 1.0,
+     "n_frames": 3
+    },
+    {
+     "kind": "visit_stack",
+     "observation_id": "visit3_D6",
+     "mjd": 61157.78729619385,
+     "observation_time": null,
+     "epoch": 3,
+     "wavelength": 4.7117047299869155,
+     "detector": 6,
+     "ra": 133.75879044714802,
+     "dec": -7.241876626437164,
+     "ra_err_arcsec": 0.4947040106001868,
+     "dec_err_arcsec": 0.4223235665560968,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 0.7033719201844141,
+     "dec_err_total_arcsec": 0.6544900265616443,
+     "x": 14.418065122290642,
+     "y": 15.083574453159915,
+     "flux_mjy": 0.5840340355135845,
+     "flux_err_mjy": 0.03953664383255636,
+     "snr": 14.771967949203189,
+     "significance": 14.286549085259544,
+     "quality_flags": [],
+     "quality": 1.0,
+     "n_frames": 20
+    },
+    {
+     "kind": "frame",
+     "observation_id": "2025W46_1A_0075_4_D6",
+     "mjd": 60989.296807454,
+     "observation_time": "2025-11-10T07:07:24.125Z",
+     "epoch": 1,
+     "wavelength": 4.411912208644649,
+     "detector": 6,
+     "ra": 133.75978258715867,
+     "dec": -7.241788579696744,
+     "ra_err_arcsec": 1.1054988028074755,
+     "dec_err_arcsec": 1.103730686365666,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 1.2133126567413535,
+     "dec_err_total_arcsec": 1.2117018725846815,
+     "x": 13.841932870441575,
+     "y": 15.135112109484698,
+     "flux_mjy": 0.6764931232599456,
+     "flux_err_mjy": 0.1276109904011154,
+     "snr": 5.301213642598864,
+     "significance": 5.058146779772578,
+     "quality_flags": [],
+     "quality": 1.0
+    },
+    {
+     "kind": "frame",
+     "observation_id": "2025W46_1A_0076_1_D6",
+     "mjd": 60989.298548414,
+     "observation_time": "2025-11-10T07:09:54.547Z",
+     "epoch": 1,
+     "wavelength": 4.443825389464339,
+     "detector": 6,
+     "ra": 133.75981342515112,
+     "dec": -7.241752575447835,
+     "ra_err_arcsec": 1.1563787126642064,
+     "dec_err_arcsec": 1.17458225673718,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 1.2598459140319214,
+     "dec_err_total_arcsec": 1.2765749009916365,
+     "x": 13.824025265134155,
+     "y": 15.156187688216432,
+     "flux_mjy": 0.6345858830978032,
+     "flux_err_mjy": 0.12750700858009603,
+     "snr": 4.976870606286521,
+     "significance": 5.572166048188488,
+     "quality_flags": [],
+     "quality": 1.0
+    },
+    {
+     "kind": "frame",
+     "observation_id": "2025W46_1A_0076_2_D6",
+     "mjd": 60989.300040671,
+     "observation_time": "2025-11-10T07:12:03.542Z",
+     "epoch": 1,
+     "wavelength": 4.4764987404479255,
+     "detector": 6,
+     "ra": 133.75938885857389,
+     "dec": -7.242295356704667,
+     "ra_err_arcsec": 1.0846889585282582,
+     "dec_err_arcsec": 1.0160940676105585,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 1.1943827429903353,
+     "dec_err_total_arcsec": 1.1324518330743123,
+     "x": 14.070570689187067,
+     "y": 14.838463057656709,
+     "flux_mjy": null,
+     "flux_err_mjy": null,
+     "snr": null,
+     "significance": 6.617933838737765,
+     "quality_flags": [
+      "masked_core"
+     ],
+     "quality": 0.75
+    },
+    {
+     "kind": "frame",
+     "observation_id": "2025W46_1A_0090_1_D6",
+     "mjd": 60989.364776111,
+     "observation_time": "2025-11-10T08:45:16.646Z",
+     "epoch": 1,
+     "wavelength": 4.54139245319254,
+     "detector": 6,
+     "ra": 133.76043298442627,
+     "dec": -7.242204961496754,
+     "ra_err_arcsec": 0.7379999999999998,
+     "dec_err_arcsec": 0.7379999999999998,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 0.8914280677654253,
+     "dec_err_total_arcsec": 0.8914280677654253,
+     "x": 13.464250932683413,
+     "y": 14.891374494071602,
+     "flux_mjy": null,
+     "flux_err_mjy": null,
+     "snr": null,
+     "significance": 5.120455537201236,
+     "quality_flags": [
+      "saturated_core_raw_fit",
+      "masked_core",
+      "saturation_nearby"
+     ],
+     "quality": 0.25
+    },
+    {
+     "kind": "frame",
+     "observation_id": "2025W46_1A_0090_2_D6",
+     "mjd": 60989.366268368,
+     "observation_time": "2025-11-10T08:47:25.555Z",
+     "epoch": 1,
+     "wavelength": 4.575651053548725,
+     "detector": 6,
+     "ra": 133.75965828269176,
+     "dec": -7.242525323757323,
+     "ra_err_arcsec": 0.9528524586649574,
+     "dec_err_arcsec": 0.9821428341168945,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 1.0760705404311812,
+     "dec_err_total_arcsec": 1.1020909883522167,
+     "x": 13.914117801950898,
+     "y": 14.703847600146897,
+     "flux_mjy": null,
+     "flux_err_mjy": null,
+     "snr": null,
+     "significance": 5.131987941692722,
+     "quality_flags": [
+      "masked_core"
+     ],
+     "quality": 0.75
+    },
+    {
+     "kind": "frame",
+     "observation_id": "2025W50_2A_0232_1_D6",
+     "mjd": 61021.282827477,
+     "observation_time": "2025-12-12T06:47:16.253Z",
+     "epoch": 2,
+     "wavelength": 4.628684194663134,
+     "detector": 6,
+     "ra": 133.7597417121576,
+     "dec": -7.242203296468633,
+     "ra_err_arcsec": 1.1585541602328575,
+     "dec_err_arcsec": 1.1524369906756249,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 1.2618429942718157,
+     "dec_err_total_arcsec": 1.2562288873758198,
+     "x": 13.865669879990032,
+     "y": 14.892351175221163,
+     "flux_mjy": 0.6124902493697322,
+     "flux_err_mjy": 0.12215385853365358,
+     "snr": 5.014088435045137,
+     "significance": 5.407049249000144,
+     "quality_flags": [],
+     "quality": 1.0
+    },
+    {
+     "kind": "frame",
+     "observation_id": "2026W17_1B_0227_4_D6",
+     "mjd": 61151.20091772,
+     "observation_time": "2026-04-21T04:49:19.315Z",
+     "epoch": 3,
+     "wavelength": 4.477662514014952,
+     "detector": 6,
+     "ra": 133.75862614689603,
+     "dec": -7.241745419775411,
+     "ra_err_arcsec": 0.9157871907032293,
+     "dec_err_arcsec": 0.9332250658037953,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 1.0433916707814535,
+     "dec_err_total_arcsec": 1.0587299105269947,
+     "x": 14.513473527835837,
+     "y": 15.160378545846065,
+     "flux_mjy": 0.6898526805193843,
+     "flux_err_mjy": 0.11398338727582413,
+     "snr": 6.052221266683675,
+     "significance": 5.603609715205301,
+     "quality_flags": [],
+     "quality": 1.0
+    },
+    {
+     "kind": "frame",
+     "observation_id": "2026W17_1B_0507_1_D6",
+     "mjd": 61152.757303588,
+     "observation_time": "2026-04-22T18:10:31.066Z",
+     "epoch": 3,
+     "wavelength": 4.509576241090421,
+     "detector": 6,
+     "ra": 133.75924299938447,
+     "dec": -7.242119908753016,
+     "ra_err_arcsec": 1.1287314659846956,
+     "dec_err_arcsec": 1.1446195841708553,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 1.2345180121423747,
+     "dec_err_total_arcsec": 1.2490612444822158,
+     "x": 14.155270172317286,
+     "y": 14.941164582367694,
+     "flux_mjy": 0.5959971514686715,
+     "flux_err_mjy": 0.11686185374133737,
+     "snr": 5.100014524738369,
+     "significance": 5.384226674885824,
+     "quality_flags": [],
+     "quality": 1.0
+    },
+    {
+     "kind": "frame",
+     "observation_id": "2026W17_1B_0507_2_D6",
+     "mjd": 61152.758795833,
+     "observation_time": "2026-04-22T18:12:39.974Z",
+     "epoch": 3,
+     "wavelength": 4.542305316412036,
+     "detector": 6,
+     "ra": 133.758932527856,
+     "dec": -7.24172837237236,
+     "ra_err_arcsec": 0.7862607297495573,
+     "dec_err_arcsec": 0.8026338428225769,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 0.9317756892870227,
+     "dec_err_total_arcsec": 0.9456326377849578,
+     "x": 14.3355591635271,
+     "y": 15.170357125570384,
+     "flux_mjy": 0.9371185153667462,
+     "flux_err_mjy": 0.12826725732705455,
+     "snr": 7.305983887823304,
+     "significance": 7.736357538060106,
+     "quality_flags": [],
+     "quality": 1.0
+    },
+    {
+     "kind": "frame",
+     "observation_id": "2026W17_1B_0507_3_D6",
+     "mjd": 61152.76028809,
+     "observation_time": "2026-04-22T18:14:48.883Z",
+     "epoch": 3,
+     "wavelength": 4.57740860544331,
+     "detector": 6,
+     "ra": 133.75858392942857,
+     "dec": -7.241825772386406,
+     "ra_err_arcsec": 1.1020898966654087,
+     "dec_err_arcsec": 1.2264090191295576,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 1.2102074782168433,
+     "dec_err_total_arcsec": 1.3244165063160167,
+     "x": 14.537989144122555,
+     "y": 15.113342915162967,
+     "flux_mjy": 0.5905190274199466,
+     "flux_err_mjy": 0.11823231984202297,
+     "snr": 4.9945651765014265,
+     "significance": 5.274734635308367,
+     "quality_flags": [],
+     "quality": 1.0
+    },
+    {
+     "kind": "frame",
+     "observation_id": "2026W17_1B_0634_1_D6",
+     "mjd": 61153.436457037,
+     "observation_time": "2026-04-23T10:28:29.885Z",
+     "epoch": 3,
+     "wavelength": 4.608835164290774,
+     "detector": 6,
+     "ra": 133.7593316732876,
+     "dec": -7.242189699715894,
+     "ra_err_arcsec": 1.0853696417295875,
+     "dec_err_arcsec": 1.1208256467250413,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 1.195000945266661,
+     "dec_err_total_arcsec": 1.2272938239706932,
+     "x": 14.103777732058706,
+     "y": 14.900311165958875,
+     "flux_mjy": 0.6783554208472676,
+     "flux_err_mjy": 0.12489017525566534,
+     "snr": 5.431615573111269,
+     "significance": 5.180073878594552,
+     "quality_flags": [],
+     "quality": 1.0
+    },
+    {
+     "kind": "frame",
+     "observation_id": "2026W17_1B_0634_4_D6",
+     "mjd": 61153.440933808,
+     "observation_time": "2026-04-23T10:34:56.698Z",
+     "epoch": 3,
+     "wavelength": 4.709834910712606,
+     "detector": 6,
+     "ra": 133.75861612602728,
+     "dec": -7.241949309895754,
+     "ra_err_arcsec": 0.9350722709695755,
+     "dec_err_arcsec": 1.0066543580340168,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 1.060358501609809,
+     "dec_err_total_arcsec": 1.1239897671014976,
+     "x": 14.519292828252588,
+     "y": 15.041028242146519,
+     "flux_mjy": 0.8095868577594233,
+     "flux_err_mjy": 0.1376696069214691,
+     "snr": 5.88065060882491,
+     "significance": 5.517212165282442,
+     "quality_flags": [],
+     "quality": 1.0
+    }
+   ],
+   "angular_motion": {
+    "n_points": 3,
+    "baseline_yr": 0.4551938390904307,
+    "ref_mjd": 61070.989456139374,
+    "parallax_removed_mas": null,
+    "systematic_arcsec": 0.0,
+    "displacement_arcsec": 3.7932514894221177,
+    "displacement_err_arcsec": 0.9606425615560416,
+    "displacement_snr": 3.9486606582138495,
+    "displacement_pa_deg": 282.38196310699016,
+    "model": "linear",
+    "pm_ra_cosdec_mas_yr": -8717.391523106433,
+    "pm_dec_mas_yr": 2413.608085693273,
+    "pm_total_mas_yr": 9045.35344574505,
+    "pm_ra_cosdec_err_mas_yr": 2016.6113940460991,
+    "pm_dec_err_mas_yr": 2356.7206697779743,
+    "pm_err_mas_yr": 2042.7006035049385,
+    "pm_pa_deg": 285.4759595106083,
+    "pm_snr": 4.428134710600619,
+    "ra_at_ref": 133.75939857259937,
+    "dec_at_ref": -7.242042883967743,
+    "static_chi2": 21.373792539703526,
+    "linear_chi2": 1.6384027809948543,
+    "linear_dof": 2,
+    "linear_chi2_red": 0.8192013904974271,
+    "error_scale": 1.0,
+    "motion_p_value": 5.1822047110558747e-05,
+    "motion_sigma": 4.0472537798714185,
+    "position_err_at_ref_arcsec": [
+     0.42669376149326016,
+     0.5000897926254946
+    ],
+    "residuals_arcsec": [
+     [
+      -0.3632739602544348,
+      0.3102372380008586
+     ],
+     [
+      0.9844932486259914,
+      -0.30043184756311714
+     ],
+     [
+      -0.10019085840999331,
+      0.024956495395001943
+     ]
+    ],
+    "rms_residual_arcsec": 0.6578658425629095,
+    "mjd": [
+     60991.52774646607,
+     61021.554459344334,
+     61157.78729619385
+    ]
+   },
+   "motion_uncertainty": {
+    "pm_ra_cosdec_err_mas_yr": 2016.6113940460991,
+    "pm_dec_err_mas_yr": 2356.7206697779743,
+    "pm_total_err_mas_yr": 2042.7006035049385,
+    "position_err_at_ref_arcsec": [
+     0.42669376149326016,
+     0.5000897926254946
+    ],
+    "registration_err_arcsec": [
+     0.5,
+     0.5,
+     0.5
+    ],
+    "error_scale_applied": 1.0
+   },
+   "variability_indicator": {
+    "method": "visit scale factors on a shared ln(lambda) polynomial (degree 2)",
+    "calibration_floor": 0.03,
+    "n_visits": 3,
+    "n_points": 33,
+    "visits": [
+     {
+      "epoch": 0,
+      "scale": 0.7326,
+      "scale_err": 0.2493,
+      "n_points": 3,
+      "mjd": 60800.74532900866,
+      "wavelength_range": [
+       4.859268716747124,
+       5.004335142686613
+      ],
+      "within_visit_chi2_red": 0.89,
+      "releases": [
+       "DR1"
+      ]
+     },
+     {
+      "epoch": 1,
+      "scale": 0.9087,
+      "scale_err": 0.0915,
+      "n_points": 10,
+      "mjd": 60991.953316279,
+      "wavelength_range": [
+       4.411912208644649,
+       4.9800237765144475
+      ],
+      "within_visit_chi2_red": 0.94,
+      "releases": [
+       "DR1"
+      ]
+     },
+     {
+      "epoch": 3,
+      "scale": 1.0857,
+      "scale_err": 0.0631,
+      "n_points": 20,
+      "mjd": 61157.78729619385,
+      "wavelength_range": [
+       4.413490704349938,
+       4.967160082086046
+      ],
+      "within_visit_chi2_red": 0.94,
+      "releases": [
+       "DR1"
+      ]
+     }
+    ],
+    "chi2": 3.89,
+    "dof": 2,
+    "p_value": 0.14322881437582477,
+    "sigma": 1.4638724052879684,
+    "amplitude": 0.3531,
+    "amplitude_mag": 0.427,
+    "wavelength_overlap": 0.18,
+    "reliable": false,
+    "min_visit_snr": 2.94,
+    "significant": false,
+    "mean_spectrum_coefficients": [
+     0.555637433470893,
+     -2.4497717520301743,
+     -34.457676330392886
+    ],
+    "reason": "visits cover different wavelengths; the shared spectrum is extrapolated",
+    "releases": [
+     "DR1"
+    ],
+    "warning": "Apparent variability can be instrumental: different wavelengths, detector positions, PSF/undersampling phase, background and calibration between visits. Treat it as a candidate until repeated in another channel or instrument."
+   },
+   "classification": "high_proper_motion_candidate",
+   "label": "known high-proper-motion object",
+   "confidence": 0.425,
+   "status": "known",
+   "subtype": "possible_brown_dwarf (CatWISE W1-W2 >= 1.0)",
+   "secondary_flags": [],
+   "note": "Motion agrees with CWISE J085506.91-071437.5 (1.02 sigma): known high-proper-motion object.",
+   "known_catalogue_match": {
+    "catalog": "catwise",
+    "id": "CWISE J085506.91-071437.5",
+    "separation_arcsec": 1.854,
+    "matched_using": "catalogue motion",
+    "catalog_ra": 133.7788255,
+    "catalog_dec": -7.2437546,
+    "catalog_ref_mjd": 57853.135215,
+    "pm_ra_cosdec_mas_yr": -7919.900000000001,
+    "pm_dec_mas_yr": 493.9,
+    "pm_suspect": false,
+    "parallax_mas": null,
+    "mag": 15.541,
+    "mag_band": "W2",
+    "otype": null,
+    "w1_mag": 19.456,
+    "w2_mag": 15.541,
+    "n_candidates_in_radius": 3,
+    "pm_difference_mas_yr": 2078.8,
+    "pm_difference_sigma": 1.02,
+    "pm_consistent": true
+   },
+   "catalogue_matches": {
+    "gaia": null,
+    "catwise": {
+     "id": "CWISE J085506.91-071437.5",
+     "separation_arcsec": 1.854,
+     "matched_using": "catalogue motion",
+     "catalog_ra": 133.7788255,
+     "catalog_dec": -7.2437546,
+     "catalog_ref_mjd": 57853.135215,
+     "pm_ra_cosdec_mas_yr": -7919.900000000001,
+     "pm_dec_mas_yr": 493.9,
+     "pm_suspect": false,
+     "parallax_mas": null,
+     "mag": 15.541,
+     "mag_band": "W2",
+     "otype": null,
+     "w1_mag": 19.456,
+     "w2_mag": 15.541,
+     "n_candidates_in_radius": 3,
+     "pm_difference_mas_yr": 2078.8,
+     "pm_difference_sigma": 1.02,
+     "pm_consistent": true
+    },
+    "simbad": null
+   },
+   "criteria": {
+    "high_proper_motion_candidate": {
+     "passed": true,
+     "confidence": 0.425,
+     "criteria": [
+      {
+       "name": "pm_total",
+       "value": 9045.3534,
+       "threshold": 500.0,
+       "strong": 2000.0,
+       "unit": "mas/yr",
+       "passed": true,
+       "score": 1.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "motion_significance",
+       "value": 4.0473,
+       "threshold": 3.0,
+       "strong": 15.0,
+       "unit": "sigma",
+       "passed": true,
+       "score": 0.087,
+       "weight": 1.5,
+       "required": true
+      },
+      {
+       "name": "pm_snr",
+       "value": 4.4281,
+       "threshold": 3.0,
+       "strong": 20.0,
+       "unit": "",
+       "passed": true,
+       "score": 0.084,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "displacement",
+       "value": 3.7933,
+       "threshold": 2.0,
+       "strong": 6.0,
+       "unit": "arcsec",
+       "passed": true,
+       "score": 0.448,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "visits",
+       "value": 3.0,
+       "threshold": 2,
+       "strong": 4,
+       "unit": "visits",
+       "passed": true,
+       "score": 0.5,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "linear_fit_chi2_red",
+       "value": 0.8192,
+       "threshold": 5.0,
+       "strong": 1.5,
+       "unit": "",
+       "passed": true,
+       "score": 1.0,
+       "weight": 0.5,
+       "required": false
+      }
+     ]
+    },
+    "variable_candidate": {
+     "passed": false,
+     "confidence": 0.0,
+     "criteria": [
+      {
+       "name": "variability_sigma",
+       "value": 1.4639,
+       "threshold": 3.3,
+       "strong": 8.0,
+       "unit": "sigma",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.5,
+       "required": true
+      },
+      {
+       "name": "amplitude",
+       "value": 0.3531,
+       "threshold": 0.09,
+       "strong": 0.5,
+       "unit": "fractional",
+       "passed": true,
+       "score": 0.642,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "wavelength_overlap",
+       "value": 0.18,
+       "threshold": 0.3,
+       "strong": 0.8,
+       "unit": "",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "visits",
+       "value": 3.0,
+       "threshold": 2,
+       "strong": 4,
+       "unit": "visits",
+       "passed": true,
+       "score": 0.5,
+       "weight": 0.5,
+       "required": true
+      },
+      {
+       "name": "min_visit_flux_snr",
+       "value": 2.94,
+       "threshold": 5.0,
+       "strong": 20.0,
+       "unit": "",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "not_saturated",
+       "value": 1.0,
+       "threshold": 1.0,
+       "strong": 1.0,
+       "unit": "",
+       "passed": true,
+       "score": 1.0,
+       "weight": 0.5,
+       "required": true
+      }
+     ]
+    }
+   },
+   "saturated": false,
+   "n_visits": 3,
+   "n_frame_detections": 12,
+   "transient_test": null,
+   "light_curve": {
+    "source_id": "S001",
+    "units": "mJy",
+    "magnitude_system": "AB",
+    "points": [
+     {
+      "mjd": 60800.700028461,
+      "observation_time": "2025-05-05T16:48:02.419Z",
+      "observation_id": "2025W19_1B_0116_1_D6",
+      "epoch": 0,
+      "wavelength": 4.967183770859654,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.0854508989062843,
+      "flux_err": 0.15774816072247044,
+      "aperture_flux": 0.02230666861624082,
+      "mag_ab": 19.070774033107703,
+      "mag_ab_err": 2.0043427456301997,
+      "snr": 0.5416918873407329
+     },
+     {
+      "mjd": 60800.701520718,
+      "observation_time": "2025-05-05T16:50:11.414Z",
+      "observation_id": "2025W19_1B_0116_2_D6",
+      "epoch": 0,
+      "wavelength": 5.004335142686613,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3118050382413164,
+      "flux_err": 0.17907750011822812,
+      "aperture_flux": 0.29960903278588824,
+      "mag_ab": 17.665357801350268,
+      "mag_ab_err": 0.6235656948732876,
+      "snr": 1.7411737266572334
+     },
+     {
+      "mjd": 60800.834437847,
+      "observation_time": "2025-05-05T20:01:35.443Z",
+      "observation_id": "2025W19_1B_0138_1_D6",
+      "epoch": 0,
+      "wavelength": 4.859268716747124,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.43528290651520424,
+      "flux_err": 0.16194019393797265,
+      "aperture_flux": 0.29766361257369583,
+      "mag_ab": 17.303136590225417,
+      "mag_ab_err": 0.4039311650706146,
+      "snr": 2.687923831201098
+     },
+     {
+      "mjd": 60989.296807454,
+      "observation_time": "2025-11-10T07:07:24.125Z",
+      "observation_id": "2025W46_1A_0075_4_D6",
+      "epoch": 1,
+      "wavelength": 4.411912208644649,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.6497326542503223,
+      "flux_err": 0.12722569465328276,
+      "aperture_flux": 0.6175719419437209,
+      "mag_ab": 16.868228887089792,
+      "mag_ab_err": 0.21260058572853133,
+      "snr": 5.106929508390446
+     },
+     {
+      "mjd": 60989.298548414,
+      "observation_time": "2025-11-10T07:09:54.547Z",
+      "observation_id": "2025W46_1A_0076_1_D6",
+      "epoch": 1,
+      "wavelength": 4.443825389464339,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.6214836261307762,
+      "flux_err": 0.12731287185827378,
+      "aperture_flux": 0.6417346118617266,
+      "mag_ab": 16.91649139472434,
+      "mag_ab_err": 0.22241647003451936,
+      "snr": 4.88154588816926
+     },
+     {
+      "mjd": 60989.301532928,
+      "observation_time": "2025-11-10T07:14:12.451Z",
+      "observation_id": "2025W46_1A_0076_3_D6",
+      "epoch": 1,
+      "wavelength": 4.509037636723598,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.30107387934281954,
+      "flux_err": 0.12099594145051064,
+      "aperture_flux": 0.3115081508977175,
+      "mag_ab": 17.703382926039012,
+      "mag_ab_err": 0.436337003224479,
+      "snr": 2.4882973406671147
+     },
+     {
+      "mjd": 60989.97699147,
+      "observation_time": "2025-11-10T23:26:52.022Z",
+      "observation_id": "2025W46_1A_0238_1_D6",
+      "epoch": 1,
+      "wavelength": 4.628372249275439,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.6808981894915878,
+      "flux_err": 0.1413635248069108,
+      "aperture_flux": 0.6981660299347426,
+      "mag_ab": 16.817360173805305,
+      "mag_ab_err": 0.22541328392970156,
+      "snr": 4.81664694214176
+     },
+     {
+      "mjd": 60993.508093229,
+      "observation_time": "2025-11-14T12:11:39.235Z",
+      "observation_id": "2025W46_2A_0214_3_D6",
+      "epoch": 1,
+      "wavelength": 4.766691669617922,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3999939818569421,
+      "flux_err": 0.145560462166233,
+      "aperture_flux": 0.3129556976584827,
+      "mag_ab": 17.394931979374718,
+      "mag_ab_err": 0.39510660390817637,
+      "snr": 2.7479576246476936
+     },
+     {
+      "mjd": 60993.509585509,
+      "observation_time": "2025-11-14T12:13:48.230Z",
+      "observation_id": "2025W46_2A_0214_4_D6",
+      "epoch": 1,
+      "wavelength": 4.800799102005644,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.50836932855487,
+      "flux_err": 0.15407996331512894,
+      "aperture_flux": 0.6247420998626404,
+      "mag_ab": 17.134617271320394,
+      "mag_ab_err": 0.32907216309566106,
+      "snr": 3.2993863550910767
+     },
+     {
+      "mjd": 60993.574249873,
+      "observation_time": "2025-11-14T13:46:55.200Z",
+      "observation_id": "2025W46_2A_0226_1_D6",
+      "epoch": 1,
+      "wavelength": 4.834565569843353,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3224111859510496,
+      "flux_err": 0.14661275964940476,
+      "aperture_flux": 0.42739111028815563,
+      "mag_ab": 17.629040369532248,
+      "mag_ab_err": 0.49372598770511833,
+      "snr": 2.1990663481270785
+     },
+     {
+      "mjd": 60993.57574213,
+      "observation_time": "2025-11-14T13:49:04.109Z",
+      "observation_id": "2025W46_2A_0226_2_D6",
+      "epoch": 1,
+      "wavelength": 4.87061748475751,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.493456890400454,
+      "flux_err": 0.15616159698196155,
+      "aperture_flux": 0.5840874630967393,
+      "mag_ab": 17.166942578192547,
+      "mag_ab_err": 0.34359698473065947,
+      "snr": 3.159911911360985
+     },
+     {
+      "mjd": 60993.578726644,
+      "observation_time": "2025-11-14T13:53:22.013Z",
+      "observation_id": "2025W46_2A_0226_4_D6",
+      "epoch": 1,
+      "wavelength": 4.94329853052207,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2666235920813411,
+      "flux_err": 0.17213643449954744,
+      "aperture_flux": 0.3828984180305401,
+      "mag_ab": 17.835319184405456,
+      "mag_ab_err": 0.7009685738429231,
+      "snr": 1.5489085320983693
+     },
+     {
+      "mjd": 60993.912885139,
+      "observation_time": "2025-11-14T21:54:33.264Z",
+      "observation_id": "2025W46_2A_0289_1_D6",
+      "epoch": 1,
+      "wavelength": 4.9800237765144475,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.36176630628734197,
+      "flux_err": 0.1814021796914947,
+      "aperture_flux": 0.5375715280745164,
+      "mag_ab": 17.50399533312929,
+      "mag_ab_err": 0.5444258093971285,
+      "snr": 1.9942776150903323
+     },
+     {
+      "mjd": 61021.282827477,
+      "observation_time": "2025-12-12T06:47:16.253Z",
+      "observation_id": "2025W50_2A_0232_1_D6",
+      "epoch": 2,
+      "wavelength": 4.628684194663134,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.6111493066658422,
+      "flux_err": 0.12189891658956672,
+      "aperture_flux": 0.6234866984037333,
+      "mag_ab": 16.93469731378015,
+      "mag_ab_err": 0.21655930166087703,
+      "snr": 5.0135745563972485
+     },
+     {
+      "mjd": 61151.197933206,
+      "observation_time": "2026-04-21T04:45:01.411Z",
+      "observation_id": "2026W17_1B_0227_2_D6",
+      "epoch": 3,
+      "wavelength": 4.413490704349938,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.5864331450421566,
+      "flux_err": 0.1137280185456747,
+      "aperture_flux": 0.5557094546028193,
+      "mag_ab": 16.97951935094976,
+      "mag_ab_err": 0.21055874531369909,
+      "snr": 5.1564526713937004
+     },
+     {
+      "mjd": 61151.199425463,
+      "observation_time": "2026-04-21T04:47:10.320Z",
+      "observation_id": "2026W17_1B_0227_3_D6",
+      "epoch": 3,
+      "wavelength": 4.446050920092626,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.46837503512915585,
+      "flux_err": 0.1169195192752616,
+      "aperture_flux": 0.417823530771381,
+      "mag_ab": 17.22358127559499,
+      "mag_ab_err": 0.271030148062999,
+      "snr": 4.005961006617454
+     },
+     {
+      "mjd": 61151.20091772,
+      "observation_time": "2026-04-21T04:49:19.315Z",
+      "observation_id": "2026W17_1B_0227_4_D6",
+      "epoch": 3,
+      "wavelength": 4.477732047261911,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.6798366825641979,
+      "flux_err": 0.11390856225045215,
+      "aperture_flux": 0.6226399744722044,
+      "mag_ab": 16.819054136031344,
+      "mag_ab_err": 0.18191817717276865,
+      "snr": 5.968266731954993
+     },
+     {
+      "mjd": 61152.757303588,
+      "observation_time": "2026-04-22T18:10:31.066Z",
+      "observation_id": "2026W17_1B_0507_1_D6",
+      "epoch": 3,
+      "wavelength": 4.509576241090421,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.5778971627870593,
+      "flux_err": 0.11757615385072756,
+      "aperture_flux": 0.500320563313724,
+      "mag_ab": 16.995439216575473,
+      "mag_ab_err": 0.22089862223287152,
+      "snr": 4.915088169330207
+     },
+     {
+      "mjd": 61152.758795833,
+      "observation_time": "2026-04-22T18:12:39.974Z",
+      "observation_id": "2026W17_1B_0507_2_D6",
+      "epoch": 3,
+      "wavelength": 4.542305316412036,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.92674719665381,
+      "flux_err": 0.1260325035483582,
+      "aperture_flux": 0.837397821640475,
+      "mag_ab": 16.482662419800207,
+      "mag_ab_err": 0.14765413110807207,
+      "snr": 7.353239605354824
+     },
+     {
+      "mjd": 61152.76028809,
+      "observation_time": "2026-04-22T18:14:48.883Z",
+      "observation_id": "2026W17_1B_0507_3_D6",
+      "epoch": 3,
+      "wavelength": 4.577523613487585,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.6077220305353148,
+      "flux_err": 0.11762055105514986,
+      "aperture_flux": 0.5714860138614228,
+      "mag_ab": 16.94080317167024,
+      "mag_ab_err": 0.2101370104876546,
+      "snr": 5.166801422740882
+     },
+     {
+      "mjd": 61153.436457037,
+      "observation_time": "2026-04-23T10:28:29.885Z",
+      "observation_id": "2026W17_1B_0634_1_D6",
+      "epoch": 3,
+      "wavelength": 4.608835164290774,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.6288499775803055,
+      "flux_err": 0.12371382268479585,
+      "aperture_flux": 0.5717957533443735,
+      "mag_ab": 16.903697997858966,
+      "mag_ab_err": 0.21359717119614177,
+      "snr": 5.08310198434754
+     },
+     {
+      "mjd": 61153.437949306,
+      "observation_time": "2026-04-23T10:30:38.794Z",
+      "observation_id": "2026W17_1B_0634_2_D6",
+      "epoch": 3,
+      "wavelength": 4.643443078599317,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.6065451779792322,
+      "flux_err": 0.1294216361915756,
+      "aperture_flux": 0.5817926029088585,
+      "mag_ab": 16.942907736166287,
+      "mag_ab_err": 0.2316690680162985,
+      "snr": 4.686582520726267
+     },
+     {
+      "mjd": 61153.439441551,
+      "observation_time": "2026-04-23T10:32:47.789Z",
+      "observation_id": "2026W17_1B_0634_3_D6",
+      "epoch": 3,
+      "wavelength": 4.667011346288406,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.5753422915905253,
+      "flux_err": 0.12463112751999364,
+      "aperture_flux": 0.5429007408457575,
+      "mag_ab": 17.00024987525373,
+      "mag_ab_err": 0.2351930830848603,
+      "snr": 4.6163611213276345
+     },
+     {
+      "mjd": 61153.440933808,
+      "observation_time": "2026-04-23T10:34:56.698Z",
+      "observation_id": "2026W17_1B_0634_4_D6",
+      "epoch": 3,
+      "wavelength": 4.709915727342588,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.838531607233107,
+      "flux_err": 0.13782064525117357,
+      "aperture_flux": 0.6930543709841241,
+      "mag_ab": 16.591267028903665,
+      "mag_ab_err": 0.17845107211412187,
+      "snr": 6.084223489919895
+     },
+     {
+      "mjd": 61156.085510949,
+      "observation_time": "2026-04-26T02:03:08.150Z",
+      "observation_id": "2026W17_2A_0591_1_D6",
+      "epoch": 3,
+      "wavelength": 4.814422486330823,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.4729732019535904,
+      "flux_err": 0.15310094459538107,
+      "aperture_flux": 0.48997985106133823,
+      "mag_ab": 17.212974285096156,
+      "mag_ab_err": 0.351451705600404,
+      "snr": 3.08928990087929
+     },
+     {
+      "mjd": 61156.152715706,
+      "observation_time": "2026-04-26T03:39:54.662Z",
+      "observation_id": "2026W17_2A_0609_1_D6",
+      "epoch": 3,
+      "wavelength": 4.744691820296579,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.5056564075653374,
+      "flux_err": 0.13372029606222458,
+      "aperture_flux": 0.5209605448890013,
+      "mag_ab": 17.140426835046142,
+      "mag_ab_err": 0.28712177789811427,
+      "snr": 3.7814484596267897
+     },
+     {
+      "mjd": 61156.154225718,
+      "observation_time": "2026-04-26T03:42:05.126Z",
+      "observation_id": "2026W17_2A_0609_2_D6",
+      "epoch": 3,
+      "wavelength": 4.7801493298764175,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.4997163198391205,
+      "flux_err": 0.13917124735877026,
+      "aperture_flux": 0.44379291434163487,
+      "mag_ab": 17.153256789898798,
+      "mag_ab_err": 0.30237808116295356,
+      "snr": 3.5906577638906927
+     },
+     {
+      "mjd": 61156.493180671,
+      "observation_time": "2026-04-26T11:50:10.838Z",
+      "observation_id": "2026W17_2A_0692_1_D6",
+      "epoch": 3,
+      "wavelength": 4.894340852179782,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3931297658841097,
+      "flux_err": 0.14794875670524157,
+      "aperture_flux": 0.2113875758520584,
+      "mag_ab": 17.41372580292652,
+      "mag_ab_err": 0.4086012699714673,
+      "snr": 2.657202227574933
+     },
+     {
+      "mjd": 61156.494672917,
+      "observation_time": "2026-04-26T11:52:19.747Z",
+      "observation_id": "2026W17_2A_0692_2_D6",
+      "epoch": 3,
+      "wavelength": 4.931099908459715,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2687708351288597,
+      "flux_err": 0.15094345790831917,
+      "aperture_flux": 0.3045288333244287,
+      "mag_ab": 17.8266102703846,
+      "mag_ab_err": 0.6097565498275654,
+      "snr": 1.7806060550971816
+     },
+     {
+      "mjd": 61168.984738356,
+      "observation_time": "2026-05-08T23:38:01.363Z",
+      "observation_id": "2026W19_2A_0568_1_D6",
+      "epoch": 3,
+      "wavelength": 4.823585577540465,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.5275364934003819,
+      "flux_err": 0.15173264589299093,
+      "aperture_flux": 0.45872473791865404,
+      "mag_ab": 17.09443435176923,
+      "mag_ab_err": 0.31228479764096995,
+      "snr": 3.47675011066785
+     },
+     {
+      "mjd": 61169.194222546,
+      "observation_time": "2026-05-09T04:39:40.867Z",
+      "observation_id": "2026W19_2A_0651_1_D6",
+      "epoch": 3,
+      "wavelength": 4.859277972242494,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.8492263291990854,
+      "flux_err": 0.16796330134219242,
+      "aperture_flux": 0.7461071575396865,
+      "mag_ab": 16.577506996133835,
+      "mag_ab_err": 0.21474114858156523,
+      "snr": 5.05602308607255
+     },
+     {
+      "mjd": 61169.527652685,
+      "observation_time": "2026-05-09T12:39:49.219Z",
+      "observation_id": "2026W19_2A_0782_1_D6",
+      "epoch": 3,
+      "wavelength": 4.8945414195874,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.4203894042179853,
+      "flux_err": 0.15824470594474244,
+      "aperture_flux": 0.23412281117713435,
+      "mag_ab": 17.340936219184606,
+      "mag_ab_err": 0.40869728097718855,
+      "snr": 2.656577998664811
+     },
+     {
+      "mjd": 61169.933208472,
+      "observation_time": "2026-05-09T22:23:49.171Z",
+      "observation_id": "2026W19_2A_0952_1_D6",
+      "epoch": 3,
+      "wavelength": 4.930855010571257,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.5436362368182384,
+      "flux_err": 0.17192016441296992,
+      "aperture_flux": 0.35915620930625075,
+      "mag_ab": 17.06179462848461,
+      "mag_ab_err": 0.3433544973447755,
+      "snr": 3.162143537231434
+     },
+     {
+      "mjd": 61171.096350255,
+      "observation_time": "2026-05-11T02:18:44.640Z",
+      "observation_id": "2026W20_1A_0033_1_D6",
+      "epoch": 3,
+      "wavelength": 4.967160082086046,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.5208729601841017,
+      "flux_err": 0.17319330483322873,
+      "aperture_flux": 0.44953356760539176,
+      "mag_ab": 17.108236090514854,
+      "mag_ab_err": 0.36101363643964995,
+      "snr": 3.0074659103344703
+     }
+    ],
+    "n_frames": 44,
+    "n_good": 34,
+    "n_rejected": 10,
+    "rejected_flags": {
+     "partially_masked": 1,
+     "masked_core": 10,
+     "saturation_nearby": 1
+    },
+    "warning": "Each point is at a different wavelength (colour = wavelength). Changes in flux between points reflect the spectrum as well as time; use variability_indicator."
+   },
+   "spectrum": {
+    "source_id": "S001",
+    "units": "mJy",
+    "wavelength_units": "um",
+    "kind": "multi-channel PSF photometry profile",
+    "visits": [
+     {
+      "epoch": 0,
+      "mjd": 60800.74532900866,
+      "points": [
+       {
+        "wavelength": 4.859268716747124,
+        "flux": 0.43528290651520424,
+        "flux_err": 0.16194019393797265,
+        "observation_id": "2025W19_1B_0138_1_D6"
+       },
+       {
+        "wavelength": 4.967183770859654,
+        "flux": 0.0854508989062843,
+        "flux_err": 0.15774816072247044,
+        "observation_id": "2025W19_1B_0116_1_D6"
+       },
+       {
+        "wavelength": 5.004335142686613,
+        "flux": 0.3118050382413164,
+        "flux_err": 0.17907750011822812,
+        "observation_id": "2025W19_1B_0116_2_D6"
+       }
+      ]
+     },
+     {
+      "epoch": 1,
+      "mjd": 60991.953316279,
+      "points": [
+       {
+        "wavelength": 4.411912208644649,
+        "flux": 0.6497326542503223,
+        "flux_err": 0.12722569465328276,
+        "observation_id": "2025W46_1A_0075_4_D6"
+       },
+       {
+        "wavelength": 4.443825389464339,
+        "flux": 0.6214836261307762,
+        "flux_err": 0.12731287185827378,
+        "observation_id": "2025W46_1A_0076_1_D6"
+       },
+       {
+        "wavelength": 4.509037636723598,
+        "flux": 0.30107387934281954,
+        "flux_err": 0.12099594145051064,
+        "observation_id": "2025W46_1A_0076_3_D6"
+       },
+       {
+        "wavelength": 4.628372249275439,
+        "flux": 0.6808981894915878,
+        "flux_err": 0.1413635248069108,
+        "observation_id": "2025W46_1A_0238_1_D6"
+       },
+       {
+        "wavelength": 4.766691669617922,
+        "flux": 0.3999939818569421,
+        "flux_err": 0.145560462166233,
+        "observation_id": "2025W46_2A_0214_3_D6"
+       },
+       {
+        "wavelength": 4.800799102005644,
+        "flux": 0.50836932855487,
+        "flux_err": 0.15407996331512894,
+        "observation_id": "2025W46_2A_0214_4_D6"
+       },
+       {
+        "wavelength": 4.834565569843353,
+        "flux": 0.3224111859510496,
+        "flux_err": 0.14661275964940476,
+        "observation_id": "2025W46_2A_0226_1_D6"
+       },
+       {
+        "wavelength": 4.87061748475751,
+        "flux": 0.493456890400454,
+        "flux_err": 0.15616159698196155,
+        "observation_id": "2025W46_2A_0226_2_D6"
+       },
+       {
+        "wavelength": 4.94329853052207,
+        "flux": 0.2666235920813411,
+        "flux_err": 0.17213643449954744,
+        "observation_id": "2025W46_2A_0226_4_D6"
+       },
+       {
+        "wavelength": 4.9800237765144475,
+        "flux": 0.36176630628734197,
+        "flux_err": 0.1814021796914947,
+        "observation_id": "2025W46_2A_0289_1_D6"
+       }
+      ]
+     },
+     {
+      "epoch": 2,
+      "mjd": 61021.282827477,
+      "points": [
+       {
+        "wavelength": 4.628684194663134,
+        "flux": 0.6111493066658422,
+        "flux_err": 0.12189891658956672,
+        "observation_id": "2025W50_2A_0232_1_D6"
+       }
+      ]
+     },
+     {
+      "epoch": 3,
+      "mjd": 61157.78729619385,
+      "points": [
+       {
+        "wavelength": 4.413490704349938,
+        "flux": 0.5864331450421566,
+        "flux_err": 0.1137280185456747,
+        "observation_id": "2026W17_1B_0227_2_D6"
+       },
+       {
+        "wavelength": 4.446050920092626,
+        "flux": 0.46837503512915585,
+        "flux_err": 0.1169195192752616,
+        "observation_id": "2026W17_1B_0227_3_D6"
+       },
+       {
+        "wavelength": 4.477732047261911,
+        "flux": 0.6798366825641979,
+        "flux_err": 0.11390856225045215,
+        "observation_id": "2026W17_1B_0227_4_D6"
+       },
+       {
+        "wavelength": 4.509576241090421,
+        "flux": 0.5778971627870593,
+        "flux_err": 0.11757615385072756,
+        "observation_id": "2026W17_1B_0507_1_D6"
+       },
+       {
+        "wavelength": 4.542305316412036,
+        "flux": 0.92674719665381,
+        "flux_err": 0.1260325035483582,
+        "observation_id": "2026W17_1B_0507_2_D6"
+       },
+       {
+        "wavelength": 4.577523613487585,
+        "flux": 0.6077220305353148,
+        "flux_err": 0.11762055105514986,
+        "observation_id": "2026W17_1B_0507_3_D6"
+       },
+       {
+        "wavelength": 4.608835164290774,
+        "flux": 0.6288499775803055,
+        "flux_err": 0.12371382268479585,
+        "observation_id": "2026W17_1B_0634_1_D6"
+       },
+       {
+        "wavelength": 4.643443078599317,
+        "flux": 0.6065451779792322,
+        "flux_err": 0.1294216361915756,
+        "observation_id": "2026W17_1B_0634_2_D6"
+       },
+       {
+        "wavelength": 4.667011346288406,
+        "flux": 0.5753422915905253,
+        "flux_err": 0.12463112751999364,
+        "observation_id": "2026W17_1B_0634_3_D6"
+       },
+       {
+        "wavelength": 4.709915727342588,
+        "flux": 0.838531607233107,
+        "flux_err": 0.13782064525117357,
+        "observation_id": "2026W17_1B_0634_4_D6"
+       },
+       {
+        "wavelength": 4.744691820296579,
+        "flux": 0.5056564075653374,
+        "flux_err": 0.13372029606222458,
+        "observation_id": "2026W17_2A_0609_1_D6"
+       },
+       {
+        "wavelength": 4.7801493298764175,
+        "flux": 0.4997163198391205,
+        "flux_err": 0.13917124735877026,
+        "observation_id": "2026W17_2A_0609_2_D6"
+       },
+       {
+        "wavelength": 4.814422486330823,
+        "flux": 0.4729732019535904,
+        "flux_err": 0.15310094459538107,
+        "observation_id": "2026W17_2A_0591_1_D6"
+       },
+       {
+        "wavelength": 4.823585577540465,
+        "flux": 0.5275364934003819,
+        "flux_err": 0.15173264589299093,
+        "observation_id": "2026W19_2A_0568_1_D6"
+       },
+       {
+        "wavelength": 4.859277972242494,
+        "flux": 0.8492263291990854,
+        "flux_err": 0.16796330134219242,
+        "observation_id": "2026W19_2A_0651_1_D6"
+       },
+       {
+        "wavelength": 4.894340852179782,
+        "flux": 0.3931297658841097,
+        "flux_err": 0.14794875670524157,
+        "observation_id": "2026W17_2A_0692_1_D6"
+       },
+       {
+        "wavelength": 4.8945414195874,
+        "flux": 0.4203894042179853,
+        "flux_err": 0.15824470594474244,
+        "observation_id": "2026W19_2A_0782_1_D6"
+       },
+       {
+        "wavelength": 4.930855010571257,
+        "flux": 0.5436362368182384,
+        "flux_err": 0.17192016441296992,
+        "observation_id": "2026W19_2A_0952_1_D6"
+       },
+       {
+        "wavelength": 4.931099908459715,
+        "flux": 0.2687708351288597,
+        "flux_err": 0.15094345790831917,
+        "observation_id": "2026W17_2A_0692_2_D6"
+       },
+       {
+        "wavelength": 4.967160082086046,
+        "flux": 0.5208729601841017,
+        "flux_err": 0.17319330483322873,
+        "observation_id": "2026W20_1A_0033_1_D6"
+       }
+      ]
+     }
+    ],
+    "combined": [
+     {
+      "channel": 85,
+      "label": "D6-00 (4.428 um)",
+      "wavelength": 4.428027466741727,
+      "wavelength_min": 4.4115,
+      "wavelength_max": 4.444616852820845,
+      "flux": 0.6166791297652132,
+      "flux_err": 0.07057120068597438,
+      "n": 3,
+      "scatter": 0.025891593831540615
+     },
+     {
+      "channel": 86,
+      "label": "D6-01 (4.461 um)",
+      "wavelength": 4.461268390215091,
+      "wavelength_min": 4.444616852820845,
+      "wavelength_max": 4.477982311771296,
+      "flux": 0.5768637278730173,
+      "flux_err": 0.0815892240153381,
+      "n": 2,
+      "scatter": 0.10573082371752104
+     },
+     {
+      "channel": 87,
+      "label": "D6-02 (4.495 um)",
+      "wavelength": 4.4947588512086405,
+      "wavelength_min": 4.477982311771296,
+      "wavelength_max": 4.51159824312192,
+      "flux": 0.44345280128018283,
+      "flux_err": 0.08432197921126673,
+      "n": 2,
+      "scatter": 0.13841164172211987
+     },
+     {
+      "channel": 88,
+      "label": "D6-03 (4.529 um)",
+      "wavelength": 4.528500722984831,
+      "wavelength_min": 4.51159824312192,
+      "wavelength_max": 4.545466527153259,
+      "flux": 0.92674719665381,
+      "flux_err": 0.1260325035483582,
+      "n": 1,
+      "scatter": null
+     },
+     {
+      "channel": 89,
+      "label": "D6-04 (4.562 um)",
+      "wavelength": 4.562495892868585,
+      "wavelength_min": 4.545466527153259,
+      "wavelength_max": 4.579589058261002,
+      "flux": 0.6077220305353148,
+      "flux_err": 0.11762055105514985,
+      "n": 1,
+      "scatter": null
+     },
+     {
+      "channel": 90,
+      "label": "D6-05 (4.597 um)",
+      "wavelength": 4.596746262352849,
+      "wavelength_min": 4.579589058261002,
+      "wavelength_max": 4.613967745061949,
+      "flux": 0.6288499775803055,
+      "flux_err": 0.12371382268479585,
+      "n": 1,
+      "scatter": null
+     },
+     {
+      "channel": 91,
+      "label": "D6-06 (4.631 um)",
+      "wavelength": 4.631253747204965,
+      "wavelength_min": 4.613967745061949,
+      "wavelength_max": 4.648604510500767,
+      "flux": 0.6293114128115116,
+      "flux_err": 0.07515605440232791,
+      "n": 3,
+      "scatter": 0.03401711167005825
+     },
+     {
+      "channel": 92,
+      "label": "D6-07 (4.666 um)",
+      "wavelength": 4.666020277573813,
+      "wavelength_min": 4.648604510500767,
+      "wavelength_max": 4.683501291957543,
+      "flux": 0.5753422915905253,
+      "flux_err": 0.12463112751999363,
+      "n": 1,
+      "scatter": null
+     },
+     {
+      "channel": 93,
+      "label": "D6-08 (4.701 um)",
+      "wavelength": 4.701047798097782,
+      "wavelength_min": 4.683501291957543,
+      "wavelength_max": 4.718660041356159,
+      "flux": 0.838531607233107,
+      "flux_err": 0.13782064525117357,
+      "n": 1,
+      "scatter": null
+     },
+     {
+      "channel": 94,
+      "label": "D6-09 (4.736 um)",
+      "wavelength": 4.736338268013539,
+      "wavelength_min": 4.718660041356159,
+      "wavelength_max": 4.754082725273465,
+      "flux": 0.5056564075653374,
+      "flux_err": 0.13372029606222458,
+      "n": 1,
+      "scatter": null
+     },
+     {
+      "channel": 95,
+      "label": "D6-10 (4.772 um)",
+      "wavelength": 4.771893661265616,
+      "wavelength_min": 4.754082725273465,
+      "wavelength_max": 4.789771325049278,
+      "flux": 0.4520917362274871,
+      "flux_err": 0.1005918500614217,
+      "n": 2,
+      "scatter": 0.049861168991089194
+     },
+     {
+      "channel": 96,
+      "label": "D6-11 (4.808 um)",
+      "wavelength": 4.807715966616825,
+      "wavelength_min": 4.789771325049278,
+      "wavelength_max": 4.8257278368972125,
+      "flux": 0.5030850237758414,
+      "flux_err": 0.088312699177722,
+      "n": 3,
+      "scatter": 0.02260142266932267
+     },
+     {
+      "channel": 97,
+      "label": "D6-12 (4.844 um)",
+      "wavelength": 4.8438071877594915,
+      "wavelength_min": 4.8257278368972125,
+      "wavelength_max": 4.861954272016327,
+      "flux": 0.5137322028216694,
+      "flux_err": 0.091248998529012,
+      "n": 3,
+      "scatter": 0.226476238057429
+     },
+     {
+      "channel": 98,
+      "label": "D6-13 (4.880 um)",
+      "wavelength": 4.880169343427536,
+      "wavelength_min": 4.861954272016327,
+      "wavelength_max": 4.898452656703631,
+      "flux": 0.4342165089599268,
+      "flux_err": 0.08886671375781448,
+      "n": 3,
+      "scatter": 0.042357574860855764
+     },
+     {
+      "channel": 99,
+      "label": "D6-14 (4.917 um)",
+      "wavelength": 4.916804467509387,
+      "wavelength_min": 4.898452656703631,
+      "wavelength_max": 4.9352250324674145,
+      "flux": 0.3884203784059472,
+      "flux_err": 0.113428529499503,
+      "n": 2,
+      "scatter": 0.13743270084468934
+     },
+     {
+      "channel": 100,
+      "label": "D6-15 (4.954 um)",
+      "wavelength": 4.9537146091617466,
+      "wavelength_min": 4.9352250324674145,
+      "wavelength_max": 4.972273456141442,
+      "flux": 0.27776892255872543,
+      "flux_err": 0.0965509868187415,
+      "n": 3,
+      "scatter": 0.17859285085242843
+     },
+     {
+      "channel": 101,
+      "label": "D6-16 (4.991 um)",
+      "wavelength": 4.990901832924203,
+      "wavelength_min": 4.972273456141442,
+      "wavelength_max": 5.0096,
+      "flux": 0.3364634929132293,
+      "flux_err": 0.1274408627802075,
+      "n": 2,
+      "scatter": 0.024980634023012788
+     }
+    ],
+    "limitations": [
+     "PSF-fitted flux assuming a Gaussian PSF: absolute level uncertain by ~10%, colours across one detector better.",
+     "Points from different visits are combined in 'combined'; a variable source blurs it (see 'visits').",
+     "Saturated or masked cores are excluded, so bright stars can have no spectrum at all."
+    ]
+   },
+   "is_target": true,
+   "is_field_centre": true
+  },
+  {
+   "source_id": "S003",
+   "ra": 133.7554567078744,
+   "dec": -7.230892152715527,
+   "ref_mjd": 61081.4040206486,
+   "detections": [
+    {
+     "kind": "visit_stack",
+     "observation_id": "visit1_D6",
+     "mjd": 60991.52774646607,
+     "observation_time": null,
+     "epoch": 1,
+     "wavelength": 4.688608175730279,
+     "detector": 6,
+     "ra": 133.75535755013811,
+     "dec": -7.230924045754749,
+     "ra_err_arcsec": 0.8295307773888172,
+     "dec_err_arcsec": 0.8219592100251233,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 0.9685666268436547,
+     "dec_err_total_arcsec": 0.9620898829865766,
+     "x": 16.41156997576946,
+     "y": 21.494838147942446,
+     "flux_mjy": 0.27673386698219404,
+     "flux_err_mjy": 0.04031882711890968,
+     "snr": 6.863638819801006,
+     "significance": 6.530127129852398,
+     "quality_flags": [
+      "saturation_nearby"
+     ],
+     "quality": 0.75,
+     "n_frames": 18
+    },
+    {
+     "kind": "visit_stack",
+     "observation_id": "visit3_D6",
+     "mjd": 61157.78729619385,
+     "observation_time": null,
+     "epoch": 3,
+     "wavelength": 4.7117047299869155,
+     "detector": 6,
+     "ra": 133.75554097918817,
+     "dec": -7.230865047716585,
+     "ra_err_arcsec": 0.7458219624206255,
+     "dec_err_arcsec": 0.726715732855081,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 0.8979144723351734,
+     "dec_err_total_arcsec": 0.8821086987322466,
+     "x": 16.30505098971677,
+     "y": 21.52937413358969,
+     "flux_mjy": 0.309469907308834,
+     "flux_err_mjy": 0.03910962320890697,
+     "snr": 7.912883886806513,
+     "significance": 6.8529589181284,
+     "quality_flags": [],
+     "quality": 1.0,
+     "n_frames": 20
+    }
+   ],
+   "angular_motion": {
+    "n_points": 2,
+    "baseline_yr": 0.4551938390904307,
+    "ref_mjd": 61081.4040206486,
+    "parallax_removed_mas": null,
+    "systematic_arcsec": 0.0,
+    "displacement_arcsec": 0.6886634838744526,
+    "displacement_err_arcsec": 1.3192824484890078,
+    "displacement_snr": 0.5219985187123412,
+    "displacement_pa_deg": 72.03636807479306,
+    "model": "linear",
+    "pm_ra_cosdec_mas_yr": 1439.151377803661,
+    "pm_dec_mas_yr": 466.59890607790186,
+    "pm_total_mas_yr": 1512.9015921028276,
+    "pm_ra_cosdec_err_mas_yr": 2901.5037888460083,
+    "pm_dec_err_mas_yr": 2867.506123569503,
+    "pm_err_mas_yr": 2898.287136586032,
+    "pm_pa_deg": 72.03636807479306,
+    "pm_snr": 0.521998518712992,
+    "ra_at_ref": 133.7554567078744,
+    "dec_at_ref": -7.230892152715527,
+    "static_chi2": 0.2724954864659416,
+    "linear_chi2": 1.4961301650430224e-32,
+    "linear_dof": 0,
+    "linear_chi2_red": null,
+    "error_scale": 1.0,
+    "motion_p_value": 0.8726264184169643,
+    "motion_sigma": 0.16032328363432477,
+    "position_err_at_ref_arcsec": [
+     0.6584938178269345,
+     0.6501947344596258
+    ],
+    "residuals_arcsec": [
+     [
+      -1.1102230246251565e-16,
+      2.7755575615628914e-17
+     ],
+     [
+      0.0,
+      -2.7755575615628914e-17
+     ]
+    ],
+    "rms_residual_arcsec": 8.326672684688674e-17,
+    "mjd": [
+     60991.52774646607,
+     61157.78729619385
+    ]
+   },
+   "motion_uncertainty": {
+    "pm_ra_cosdec_err_mas_yr": 2901.5037888460083,
+    "pm_dec_err_mas_yr": 2867.506123569503,
+    "pm_total_err_mas_yr": 2898.287136586032,
+    "position_err_at_ref_arcsec": [
+     0.6584938178269345,
+     0.6501947344596258
+    ],
+    "registration_err_arcsec": [
+     0.5,
+     0.5
+    ],
+    "error_scale_applied": 1.0
+   },
+   "variability_indicator": {
+    "method": "visit scale factors on a shared ln(lambda) polynomial (degree 2)",
+    "calibration_floor": 0.03,
+    "n_visits": 3,
+    "n_points": 37,
+    "visits": [
+     {
+      "epoch": 0,
+      "scale": 0.7739,
+      "scale_err": 0.2862,
+      "n_points": 3,
+      "mjd": 60800.74532900866,
+      "wavelength_range": [
+       4.860917117343728,
+       5.005656801017064
+      ],
+      "within_visit_chi2_red": 0.72,
+      "releases": [
+       "DR1"
+      ]
+     },
+     {
+      "epoch": 1,
+      "scale": 0.9504,
+      "scale_err": 0.1247,
+      "n_points": 16,
+      "mjd": 60991.53493238425,
+      "wavelength_range": [
+       4.410412042256561,
+       4.977802735041474
+      ],
+      "within_visit_chi2_red": 0.44,
+      "releases": [
+       "DR1"
+      ]
+     },
+     {
+      "epoch": 3,
+      "scale": 1.0817,
+      "scale_err": 0.114,
+      "n_points": 18,
+      "mjd": 61158.51936473378,
+      "wavelength_range": [
+       4.479382083579365,
+       4.9689994412943665
+      ],
+      "within_visit_chi2_red": 0.58,
+      "releases": [
+       "DR1"
+      ]
+     }
+    ],
+    "chi2": 1.29,
+    "dof": 2,
+    "p_value": 0.5234332142260683,
+    "sigma": 0.638062164985736,
+    "amplitude": 0.3078,
+    "amplitude_mag": 0.364,
+    "wavelength_overlap": 0.18,
+    "reliable": false,
+    "min_visit_snr": 2.7,
+    "significant": false,
+    "mean_spectrum_coefficients": [
+     0.2716354583806642,
+     0.5980463074714073,
+     16.301726821383355
+    ],
+    "reason": "visits cover different wavelengths; the shared spectrum is extrapolated",
+    "releases": [
+     "DR1"
+    ],
+    "warning": "Apparent variability can be instrumental: different wavelengths, detector positions, PSF/undersampling phase, background and calibration between visits. Treat it as a candidate until repeated in another channel or instrument."
+   },
+   "classification": "stationary",
+   "label": "stationary",
+   "confidence": 0.375,
+   "status": "known",
+   "subtype": null,
+   "secondary_flags": [],
+   "note": "Counterpart Gaia DR3 5756956644387830912 at 0.489\".",
+   "known_catalogue_match": {
+    "catalog": "gaia",
+    "id": "Gaia DR3 5756956644387830912",
+    "separation_arcsec": 0.489,
+    "matched_using": "catalogue motion",
+    "catalog_ra": 133.75536088469497,
+    "catalog_dec": -7.230815940176407,
+    "catalog_ref_mjd": 57388.5,
+    "pm_ra_cosdec_mas_yr": -5.03693824323946,
+    "pm_dec_mas_yr": 1.6192144881748485,
+    "pm_suspect": false,
+    "parallax_mas": 0.8695067805845971,
+    "mag": 16.348774,
+    "mag_band": "G",
+    "otype": null,
+    "w1_mag": null,
+    "w2_mag": null,
+    "n_candidates_in_radius": 1,
+    "pm_difference_mas_yr": 1517.2,
+    "pm_difference_sigma": 0.52,
+    "pm_consistent": true
+   },
+   "catalogue_matches": {
+    "gaia": {
+     "id": "Gaia DR3 5756956644387830912",
+     "separation_arcsec": 0.489,
+     "matched_using": "catalogue motion",
+     "catalog_ra": 133.75536088469497,
+     "catalog_dec": -7.230815940176407,
+     "catalog_ref_mjd": 57388.5,
+     "pm_ra_cosdec_mas_yr": -5.03693824323946,
+     "pm_dec_mas_yr": 1.6192144881748485,
+     "pm_suspect": false,
+     "parallax_mas": 0.8695067805845971,
+     "mag": 16.348774,
+     "mag_band": "G",
+     "otype": null,
+     "w1_mag": null,
+     "w2_mag": null,
+     "n_candidates_in_radius": 1,
+     "pm_difference_mas_yr": 1517.2,
+     "pm_difference_sigma": 0.52,
+     "pm_consistent": true
+    },
+    "catwise": {
+     "id": "CWISE J085501.28-071351.0",
+     "separation_arcsec": 0.611,
+     "matched_using": "catalogue motion",
+     "catalog_ra": 133.7553695,
+     "catalog_dec": -7.2308458,
+     "catalog_ref_mjd": 57220.495037,
+     "pm_ra_cosdec_mas_yr": -25.35,
+     "pm_dec_mas_yr": 2.4499999999999997,
+     "pm_suspect": false,
+     "parallax_mas": null,
+     "mag": 14.312,
+     "mag_band": "W2",
+     "otype": null,
+     "w1_mag": 14.247,
+     "w2_mag": 14.312,
+     "n_candidates_in_radius": 2,
+     "pm_difference_mas_yr": 1536.3,
+     "pm_difference_sigma": 0.53,
+     "pm_consistent": true
+    },
+    "simbad": null
+   },
+   "criteria": {
+    "high_proper_motion_candidate": {
+     "passed": false,
+     "confidence": 0.0,
+     "criteria": [
+      {
+       "name": "pm_total",
+       "value": 1512.9016,
+       "threshold": 500.0,
+       "strong": 2000.0,
+       "unit": "mas/yr",
+       "passed": true,
+       "score": 0.675,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "motion_significance",
+       "value": 0.1603,
+       "threshold": 3.0,
+       "strong": 15.0,
+       "unit": "sigma",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.5,
+       "required": true
+      },
+      {
+       "name": "pm_snr",
+       "value": 0.522,
+       "threshold": 3.0,
+       "strong": 20.0,
+       "unit": "",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "displacement",
+       "value": 0.6887,
+       "threshold": 2.0,
+       "strong": 6.0,
+       "unit": "arcsec",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "visits",
+       "value": 2.0,
+       "threshold": 3,
+       "strong": 4,
+       "unit": "visits",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "linear_fit_chi2_red",
+       "value": 1.0,
+       "threshold": 5.0,
+       "strong": 1.5,
+       "unit": "",
+       "passed": true,
+       "score": 1.0,
+       "weight": 0.5,
+       "required": false
+      }
+     ]
+    },
+    "variable_candidate": {
+     "passed": false,
+     "confidence": 0.0,
+     "criteria": [
+      {
+       "name": "variability_sigma",
+       "value": 0.6381,
+       "threshold": 3.3,
+       "strong": 8.0,
+       "unit": "sigma",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.5,
+       "required": true
+      },
+      {
+       "name": "amplitude",
+       "value": 0.3078,
+       "threshold": 0.09,
+       "strong": 0.5,
+       "unit": "fractional",
+       "passed": true,
+       "score": 0.531,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "wavelength_overlap",
+       "value": 0.18,
+       "threshold": 0.3,
+       "strong": 0.8,
+       "unit": "",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "visits",
+       "value": 3.0,
+       "threshold": 2,
+       "strong": 4,
+       "unit": "visits",
+       "passed": true,
+       "score": 0.5,
+       "weight": 0.5,
+       "required": true
+      },
+      {
+       "name": "min_visit_flux_snr",
+       "value": 2.7,
+       "threshold": 5.0,
+       "strong": 20.0,
+       "unit": "",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "not_saturated",
+       "value": 0.0,
+       "threshold": 1.0,
+       "strong": 1.0,
+       "unit": "",
+       "passed": false,
+       "score": 0.0,
+       "weight": 0.5,
+       "required": true
+      }
+     ]
+    },
+    "stationary": {
+     "passed": true,
+     "confidence": 0.375,
+     "criteria": [
+      {
+       "name": "visits",
+       "value": 2.0,
+       "threshold": 2,
+       "strong": 4,
+       "unit": "visits",
+       "passed": true,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "motion_significance",
+       "value": 0.1603,
+       "threshold": 5.0,
+       "strong": 1.0,
+       "unit": "sigma",
+       "passed": true,
+       "score": 1.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "pm_total",
+       "value": 1512.9016,
+       "threshold": 500.0,
+       "strong": 100.0,
+       "unit": "mas/yr",
+       "passed": false,
+       "score": 0.0,
+       "weight": 0.5,
+       "required": false
+      }
+     ]
+    }
+   },
+   "saturated": true,
+   "n_visits": 2,
+   "n_frame_detections": 0,
+   "transient_test": null,
+   "light_curve": {
+    "source_id": "S003",
+    "units": "mJy",
+    "magnitude_system": "AB",
+    "points": [
+     {
+      "mjd": 60800.700028461,
+      "observation_time": "2025-05-05T16:48:02.419Z",
+      "observation_id": "2025W19_1B_0116_1_D6",
+      "epoch": 0,
+      "wavelength": 4.968439883102682,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.13743057071639292,
+      "flux_err": 0.15778481858396928,
+      "aperture_flux": 0.13837729204908494,
+      "mag_ab": 18.554857247229915,
+      "mag_ab_err": 1.246539901601197,
+      "snr": 0.8709999602607882
+     },
+     {
+      "mjd": 60800.701520718,
+      "observation_time": "2025-05-05T16:50:11.414Z",
+      "observation_id": "2025W19_1B_0116_2_D6",
+      "epoch": 0,
+      "wavelength": 5.005656801017064,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2754379728255747,
+      "flux_err": 0.17756450683686847,
+      "aperture_flux": 0.3651048533408259,
+      "mag_ab": 17.800006088836383,
+      "mag_ab_err": 0.6999333162929448,
+      "snr": 1.5511994921294954
+     },
+     {
+      "mjd": 60800.834437847,
+      "observation_time": "2025-05-05T20:01:35.443Z",
+      "observation_id": "2025W19_1B_0138_1_D6",
+      "epoch": 0,
+      "wavelength": 4.860917117343728,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3715295907172142,
+      "flux_err": 0.15617799903179674,
+      "aperture_flux": 0.37166444451117553,
+      "mag_ab": 17.475082099426874,
+      "mag_ab_err": 0.45640539050513146,
+      "snr": 2.378885585808878
+     },
+     {
+      "mjd": 60989.296807454,
+      "observation_time": "2025-11-10T07:07:24.125Z",
+      "observation_id": "2025W46_1A_0075_4_D6",
+      "epoch": 1,
+      "wavelength": 4.410412042256561,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2937254803739418,
+      "flux_err": 0.11933854387532478,
+      "aperture_flux": 0.26976733230990874,
+      "mag_ab": 17.730211565425307,
+      "mag_ab_err": 0.4411267879912934,
+      "snr": 2.461279238338976
+     },
+     {
+      "mjd": 60989.298548414,
+      "observation_time": "2025-11-10T07:09:54.547Z",
+      "observation_id": "2025W46_1A_0076_1_D6",
+      "epoch": 1,
+      "wavelength": 4.442486520626833,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2947501883483947,
+      "flux_err": 0.1197779986000481,
+      "aperture_flux": 0.3115884111495793,
+      "mag_ab": 17.726430394067616,
+      "mag_ab_err": 0.4412119644172198,
+      "snr": 2.4608040858371494
+     },
+     {
+      "mjd": 60989.300040671,
+      "observation_time": "2025-11-10T07:12:03.542Z",
+      "observation_id": "2025W46_1A_0076_2_D6",
+      "epoch": 1,
+      "wavelength": 4.475078353355372,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.4249777787494335,
+      "flux_err": 0.12672112097047875,
+      "aperture_flux": 0.4153693062095692,
+      "mag_ab": 17.329150066678817,
+      "mag_ab_err": 0.3237480071312242,
+      "snr": 3.3536459865158337
+     },
+     {
+      "mjd": 60989.301532928,
+      "observation_time": "2025-11-10T07:14:12.451Z",
+      "observation_id": "2025W46_1A_0076_3_D6",
+      "epoch": 1,
+      "wavelength": 4.50774988580218,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2777572627038648,
+      "flux_err": 0.12087264886692758,
+      "aperture_flux": 0.2658833094081682,
+      "mag_ab": 17.790902063412208,
+      "mag_ab_err": 0.4724838146887956,
+      "snr": 2.2979331164460235
+     },
+     {
+      "mjd": 60989.364776111,
+      "observation_time": "2025-11-10T08:45:16.646Z",
+      "observation_id": "2025W46_1A_0090_1_D6",
+      "epoch": 1,
+      "wavelength": 4.540116689379429,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.10880022358940047,
+      "flux_err": 0.1238319639314872,
+      "aperture_flux": 0.13925104639588462,
+      "mag_ab": 18.808491152637327,
+      "mag_ab_err": 1.235740535369789,
+      "snr": 0.8786117908103003
+     },
+     {
+      "mjd": 60989.367760625,
+      "observation_time": "2025-11-10T08:49:34.550Z",
+      "observation_id": "2025W46_1A_0090_3_D6",
+      "epoch": 1,
+      "wavelength": 4.608790691433413,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2303239828436694,
+      "flux_err": 0.13317372961484733,
+      "aperture_flux": 0.21946637052681872,
+      "mag_ab": 17.994217717510864,
+      "mag_ab_err": 0.6277745720629103,
+      "snr": 1.7295001312180036
+     },
+     {
+      "mjd": 60989.97699147,
+      "observation_time": "2025-11-10T23:26:52.022Z",
+      "observation_id": "2025W46_1A_0238_1_D6",
+      "epoch": 1,
+      "wavelength": 4.626898539063983,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.19179068659279322,
+      "flux_err": 0.1324718101620959,
+      "aperture_flux": 0.20834353942119735,
+      "mag_ab": 18.192996837556976,
+      "mag_ab_err": 0.7499292221014342,
+      "snr": 1.4477849012413526
+     },
+     {
+      "mjd": 60989.978483727,
+      "observation_time": "2025-11-10T23:29:01.018Z",
+      "observation_id": "2025W46_1A_0238_2_D6",
+      "epoch": 1,
+      "wavelength": 4.66157254794277,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3697564870694075,
+      "flux_err": 0.15605297989656514,
+      "aperture_flux": 0.31110272529302463,
+      "mag_ab": 17.48027611710596,
+      "mag_ab_err": 0.45822690354121876,
+      "snr": 2.369429198433052
+     },
+     {
+      "mjd": 60993.505108738,
+      "observation_time": "2025-11-14T12:07:21.418Z",
+      "observation_id": "2025W46_2A_0214_1_D6",
+      "epoch": 1,
+      "wavelength": 4.696124619532372,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3485434222515494,
+      "flux_err": 0.13675035045811143,
+      "aperture_flux": 0.3287493052145184,
+      "mag_ab": 17.54442339453644,
+      "mag_ab_err": 0.4259865400603583,
+      "snr": 2.5487570677803357
+     },
+     {
+      "mjd": 60993.506600984,
+      "observation_time": "2025-11-14T12:09:30.326Z",
+      "observation_id": "2025W46_2A_0214_2_D6",
+      "epoch": 1,
+      "wavelength": 4.730745945000597,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.22136652037134444,
+      "flux_err": 0.14242608165231369,
+      "aperture_flux": 0.23271938018128754,
+      "mag_ab": 18.037285776018596,
+      "mag_ab_err": 0.69855709477815,
+      "snr": 1.5542554973304525
+     },
+     {
+      "mjd": 60993.508093229,
+      "observation_time": "2025-11-14T12:11:39.235Z",
+      "observation_id": "2025W46_2A_0214_3_D6",
+      "epoch": 1,
+      "wavelength": 4.765524308662412,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.32405658772476065,
+      "flux_err": 0.147836530199648,
+      "aperture_flux": 0.36439641969891245,
+      "mag_ab": 17.623513485726054,
+      "mag_ab_err": 0.4953192723238441,
+      "snr": 2.1919926508497847
+     },
+     {
+      "mjd": 60993.509585509,
+      "observation_time": "2025-11-14T12:13:48.230Z",
+      "observation_id": "2025W46_2A_0214_4_D6",
+      "epoch": 1,
+      "wavelength": 4.799259276450492,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.29511594147546044,
+      "flux_err": 0.15434307672472564,
+      "aperture_flux": 0.264314292973065,
+      "mag_ab": 17.725083948008507,
+      "mag_ab_err": 0.5678306143544289,
+      "snr": 1.9120776113709745
+     },
+     {
+      "mjd": 60993.57574213,
+      "observation_time": "2025-11-14T13:49:04.109Z",
+      "observation_id": "2025W46_2A_0226_2_D6",
+      "epoch": 1,
+      "wavelength": 4.86963901187537,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.10071182671158384,
+      "flux_err": 0.15251874342434266,
+      "aperture_flux": 0.10688841526793467,
+      "mag_ab": 18.892364439096085,
+      "mag_ab_err": 1.644247026858644,
+      "snr": 0.6603242621228532
+     },
+     {
+      "mjd": 60993.577234375,
+      "observation_time": "2025-11-14T13:51:13.018Z",
+      "observation_id": "2025W46_2A_0226_3_D6",
+      "epoch": 1,
+      "wavelength": 4.9051651041742605,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2727410642294642,
+      "flux_err": 0.1657747501684849,
+      "aperture_flux": 0.38300077923626097,
+      "mag_ab": 17.81068929534491,
+      "mag_ab_err": 0.6599213382156107,
+      "snr": 1.6452509441411571
+     },
+     {
+      "mjd": 60993.578726644,
+      "observation_time": "2025-11-14T13:53:22.013Z",
+      "observation_id": "2025W46_2A_0226_4_D6",
+      "epoch": 1,
+      "wavelength": 4.941959255550233,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.23785734276732654,
+      "flux_err": 0.17419788087310373,
+      "aperture_flux": 0.2221173363865391,
+      "mag_ab": 17.959274215191048,
+      "mag_ab_err": 0.7951528586657227,
+      "snr": 1.3654433772394523
+     },
+     {
+      "mjd": 60993.912885139,
+      "observation_time": "2025-11-14T21:54:33.264Z",
+      "observation_id": "2025W46_2A_0289_1_D6",
+      "epoch": 1,
+      "wavelength": 4.977802735041474,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.45376220345822776,
+      "flux_err": 0.18884292677237116,
+      "aperture_flux": 0.2918898707036757,
+      "mag_ab": 17.257994827043433,
+      "mag_ab_err": 0.45185253651944257,
+      "snr": 2.402855172887608
+     },
+     {
+      "mjd": 61021.282827477,
+      "observation_time": "2025-12-12T06:47:16.253Z",
+      "observation_id": "2025W50_2A_0232_1_D6",
+      "epoch": 2,
+      "wavelength": 4.626926119549397,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2754540776164023,
+      "flux_err": 0.12512421611401192,
+      "aperture_flux": 0.20207623396787022,
+      "mag_ab": 17.79994260796218,
+      "mag_ab_err": 0.4931925230605982,
+      "snr": 2.201444981404809
+     },
+     {
+      "mjd": 61022.029132639,
+      "observation_time": "2025-12-13T00:41:57.091Z",
+      "observation_id": "2025W50_2A_0428_1_D6",
+      "epoch": 2,
+      "wavelength": 4.730531709040498,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.18411303127543246,
+      "flux_err": 0.12724632349072212,
+      "aperture_flux": 0.26415263573062503,
+      "mag_ab": 18.23735430133826,
+      "mag_ab_err": 0.7503865390688236,
+      "snr": 1.4469025605196102
+     },
+     {
+      "mjd": 61151.20091772,
+      "observation_time": "2026-04-21T04:49:19.315Z",
+      "observation_id": "2026W17_1B_0227_4_D6",
+      "epoch": 3,
+      "wavelength": 4.479382083579365,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3374973519469332,
+      "flux_err": 0.10768487654845732,
+      "aperture_flux": 0.2379545231426255,
+      "mag_ab": 17.579389698174595,
+      "mag_ab_err": 0.34642455266420397,
+      "snr": 3.1341202475638457
+     },
+     {
+      "mjd": 61152.757303588,
+      "observation_time": "2026-04-22T18:10:31.066Z",
+      "observation_id": "2026W17_1B_0507_1_D6",
+      "epoch": 3,
+      "wavelength": 4.511102565890348,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3170010750758779,
+      "flux_err": 0.11489766183173496,
+      "aperture_flux": 0.31905654107719755,
+      "mag_ab": 17.647413784571214,
+      "mag_ab_err": 0.39352721836325283,
+      "snr": 2.7589863015673792
+     },
+     {
+      "mjd": 61152.758795833,
+      "observation_time": "2026-04-22T18:12:39.974Z",
+      "observation_id": "2026W17_1B_0507_2_D6",
+      "epoch": 3,
+      "wavelength": 4.543864167906506,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.271009577845568,
+      "flux_err": 0.10856229727965784,
+      "aperture_flux": 0.22605528970690422,
+      "mag_ab": 17.81760402303003,
+      "mag_ab_err": 0.43492933927009214,
+      "snr": 2.4963508016732914
+     },
+     {
+      "mjd": 61152.76028809,
+      "observation_time": "2026-04-22T18:14:48.883Z",
+      "observation_id": "2026W17_1B_0507_3_D6",
+      "epoch": 3,
+      "wavelength": 4.579427198574533,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.29079798116474664,
+      "flux_err": 0.12201784140070888,
+      "aperture_flux": 0.22451303695749686,
+      "mag_ab": 17.741087154401164,
+      "mag_ab_err": 0.4555712096231204,
+      "snr": 2.3832414819547627
+     },
+     {
+      "mjd": 61153.436457037,
+      "observation_time": "2026-04-23T10:28:29.885Z",
+      "observation_id": "2026W17_1B_0634_1_D6",
+      "epoch": 3,
+      "wavelength": 4.610380814279896,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.22085526687001092,
+      "flux_err": 0.11920756410519068,
+      "aperture_flux": 0.20371938806106807,
+      "mag_ab": 18.03979622077517,
+      "mag_ab_err": 0.5860307071880189,
+      "snr": 1.852695074577018
+     },
+     {
+      "mjd": 61153.437949306,
+      "observation_time": "2026-04-23T10:30:38.794Z",
+      "observation_id": "2026W17_1B_0634_2_D6",
+      "epoch": 3,
+      "wavelength": 4.645222906541276,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.08911631737461997,
+      "flux_err": 0.11660359432385797,
+      "aperture_flux": 0.06930669844774315,
+      "mag_ab": 19.02517254353301,
+      "mag_ab_err": 1.4206236039820646,
+      "snr": 0.7642673271898112
+     },
+     {
+      "mjd": 61153.439441551,
+      "observation_time": "2026-04-23T10:32:47.789Z",
+      "observation_id": "2026W17_1B_0634_3_D6",
+      "epoch": 3,
+      "wavelength": 4.668704025929307,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3779711955439506,
+      "flux_err": 0.12939329011205467,
+      "aperture_flux": 0.44253002173759043,
+      "mag_ab": 17.456418861399293,
+      "mag_ab_err": 0.37168699991873844,
+      "snr": 2.9211035225754545
+     },
+     {
+      "mjd": 61153.440933808,
+      "observation_time": "2026-04-23T10:34:56.698Z",
+      "observation_id": "2026W17_1B_0634_4_D6",
+      "epoch": 3,
+      "wavelength": 4.712092622269095,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.28757193610853665,
+      "flux_err": 0.12658814727646164,
+      "aperture_flux": 0.21560419360586985,
+      "mag_ab": 17.75319936887344,
+      "mag_ab_err": 0.4779372300760074,
+      "snr": 2.2717129707293617
+     },
+     {
+      "mjd": 61156.085510949,
+      "observation_time": "2026-04-26T02:03:08.150Z",
+      "observation_id": "2026W17_2A_0591_1_D6",
+      "epoch": 3,
+      "wavelength": 4.816512825518599,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.4292757233736845,
+      "flux_err": 0.14059824253373157,
+      "aperture_flux": 0.2816125361408154,
+      "mag_ab": 17.318224800471967,
+      "mag_ab_err": 0.355605020112802,
+      "snr": 3.0532083163891257
+     },
+     {
+      "mjd": 61156.152715706,
+      "observation_time": "2026-04-26T03:39:54.662Z",
+      "observation_id": "2026W17_2A_0609_1_D6",
+      "epoch": 3,
+      "wavelength": 4.746439923705254,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.28394209359483613,
+      "flux_err": 0.1329517025530325,
+      "aperture_flux": 0.2877331585589416,
+      "mag_ab": 17.766991171780905,
+      "mag_ab_err": 0.5083799838147226,
+      "snr": 2.1356785068741466
+     },
+     {
+      "mjd": 61156.154225718,
+      "observation_time": "2026-04-26T03:42:05.126Z",
+      "observation_id": "2026W17_2A_0609_2_D6",
+      "epoch": 3,
+      "wavelength": 4.781676284708131,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.349759905283226,
+      "flux_err": 0.13612164116119665,
+      "aperture_flux": 0.38444727318281385,
+      "mag_ab": 17.540640565631097,
+      "mag_ab_err": 0.42255327676889537,
+      "snr": 2.569465827032137
+     },
+     {
+      "mjd": 61156.493180671,
+      "observation_time": "2026-04-26T11:50:10.838Z",
+      "observation_id": "2026W17_2A_0692_1_D6",
+      "epoch": 3,
+      "wavelength": 4.896321278053341,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.30109414586565453,
+      "flux_err": 0.15315344762964075,
+      "aperture_flux": 0.2790204359827394,
+      "mag_ab": 17.703309843123037,
+      "mag_ab_err": 0.5522666091595936,
+      "snr": 1.9659638782260223
+     },
+     {
+      "mjd": 61156.494672917,
+      "observation_time": "2026-04-26T11:52:19.747Z",
+      "observation_id": "2026W17_2A_0692_2_D6",
+      "epoch": 3,
+      "wavelength": 4.933278900847921,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.15885179345631734,
+      "flux_err": 0.15020267868455336,
+      "aperture_flux": 0.044854605556940506,
+      "mag_ab": 18.397585316209614,
+      "mag_ab_err": 1.0266203657582076,
+      "snr": 1.0575829595551243
+     },
+     {
+      "mjd": 61168.984738356,
+      "observation_time": "2026-05-08T23:38:01.363Z",
+      "observation_id": "2026W19_2A_0568_1_D6",
+      "epoch": 3,
+      "wavelength": 4.82549605723778,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.4688799811970858,
+      "flux_err": 0.15512928772555812,
+      "aperture_flux": 0.5118415567237954,
+      "mag_ab": 17.22241139488826,
+      "mag_ab_err": 0.3592166244162658,
+      "snr": 3.02251101691764
+     },
+     {
+      "mjd": 61169.194222546,
+      "observation_time": "2026-05-09T04:39:40.867Z",
+      "observation_id": "2026W19_2A_0651_1_D6",
+      "epoch": 3,
+      "wavelength": 4.861720984729987,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3593311343377135,
+      "flux_err": 0.15833429943938415,
+      "aperture_flux": 0.37406999916681827,
+      "mag_ab": 17.51132850130467,
+      "mag_ab_err": 0.47841465692418145,
+      "snr": 2.2694459482879004
+     },
+     {
+      "mjd": 61169.527652685,
+      "observation_time": "2026-05-09T12:39:49.219Z",
+      "observation_id": "2026W19_2A_0782_1_D6",
+      "epoch": 3,
+      "wavelength": 4.896384598539168,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.6147100130219039,
+      "flux_err": 0.18318967634957864,
+      "aperture_flux": 0.6795293423137168,
+      "mag_ab": 16.928389903760458,
+      "mag_ab_err": 0.3235601498874143,
+      "snr": 3.3555930949343464
+     },
+     {
+      "mjd": 61169.933208472,
+      "observation_time": "2026-05-09T22:23:49.171Z",
+      "observation_id": "2026W19_2A_0952_1_D6",
+      "epoch": 3,
+      "wavelength": 4.932904483212114,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3096841971502044,
+      "flux_err": 0.16752030157032555,
+      "aperture_flux": 0.2773637167296979,
+      "mag_ab": 17.6727680114215,
+      "mag_ab_err": 0.587317202881634,
+      "snr": 1.8486368174319339
+     },
+     {
+      "mjd": 61171.096350255,
+      "observation_time": "2026-05-11T02:18:44.640Z",
+      "observation_id": "2026W20_1A_0033_1_D6",
+      "epoch": 3,
+      "wavelength": 4.9689994412943665,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3740558232920686,
+      "flux_err": 0.16776181260105077,
+      "aperture_flux": 0.3542320984224067,
+      "mag_ab": 17.467724571737083,
+      "mag_ab_err": 0.4869462320189243,
+      "snr": 2.229683963785008
+     }
+    ],
+    "n_frames": 44,
+    "n_good": 39,
+    "n_rejected": 5,
+    "rejected_flags": {
+     "masked_core": 5,
+     "saturation_nearby": 1
+    },
+    "warning": "Each point is at a different wavelength (colour = wavelength). Changes in flux between points reflect the spectrum as well as time; use variability_indicator."
+   },
+   "spectrum": {
+    "source_id": "S003",
+    "units": "mJy",
+    "wavelength_units": "um",
+    "kind": "multi-channel PSF photometry profile",
+    "visits": [
+     {
+      "epoch": 0,
+      "mjd": 60800.74532900866,
+      "points": [
+       {
+        "wavelength": 4.860917117343728,
+        "flux": 0.3715295907172142,
+        "flux_err": 0.15617799903179674,
+        "observation_id": "2025W19_1B_0138_1_D6"
+       },
+       {
+        "wavelength": 4.968439883102682,
+        "flux": 0.13743057071639292,
+        "flux_err": 0.15778481858396928,
+        "observation_id": "2025W19_1B_0116_1_D6"
+       },
+       {
+        "wavelength": 5.005656801017064,
+        "flux": 0.2754379728255747,
+        "flux_err": 0.17756450683686847,
+        "observation_id": "2025W19_1B_0116_2_D6"
+       }
+      ]
+     },
+     {
+      "epoch": 1,
+      "mjd": 60991.53493238425,
+      "points": [
+       {
+        "wavelength": 4.410412042256561,
+        "flux": 0.2937254803739418,
+        "flux_err": 0.11933854387532478,
+        "observation_id": "2025W46_1A_0075_4_D6"
+       },
+       {
+        "wavelength": 4.442486520626833,
+        "flux": 0.2947501883483947,
+        "flux_err": 0.1197779986000481,
+        "observation_id": "2025W46_1A_0076_1_D6"
+       },
+       {
+        "wavelength": 4.475078353355372,
+        "flux": 0.4249777787494335,
+        "flux_err": 0.12672112097047875,
+        "observation_id": "2025W46_1A_0076_2_D6"
+       },
+       {
+        "wavelength": 4.50774988580218,
+        "flux": 0.2777572627038648,
+        "flux_err": 0.12087264886692758,
+        "observation_id": "2025W46_1A_0076_3_D6"
+       },
+       {
+        "wavelength": 4.540116689379429,
+        "flux": 0.10880022358940047,
+        "flux_err": 0.1238319639314872,
+        "observation_id": "2025W46_1A_0090_1_D6"
+       },
+       {
+        "wavelength": 4.608790691433413,
+        "flux": 0.2303239828436694,
+        "flux_err": 0.13317372961484733,
+        "observation_id": "2025W46_1A_0090_3_D6"
+       },
+       {
+        "wavelength": 4.626898539063983,
+        "flux": 0.19179068659279322,
+        "flux_err": 0.1324718101620959,
+        "observation_id": "2025W46_1A_0238_1_D6"
+       },
+       {
+        "wavelength": 4.66157254794277,
+        "flux": 0.3697564870694075,
+        "flux_err": 0.15605297989656514,
+        "observation_id": "2025W46_1A_0238_2_D6"
+       },
+       {
+        "wavelength": 4.696124619532372,
+        "flux": 0.3485434222515494,
+        "flux_err": 0.13675035045811143,
+        "observation_id": "2025W46_2A_0214_1_D6"
+       },
+       {
+        "wavelength": 4.730745945000597,
+        "flux": 0.22136652037134444,
+        "flux_err": 0.14242608165231369,
+        "observation_id": "2025W46_2A_0214_2_D6"
+       },
+       {
+        "wavelength": 4.765524308662412,
+        "flux": 0.32405658772476065,
+        "flux_err": 0.147836530199648,
+        "observation_id": "2025W46_2A_0214_3_D6"
+       },
+       {
+        "wavelength": 4.799259276450492,
+        "flux": 0.29511594147546044,
+        "flux_err": 0.15434307672472564,
+        "observation_id": "2025W46_2A_0214_4_D6"
+       },
+       {
+        "wavelength": 4.86963901187537,
+        "flux": 0.10071182671158384,
+        "flux_err": 0.15251874342434266,
+        "observation_id": "2025W46_2A_0226_2_D6"
+       },
+       {
+        "wavelength": 4.9051651041742605,
+        "flux": 0.2727410642294642,
+        "flux_err": 0.1657747501684849,
+        "observation_id": "2025W46_2A_0226_3_D6"
+       },
+       {
+        "wavelength": 4.941959255550233,
+        "flux": 0.23785734276732654,
+        "flux_err": 0.17419788087310373,
+        "observation_id": "2025W46_2A_0226_4_D6"
+       },
+       {
+        "wavelength": 4.977802735041474,
+        "flux": 0.45376220345822776,
+        "flux_err": 0.18884292677237116,
+        "observation_id": "2025W46_2A_0289_1_D6"
+       }
+      ]
+     },
+     {
+      "epoch": 2,
+      "mjd": 61021.655980058,
+      "points": [
+       {
+        "wavelength": 4.626926119549397,
+        "flux": 0.2754540776164023,
+        "flux_err": 0.12512421611401192,
+        "observation_id": "2025W50_2A_0232_1_D6"
+       },
+       {
+        "wavelength": 4.730531709040498,
+        "flux": 0.18411303127543246,
+        "flux_err": 0.12724632349072212,
+        "observation_id": "2025W50_2A_0428_1_D6"
+       }
+      ]
+     },
+     {
+      "epoch": 3,
+      "mjd": 61158.51936473378,
+      "points": [
+       {
+        "wavelength": 4.479382083579365,
+        "flux": 0.3374973519469332,
+        "flux_err": 0.10768487654845732,
+        "observation_id": "2026W17_1B_0227_4_D6"
+       },
+       {
+        "wavelength": 4.511102565890348,
+        "flux": 0.3170010750758779,
+        "flux_err": 0.11489766183173496,
+        "observation_id": "2026W17_1B_0507_1_D6"
+       },
+       {
+        "wavelength": 4.543864167906506,
+        "flux": 0.271009577845568,
+        "flux_err": 0.10856229727965784,
+        "observation_id": "2026W17_1B_0507_2_D6"
+       },
+       {
+        "wavelength": 4.579427198574533,
+        "flux": 0.29079798116474664,
+        "flux_err": 0.12201784140070888,
+        "observation_id": "2026W17_1B_0507_3_D6"
+       },
+       {
+        "wavelength": 4.610380814279896,
+        "flux": 0.22085526687001092,
+        "flux_err": 0.11920756410519068,
+        "observation_id": "2026W17_1B_0634_1_D6"
+       },
+       {
+        "wavelength": 4.645222906541276,
+        "flux": 0.08911631737461997,
+        "flux_err": 0.11660359432385797,
+        "observation_id": "2026W17_1B_0634_2_D6"
+       },
+       {
+        "wavelength": 4.668704025929307,
+        "flux": 0.3779711955439506,
+        "flux_err": 0.12939329011205467,
+        "observation_id": "2026W17_1B_0634_3_D6"
+       },
+       {
+        "wavelength": 4.712092622269095,
+        "flux": 0.28757193610853665,
+        "flux_err": 0.12658814727646164,
+        "observation_id": "2026W17_1B_0634_4_D6"
+       },
+       {
+        "wavelength": 4.746439923705254,
+        "flux": 0.28394209359483613,
+        "flux_err": 0.1329517025530325,
+        "observation_id": "2026W17_2A_0609_1_D6"
+       },
+       {
+        "wavelength": 4.781676284708131,
+        "flux": 0.349759905283226,
+        "flux_err": 0.13612164116119665,
+        "observation_id": "2026W17_2A_0609_2_D6"
+       },
+       {
+        "wavelength": 4.816512825518599,
+        "flux": 0.4292757233736845,
+        "flux_err": 0.14059824253373157,
+        "observation_id": "2026W17_2A_0591_1_D6"
+       },
+       {
+        "wavelength": 4.82549605723778,
+        "flux": 0.4688799811970858,
+        "flux_err": 0.15512928772555812,
+        "observation_id": "2026W19_2A_0568_1_D6"
+       },
+       {
+        "wavelength": 4.861720984729987,
+        "flux": 0.3593311343377135,
+        "flux_err": 0.15833429943938415,
+        "observation_id": "2026W19_2A_0651_1_D6"
+       },
+       {
+        "wavelength": 4.896321278053341,
+        "flux": 0.30109414586565453,
+        "flux_err": 0.15315344762964075,
+        "observation_id": "2026W17_2A_0692_1_D6"
+       },
+       {
+        "wavelength": 4.896384598539168,
+        "flux": 0.6147100130219039,
+        "flux_err": 0.18318967634957864,
+        "observation_id": "2026W19_2A_0782_1_D6"
+       },
+       {
+        "wavelength": 4.932904483212114,
+        "flux": 0.3096841971502044,
+        "flux_err": 0.16752030157032555,
+        "observation_id": "2026W19_2A_0952_1_D6"
+       },
+       {
+        "wavelength": 4.933278900847921,
+        "flux": 0.15885179345631734,
+        "flux_err": 0.15020267868455336,
+        "observation_id": "2026W17_2A_0692_2_D6"
+       },
+       {
+        "wavelength": 4.9689994412943665,
+        "flux": 0.3740558232920686,
+        "flux_err": 0.16776181260105077,
+        "observation_id": "2026W20_1A_0033_1_D6"
+       }
+      ]
+     }
+    ],
+    "combined": [
+     {
+      "channel": 85,
+      "label": "D6-00 (4.428 um)",
+      "wavelength": 4.428027466741727,
+      "wavelength_min": 4.4115,
+      "wavelength_max": 4.444616852820845,
+      "flux": 0.29423595113203155,
+      "flux_err": 0.08454003602333977,
+      "n": 2,
+      "scatter": 0.0005123539872264604
+     },
+     {
+      "channel": 86,
+      "label": "D6-01 (4.461 um)",
+      "wavelength": 4.461268390215091,
+      "wavelength_min": 4.444616852820845,
+      "wavelength_max": 4.477982311771296,
+      "flux": 0.4249777787494335,
+      "flux_err": 0.12672112097047875,
+      "n": 1,
+      "scatter": null
+     },
+     {
+      "channel": 87,
+      "label": "D6-02 (4.495 um)",
+      "wavelength": 4.4947588512086405,
+      "wavelength_min": 4.477982311771296,
+      "wavelength_max": 4.51159824312192,
+      "flux": 0.31301492773502976,
+      "flux_err": 0.06587637284344838,
+      "n": 3,
+      "scatter": 0.024785866128892668
+     },
+     {
+      "channel": 88,
+      "label": "D6-03 (4.529 um)",
+      "wavelength": 4.528500722984831,
+      "wavelength_min": 4.51159824312192,
+      "wavelength_max": 4.545466527153259,
+      "flux": 0.200517191108734,
+      "flux_err": 0.08163303074853859,
+      "n": 2,
+      "scatter": 0.08110467712808377
+     },
+     {
+      "channel": 89,
+      "label": "D6-04 (4.562 um)",
+      "wavelength": 4.562495892868585,
+      "wavelength_min": 4.545466527153259,
+      "wavelength_max": 4.579589058261002,
+      "flux": 0.29079798116474664,
+      "flux_err": 0.12201784140070888,
+      "n": 1,
+      "scatter": null
+     },
+     {
+      "channel": 90,
+      "label": "D6-05 (4.597 um)",
+      "wavelength": 4.596746262352849,
+      "wavelength_min": 4.579589058261002,
+      "wavelength_max": 4.613967745061949,
+      "flux": 0.22506724884255153,
+      "flux_err": 0.08882112502039001,
+      "n": 2,
+      "scatter": 0.004734357986829238
+     },
+     {
+      "channel": 91,
+      "label": "D6-06 (4.631 um)",
+      "wavelength": 4.631253747204965,
+      "wavelength_min": 4.613967745061949,
+      "wavelength_max": 4.648604510500767,
+      "flux": 0.1804342677943062,
+      "flux_err": 0.07172082565528778,
+      "n": 3,
+      "scatter": 0.07620392960401497
+     },
+     {
+      "channel": 92,
+      "label": "D6-07 (4.666 um)",
+      "wavelength": 4.666020277573813,
+      "wavelength_min": 4.648604510500767,
+      "wavelength_max": 4.683501291957543,
+      "flux": 0.37462443197010215,
+      "flux_err": 0.09960668921444182,
+      "n": 2,
+      "scatter": 0.004107354237271543
+     },
+     {
+      "channel": 93,
+      "label": "D6-08 (4.701 um)",
+      "wavelength": 4.701047798097782,
+      "wavelength_min": 4.683501291957543,
+      "wavelength_max": 4.718660041356159,
+      "flux": 0.3157082950021653,
+      "flux_err": 0.09289642586394024,
+      "n": 2,
+      "scatter": 0.030485743071506366
+     },
+     {
+      "channel": 94,
+      "label": "D6-09 (4.736 um)",
+      "wavelength": 4.736338268013539,
+      "wavelength_min": 4.718660041356159,
+      "wavelength_max": 4.754082725273465,
+      "flux": 0.22875970387203431,
+      "flux_err": 0.07723659983537265,
+      "n": 3,
+      "scatter": 0.04118975937676093
+     },
+     {
+      "channel": 95,
+      "label": "D6-10 (4.772 um)",
+      "wavelength": 4.771893661265616,
+      "wavelength_min": 4.754082725273465,
+      "wavelength_max": 4.789771325049278,
+      "flux": 0.33796685271060356,
+      "flux_err": 0.10013831681565395,
+      "n": 2,
+      "scatter": 0.012851658779232666
+     },
+     {
+      "channel": 96,
+      "label": "D6-11 (4.808 um)",
+      "wavelength": 4.807715966616825,
+      "wavelength_min": 4.789771325049278,
+      "wavelength_max": 4.8257278368972125,
+      "flux": 0.3995552343388286,
+      "flux_err": 0.08634835175266511,
+      "n": 3,
+      "scatter": 0.07435745932625432
+     },
+     {
+      "channel": 97,
+      "label": "D6-12 (4.844 um)",
+      "wavelength": 4.8438071877594915,
+      "wavelength_min": 4.8257278368972125,
+      "wavelength_max": 4.861954272016327,
+      "flux": 0.3655139913720386,
+      "flux_err": 0.11118904952234668,
+      "n": 2,
+      "scatter": 0.006099228189750339
+     },
+     {
+      "channel": 98,
+      "label": "D6-13 (4.880 um)",
+      "wavelength": 4.880169343427536,
+      "wavelength_min": 4.861954272016327,
+      "wavelength_max": 4.898452656703631,
+      "flux": 0.3074292417334494,
+      "flux_err": 0.09308049004015825,
+      "n": 3,
+      "scatter": 0.21152938369356855
+     },
+     {
+      "channel": 99,
+      "label": "D6-14 (4.917 um)",
+      "wavelength": 4.916804467509387,
+      "wavelength_min": 4.898452656703631,
+      "wavelength_max": 4.9352250324674145,
+      "flux": 0.24066752980889422,
+      "flux_err": 0.0927090893309323,
+      "n": 3,
+      "scatter": 0.0641923975001145
+     },
+     {
+      "channel": 100,
+      "label": "D6-15 (4.954 um)",
+      "wavelength": 4.9537146091617466,
+      "wavelength_min": 4.9352250324674145,
+      "wavelength_max": 4.972273456141442,
+      "flux": 0.24527080756896835,
+      "flux_err": 0.09593545460543171,
+      "n": 3,
+      "scatter": 0.09696910894043699
+     },
+     {
+      "channel": 101,
+      "label": "D6-16 (4.991 um)",
+      "wavelength": 4.990901832924203,
+      "wavelength_min": 4.972273456141442,
+      "wavelength_max": 5.0096,
+      "flux": 0.3591162698570109,
+      "flux_err": 0.12936058169174436,
+      "n": 2,
+      "scatter": 0.08916211531632653
+     }
+    ],
+    "limitations": [
+     "PSF-fitted flux assuming a Gaussian PSF: absolute level uncertain by ~10%, colours across one detector better.",
+     "Points from different visits are combined in 'combined'; a variable source blurs it (see 'visits').",
+     "Saturated or masked cores are excluded, so bright stars can have no spectrum at all."
+    ]
+   }
+  },
+  {
+   "source_id": "S002",
+   "ra": 133.73312076554546,
+   "dec": -7.231676156787711,
+   "ref_mjd": 60991.52774646607,
+   "detections": [
+    {
+     "kind": "visit_stack",
+     "observation_id": "visit1_D6",
+     "mjd": 60991.52774646607,
+     "observation_time": null,
+     "epoch": 1,
+     "wavelength": 4.688608175730279,
+     "detector": 6,
+     "ra": 133.73312076554546,
+     "dec": -7.231676156787711,
+     "ra_err_arcsec": 0.9125935334444202,
+     "dec_err_arcsec": 0.967125808909628,
+     "registration_err_arcsec": 0.5,
+     "ra_err_total_arcsec": 1.0405897161151325,
+     "dec_err_total_arcsec": 1.0887296864966538,
+     "x": 29.324678973688084,
+     "y": 21.054193615480735,
+     "flux_mjy": 0.2562585749444802,
+     "flux_err_mjy": 0.04128140497574788,
+     "snr": 6.207603038099786,
+     "significance": 6.88876342537488,
+     "quality_flags": [
+      "edge"
+     ],
+     "quality": 0.75,
+     "n_frames": 18
+    }
+   ],
+   "angular_motion": null,
+   "motion_uncertainty": null,
+   "variability_indicator": {
+    "method": "visit scale factors on a shared ln(lambda) polynomial (degree 2)",
+    "calibration_floor": 0.03,
+    "n_visits": 3,
+    "n_points": 38,
+    "visits": [
+     {
+      "epoch": 0,
+      "scale": 0.4979,
+      "scale_err": 0.4709,
+      "n_points": 3,
+      "mjd": 60800.74532900866,
+      "wavelength_range": [
+       4.859870001257631,
+       5.004499918892201
+      ],
+      "within_visit_chi2_red": 0.52,
+      "releases": [
+       "DR1"
+      ]
+     },
+     {
+      "epoch": 1,
+      "scale": 0.8748,
+      "scale_err": 0.1198,
+      "n_points": 18,
+      "mjd": 60991.52774646607,
+      "wavelength_range": [
+       4.411735205544078,
+       4.9793201526464195
+      ],
+      "within_visit_chi2_red": 0.7,
+      "releases": [
+       "DR1"
+      ]
+     },
+     {
+      "epoch": 3,
+      "scale": 1.2212,
+      "scale_err": 0.1183,
+      "n_points": 17,
+      "mjd": 61158.506610820354,
+      "wavelength_range": [
+       4.413043602634493,
+       4.96858207705849
+      ],
+      "within_visit_chi2_red": 0.91,
+      "releases": [
+       "DR1"
+      ]
+     }
+    ],
+    "chi2": 5.57,
+    "dof": 2,
+    "p_value": 0.06184123967465434,
+    "sigma": 1.867432321778081,
+    "amplitude": 0.7233,
+    "amplitude_mag": 0.974,
+    "wavelength_overlap": 0.18,
+    "reliable": false,
+    "min_visit_snr": 1.06,
+    "significant": false,
+    "mean_spectrum_coefficients": [
+     0.3187334882821083,
+     -1.1468469211026362,
+     -32.455627504086436
+    ],
+    "reason": "visits cover different wavelengths; the shared spectrum is extrapolated",
+    "releases": [
+     "DR1"
+    ],
+    "warning": "Apparent variability can be instrumental: different wavelengths, detector positions, PSF/undersampling phase, background and calibration between visits. Treat it as a candidate until repeated in another channel or instrument."
+   },
+   "classification": "insufficient_data",
+   "label": "insufficient data",
+   "confidence": 0.0,
+   "status": "known",
+   "subtype": null,
+   "secondary_flags": [],
+   "note": "Counterpart Gaia DR3 5756956468295793920 at 0.72\".",
+   "known_catalogue_match": {
+    "catalog": "gaia",
+    "id": "Gaia DR3 5756956468295793920",
+    "separation_arcsec": 0.72,
+    "matched_using": "catalogue motion",
+    "catalog_ra": 133.73297734387177,
+    "catalog_dec": -7.231673066730356,
+    "catalog_ref_mjd": 57388.5,
+    "pm_ra_cosdec_mas_yr": -20.870115837723976,
+    "pm_dec_mas_yr": -6.5358888338731225,
+    "pm_suspect": false,
+    "parallax_mas": 1.8427605956809283,
+    "mag": 17.840317,
+    "mag_band": "G",
+    "otype": null,
+    "w1_mag": null,
+    "w2_mag": null,
+    "n_candidates_in_radius": 1
+   },
+   "catalogue_matches": {
+    "gaia": {
+     "id": "Gaia DR3 5756956468295793920",
+     "separation_arcsec": 0.72,
+     "matched_using": "catalogue motion",
+     "catalog_ra": 133.73297734387177,
+     "catalog_dec": -7.231673066730356,
+     "catalog_ref_mjd": 57388.5,
+     "pm_ra_cosdec_mas_yr": -20.870115837723976,
+     "pm_dec_mas_yr": -6.5358888338731225,
+     "pm_suspect": false,
+     "parallax_mas": 1.8427605956809283,
+     "mag": 17.840317,
+     "mag_band": "G",
+     "otype": null,
+     "w1_mag": null,
+     "w2_mag": null,
+     "n_candidates_in_radius": 1
+    },
+    "catwise": {
+     "id": "CWISE J085455.91-071354.0",
+     "separation_arcsec": 0.903,
+     "matched_using": "catalogue motion",
+     "catalog_ra": 133.7329758,
+     "catalog_dec": -7.2316933,
+     "catalog_ref_mjd": 57225.54895,
+     "pm_ra_cosdec_mas_yr": -36.2,
+     "pm_dec_mas_yr": -8.5,
+     "pm_suspect": false,
+     "parallax_mas": null,
+     "mag": 14.295,
+     "mag_band": "W2",
+     "otype": null,
+     "w1_mag": 14.373,
+     "w2_mag": 14.295,
+     "n_candidates_in_radius": 1
+    },
+    "simbad": null
+   },
+   "criteria": {
+    "transient_candidate": {
+     "passed": false,
+     "confidence": 0.0,
+     "criteria": [
+      {
+       "name": "detected_snr",
+       "value": 6.2076,
+       "threshold": 10.0,
+       "strong": 30.0,
+       "unit": "",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "other_visits_covered",
+       "value": 3.0,
+       "threshold": 1,
+       "strong": 3,
+       "unit": "visits",
+       "passed": true,
+       "score": 1.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "max_snr_in_other_visits",
+       "value": 11.362,
+       "threshold": 3.0,
+       "strong": 0.0,
+       "unit": "",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "flux_factor_vs_other_visits",
+       "value": 0.6209,
+       "threshold": 3.0,
+       "strong": 10.0,
+       "unit": "",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "frame_detections",
+       "value": 0.0,
+       "threshold": 2,
+       "strong": 6,
+       "unit": "frames",
+       "passed": false,
+       "score": 0.0,
+       "weight": 0.5,
+       "required": true
+      }
+     ]
+    },
+    "variable_candidate": {
+     "passed": false,
+     "confidence": 0.0,
+     "criteria": [
+      {
+       "name": "variability_sigma",
+       "value": 1.8674,
+       "threshold": 3.3,
+       "strong": 8.0,
+       "unit": "sigma",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.5,
+       "required": true
+      },
+      {
+       "name": "amplitude",
+       "value": 0.7233,
+       "threshold": 0.09,
+       "strong": 0.5,
+       "unit": "fractional",
+       "passed": true,
+       "score": 1.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "wavelength_overlap",
+       "value": 0.18,
+       "threshold": 0.3,
+       "strong": 0.8,
+       "unit": "",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "visits",
+       "value": 3.0,
+       "threshold": 2,
+       "strong": 4,
+       "unit": "visits",
+       "passed": true,
+       "score": 0.5,
+       "weight": 0.5,
+       "required": true
+      },
+      {
+       "name": "min_visit_flux_snr",
+       "value": 1.06,
+       "threshold": 5.0,
+       "strong": 20.0,
+       "unit": "",
+       "passed": false,
+       "score": 0.0,
+       "weight": 1.0,
+       "required": true
+      },
+      {
+       "name": "not_saturated",
+       "value": 1.0,
+       "threshold": 1.0,
+       "strong": 1.0,
+       "unit": "",
+       "passed": true,
+       "score": 1.0,
+       "weight": 0.5,
+       "required": true
+      }
+     ]
+    },
+    "insufficient_data": {
+     "passed": true,
+     "confidence": 0.0,
+     "criteria": []
+    }
+   },
+   "saturated": false,
+   "n_visits": 1,
+   "n_frame_detections": 0,
+   "transient_test": {
+    "detected_snr": 6.207603038099786,
+    "n_other_visits_covered": 3,
+    "max_other_visit_snr": 11.362044278945154,
+    "flux_factor": 0.6208529662754317
+   },
+   "light_curve": {
+    "source_id": "S002",
+    "units": "mJy",
+    "magnitude_system": "AB",
+    "points": [
+     {
+      "mjd": 60800.700028461,
+      "observation_time": "2025-05-05T16:48:02.419Z",
+      "observation_id": "2025W19_1B_0116_1_D6",
+      "epoch": 0,
+      "wavelength": 4.968530910101427,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.03570300833271502,
+      "flux_err": 0.16395457851022097,
+      "aperture_flux": 0.04666155928397963,
+      "mag_ab": 20.018303594098846,
+      "mag_ab_err": 4.9858941903585325,
+      "snr": 0.21776158163518003
+     },
+     {
+      "mjd": 60800.701520718,
+      "observation_time": "2025-05-05T16:50:11.414Z",
+      "observation_id": "2025W19_1B_0116_2_D6",
+      "epoch": 0,
+      "wavelength": 5.004499918892201,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2377144683511742,
+      "flux_err": 0.17963147151573033,
+      "aperture_flux": 0.1404668423543657,
+      "mag_ab": 17.959926583255722,
+      "mag_ab_err": 0.8204481346523966,
+      "snr": 1.3233453266587394
+     },
+     {
+      "mjd": 60800.834437847,
+      "observation_time": "2025-05-05T20:01:35.443Z",
+      "observation_id": "2025W19_1B_0138_1_D6",
+      "epoch": 0,
+      "wavelength": 4.859870001257631,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.09122594339306324,
+      "flux_err": 0.1526448624900067,
+      "aperture_flux": 0.13429560479539465,
+      "mag_ab": 18.999769714229892,
+      "mag_ab_err": 1.8167206335333832,
+      "snr": 0.5976352030782274
+     },
+     {
+      "mjd": 60989.296807454,
+      "observation_time": "2025-11-10T07:07:24.125Z",
+      "observation_id": "2025W46_1A_0075_4_D6",
+      "epoch": 1,
+      "wavelength": 4.411735205544078,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.26201569281220216,
+      "flux_err": 0.12753667654899772,
+      "aperture_flux": 0.20767270355812972,
+      "mag_ab": 17.85424736442516,
+      "mag_ab_err": 0.5284843273224178,
+      "snr": 2.0544340647887243
+     },
+     {
+      "mjd": 60989.298548414,
+      "observation_time": "2025-11-10T07:09:54.547Z",
+      "observation_id": "2025W46_1A_0076_1_D6",
+      "epoch": 1,
+      "wavelength": 4.443744666281852,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.30671629298940006,
+      "flux_err": 0.1216138477543547,
+      "aperture_flux": 0.2835452902449871,
+      "mag_ab": 17.68322350570842,
+      "mag_ab_err": 0.43049737012637046,
+      "snr": 2.522050725744078
+     },
+     {
+      "mjd": 60989.300040671,
+      "observation_time": "2025-11-10T07:12:03.542Z",
+      "observation_id": "2025W46_1A_0076_2_D6",
+      "epoch": 1,
+      "wavelength": 4.476338562236519,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.11819100247118172,
+      "flux_err": 0.13671822715669538,
+      "aperture_flux": 0.11857458717008743,
+      "mag_ab": 18.718604581635063,
+      "mag_ab_err": 1.2559325665298766,
+      "snr": 0.8644860669215726
+     },
+     {
+      "mjd": 60989.301532928,
+      "observation_time": "2025-11-10T07:14:12.451Z",
+      "observation_id": "2025W46_1A_0076_3_D6",
+      "epoch": 1,
+      "wavelength": 4.509114477432757,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.22504671319024117,
+      "flux_err": 0.12429590987105826,
+      "aperture_flux": 0.13010812011057032,
+      "mag_ab": 18.019383936169582,
+      "mag_ab_err": 0.5996646986631633,
+      "snr": 1.8105721533693224
+     },
+     {
+      "mjd": 60989.364776111,
+      "observation_time": "2025-11-10T08:45:16.646Z",
+      "observation_id": "2025W46_1A_0090_1_D6",
+      "epoch": 1,
+      "wavelength": 4.541496093977127,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.17220703280842414,
+      "flux_err": 0.12820836465720387,
+      "aperture_flux": 0.2171948536479056,
+      "mag_ab": 18.309938412915518,
+      "mag_ab_err": 0.8083320465547752,
+      "snr": 1.3431809482077193
+     },
+     {
+      "mjd": 60989.366268368,
+      "observation_time": "2025-11-10T08:47:25.555Z",
+      "observation_id": "2025W46_1A_0090_2_D6",
+      "epoch": 1,
+      "wavelength": 4.5755491978399006,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2528114992734582,
+      "flux_err": 0.12936996889589888,
+      "aperture_flux": 0.164572497979702,
+      "mag_ab": 17.893073561810276,
+      "mag_ab_err": 0.5555983784059505,
+      "snr": 1.9541745385815927
+     },
+     {
+      "mjd": 60989.367760625,
+      "observation_time": "2025-11-10T08:49:34.550Z",
+      "observation_id": "2025W46_1A_0090_3_D6",
+      "epoch": 1,
+      "wavelength": 4.6103757742576725,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.32108990854879466,
+      "flux_err": 0.15121764448985534,
+      "aperture_flux": 0.2741704349635217,
+      "mag_ab": 17.63349898115049,
+      "mag_ab_err": 0.5113286560855259,
+      "snr": 2.1233627175718603
+     },
+     {
+      "mjd": 60989.97699147,
+      "observation_time": "2025-11-10T23:26:52.022Z",
+      "observation_id": "2025W46_1A_0238_1_D6",
+      "epoch": 1,
+      "wavelength": 4.628401139944698,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.177092606649493,
+      "flux_err": 0.13662171248595376,
+      "aperture_flux": 0.08262462538077006,
+      "mag_ab": 18.279564546217713,
+      "mag_ab_err": 0.8376133956605265,
+      "snr": 1.296225932372939
+     },
+     {
+      "mjd": 60989.978483727,
+      "observation_time": "2025-11-10T23:29:01.018Z",
+      "observation_id": "2025W46_1A_0238_2_D6",
+      "epoch": 1,
+      "wavelength": 4.663039282880247,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3845311703360362,
+      "flux_err": 0.14457591732457023,
+      "aperture_flux": 0.4567105347857362,
+      "mag_ab": 17.4377367479187,
+      "mag_ab_err": 0.40821478175157827,
+      "snr": 2.659718004574516
+     },
+     {
+      "mjd": 60993.505108738,
+      "observation_time": "2025-11-14T12:07:21.418Z",
+      "observation_id": "2025W46_2A_0214_1_D6",
+      "epoch": 1,
+      "wavelength": 4.697832272215136,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.21186945064611942,
+      "flux_err": 0.14088152470721277,
+      "aperture_flux": 0.1524263690564442,
+      "mag_ab": 18.08489477099936,
+      "mag_ab_err": 0.721954824018653,
+      "snr": 1.5038838562149113
+     },
+     {
+      "mjd": 60993.506600984,
+      "observation_time": "2025-11-14T12:09:30.326Z",
+      "observation_id": "2025W46_2A_0214_2_D6",
+      "epoch": 1,
+      "wavelength": 4.732221095713046,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.15553064136902725,
+      "flux_err": 0.14116878105574174,
+      "aperture_flux": -0.0090653396138577,
+      "mag_ab": 18.42052571497565,
+      "mag_ab_err": 0.985478200466775,
+      "snr": 1.1017353851600844
+     },
+     {
+      "mjd": 60993.508093229,
+      "observation_time": "2025-11-14T12:11:39.235Z",
+      "observation_id": "2025W46_2A_0214_3_D6",
+      "epoch": 1,
+      "wavelength": 4.7673812200867625,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2889874218568355,
+      "flux_err": 0.15025804587591932,
+      "aperture_flux": 0.18612891935772397,
+      "mag_ab": 17.747868270901648,
+      "mag_ab_err": 0.5645249174357265,
+      "snr": 1.923274192554565
+     },
+     {
+      "mjd": 60993.509585509,
+      "observation_time": "2025-11-14T12:13:48.230Z",
+      "observation_id": "2025W46_2A_0214_4_D6",
+      "epoch": 1,
+      "wavelength": 4.800782342319687,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.26947782562015354,
+      "flux_err": 0.15006128461465207,
+      "aperture_flux": 0.1658357528008349,
+      "mag_ab": 17.82375803620274,
+      "mag_ab_err": 0.6046025095522997,
+      "snr": 1.7957851441306505
+     },
+     {
+      "mjd": 60993.574249873,
+      "observation_time": "2025-11-14T13:46:55.200Z",
+      "observation_id": "2025W46_2A_0226_1_D6",
+      "epoch": 1,
+      "wavelength": 4.83506641301413,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.4270332365091367,
+      "flux_err": 0.1561388044455231,
+      "aperture_flux": 0.4778949360596578,
+      "mag_ab": 17.323911427279526,
+      "mag_ab_err": 0.39698444631610513,
+      "snr": 2.734959051502977
+     },
+     {
+      "mjd": 60993.57574213,
+      "observation_time": "2025-11-14T13:49:04.109Z",
+      "observation_id": "2025W46_2A_0226_2_D6",
+      "epoch": 1,
+      "wavelength": 4.870579292608232,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.6126660984879859,
+      "flux_err": 0.16540436235565853,
+      "aperture_flux": 0.43576633823430155,
+      "mag_ab": 16.932005998353517,
+      "mag_ab_err": 0.2931213348962423,
+      "snr": 3.7040504238371224
+     },
+     {
+      "mjd": 60993.577234375,
+      "observation_time": "2025-11-14T13:51:13.018Z",
+      "observation_id": "2025W46_2A_0226_3_D6",
+      "epoch": 1,
+      "wavelength": 4.906529163540633,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.20931836984282803,
+      "flux_err": 0.1674311306424917,
+      "aperture_flux": 0.11358789720760434,
+      "mag_ab": 18.098047262719664,
+      "mag_ab_err": 0.8684667307443685,
+      "snr": 1.250175932274962
+     },
+     {
+      "mjd": 60993.578726644,
+      "observation_time": "2025-11-14T13:53:22.013Z",
+      "observation_id": "2025W46_2A_0226_4_D6",
+      "epoch": 1,
+      "wavelength": 4.9429985022886225,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.252896177819516,
+      "flux_err": 0.17786993653782,
+      "aperture_flux": 0.3127668537979355,
+      "mag_ab": 17.892709958217747,
+      "mag_ab_err": 0.7636328532215522,
+      "snr": 1.4218039469854054
+     },
+     {
+      "mjd": 60993.912885139,
+      "observation_time": "2025-11-14T21:54:33.264Z",
+      "observation_id": "2025W46_2A_0289_1_D6",
+      "epoch": 1,
+      "wavelength": 4.9793201526464195,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.06830353553374559,
+      "flux_err": 0.1802727689999402,
+      "aperture_flux": 0.12431567189471016,
+      "mag_ab": 19.313957661648814,
+      "mag_ab_err": 2.865571606297505,
+      "snr": 0.37888992282449624
+     },
+     {
+      "mjd": 61021.351417917,
+      "observation_time": "2025-12-12T08:26:02.515Z",
+      "observation_id": "2025W50_2A_0254_1_D6",
+      "epoch": 2,
+      "wavelength": 4.697432873051062,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.29184413113372026,
+      "flux_err": 0.12306943592016355,
+      "aperture_flux": 0.18424566182223892,
+      "mag_ab": 17.737188211658886,
+      "mag_ab_err": 0.45785036607934493,
+      "snr": 2.3713778238411902
+     },
+     {
+      "mjd": 61022.029132639,
+      "observation_time": "2025-12-13T00:41:57.091Z",
+      "observation_id": "2025W50_2A_0428_1_D6",
+      "epoch": 2,
+      "wavelength": 4.732348987910476,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.24126306000277953,
+      "flux_err": 0.12600611652316346,
+      "aperture_flux": 0.14019077837074018,
+      "mag_ab": 17.94383854280096,
+      "mag_ab_err": 0.5670549098092098,
+      "snr": 1.9146932439460478
+     },
+     {
+      "mjd": 61151.197933206,
+      "observation_time": "2026-04-21T04:45:01.411Z",
+      "observation_id": "2026W17_1B_0227_2_D6",
+      "epoch": 3,
+      "wavelength": 4.413043602634493,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.2789340617550992,
+      "flux_err": 0.10705909528025476,
+      "aperture_flux": 0.28831521171265173,
+      "mag_ab": 17.78631174492617,
+      "mag_ab_err": 0.4167219129246334,
+      "snr": 2.6054214359360826
+     },
+     {
+      "mjd": 61151.20091772,
+      "observation_time": "2026-04-21T04:49:19.315Z",
+      "observation_id": "2026W17_1B_0227_4_D6",
+      "epoch": 3,
+      "wavelength": 4.477556505594995,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3910153498096673,
+      "flux_err": 0.11019510306029338,
+      "aperture_flux": 0.4534401611309345,
+      "mag_ab": 17.419581105987017,
+      "mag_ab_err": 0.30597983694975617,
+      "snr": 3.548391343630967
+     },
+     {
+      "mjd": 61152.757303588,
+      "observation_time": "2026-04-22T18:10:31.066Z",
+      "observation_id": "2026W17_1B_0507_1_D6",
+      "epoch": 3,
+      "wavelength": 4.509420869320001,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.45965595434228473,
+      "flux_err": 0.11606735380322421,
+      "aperture_flux": 0.33022329842618003,
+      "mag_ab": 17.243983396529245,
+      "mag_ab_err": 0.2741583722002467,
+      "snr": 3.960251864805727
+     },
+     {
+      "mjd": 61152.758795833,
+      "observation_time": "2026-04-22T18:12:39.974Z",
+      "observation_id": "2026W17_1B_0507_2_D6",
+      "epoch": 3,
+      "wavelength": 4.542043171633599,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.5558327897951553,
+      "flux_err": 0.11699240304526849,
+      "aperture_flux": 0.5625108732488265,
+      "mag_ab": 17.03770521432992,
+      "mag_ab_err": 0.22852715780714525,
+      "snr": 4.751016094438918
+     },
+     {
+      "mjd": 61152.76028809,
+      "observation_time": "2026-04-22T18:14:48.883Z",
+      "observation_id": "2026W17_1B_0507_3_D6",
+      "epoch": 3,
+      "wavelength": 4.577556611308799,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.16711938682409594,
+      "flux_err": 0.11326824610755758,
+      "aperture_flux": 0.15292877279027453,
+      "mag_ab": 18.34249853850706,
+      "mag_ab_err": 0.7358777337896363,
+      "snr": 1.475430163060901
+     },
+     {
+      "mjd": 61153.436457037,
+      "observation_time": "2026-04-23T10:28:29.885Z",
+      "observation_id": "2026W17_1B_0634_1_D6",
+      "epoch": 3,
+      "wavelength": 4.608878348112464,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.43416090753468856,
+      "flux_err": 0.12856175162022468,
+      "aperture_flux": 0.2644045267279661,
+      "mag_ab": 17.305938831316556,
+      "mag_ab_err": 0.3215032626355185,
+      "snr": 3.3770612337113537
+     },
+     {
+      "mjd": 61153.437949306,
+      "observation_time": "2026-04-23T10:30:38.794Z",
+      "observation_id": "2026W17_1B_0634_2_D6",
+      "epoch": 3,
+      "wavelength": 4.643157862742658,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.28844777191666465,
+      "flux_err": 0.1591742640521931,
+      "aperture_flux": 0.2275355431451497,
+      "mag_ab": 17.74989765066526,
+      "mag_ab_err": 0.5991422994840334,
+      "snr": 1.812150812408235
+     },
+     {
+      "mjd": 61153.440933808,
+      "observation_time": "2026-04-23T10:34:56.698Z",
+      "observation_id": "2026W17_1B_0634_4_D6",
+      "epoch": 3,
+      "wavelength": 4.710028452880437,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.5611893033168673,
+      "flux_err": 0.13154375385218667,
+      "aperture_flux": 0.5525635706907467,
+      "mag_ab": 17.027292161129182,
+      "mag_ab_err": 0.2544984646410277,
+      "snr": 4.266179783400933
+     },
+     {
+      "mjd": 61156.085510949,
+      "observation_time": "2026-04-26T02:03:08.150Z",
+      "observation_id": "2026W17_2A_0591_1_D6",
+      "epoch": 3,
+      "wavelength": 4.814820061787881,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.5666694118636022,
+      "flux_err": 0.15081328864921117,
+      "aperture_flux": 0.4868869005915081,
+      "mag_ab": 17.016741195837206,
+      "mag_ab_err": 0.28895762541088066,
+      "snr": 3.7574236125946725
+     },
+     {
+      "mjd": 61156.152715706,
+      "observation_time": "2026-04-26T03:39:54.662Z",
+      "observation_id": "2026W17_2A_0609_1_D6",
+      "epoch": 3,
+      "wavelength": 4.744196794239718,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3495338314005317,
+      "flux_err": 0.13547466586666101,
+      "aperture_flux": 0.3923873243976075,
+      "mag_ab": 17.541342578519433,
+      "mag_ab_err": 0.4208169176917061,
+      "snr": 2.580067861134681
+     },
+     {
+      "mjd": 61156.154225718,
+      "observation_time": "2026-04-26T03:42:05.126Z",
+      "observation_id": "2026W17_2A_0609_2_D6",
+      "epoch": 3,
+      "wavelength": 4.780311511287608,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3041202049797654,
+      "flux_err": 0.14105459408551613,
+      "aperture_flux": 0.2649798393538229,
+      "mag_ab": 17.692452435949185,
+      "mag_ab_err": 0.5035774576578904,
+      "snr": 2.1560460823799095
+     },
+     {
+      "mjd": 61156.493180671,
+      "observation_time": "2026-04-26T11:50:10.838Z",
+      "observation_id": "2026W17_2A_0692_1_D6",
+      "epoch": 3,
+      "wavelength": 4.895300094676758,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.1494928012136709,
+      "flux_err": 0.14518396145288914,
+      "aperture_flux": 0.18285839594831646,
+      "mag_ab": 18.463514922712267,
+      "mag_ab_err": 1.0544419665687237,
+      "snr": 1.0296784831992611
+     },
+     {
+      "mjd": 61168.984738356,
+      "observation_time": "2026-05-08T23:38:01.363Z",
+      "observation_id": "2026W19_2A_0568_1_D6",
+      "epoch": 3,
+      "wavelength": 4.824535297442127,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.37082804674299935,
+      "flux_err": 0.14631361888856798,
+      "aperture_flux": 0.18485243247272115,
+      "mag_ab": 17.47713418828633,
+      "mag_ab_err": 0.428387212541658,
+      "snr": 2.534473889443066
+     },
+     {
+      "mjd": 61169.194222546,
+      "observation_time": "2026-05-09T04:39:40.867Z",
+      "observation_id": "2026W19_2A_0651_1_D6",
+      "epoch": 3,
+      "wavelength": 4.85982176792144,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.12942469636433235,
+      "flux_err": 0.1587438377936651,
+      "aperture_flux": -0.10274318373928536,
+      "mag_ab": 18.62002273532636,
+      "mag_ab_err": 1.3316927666544822,
+      "snr": 0.8153053256313375
+     },
+     {
+      "mjd": 61169.527652685,
+      "observation_time": "2026-05-09T12:39:49.219Z",
+      "observation_id": "2026W19_2A_0782_1_D6",
+      "epoch": 3,
+      "wavelength": 4.89517314308363,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.3367862584828418,
+      "flux_err": 0.33431586417216014,
+      "aperture_flux": 0.17845613607613958,
+      "mag_ab": 17.581679714402803,
+      "mag_ab_err": 1.0777721133631348,
+      "snr": 1.0073894019860496
+     },
+     {
+      "mjd": 61169.933208472,
+      "observation_time": "2026-05-09T22:23:49.171Z",
+      "observation_id": "2026W19_2A_0952_1_D6",
+      "epoch": 3,
+      "wavelength": 4.9316510676258245,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.13684084666597993,
+      "flux_err": 0.16947867983196774,
+      "aperture_flux": 0.16282425630136296,
+      "mag_ab": 18.559526240777775,
+      "mag_ab_err": 1.3446945346467618,
+      "snr": 0.8074221890426153
+     },
+     {
+      "mjd": 61171.096350255,
+      "observation_time": "2026-05-11T02:18:44.640Z",
+      "observation_id": "2026W20_1A_0033_1_D6",
+      "epoch": 3,
+      "wavelength": 4.96858207705849,
+      "detector": 6,
+      "data_release": "DR1",
+      "flux": 0.12465420508063485,
+      "flux_err": 0.16811457820546066,
+      "aperture_flux": 0.0027839059562423936,
+      "mag_ab": 18.660798288377453,
+      "mag_ab_err": 1.4642753847512724,
+      "snr": 0.7414836143971354
+     }
+    ],
+    "n_frames": 44,
+    "n_good": 40,
+    "n_rejected": 4,
+    "rejected_flags": {
+     "masked_core": 4,
+     "partially_masked": 1
+    },
+    "warning": "Each point is at a different wavelength (colour = wavelength). Changes in flux between points reflect the spectrum as well as time; use variability_indicator."
+   },
+   "spectrum": {
+    "source_id": "S002",
+    "units": "mJy",
+    "wavelength_units": "um",
+    "kind": "multi-channel PSF photometry profile",
+    "visits": [
+     {
+      "epoch": 0,
+      "mjd": 60800.74532900866,
+      "points": [
+       {
+        "wavelength": 4.859870001257631,
+        "flux": 0.09122594339306324,
+        "flux_err": 0.1526448624900067,
+        "observation_id": "2025W19_1B_0138_1_D6"
+       },
+       {
+        "wavelength": 4.968530910101427,
+        "flux": 0.03570300833271502,
+        "flux_err": 0.16395457851022097,
+        "observation_id": "2025W19_1B_0116_1_D6"
+       },
+       {
+        "wavelength": 5.004499918892201,
+        "flux": 0.2377144683511742,
+        "flux_err": 0.17963147151573033,
+        "observation_id": "2025W19_1B_0116_2_D6"
+       }
+      ]
+     },
+     {
+      "epoch": 1,
+      "mjd": 60991.52774646607,
+      "points": [
+       {
+        "wavelength": 4.411735205544078,
+        "flux": 0.26201569281220216,
+        "flux_err": 0.12753667654899772,
+        "observation_id": "2025W46_1A_0075_4_D6"
+       },
+       {
+        "wavelength": 4.443744666281852,
+        "flux": 0.30671629298940006,
+        "flux_err": 0.1216138477543547,
+        "observation_id": "2025W46_1A_0076_1_D6"
+       },
+       {
+        "wavelength": 4.476338562236519,
+        "flux": 0.11819100247118172,
+        "flux_err": 0.13671822715669538,
+        "observation_id": "2025W46_1A_0076_2_D6"
+       },
+       {
+        "wavelength": 4.509114477432757,
+        "flux": 0.22504671319024117,
+        "flux_err": 0.12429590987105826,
+        "observation_id": "2025W46_1A_0076_3_D6"
+       },
+       {
+        "wavelength": 4.541496093977127,
+        "flux": 0.17220703280842414,
+        "flux_err": 0.12820836465720387,
+        "observation_id": "2025W46_1A_0090_1_D6"
+       },
+       {
+        "wavelength": 4.5755491978399006,
+        "flux": 0.2528114992734582,
+        "flux_err": 0.12936996889589888,
+        "observation_id": "2025W46_1A_0090_2_D6"
+       },
+       {
+        "wavelength": 4.6103757742576725,
+        "flux": 0.32108990854879466,
+        "flux_err": 0.15121764448985534,
+        "observation_id": "2025W46_1A_0090_3_D6"
+       },
+       {
+        "wavelength": 4.628401139944698,
+        "flux": 0.177092606649493,
+        "flux_err": 0.13662171248595376,
+        "observation_id": "2025W46_1A_0238_1_D6"
+       },
+       {
+        "wavelength": 4.663039282880247,
+        "flux": 0.3845311703360362,
+        "flux_err": 0.14457591732457023,
+        "observation_id": "2025W46_1A_0238_2_D6"
+       },
+       {
+        "wavelength": 4.697832272215136,
+        "flux": 0.21186945064611942,
+        "flux_err": 0.14088152470721277,
+        "observation_id": "2025W46_2A_0214_1_D6"
+       },
+       {
+        "wavelength": 4.732221095713046,
+        "flux": 0.15553064136902725,
+        "flux_err": 0.14116878105574174,
+        "observation_id": "2025W46_2A_0214_2_D6"
+       },
+       {
+        "wavelength": 4.7673812200867625,
+        "flux": 0.2889874218568355,
+        "flux_err": 0.15025804587591932,
+        "observation_id": "2025W46_2A_0214_3_D6"
+       },
+       {
+        "wavelength": 4.800782342319687,
+        "flux": 0.26947782562015354,
+        "flux_err": 0.15006128461465207,
+        "observation_id": "2025W46_2A_0214_4_D6"
+       },
+       {
+        "wavelength": 4.83506641301413,
+        "flux": 0.4270332365091367,
+        "flux_err": 0.1561388044455231,
+        "observation_id": "2025W46_2A_0226_1_D6"
+       },
+       {
+        "wavelength": 4.870579292608232,
+        "flux": 0.6126660984879859,
+        "flux_err": 0.16540436235565853,
+        "observation_id": "2025W46_2A_0226_2_D6"
+       },
+       {
+        "wavelength": 4.906529163540633,
+        "flux": 0.20931836984282803,
+        "flux_err": 0.1674311306424917,
+        "observation_id": "2025W46_2A_0226_3_D6"
+       },
+       {
+        "wavelength": 4.9429985022886225,
+        "flux": 0.252896177819516,
+        "flux_err": 0.17786993653782,
+        "observation_id": "2025W46_2A_0226_4_D6"
+       },
+       {
+        "wavelength": 4.9793201526464195,
+        "flux": 0.06830353553374559,
+        "flux_err": 0.1802727689999402,
+        "observation_id": "2025W46_2A_0289_1_D6"
+       }
+      ]
+     },
+     {
+      "epoch": 2,
+      "mjd": 61021.690275278,
+      "points": [
+       {
+        "wavelength": 4.697432873051062,
+        "flux": 0.29184413113372026,
+        "flux_err": 0.12306943592016355,
+        "observation_id": "2025W50_2A_0254_1_D6"
+       },
+       {
+        "wavelength": 4.732348987910476,
+        "flux": 0.24126306000277953,
+        "flux_err": 0.12600611652316346,
+        "observation_id": "2025W50_2A_0428_1_D6"
+       }
+      ]
+     },
+     {
+      "epoch": 3,
+      "mjd": 61158.506610820354,
+      "points": [
+       {
+        "wavelength": 4.413043602634493,
+        "flux": 0.2789340617550992,
+        "flux_err": 0.10705909528025476,
+        "observation_id": "2026W17_1B_0227_2_D6"
+       },
+       {
+        "wavelength": 4.477556505594995,
+        "flux": 0.3910153498096673,
+        "flux_err": 0.11019510306029338,
+        "observation_id": "2026W17_1B_0227_4_D6"
+       },
+       {
+        "wavelength": 4.509420869320001,
+        "flux": 0.45965595434228473,
+        "flux_err": 0.11606735380322421,
+        "observation_id": "2026W17_1B_0507_1_D6"
+       },
+       {
+        "wavelength": 4.542043171633599,
+        "flux": 0.5558327897951553,
+        "flux_err": 0.11699240304526849,
+        "observation_id": "2026W17_1B_0507_2_D6"
+       },
+       {
+        "wavelength": 4.577556611308799,
+        "flux": 0.16711938682409594,
+        "flux_err": 0.11326824610755758,
+        "observation_id": "2026W17_1B_0507_3_D6"
+       },
+       {
+        "wavelength": 4.608878348112464,
+        "flux": 0.43416090753468856,
+        "flux_err": 0.12856175162022468,
+        "observation_id": "2026W17_1B_0634_1_D6"
+       },
+       {
+        "wavelength": 4.643157862742658,
+        "flux": 0.28844777191666465,
+        "flux_err": 0.1591742640521931,
+        "observation_id": "2026W17_1B_0634_2_D6"
+       },
+       {
+        "wavelength": 4.710028452880437,
+        "flux": 0.5611893033168673,
+        "flux_err": 0.13154375385218667,
+        "observation_id": "2026W17_1B_0634_4_D6"
+       },
+       {
+        "wavelength": 4.744196794239718,
+        "flux": 0.3495338314005317,
+        "flux_err": 0.13547466586666101,
+        "observation_id": "2026W17_2A_0609_1_D6"
+       },
+       {
+        "wavelength": 4.780311511287608,
+        "flux": 0.3041202049797654,
+        "flux_err": 0.14105459408551613,
+        "observation_id": "2026W17_2A_0609_2_D6"
+       },
+       {
+        "wavelength": 4.814820061787881,
+        "flux": 0.5666694118636022,
+        "flux_err": 0.15081328864921117,
+        "observation_id": "2026W17_2A_0591_1_D6"
+       },
+       {
+        "wavelength": 4.824535297442127,
+        "flux": 0.37082804674299935,
+        "flux_err": 0.14631361888856798,
+        "observation_id": "2026W19_2A_0568_1_D6"
+       },
+       {
+        "wavelength": 4.85982176792144,
+        "flux": 0.12942469636433235,
+        "flux_err": 0.1587438377936651,
+        "observation_id": "2026W19_2A_0651_1_D6"
+       },
+       {
+        "wavelength": 4.89517314308363,
+        "flux": 0.3367862584828418,
+        "flux_err": 0.33431586417216014,
+        "observation_id": "2026W19_2A_0782_1_D6"
+       },
+       {
+        "wavelength": 4.895300094676758,
+        "flux": 0.1494928012136709,
+        "flux_err": 0.14518396145288914,
+        "observation_id": "2026W17_2A_0692_1_D6"
+       },
+       {
+        "wavelength": 4.9316510676258245,
+        "flux": 0.13684084666597993,
+        "flux_err": 0.16947867983196774,
+        "observation_id": "2026W19_2A_0952_1_D6"
+       },
+       {
+        "wavelength": 4.96858207705849,
+        "flux": 0.12465420508063485,
+        "flux_err": 0.16811457820546066,
+        "observation_id": "2026W20_1A_0033_1_D6"
+       }
+      ]
+     }
+    ],
+    "combined": [
+     {
+      "channel": 85,
+      "label": "D6-00 (4.428 um)",
+      "wavelength": 4.428027466741727,
+      "wavelength_min": 4.4115,
+      "wavelength_max": 4.444616852820845,
+      "flux": 0.282809085629118,
+      "flux_err": 0.06798781803025075,
+      "n": 3,
+      "scatter": 0.018427718361949116
+     },
+     {
+      "channel": 86,
+      "label": "D6-01 (4.461 um)",
+      "wavelength": 4.461268390215091,
+      "wavelength_min": 4.444616852820845,
+      "wavelength_max": 4.477982311771296,
+      "flux": 0.2835753260396934,
+      "flux_err": 0.08579617049787637,
+      "n": 2,
+      "scatter": 0.1364121736692428
+     },
+     {
+      "channel": 87,
+      "label": "D6-02 (4.495 um)",
+      "wavelength": 4.4947588512086405,
+      "wavelength_min": 4.477982311771296,
+      "wavelength_max": 4.51159824312192,
+      "flux": 0.3503735059543132,
+      "flux_err": 0.08483195753669275,
+      "n": 2,
+      "scatter": 0.11730462057602178
+     },
+     {
+      "channel": 88,
+      "label": "D6-03 (4.529 um)",
+      "wavelength": 4.528500722984831,
+      "wavelength_min": 4.51159824312192,
+      "wavelength_max": 4.545466527153259,
+      "flux": 0.38153106301297673,
+      "flux_err": 0.08641981380086175,
+      "n": 2,
+      "scatter": 0.19181287849336556
+     },
+     {
+      "channel": 89,
+      "label": "D6-04 (4.562 um)",
+      "wavelength": 4.562495892868585,
+      "wavelength_min": 4.545466527153259,
+      "wavelength_max": 4.579589058261002,
+      "flux": 0.20430375872838316,
+      "flux_err": 0.08522034229384393,
+      "n": 2,
+      "scatter": 0.04284605622468113
+     },
+     {
+      "channel": 90,
+      "label": "D6-05 (4.597 um)",
+      "wavelength": 4.596746262352849,
+      "wavelength_min": 4.579589058261002,
+      "wavelength_max": 4.613967745061949,
+      "flux": 0.3867219880180064,
+      "flux_err": 0.09794770140694511,
+      "n": 2,
+      "scatter": 0.05653549949294695
+     },
+     {
+      "channel": 91,
+      "label": "D6-06 (4.631 um)",
+      "wavelength": 4.631253747204965,
+      "wavelength_min": 4.613967745061949,
+      "wavelength_max": 4.648604510500767,
+      "flux": 0.22432913862314374,
+      "flux_err": 0.10367085245614009,
+      "n": 2,
+      "scatter": 0.055677582633585826
+     },
+     {
+      "channel": 92,
+      "label": "D6-07 (4.666 um)",
+      "wavelength": 4.666020277573813,
+      "wavelength_min": 4.648604510500767,
+      "wavelength_max": 4.683501291957543,
+      "flux": 0.3845311703360362,
+      "flux_err": 0.14457591732457023,
+      "n": 1,
+      "scatter": null
+     },
+     {
+      "channel": 93,
+      "label": "D6-08 (4.701 um)",
+      "wavelength": 4.701047798097782,
+      "wavelength_min": 4.683501291957543,
+      "wavelength_max": 4.718660041356159,
+      "flux": 0.358068962731988,
+      "flux_err": 0.07576660280567261,
+      "n": 3,
+      "scatter": 0.14943119218013057
+     },
+     {
+      "channel": 94,
+      "label": "D6-09 (4.736 um)",
+      "wavelength": 4.736338268013539,
+      "wavelength_min": 4.718660041356159,
+      "wavelength_max": 4.754082725273465,
+      "flux": 0.25079053607451474,
+      "flux_err": 0.07723286224019651,
+      "n": 3,
+      "scatter": 0.07937943008547776
+     },
+     {
+      "channel": 95,
+      "label": "D6-10 (4.772 um)",
+      "wavelength": 4.771893661265616,
+      "wavelength_min": 4.754082725273465,
+      "wavelength_max": 4.789771325049278,
+      "flux": 0.297031427319745,
+      "flux_err": 0.10284045985572922,
+      "n": 2,
+      "scatter": 0.007566391561464936
+     },
+     {
+      "channel": 96,
+      "label": "D6-11 (4.808 um)",
+      "wavelength": 4.807715966616825,
+      "wavelength_min": 4.789771325049278,
+      "wavelength_max": 4.8257278368972125,
+      "flux": 0.4012504330013907,
+      "flux_err": 0.08603865530697562,
+      "n": 3,
+      "scatter": 0.12335519920936909
+     },
+     {
+      "channel": 97,
+      "label": "D6-12 (4.844 um)",
+      "wavelength": 4.8438071877594915,
+      "wavelength_min": 4.8257278368972125,
+      "wavelength_max": 4.861954272016327,
+      "flux": 0.21491319764273786,
+      "flux_err": 0.08994088196782699,
+      "n": 3,
+      "scatter": 0.15010978427124086
+     },
+     {
+      "channel": 98,
+      "label": "D6-13 (4.880 um)",
+      "wavelength": 4.880169343427536,
+      "wavelength_min": 4.861954272016327,
+      "wavelength_max": 4.898452656703631,
+      "flux": 0.3496791188281248,
+      "flux_err": 0.10372823342945595,
+      "n": 3,
+      "scatter": 0.19023903927108352
+     },
+     {
+      "channel": 99,
+      "label": "D6-14 (4.917 um)",
+      "wavelength": 4.916804467509387,
+      "wavelength_min": 4.898452656703631,
+      "wavelength_max": 4.9352250324674145,
+      "flux": 0.17352006979093923,
+      "flux_err": 0.11910900660753038,
+      "n": 2,
+      "scatter": 0.036238761588424054
+     },
+     {
+      "channel": 100,
+      "label": "D6-15 (4.954 um)",
+      "wavelength": 4.9537146091617466,
+      "wavelength_min": 4.9352250324674145,
+      "wavelength_max": 4.972273456141442,
+      "flux": 0.13179868246342297,
+      "flux_err": 0.09796802590960497,
+      "n": 3,
+      "scatter": 0.08915105274293945
+     },
+     {
+      "channel": 101,
+      "label": "D6-16 (4.991 um)",
+      "wavelength": 4.990901832924203,
+      "wavelength_min": 4.972273456141442,
+      "wavelength_max": 5.0096,
+      "flux": 0.15331086684940534,
+      "flux_err": 0.12724475851631126,
+      "n": 2,
+      "scatter": 0.08470546640871432
+     }
+    ],
+    "limitations": [
+     "PSF-fitted flux assuming a Gaussian PSF: absolute level uncertain by ~10%, colours across one detector better.",
+     "Points from different visits are combined in 'combined'; a variable source blurs it (see 'visits').",
+     "Saturated or masked cores are excluded, so bright stars can have no spectrum at all."
+    ]
+   }
+  }
+ ],
+ "warnings": [
+  "Registration could not be measured (too few Gaia or stationary field stars); a 0.5\" per-visit floor is assumed in all position errors."
+ ],
+ "disclaimer": "Automated, preliminary analysis of SPHEREx quick-release data. Classes are candidates defined by the listed criteria; none is a discovery. Anything unusual needs independent verification (other surveys, follow-up, expert inspection).",
+ "series": {
+  "n_processed": 44,
+  "errors": 1,
+  "skipped": 0,
+  "detectors": [
+   6
+  ]
+ }
+}

@@ -1,0 +1,11 @@
+.venv
+cache
+logs
+examples
+prompts
+.claude
+**/__pycache__
+frontend/node_modules
+frontend/dist
+.env
+*.log

@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+cache/
+*.part
+.env
+
+# build output, logs, local config
+frontend/dist/
+frontend/node_modules/
+logs/
+*.log
+.claude/
+
+# The 3D Atlas data is committed (frontend/public/galaxy/*, data/galaxy/catalog.npz) so a fresh clone
+# works without rebuilding; python -m scripts.build_galaxy_map regenerates it.

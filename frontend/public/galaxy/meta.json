@@ -1,0 +1,202 @@
+{
+ "version": 1,
+ "built": "2026-11-15T11:45:52Z",
+ "count": 572846,
+ "layout": {
+  "positions": "float32 x,y,z (pc), heliocentric Galactic: +x to Galactic centre, +z to north Galactic pole",
+  "attributes": "uint8 class + 16*source (0 none, 1 model, 2 catalogue, 3 spherex), flags(low byte), absmag byte (M_G = b/8 - 8), colour byte (BP-RP = b/40 - 1; 0 = none)",
+  "confidence": "uint8 class probability * 255"
+ },
+ "classes": [
+  {
+   "id": 0,
+   "key": "ob",
+   "label": "O/B star",
+   "color": "#9bb7ff",
+   "desc": "Hot, massive, blue-white; > 10,000 K"
+  },
+  {
+   "id": 1,
+   "key": "a",
+   "label": "A star",
+   "color": "#cad7ff",
+   "desc": "White; 7,500\u201310,000 K (e.g. Sirius, Vega)"
+  },
+  {
+   "id": 2,
+   "key": "f",
+   "label": "F star",
+   "color": "#f8f7ff",
+   "desc": "Yellow-white; 6,000\u20137,500 K"
+  },
+  {
+   "id": 3,
+   "key": "g",
+   "label": "G star",
+   "color": "#fff4ea",
+   "desc": "Sun-like; 5,200\u20136,000 K"
+  },
+  {
+   "id": 4,
+   "key": "k",
+   "label": "K star",
+   "color": "#ffd2a1",
+   "desc": "Orange dwarf; 3,700\u20135,200 K"
+  },
+  {
+   "id": 5,
+   "key": "m",
+   "label": "M dwarf",
+   "color": "#ffad66",
+   "desc": "Red dwarf; 2,400\u20133,700 K, the most common star"
+  },
+  {
+   "id": 6,
+   "key": "bd",
+   "label": "Brown dwarf (L/T/Y)",
+   "color": "#d1495b",
+   "desc": "Failed star; < 2,400 K, glows in the infrared"
+  },
+  {
+   "id": 7,
+   "key": "wd",
+   "label": "White dwarf",
+   "color": "#7fe7ff",
+   "desc": "Dead stellar core, Earth-sized"
+  },
+  {
+   "id": 8,
+   "key": "giant",
+   "label": "Giant / subgiant",
+   "color": "#ff7b54",
+   "desc": "Evolved star with a swollen envelope"
+  },
+  {
+   "id": 9,
+   "key": "yso",
+   "label": "Young stellar object",
+   "color": "#c77dff",
+   "desc": "Still forming; T Tauri / protostar"
+  },
+  {
+   "id": 10,
+   "key": "unknown",
+   "label": "Unclassified",
+   "color": "#6b7a90",
+   "desc": "No colour or type yet: uncharted"
+  }
+ ],
+ "flags": {
+  "planet_host": 1,
+  "variable": 2,
+  "multiple": 4,
+  "spherex": 8,
+  "named": 16,
+  "high_velocity": 32,
+  "simbad_only": 64,
+  "low_confidence": 128
+ },
+ "counts": {
+  "ob": 3340,
+  "a": 28429,
+  "f": 58745,
+  "g": 41143,
+  "k": 36274,
+  "m": 228213,
+  "bd": 4079,
+  "wd": 26177,
+  "giant": 132201,
+  "yso": 619,
+  "unknown": 13626
+ },
+ "class_sources": {
+  "spherex": 1,
+  "catalogue": 77847,
+  "model": 481372,
+  "none": 13626
+ },
+ "model": {
+  "method": "k-nearest neighbours (k=15) on standardised [M_G, BP-RP, BP-G, G-RP]",
+  "labels": "SIMBAD spectral / object types of Gaia DR3 stars within the map",
+  "n_train": 55576,
+  "n_test": 13894,
+  "accuracy": 0.897,
+  "accuracy_within_one_type_main_sequence": 0.988,
+  "per_class": {
+   "ob": {
+    "n_test": 24,
+    "recall": 0.417
+   },
+   "a": {
+    "n_test": 258,
+    "recall": 0.86
+   },
+   "f": {
+    "n_test": 1529,
+    "recall": 0.841
+   },
+   "g": {
+    "n_test": 2380,
+    "recall": 0.838
+   },
+   "k": {
+    "n_test": 1854,
+    "recall": 0.797
+   },
+   "m": {
+    "n_test": 3975,
+    "recall": 0.969
+   },
+   "bd": {
+    "n_test": 139,
+    "recall": 0.77
+   },
+   "wd": {
+    "n_test": 3376,
+    "recall": 0.999
+   },
+   "giant": {
+    "n_test": 359,
+    "recall": 0.387
+   }
+  },
+  "faint_model": {
+   "applies_to": "G > 19 (BP-RP unreliable)",
+   "n": 19850,
+   "method": "k-nearest neighbours (k=15) on standardised [M_G, G-RP]",
+   "accuracy": 0.891,
+   "n_test": 13894,
+   "accuracy_on_faint_labelled": 0.984,
+   "n_faint_labelled": 15339
+  },
+  "hr_rule_disagreement": 0.036
+ },
+ "provenance": {
+  "gaia": {
+   "release": "Gaia DR3",
+   "near": "parallax >= 10 AND parallax_over_error >= 10",
+   "far": "parallax >= 0.25 AND parallax < 10 AND parallax_over_error >= 10 AND phot_g_mean_mag < 10.5 AND MOD(random_index, 3) = 0",
+   "n": 564877,
+   "dropped_unreliable": 46058,
+   "quality_cut": "drop G > 19 and RUWE > 1.4 unless in SIMBAD"
+  },
+  "simbad": {
+   "n_near": 256188,
+   "n_bright": 714,
+   "n_simbad_only": 4332
+  },
+  "exoplanets": {
+   "table": "NASA Exoplanet Archive pscomppars",
+   "n_planets": 6470,
+   "n_systems": 4862
+  },
+  "spherex": {
+   "releases": [
+    "DR1",
+    "QR3"
+   ],
+   "n": 3,
+   "file": "spherex_survey.json"
+  }
+ }
+}

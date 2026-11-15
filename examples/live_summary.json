@@ -1,0 +1,1203 @@
+[
+  {
+    "target": "Barnard's Star",
+    "resolved": {
+      "query": "Barnard's Star",
+      "name": "NAME Barnard's star",
+      "ra": 269.4520769586187,
+      "dec": 4.69336496657667,
+      "ref_epoch": "J2000.0",
+      "pm_ra_cosdec_mas_yr": -801.551,
+      "pm_dec_mas_yr": 10362.394,
+      "parallax_mas": 546.9759,
+      "radial_velocity_km_s": -110.11,
+      "object_type": "BY*",
+      "source": "CDS Sesame (S=Simbad, IDIA (via url))",
+      "note": null
+    },
+    "search_center_ra": 269.4462223475676,
+    "search_center_dec": 4.768790946959164,
+    "search_epoch": "2026-03-01",
+    "n_observations": 377,
+    "n_covering_position": 358,
+    "n_by_release": {
+      "DR1": 250,
+      "QR3": 127
+    },
+    "first": "2025-08-15T20:45:11.376Z",
+    "last": "2026-09-22T15:04:21.014Z",
+    "epochs": [
+      {
+        "epoch_index": 0,
+        "start": "2025-08-15T20:45:11.376Z",
+        "end": "2025-09-05T02:34:22.339Z",
+        "mjd_start": 60902.864715,
+        "mjd_end": 60923.107203,
+        "mjd_mean": 60912.81631493164,
+        "n_observations": 117,
+        "n_per_detector": {
+          "D1": 19,
+          "D2": 22,
+          "D3": 18,
+          "D4": 19,
+          "D5": 22,
+          "D6": 17
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 1,
+        "start": "2025-09-30T10:47:46.694Z",
+        "end": "2025-10-01T06:22:54.970Z",
+        "mjd_start": 60948.449846,
+        "mjd_end": 60949.265914,
+        "mjd_mean": 60948.882529,
+        "n_observations": 11,
+        "n_per_detector": {
+          "D1": 5,
+          "D4": 6
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 2,
+        "start": "2026-03-11T02:11:37.219Z",
+        "end": "2026-04-10T00:43:17.270Z",
+        "mjd_start": 61110.091403,
+        "mjd_end": 61140.030061,
+        "mjd_mean": 61116.28278089474,
+        "n_observations": 114,
+        "n_per_detector": {
+          "D1": 18,
+          "D2": 19,
+          "D3": 20,
+          "D4": 18,
+          "D5": 19,
+          "D6": 20
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 3,
+        "start": "2026-05-04T03:11:42.778Z",
+        "end": "2026-05-05T01:59:28.781Z",
+        "mjd_start": 61164.133134,
+        "mjd_end": 61165.082972,
+        "mjd_mean": 61164.67558625,
+        "n_observations": 8,
+        "n_per_detector": {
+          "D3": 4,
+          "D6": 4
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 4,
+        "start": "2026-08-16T15:06:13.162Z",
+        "end": "2026-09-22T15:04:21.014Z",
+        "mjd_start": 61268.629319,
+        "mjd_end": 61305.628021,
+        "mjd_mean": 61275.1428622047,
+        "n_observations": 127,
+        "n_per_detector": {
+          "D1": 18,
+          "D2": 25,
+          "D3": 21,
+          "D4": 18,
+          "D5": 25,
+          "D6": 20
+        },
+        "releases": [
+          "QR3"
+        ]
+      }
+    ],
+    "bands": [
+      {
+        "band": "SPHEREx-D1",
+        "detector": 1,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 0.7455,
+        "wavelength_max": 1.1167,
+        "n_observations": 60,
+        "first": "2025-08-27T05:06:02.592Z",
+        "last": "2026-09-02T06:10:07.910Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 39.1
+      },
+      {
+        "band": "SPHEREx-D2",
+        "detector": 2,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 1.1033,
+        "wavelength_max": 1.6499,
+        "n_observations": 66,
+        "first": "2025-08-20T23:02:22.531Z",
+        "last": "2026-09-22T15:04:21.014Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 41.4
+      },
+      {
+        "band": "SPHEREx-D3",
+        "detector": 3,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 1.6301,
+        "wavelength_max": 2.4346,
+        "n_observations": 63,
+        "first": "2025-08-15T20:45:11.376Z",
+        "last": "2026-09-22T05:15:10.886Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 40.6
+      },
+      {
+        "band": "SPHEREx-D4",
+        "detector": 4,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 2.4027,
+        "wavelength_max": 3.8473,
+        "n_observations": 61,
+        "first": "2025-08-27T05:03:52.128Z",
+        "last": "2026-09-02T06:10:07.910Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 34.9
+      },
+      {
+        "band": "SPHEREx-D5",
+        "detector": 5,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 3.8113,
+        "wavelength_max": 4.43,
+        "n_observations": 66,
+        "first": "2025-08-20T23:02:22.531Z",
+        "last": "2026-09-22T15:04:21.014Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 111.6
+      },
+      {
+        "band": "SPHEREx-D6",
+        "detector": 6,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 4.4115,
+        "wavelength_max": 5.0096,
+        "n_observations": 61,
+        "first": "2025-08-15T20:45:11.376Z",
+        "last": "2026-09-22T05:15:10.886Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 127.8
+      }
+    ],
+    "cutouts": {
+      "requested": 5,
+      "ok": 4,
+      "failed": [
+        {
+          "observation_id": "2026W33_2A_0594_4_D6",
+          "url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W33_2A/l2b-v27-2026-241/6/level2_2026W33_2A_0594_4D6_spx_l2b-v27-2026-241.fits",
+          "error": "Giving up after 7 attempts: HTTP 503"
+        }
+      ]
+    },
+    "motion_checks_D6": [
+      {
+        "observation_id": "2025W33_2C_0321_1_D6",
+        "time": "2025-08-15T20:45:11.376Z",
+        "wavelength_at_target_um": 4.923264588896696,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "peak_offset_from_predicted_arcsec": 4.5525210131100255,
+        "peak_offset_from_J2000_arcsec": null
+      },
+      {
+        "observation_id": "2026W12_1A_0598_1_D6",
+        "time": "2026-03-19T07:25:17.558Z",
+        "wavelength_at_target_um": 4.548197865270075,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "peak_offset_from_predicted_arcsec": 1.6769900342559785,
+        "peak_offset_from_J2000_arcsec": null
+      },
+      {
+        "observation_id": "2026W19_1A_0046_1_D6",
+        "time": "2026-05-04T03:11:42.778Z",
+        "wavelength_at_target_um": 4.788475838379071,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "peak_offset_from_predicted_arcsec": 2.4215359755309125,
+        "peak_offset_from_J2000_arcsec": null
+      }
+    ],
+    "tap_lookup_ok": true,
+    "tap_lookup_seconds": 12.7,
+    "elapsed_s": 62.7
+  },
+  {
+    "target": "Epsilon Indi B",
+    "resolved": {
+      "query": "eps Ind B",
+      "name": "* eps Ind B",
+      "ra": 331.04414658852124,
+      "dec": -56.78284419511611,
+      "ref_epoch": "J2000.0",
+      "pm_ra_cosdec_mas_yr": 3981.977,
+      "pm_dec_mas_yr": -2466.832,
+      "parallax_mas": 270.658,
+      "radial_velocity_km_s": null,
+      "object_type": "BD*",
+      "source": "CDS Sesame (S=Simbad, IDIA (via url))",
+      "note": null
+    },
+    "search_center_ra": 331.09699524957153,
+    "search_center_dec": -56.80075972520478,
+    "search_epoch": "2026-03-01",
+    "n_observations": 472,
+    "n_covering_position": 458,
+    "n_by_release": {
+      "DR1": 352,
+      "QR3": 120
+    },
+    "first": "2025-04-24T20:31:57.101Z",
+    "last": "2026-10-02T11:28:25.766Z",
+    "epochs": [
+      {
+        "epoch_index": 0,
+        "start": "2025-04-24T20:31:57.101Z",
+        "end": "2025-06-10T04:33:19.757Z",
+        "mjd_start": 60789.855522,
+        "mjd_end": 60836.189812,
+        "mjd_mean": 60804.22277576562,
+        "n_observations": 128,
+        "n_per_detector": {
+          "D1": 4,
+          "D2": 32,
+          "D3": 28,
+          "D4": 4,
+          "D5": 31,
+          "D6": 29
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 1,
+        "start": "2025-09-28T23:08:19.190Z",
+        "end": "2025-11-12T20:34:54.048Z",
+        "mjd_start": 60946.964111,
+        "mjd_end": 60991.85757,
+        "mjd_mean": 60959.263898605444,
+        "n_observations": 147,
+        "n_per_detector": {
+          "D1": 24,
+          "D2": 30,
+          "D3": 23,
+          "D4": 24,
+          "D5": 24,
+          "D6": 22
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 2,
+        "start": "2026-04-18T20:16:29.856Z",
+        "end": "2026-05-04T02:48:24.480Z",
+        "mjd_start": 61148.84479,
+        "mjd_end": 61164.11695,
+        "mjd_mean": 61155.03229487012,
+        "n_observations": 77,
+        "n_per_detector": {
+          "D1": 21,
+          "D2": 7,
+          "D3": 12,
+          "D4": 19,
+          "D5": 7,
+          "D6": 11
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 3,
+        "start": "2026-09-22T05:26:44.678Z",
+        "end": "2026-10-02T11:28:25.766Z",
+        "mjd_start": 61305.226906,
+        "mjd_end": 61315.478076,
+        "mjd_mean": 61310.82847008334,
+        "n_observations": 120,
+        "n_per_detector": {
+          "D2": 24,
+          "D3": 36,
+          "D5": 24,
+          "D6": 36
+        },
+        "releases": [
+          "QR3"
+        ]
+      }
+    ],
+    "bands": [
+      {
+        "band": "SPHEREx-D1",
+        "detector": 1,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 0.7455,
+        "wavelength_max": 1.1167,
+        "n_observations": 49,
+        "first": "2025-04-25T06:15:47.894Z",
+        "last": "2026-05-03T17:13:24.701Z",
+        "releases": [
+          "DR1"
+        ],
+        "spectral_resolving_power": 39.1
+      },
+      {
+        "band": "SPHEREx-D2",
+        "detector": 2,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 1.1033,
+        "wavelength_max": 1.6499,
+        "n_observations": 93,
+        "first": "2025-04-24T20:31:57.101Z",
+        "last": "2026-10-02T11:28:25.766Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 41.4
+      },
+      {
+        "band": "SPHEREx-D3",
+        "detector": 3,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 1.6301,
+        "wavelength_max": 2.4346,
+        "n_observations": 99,
+        "first": "2025-04-29T01:33:19.843Z",
+        "last": "2026-09-28T08:04:44.314Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 40.6
+      },
+      {
+        "band": "SPHEREx-D4",
+        "detector": 4,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 2.4027,
+        "wavelength_max": 3.8473,
+        "n_observations": 47,
+        "first": "2025-04-25T06:15:47.894Z",
+        "last": "2026-05-03T17:13:24.701Z",
+        "releases": [
+          "DR1"
+        ],
+        "spectral_resolving_power": 34.9
+      },
+      {
+        "band": "SPHEREx-D5",
+        "detector": 5,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 3.8113,
+        "wavelength_max": 4.43,
+        "n_observations": 86,
+        "first": "2025-04-24T20:31:57.101Z",
+        "last": "2026-10-02T11:28:25.766Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 111.6
+      },
+      {
+        "band": "SPHEREx-D6",
+        "detector": 6,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 4.4115,
+        "wavelength_max": 5.0096,
+        "n_observations": 98,
+        "first": "2025-04-29T01:31:10.848Z",
+        "last": "2026-09-28T08:04:44.314Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 127.8
+      }
+    ],
+    "cutouts": {
+      "requested": 5,
+      "ok": 5,
+      "failed": []
+    },
+    "motion_checks_D6": [
+      {
+        "observation_id": "2025W18_1B_0081_2_D6",
+        "time": "2025-04-29T01:33:19.843Z",
+        "wavelength_at_target_um": 4.426699160213505,
+        "quality_flags": [],
+        "peak_offset_from_predicted_arcsec": 3.789727467768465,
+        "peak_offset_from_J2000_arcsec": null
+      },
+      {
+        "observation_id": "2025W39_2A_0693_3_D6",
+        "time": "2025-09-28T23:08:19.190Z",
+        "wavelength_at_target_um": 4.416385156879879,
+        "quality_flags": [],
+        "peak_offset_from_predicted_arcsec": 0.8460364201473802,
+        "peak_offset_from_J2000_arcsec": null
+      },
+      {
+        "observation_id": "2026W18_1A_0444_1_D6",
+        "time": "2026-04-29T03:53:51.187Z",
+        "wavelength_at_target_um": 4.557355858791402,
+        "quality_flags": [
+          "NONFUNC",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "peak_offset_from_predicted_arcsec": 4.880738764799317,
+        "peak_offset_from_J2000_arcsec": null
+      },
+      {
+        "observation_id": "2026W39_1A_0276_1_D6",
+        "time": "2026-09-22T05:26:44.678Z",
+        "wavelength_at_target_um": 4.481858884413501,
+        "quality_flags": [],
+        "peak_offset_from_predicted_arcsec": 3.8057734107803696,
+        "peak_offset_from_J2000_arcsec": null
+      }
+    ],
+    "tap_lookup_ok": true,
+    "tap_lookup_seconds": 16.4,
+    "elapsed_s": 52.1
+  },
+  {
+    "target": "WISE 0855",
+    "resolved": {
+      "query": "WISE J085510.83-071442.5",
+      "name": "WISEA J085510.74-071442.5",
+      "ra": 133.81890825,
+      "dec": -7.247048,
+      "ref_epoch": "J2000.0",
+      "pm_ra_cosdec_mas_yr": -8123.7,
+      "pm_dec_mas_yr": 673.2,
+      "parallax_mas": 439.0,
+      "radial_velocity_km_s": null,
+      "object_type": "BD*",
+      "source": "CDS Sesame (S=Simbad, IDIA (via url))",
+      "note": null
+    },
+    "search_center_ra": 133.75939782551455,
+    "search_center_dec": -7.242151927951974,
+    "search_epoch": "2026-03-01",
+    "n_observations": 259,
+    "n_covering_position": 258,
+    "n_by_release": {
+      "DR1": 259
+    },
+    "first": "2025-05-05T16:48:02.419Z",
+    "last": "2026-05-14T06:53:35.635Z",
+    "epochs": [
+      {
+        "epoch_index": 0,
+        "start": "2025-05-05T16:48:02.419Z",
+        "end": "2025-05-06T12:26:51.706Z",
+        "mjd_start": 60800.700028,
+        "mjd_end": 60801.518654,
+        "mjd_mean": 60801.23523333335,
+        "n_observations": 30,
+        "n_per_detector": {
+          "D1": 4,
+          "D2": 8,
+          "D3": 3,
+          "D4": 4,
+          "D5": 8,
+          "D6": 3
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 1,
+        "start": "2025-10-31T17:20:39.293Z",
+        "end": "2025-11-14T21:54:33.264Z",
+        "mjd_start": 60979.722677,
+        "mjd_end": 60993.912885,
+        "mjd_mean": 60986.35982067273,
+        "n_observations": 110,
+        "n_per_detector": {
+          "D1": 18,
+          "D2": 19,
+          "D3": 18,
+          "D4": 18,
+          "D5": 19,
+          "D6": 18
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 2,
+        "start": "2025-12-11T19:17:18.730Z",
+        "end": "2025-12-13T08:50:04.272Z",
+        "mjd_start": 61020.803689,
+        "mjd_end": 61022.368105,
+        "mjd_mean": 61021.65082411111,
+        "n_observations": 18,
+        "n_per_detector": {
+          "D2": 6,
+          "D3": 3,
+          "D5": 6,
+          "D6": 3
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 3,
+        "start": "2026-04-21T04:45:01.411Z",
+        "end": "2026-05-14T06:53:35.635Z",
+        "mjd_start": 61151.197933,
+        "mjd_end": 61174.287218,
+        "mjd_mean": 61161.924953366346,
+        "n_observations": 101,
+        "n_per_detector": {
+          "D1": 15,
+          "D2": 15,
+          "D3": 21,
+          "D4": 14,
+          "D5": 15,
+          "D6": 21
+        },
+        "releases": [
+          "DR1"
+        ]
+      }
+    ],
+    "bands": [
+      {
+        "band": "SPHEREx-D1",
+        "detector": 1,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 0.7455,
+        "wavelength_max": 1.1167,
+        "n_observations": 37,
+        "first": "2025-05-06T12:20:24.893Z",
+        "last": "2026-05-05T14:09:48.355Z",
+        "releases": [
+          "DR1"
+        ],
+        "spectral_resolving_power": 39.1
+      },
+      {
+        "band": "SPHEREx-D2",
+        "detector": 2,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 1.1033,
+        "wavelength_max": 1.6499,
+        "n_observations": 48,
+        "first": "2025-05-06T02:33:29.894Z",
+        "last": "2026-05-14T06:53:35.635Z",
+        "releases": [
+          "DR1"
+        ],
+        "spectral_resolving_power": 41.4
+      },
+      {
+        "band": "SPHEREx-D3",
+        "detector": 3,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 1.6301,
+        "wavelength_max": 2.4346,
+        "n_observations": 45,
+        "first": "2025-05-05T16:48:02.419Z",
+        "last": "2026-05-11T02:18:44.640Z",
+        "releases": [
+          "DR1"
+        ],
+        "spectral_resolving_power": 40.6
+      },
+      {
+        "band": "SPHEREx-D4",
+        "detector": 4,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 2.4027,
+        "wavelength_max": 3.8473,
+        "n_observations": 36,
+        "first": "2025-05-06T12:20:24.893Z",
+        "last": "2026-05-05T14:09:48.355Z",
+        "releases": [
+          "DR1"
+        ],
+        "spectral_resolving_power": 34.9
+      },
+      {
+        "band": "SPHEREx-D5",
+        "detector": 5,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 3.8113,
+        "wavelength_max": 4.43,
+        "n_observations": 48,
+        "first": "2025-05-06T02:33:29.894Z",
+        "last": "2026-05-14T06:53:35.635Z",
+        "releases": [
+          "DR1"
+        ],
+        "spectral_resolving_power": 111.6
+      },
+      {
+        "band": "SPHEREx-D6",
+        "detector": 6,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 4.4115,
+        "wavelength_max": 5.0096,
+        "n_observations": 45,
+        "first": "2025-05-05T16:48:02.419Z",
+        "last": "2026-05-11T02:18:44.640Z",
+        "releases": [
+          "DR1"
+        ],
+        "spectral_resolving_power": 127.8
+      }
+    ],
+    "cutouts": {
+      "requested": 5,
+      "ok": 5,
+      "failed": []
+    },
+    "motion_checks_D6": [
+      {
+        "observation_id": "2025W19_1B_0116_1_D6",
+        "time": "2025-05-05T16:48:02.419Z",
+        "wavelength_at_target_um": 4.96742725064561,
+        "quality_flags": [],
+        "peak_offset_from_predicted_arcsec": 26.29417080386422,
+        "peak_offset_from_J2000_arcsec": null
+      },
+      {
+        "observation_id": "2025W46_1A_0075_4_D6",
+        "time": "2025-11-10T07:07:24.125Z",
+        "wavelength_at_target_um": 4.412403335200369,
+        "quality_flags": [],
+        "peak_offset_from_predicted_arcsec": 3.994780757556598,
+        "peak_offset_from_J2000_arcsec": null
+      },
+      {
+        "observation_id": "2025W50_2A_0232_1_D6",
+        "time": "2025-12-12T06:47:16.253Z",
+        "wavelength_at_target_um": 4.62881617621222,
+        "quality_flags": [],
+        "peak_offset_from_predicted_arcsec": 1.624549526296406,
+        "peak_offset_from_J2000_arcsec": null
+      },
+      {
+        "observation_id": "2026W17_1B_0227_2_D6",
+        "time": "2026-04-21T04:45:01.411Z",
+        "wavelength_at_target_um": 4.413958356681386,
+        "quality_flags": [],
+        "peak_offset_from_predicted_arcsec": 5.23971169572751,
+        "peak_offset_from_J2000_arcsec": null
+      }
+    ],
+    "tap_lookup_ok": true,
+    "tap_lookup_seconds": 16.7,
+    "elapsed_s": 21.1
+  },
+  {
+    "target": "RW Aurigae",
+    "resolved": {
+      "query": "RW Aur",
+      "name": "V* RW Aur",
+      "ra": 76.95652603458,
+      "dec": 30.40143817389,
+      "ref_epoch": "J2000.0",
+      "pm_ra_cosdec_mas_yr": 7.23,
+      "pm_dec_mas_yr": -20.33,
+      "parallax_mas": 15.42,
+      "radial_velocity_km_s": 15.0,
+      "object_type": "TT*",
+      "source": "CDS Sesame (S=Simbad, IDIA (via url))",
+      "note": null
+    },
+    "search_center_ra": 76.9565869512409,
+    "search_center_dec": 30.401290434786123,
+    "search_epoch": "2026-03-01",
+    "n_observations": 339,
+    "n_covering_position": 335,
+    "n_by_release": {
+      "DR1": 227,
+      "QR3": 112
+    },
+    "first": "2025-09-01T10:04:17.501Z",
+    "last": "2026-09-16T21:30:05.501Z",
+    "epochs": [
+      {
+        "epoch_index": 0,
+        "start": "2025-09-01T10:04:17.501Z",
+        "end": "2025-09-20T05:34:09.811Z",
+        "mjd_start": 60919.419647,
+        "mjd_end": 60938.232058,
+        "mjd_mean": 60928.17280786725,
+        "n_observations": 113,
+        "n_per_detector": {
+          "D1": 19,
+          "D2": 19,
+          "D3": 19,
+          "D4": 19,
+          "D5": 18,
+          "D6": 19
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 1,
+        "start": "2026-02-20T17:16:14.822Z",
+        "end": "2026-03-12T00:03:00.317Z",
+        "mjd_start": 61091.719616,
+        "mjd_end": 61111.002087,
+        "mjd_mean": 61102.25438989473,
+        "n_observations": 114,
+        "n_per_detector": {
+          "D1": 19,
+          "D2": 19,
+          "D3": 19,
+          "D4": 19,
+          "D5": 19,
+          "D6": 19
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 2,
+        "start": "2026-09-02T02:19:55.402Z",
+        "end": "2026-09-16T21:30:05.501Z",
+        "mjd_start": 61285.097169,
+        "mjd_end": 61299.895897,
+        "mjd_mean": 61294.63332694642,
+        "n_observations": 112,
+        "n_per_detector": {
+          "D1": 18,
+          "D2": 19,
+          "D3": 19,
+          "D4": 19,
+          "D5": 19,
+          "D6": 18
+        },
+        "releases": [
+          "QR3"
+        ]
+      }
+    ],
+    "bands": [
+      {
+        "band": "SPHEREx-D1",
+        "detector": 1,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 0.7455,
+        "wavelength_max": 1.1167,
+        "n_observations": 56,
+        "first": "2025-09-01T10:04:17.501Z",
+        "last": "2026-09-09T21:42:13.853Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 39.1
+      },
+      {
+        "band": "SPHEREx-D2",
+        "detector": 2,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 1.1033,
+        "wavelength_max": 1.6499,
+        "n_observations": 57,
+        "first": "2025-09-08T06:36:11.750Z",
+        "last": "2026-09-15T08:04:46.560Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 41.4
+      },
+      {
+        "band": "SPHEREx-D3",
+        "detector": 3,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 1.6301,
+        "wavelength_max": 2.4346,
+        "n_observations": 57,
+        "first": "2025-09-11T16:15:33.926Z",
+        "last": "2026-09-16T21:30:05.501Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 40.6
+      },
+      {
+        "band": "SPHEREx-D4",
+        "detector": 4,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 2.4027,
+        "wavelength_max": 3.8473,
+        "n_observations": 57,
+        "first": "2025-09-01T10:04:17.501Z",
+        "last": "2026-09-09T21:42:13.853Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 34.9
+      },
+      {
+        "band": "SPHEREx-D5",
+        "detector": 5,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 3.8113,
+        "wavelength_max": 4.43,
+        "n_observations": 56,
+        "first": "2025-09-08T06:36:11.750Z",
+        "last": "2026-09-15T08:04:46.560Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 111.6
+      },
+      {
+        "band": "SPHEREx-D6",
+        "detector": 6,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 4.4115,
+        "wavelength_max": 5.0096,
+        "n_observations": 56,
+        "first": "2025-09-11T16:15:33.926Z",
+        "last": "2026-09-16T21:30:05.501Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 127.8
+      }
+    ],
+    "cutouts": {
+      "requested": 4,
+      "ok": 4,
+      "failed": []
+    },
+    "motion_checks_D6": [
+      {
+        "observation_id": "2025W37_2A_0051_1_D6",
+        "time": "2025-09-11T16:15:33.926Z",
+        "wavelength_at_target_um": 4.956531081415832,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "peak_offset_from_predicted_arcsec": 2.6211109409338826,
+        "peak_offset_from_J2000_arcsec": 2.840968096352758
+      },
+      {
+        "observation_id": "2026W08_2A_0233_1_D6",
+        "time": "2026-02-20T17:16:14.822Z",
+        "wavelength_at_target_um": 4.654446735050879,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "peak_offset_from_predicted_arcsec": 2.5028242491723875,
+        "peak_offset_from_J2000_arcsec": 3.06249173728993
+      },
+      {
+        "observation_id": "2026W37_2A_0581_1_D6",
+        "time": "2026-09-13T07:08:31.862Z",
+        "wavelength_at_target_um": 4.838256598239634,
+        "quality_flags": [
+          "OVERFLOW"
+        ],
+        "peak_offset_from_predicted_arcsec": 2.252448927000215,
+        "peak_offset_from_J2000_arcsec": 1.9692406073672295
+      }
+    ],
+    "tap_lookup_ok": true,
+    "tap_lookup_seconds": 28.5,
+    "elapsed_s": 32.4
+  },
+  {
+    "target": "R Draconis",
+    "resolved": {
+      "query": "R Dra",
+      "name": "V* R Dra",
+      "ra": 248.16761083295,
+      "dec": 66.75497941722,
+      "ref_epoch": "J2000.0",
+      "pm_ra_cosdec_mas_yr": -20.643,
+      "pm_dec_mas_yr": 6.149,
+      "parallax_mas": 1.2509,
+      "radial_velocity_km_s": -132.8,
+      "object_type": "Mi*",
+      "source": "CDS Sesame (S=Simbad, IDIA (via url))",
+      "note": null
+    },
+    "search_center_ra": 248.16723072343547,
+    "search_center_dec": 66.7550241023173,
+    "search_epoch": "2026-03-01",
+    "n_observations": 555,
+    "n_covering_position": 539,
+    "n_by_release": {
+      "DR1": 428,
+      "QR3": 127
+    },
+    "first": "2025-05-16T22:56:23.626Z",
+    "last": "2026-07-16T20:57:27.418Z",
+    "epochs": [
+      {
+        "epoch_index": 0,
+        "start": "2025-05-16T22:56:23.626Z",
+        "end": "2025-07-22T14:35:50.122Z",
+        "mjd_start": 60811.955829,
+        "mjd_end": 60878.608219,
+        "mjd_mean": 60846.54979131514,
+        "n_observations": 165,
+        "n_per_detector": {
+          "D1": 23,
+          "D2": 37,
+          "D3": 23,
+          "D4": 23,
+          "D5": 37,
+          "D6": 22
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 1,
+        "start": "2025-10-17T14:44:53.491Z",
+        "end": "2026-01-13T09:57:03.686Z",
+        "mjd_start": 60965.614508,
+        "mjd_end": 61053.414626,
+        "mjd_mean": 61005.71023253488,
+        "n_observations": 215,
+        "n_per_detector": {
+          "D1": 46,
+          "D2": 38,
+          "D3": 24,
+          "D4": 45,
+          "D5": 38,
+          "D6": 24
+        },
+        "releases": [
+          "DR1"
+        ]
+      },
+      {
+        "epoch_index": 2,
+        "start": "2026-04-22T07:56:42.893Z",
+        "end": "2026-07-16T20:57:27.418Z",
+        "mjd_start": 61152.331052,
+        "mjd_end": 61237.873234,
+        "mjd_mean": 61199.14382490286,
+        "n_observations": 175,
+        "n_per_detector": {
+          "D1": 24,
+          "D2": 19,
+          "D3": 44,
+          "D4": 24,
+          "D5": 19,
+          "D6": 45
+        },
+        "releases": [
+          "DR1",
+          "QR3"
+        ]
+      }
+    ],
+    "bands": [
+      {
+        "band": "SPHEREx-D1",
+        "detector": 1,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 0.7455,
+        "wavelength_max": 1.1167,
+        "n_observations": 93,
+        "first": "2025-06-06T11:22:23.837Z",
+        "last": "2026-07-16T20:57:27.418Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 39.1
+      },
+      {
+        "band": "SPHEREx-D2",
+        "detector": 2,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 1.1033,
+        "wavelength_max": 1.6499,
+        "n_observations": 94,
+        "first": "2025-06-08T18:54:21.686Z",
+        "last": "2026-06-23T10:53:17.693Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 41.4
+      },
+      {
+        "band": "SPHEREx-D3",
+        "detector": 3,
+        "description": "SWIR array (short-wave infrared)",
+        "wavelength_min": 1.6301,
+        "wavelength_max": 2.4346,
+        "n_observations": 91,
+        "first": "2025-05-16T22:56:23.626Z",
+        "last": "2026-06-12T20:39:42.192Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 40.6
+      },
+      {
+        "band": "SPHEREx-D4",
+        "detector": 4,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 2.4027,
+        "wavelength_max": 3.8473,
+        "n_observations": 92,
+        "first": "2025-06-06T11:22:23.837Z",
+        "last": "2026-07-16T20:57:27.418Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 34.9
+      },
+      {
+        "band": "SPHEREx-D5",
+        "detector": 5,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 3.8113,
+        "wavelength_max": 4.43,
+        "n_observations": 94,
+        "first": "2025-06-08T18:54:21.686Z",
+        "last": "2026-06-23T10:53:17.693Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 111.6
+      },
+      {
+        "band": "SPHEREx-D6",
+        "detector": 6,
+        "description": "MWIR array (mid-wave infrared)",
+        "wavelength_min": 4.4115,
+        "wavelength_max": 5.0096,
+        "n_observations": 91,
+        "first": "2025-05-16T22:56:23.626Z",
+        "last": "2026-06-12T20:39:42.192Z",
+        "releases": [
+          "DR1",
+          "QR3"
+        ],
+        "spectral_resolving_power": 127.8
+      }
+    ],
+    "cutouts": {
+      "requested": 4,
+      "ok": 4,
+      "failed": []
+    },
+    "motion_checks_D6": [
+      {
+        "observation_id": "2025W20_2D_0243_1_D6",
+        "time": "2025-05-16T22:56:23.626Z",
+        "wavelength_at_target_um": 4.427636172436852,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR"
+        ],
+        "peak_offset_from_predicted_arcsec": 10.301054355488171,
+        "peak_offset_from_J2000_arcsec": 10.77671821984158
+      },
+      {
+        "observation_id": "2025W52_2A_0161_2_D6",
+        "time": "2025-12-26T05:13:59.779Z",
+        "wavelength_at_target_um": 4.4221438082366635,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "peak_offset_from_predicted_arcsec": 8.42272972514792,
+        "peak_offset_from_J2000_arcsec": 7.997649507897248
+      },
+      {
+        "observation_id": "2026W17_1B_0434_1_D6",
+        "time": "2026-04-22T07:56:42.893Z",
+        "wavelength_at_target_um": 4.624029279184403,
+        "quality_flags": [
+          "BLOOM",
+          "OVERFLOW",
+          "SUR_ERROR",
+          "TRANSIENT"
+        ],
+        "peak_offset_from_predicted_arcsec": 7.108435960539845,
+        "peak_offset_from_J2000_arcsec": 6.543668591381979
+      }
+    ],
+    "tap_lookup_ok": true,
+    "tap_lookup_seconds": 20.2,
+    "elapsed_s": 25.7
+  }
+]
