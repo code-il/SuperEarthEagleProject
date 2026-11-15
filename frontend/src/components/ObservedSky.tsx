@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 /**
  * The real observed sky (HiPS all-sky surveys streamed from CDS via Aladin Lite), in Galactic
  * coordinates so the Milky Way runs across the middle. Shown first as a small glass box with a
- * slowly turning globe; the expand button opens it in a large window (Esc or ✕ closes).
+ * full-sky map (a slowly turning globe on the Globe view); the expand button opens it in a large window (Esc or ✕ closes).
  *
  * Aladin Lite is only downloaded when this box mounts (dynamic import).
  */
@@ -73,7 +73,7 @@ export function ObservedSky({ className = "" }: { className?: string }) {
   const [error, setError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [survey, setSurvey] = useState<SurveyId>(SURVEYS[0].id);
-  const [view, setView] = useState<ViewId>("SIN");
+  const [view, setView] = useState<ViewId>("MOL");
 
   // Load Aladin Lite and create the view.
   useEffect(() => {
@@ -89,7 +89,7 @@ export function ObservedSky({ className = "" }: { className?: string }) {
         firstLayer.current = firstUrl;
         const [ra, dec] = galToIcrs(0, 0);
         const a = A.aladin(host.current, {
-          survey: firstUrl, projection: "SIN", cooFrame: "galactic", fov: 180, target: `${ra} ${dec}`,
+          survey: firstUrl, projection: "MOL", cooFrame: "galactic", fov: 360, target: `${ra} ${dec}`,
           showReticle: false, showCooGrid: false, showLayersControl: false, showFullscreenControl: false, showProjectionControl: false,
           showSettingsControl: false, showShareControl: false, showSimbadPointerControl: false, showFrame: false, showContextMenu: false,
           showCooLocation: false, showZoomControl: false, showGotoControl: false, showCooGridControl: false, showFov: false, showStatusBar: false,

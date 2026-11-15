@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { SearchBar } from "../components/SearchBar";
 import { ObservedSky } from "../components/ObservedSky";
 import { BrushUnderline } from "../components/BrushUnderline";
+import { BlinkArrow, BoardSketch, BoxNote, FramesSketch, StartHereNote } from "../components/SpotSketches";
 import { NavBar } from "../components/NavBar";
 import { useGlassSpecular } from "../lib/useGlassSpecular";
 import { buildUrl } from "../lib/urlState";
@@ -77,28 +78,39 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Feature card (template: title, description, Play, links on the left; interactive asset on the right) */}
-          <section className="mt-24">
-            <div className="glass grid items-center gap-8 p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-12 lg:p-10">
-              <div className="flex flex-col">
-                <h2 className="text-3xl font-medium tracking-tight text-white sm:text-4xl">Spot the Mover</h2>
-                <p className="mt-4 max-w-md text-base leading-relaxed text-neutral-400">
-                  Two SPHEREx images of the same patch of sky, taken months apart. Somewhere in the field a nearby star
-                  or brown dwarf has shifted. Blink between them and find it before the clock runs out.
+          {/* CosmIO game card (template: title, description, Play, links on the left; interactive asset on the right) */}
+          <section className="mt-28 lg:mt-36">
+            {/* card edges reach 24px past the content width (negative margin + matching padding) so the text and box stay put */}
+            <div className="mx-auto max-w-[1440px]">
+            <div className="glass grid items-center gap-10 p-6 shadow-[inset_0_1px_0_rgb(255_255_255/0.16),0_0_140px_-30px_rgb(59_130_246/0.55),0_30px_80px_-30px_rgb(0_0_0/0.9)] sm:p-10 lg:-mx-6 lg:grid-cols-[minmax(0,440px)_minmax(0,1fr)] lg:gap-16 xl:grid-cols-[minmax(0,560px)_minmax(0,1fr)] lg:px-16 lg:py-16">
+              <div className="relative flex flex-col">
+                <FramesSketch className="mb-8 h-auto w-full max-w-[500px]" />
+                <h2 className="text-5xl font-medium tracking-[-0.03em] text-white sm:text-6xl 2xl:text-7xl">CosmIO</h2>
+                <p className="mt-5 max-w-lg text-base leading-relaxed text-neutral-300 lg:text-lg">
+                  A citizen-science game played on real NASA SPHEREx infrared images. Hunt for stars that move or change
+                  in brightness, compare the sky across months, read their infrared spectra and send in what you find.
+                  Earn XP, achievements and daily streaks, and climb the leaderboard as you help explore the infrared universe.
                 </p>
-                <div className="mt-8">
-                  <Link to="/science" className="btn-primary px-6 py-2.5 text-sm">Play</Link>
+                <div className="mt-10 flex items-center gap-1">
+                  <Link to="/science" className="btn-primary px-9 py-3.5 text-base">Play</Link>
+                  <StartHereNote className="h-[50px] w-[152px]" />
                 </div>
-                <div className="mt-6 flex gap-5 text-sm">
+                <div className="mt-7 flex gap-6 text-base">
                   <Link to="/science/leaderboard" className="text-neutral-400 underline decoration-neutral-600 underline-offset-4 hover:text-white hover:decoration-neutral-200">Leaderboards</Link>
                   <Link to="/about" className="text-neutral-400 underline decoration-neutral-600 underline-offset-4 hover:text-white hover:decoration-neutral-200">Help</Link>
                 </div>
+                <BoardSketch className="mt-1 h-[76px] w-[218px]" />
+                <BlinkArrow className="absolute bottom-6 -right-16 hidden h-[72px] w-[180px] xl:block" />
               </div>
 
-              {/* Interactive asset (placeholder image for now) */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[22px] border border-white/15 bg-black/40">
-                <img src="/game-placeholder.svg" alt="Placeholder for the interactive asset" className="h-full w-full object-cover" />
+              {/* Interactive asset (placeholder image for now); the note sits just above it */}
+              <div className="flex flex-col">
+                <BoxNote className="mb-1 ml-auto mr-6 hidden h-[34px] w-[180px] lg:block" />
+                <div className="aspect-[4/3] overflow-hidden rounded-[26px] border border-white/20 bg-black/40 shadow-[0_20px_60px_-20px_rgb(0_0_0/0.8)]">
+                  <img src="/game-placeholder.svg" alt="Placeholder for the interactive asset" className="h-full w-full object-cover" />
+                </div>
               </div>
+            </div>
             </div>
           </section>
 
