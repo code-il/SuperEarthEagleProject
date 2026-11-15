@@ -16,6 +16,7 @@ import { EXPLORE_KEYS } from "../lib/urlState";
 import { AtlasTour, type TourStep } from "../components/AtlasTour";
 import { SpherexSkyBox, sliceForClass, type SkyTarget } from "../components/SpherexSkyBox";
 import { jdNow, orbitFor, phaseNote } from "../lib/orbits";
+import { type NbodyState, type OrbitEngineMode, useNbody } from "../lib/useNbody";
 
 const ExplorePage = lazy(() => import("./ExplorePage"));
 
@@ -45,8 +46,9 @@ export default function MapPage() {
   const [data, setData] = useState<GalaxyData | null>(null);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const [hud, setHud] = useState<{ camDist: number; focus: number; orbitJd: number | null }>({ camDist: 12, focus: 0, orbitJd: null });
+  const [hud, setHud] = useState<{ camDist: number; focus: number; orbitJd: number | null; engine: "kepler" | "nbody" }>({ camDist: 12, focus: 0, orbitJd: null, engine: "kepler" });
   const [sel, setSel] = useState<number>(-1);
+  const nbody = useNbody(engine, sel, hud.orbitJd);
   const [zoomStar, setZoomStar] = useState<number>(-1);
   const wide = useWide();
   const [params, setParams] = useSearchParams();
@@ -87,9 +89,9 @@ export default function MapPage() {
     engine.current = e;
     if (import.meta.env.DEV) (window as unknown as { __atlas: GalaxyScene }).__atlas = e;
     let last = 0, lastNear = 0;
-    e.onFrame = ({ camDist, focusDistFromSun, orbitJd }) => {
+    e.onFrame = ({ camDist, focusDistFromSun, orbitJd, engine: orbitEngine }) => {
       const now = performance.now();
-      if (now - last > 200) { last = now; setHud({ camDist, focus: focusDistFromSun, orbitJd }); }
+      if (now - last > 200) { last = now; setHud({ camDist, focus: focusDistFromSun, orbitJd, engine: orbitEngine }); }
       // Zoomed in close: the sky box follows the star nearest the point you are looking at.
       if (now - lastNear > 500) {
         lastNear = now;
@@ -192,7 +194,7 @@ export default function MapPage() {
         body: <p>Search by name or alias (Sirius, Polaris, Proxima Centauri, TRAPPIST-1), or click the box for a list of famous neighbours.</p> },
       { title: "Inspect a star", target: "card", run: () => { const i = byName("TRAPPIST-1"); if (i >= 0) select(i, true); },
         body: <><p>The card shows the class and the evidence for it and Gaia's measurements. The SPHEREx box shows the sky around the star in SPHEREx's all-sky map; it also follows the star you are zoomed in on.</p>
-          <p>TRAPPIST-1, 12.5 pc away, has seven known planets. When you fly to a planet host, its orbits are drawn to scale from the NASA Exoplanet Archive, with the estimated habitable zone in green. Planets move on Kepler orbits at one fixed rate, 1 day per second (Mercury would take 88 s), starting from today's predicted positions; the yellow arc is the ±1σ uncertainty of each position.</p></> },
+          <p>TRAPPIST-1, 12.5 pc away, has seven known planets. When you fly to a planet host, its orbits are drawn to scale from the NASA Exoplanet Archive, tilted by their measured inclination, with the Kopparapu et al. (2014) habitable zone in green. Anything not measured is either left out or labelled. Planets move on Kepler orbits at one fixed rate, 1 day per second (Mercury would take 88 s), starting from today's predicted positions; the yellow arc is the ±1σ uncertainty of each position.</p></> },
       { title: "Reading a SPHEREx spectrum", target: "spectrum", run: () => { const i = byName("eps Ind B"); if (i >= 0) select(i, true); },
         body: <><p>SPHEREx sees 102 infrared colours, from 0.75 to 5 µm. This is ε Indi B, a pair of brown dwarfs 3.7 pc away. The dashed line is the best-fitting blackbody (about 1,900 K), and the dip in the shaded H₂O band is water vapour in their atmospheres.</p>
           <p>For any other object, press <b>Measure</b> to build its spectrum from every SPHEREx image of it. This takes 1–3 minutes the first time.</p></> },
@@ -281,7 +283,8 @@ export default function MapPage() {
             <div className={`absolute bottom-14 z-10 max-md:hidden ${sel >= 0 ? "right-[396px]" : "right-3"}`}>{skyBox}</div>
           )}
           <Hud camDist={hud.camDist} focus={hud.focus} uncharted={filters.uncharted} />
-          {hud.orbitJd != null && sel >= 0 && <OrbitLegend jd={hud.orbitJd} unplotted={engine.current?.unplottedPlanets ?? []} />}
+          {hud.orbitJd != null && sel >= 0 && <OrbitLegend jd={hud.orbitJd} unplotted={engine.current?.unplottedPlanets ?? []} noPosition={engine.current?.positionUnknown ?? []} hz={engine.current?.hzDrawn ?? false} starScaled={engine.current?.starRadiusKnown ?? false}
+            mode={nbody.mode} setMode={nbody.setMode} nb={nbody.state} active={hud.engine} />}
         </>
       )}
       {tour !== null && !exploreOpen && <AtlasTour steps={tourSteps} step={tour} onStep={setTour} onClose={endTour} />}
@@ -753,15 +756,38 @@ function SystemView({ sys }: { sys: NonNullable<GalaxyData["systems"]>[number] }
 }
 
 /** What the orbit animation is, shown whenever a planetary system is on screen. */
-function OrbitLegend({ jd, unplotted }: { jd: number; unplotted: string[] }) {
+function OrbitLegend({ jd, unplotted, noPosition, hz, starScaled, mode, setMode, nb, active }: {
+  jd: number; unplotted: string[]; noPosition: string[]; hz: boolean; starScaled: boolean;
+  mode: OrbitEngineMode; setMode: (m: OrbitEngineMode) => void; nb: NbodyState; active: "kepler" | "nbody";
+}) {
   const date = new Date((jd - 2440587.5) * 86400000).toISOString().slice(0, 10);
+  const btn = (m: OrbitEngineMode, label: string) => (
+    <button type="button" onClick={() => setMode(m)}
+      className={`pointer-events-auto rounded border px-1.5 py-0.5 ${mode === m ? "border-sky-300 bg-sky-400/20 text-sky-100" : "border-slate-600 text-slate-400 hover:text-slate-200"}`}>{label}</button>
+  );
   return (
     <div className="pointer-events-none absolute left-1/2 top-16 z-10 w-[min(560px,calc(100%-24px))] -translate-x-1/2 rounded-md border border-sky-400/30 bg-slate-950/85 px-3 py-2 font-mono text-[10px] leading-relaxed text-slate-300 backdrop-blur">
       <div className="flex justify-between gap-2 tracking-[0.2em] text-sky-300"><span>ORBIT PREDICTION · NOT AN OBSERVATION</span><span className="tracking-normal text-slate-200">{date}</span></div>
+      <div className="my-1 flex flex-wrap items-center gap-1.5"><b className="text-slate-100">Engine:</b>{btn("kepler", "Kepler (two-body)")}{btn("nbody", "N-body (planets interact)")}
+        {mode === "nbody" && <span className={active === "nbody" ? "text-emerald-300" : "text-amber-300"}>
+          {nb.status === "loading" ? "computing… (first time up to a minute; Kepler shown meanwhile)"
+            : nb.status === "ok" ? (active === "nbody" ? "in use" : "loading next stretch…")
+            : nb.status === "refused" ? "not possible for this system: Kepler shown"
+            : nb.status === "not_converged" ? "cannot reproduce the archive: Kepler shown"
+            : nb.status === "error" ? "engine unavailable: Kepler shown" : ""}
+        </span>}
+      </div>
       <div><b className="text-slate-100">Time:</b> 1 s = 1 day for every system (Mercury would take 88 s), starting today.</div>
-      <div><b className="text-slate-100">Motion:</b> two-body Kepler orbits from NASA Exoplanet Archive elements (P, a, e, ω); planet–planet gravity ignored.</div>
-      <div><b className="text-slate-100">Start:</b> positions predicted from each planet's transit or periastron time; <span className="text-amber-300">yellow arc = ±1σ</span>. Faint planets have no measured phase and are placed arbitrarily.</div>
-      <div><b className="text-slate-100">Not known, drawn for display:</b> orbit tilt on the sky (drawn flat, transit side towards the Sun) and planet dots (markers, not to scale). Orbit sizes and the star are to scale; green = estimated habitable zone.</div>
+      {active === "nbody"
+        ? <div><b className="text-slate-100">Motion:</b> full N-body integration (Newtonian gravity between star and all planets, DOP853), started from NASA Exoplanet Archive elements and masses and corrected until its transits reproduce the archive's measured transit times and periods within 1σ. Drawn paths are the archive's Kepler orbits; dots may drift slightly off them as planets perturb each other.</div>
+        : <div><b className="text-slate-100">Motion:</b> two-body Kepler orbits from NASA Exoplanet Archive elements (P, a, e, ω); planet–planet gravity ignored.</div>}
+      {mode === "nbody" && nb.problems.length > 0 && <div className="text-amber-200/90">N-body: {nb.problems.join("; ")}</div>}
+      {active === "nbody" && nb.notes.length > 0 && <div className="text-slate-400">N-body assumptions: {nb.notes.join("; ")}</div>}
+      <div><b className="text-slate-100">Start:</b> positions predicted from each planet's measured transit or periastron time; <span className="text-amber-300">yellow arc = ±1σ</span> from the period and epoch errors. A planet without a measured time gets no dot.</div>
+      <div><b className="text-slate-100">Measured, to scale:</b> orbit sizes, tilt to our line of sight (inclination), the direction to the Sun, {starScaled ? "the star's radius, " : ""}and solid orbit shapes. Dashed = eccentricity not measured (circle of radius a). Double ring = eccentricity measured but not its orientation (range a(1−e) to a(1+e)).</div>
+      <div><b className="text-slate-100">Not measurable, fixed choice:</b> the orbit's rotation around our line of sight (drawn with the line of nodes horizontal). Planet dots are markers, not to scale; grey = no measured temperature.{starScaled ? "" : " The star's radius is not in the archive: it is shown as a marker only."}</div>
+      <div>{hz ? <><span className="text-emerald-300">Green</span> = conservative habitable zone (Kopparapu et al. 2014) from the star's measured temperature and radius.</> : "No habitable zone drawn: the star's temperature or radius is not measured, or lies outside the 2600–7200 K range of the Kopparapu et al. (2014) fit."}</div>
+      {noPosition.length > 0 && <div className="text-slate-500">Orbit drawn, position not measured: {noPosition.join(", ")}</div>}
       {unplotted.length > 0 && <div className="text-slate-500">Not drawn (no period or orbit size): {unplotted.join(", ")}</div>}
     </div>
   );

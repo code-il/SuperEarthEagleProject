@@ -38,6 +38,7 @@ from .analysis_routes import router as analysis_router
 from .catalog_routes import router as catalog_router
 from .data_routes import router as data_router
 from .galaxy_routes import router as galaxy_router
+from .orbit_routes import router as orbit_router
 from .processing_routes import router as processing_router
 
 APP_VERSION = "1.0.0"
@@ -159,6 +160,7 @@ app.include_router(processing_router)
 app.include_router(catalog_router)
 app.include_router(analysis_router)
 app.include_router(galaxy_router)
+app.include_router(orbit_router)
 
 
 @app.get("/api/version", tags=["meta"])

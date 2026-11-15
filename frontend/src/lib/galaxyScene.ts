@@ -11,7 +11,8 @@
  */
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { DAYS_PER_SECOND, type OrbitModel, ellipsePoints, jdNow, meanAnomaly, orbitFor, phaseSigma, positionAtM } from "./orbits";
+import { DAYS_PER_SECOND, type OrbitModel, circlePoints, ellipsePoints, habitableZone, hasPosition, jdNow, meanAnomaly, orbitFor, phaseSigma, positionAtM, toSky } from "./orbits";
+import { type NbodyTrack, covers, trackEnd, trackPosition } from "./nbodyTrack";
 import { AU_PER_PC, FLAG, type ClassDef, type NamedObject, type PlanetSystem, type StarBuffers, fmtDist } from "./galaxyData";
 
 export interface Filters {
@@ -146,8 +147,14 @@ export class GalaxyScene {
   private sunLabel: HTMLDivElement;
   private system: THREE.Group | null = null;
   private systemPlanets: { mesh: THREE.Mesh; orbit: OrbitModel; arc: THREE.Line; label: HTMLDivElement; name: string }[] = [];
-  /** In-plane basis for the system view: x = line of nodes, y = towards the Sun (observer). */
-  private sysBasis = { x: new THREE.Vector3(1, 0, 0), y: new THREE.Vector3(0, 0, 1) };
+  /** System-view basis: x = line of nodes (horizontal), up = on the sky, y = towards the Sun (observer). */
+  private sysBasis = { x: new THREE.Vector3(1, 0, 0), up: new THREE.Vector3(0, 1, 0), y: new THREE.Vector3(0, 0, 1) };
+  /** Planets whose orbit is drawn but whose position the archive does not fix. */
+  positionUnknown: string[] = [];
+  /** Whether the habitable zone could be computed from measured stellar parameters. */
+  hzDrawn = false;
+  /** Whether the star's radius is measured (and the star is drawn to scale). */
+  starRadiusKnown = false;
   /** Wall-clock start (ms) and Julian date of the orbit clock: simulated date = jd0 + elapsed s × DAYS_PER_SECOND. */
   private simStart = { ms: 0, jd: 0 };
   /** Planets listed by the archive but without a or P (not drawn). */
@@ -180,7 +187,7 @@ export class GalaxyScene {
     return { px, alpha };
   }
 
-  onFrame?: (info: { camDist: number; focusDistFromSun: number; orbitJd: number | null }) => void;
+  onFrame?: (info: { camDist: number; focusDistFromSun: number; orbitJd: number | null; engine: "kepler" | "nbody" }) => void;
   onLabelClick?: (i: number) => void;
 
   constructor(private host: HTMLElement, private data: StarBuffers, private classes: ClassDef[], private named: NamedObject[], filters: Filters) {
@@ -385,7 +392,18 @@ export class GalaxyScene {
     this.buildSystem(i >= 0 ? this.systemFor(i) : null, i);
   }
 
+  /** N-body track for the open system (from the backend engine), or null to use Kepler orbits. */
+  private nbody: NbodyTrack | null = null;
+  /** Which engine positioned the planets in the last frame. */
+  orbitEngine: "kepler" | "nbody" = "kepler";
+
+  /** Install (or extend) the N-body track for system i; ignored if another system is open. */
+  setNbody(i: number, track: NbodyTrack | null) {
+    if (i === this.selected) this.nbody = track;
+  }
+
   private buildSystem(sys: PlanetSystem | null, i: number) {
+    this.nbody = null;
     if (this.system) { this.scene.remove(this.system); this.system = null; }
     for (const p of this.systemPlanets) p.label.remove();
     this.systemPlanets = [];
@@ -393,53 +411,86 @@ export class GalaxyScene {
     if (!sys || i < 0) return;
     const grp = new THREE.Group();
     const pc = 1 / AU_PER_PC;
-    const teff = sys.st_teff ?? 5000;
-    const starCol = teff > 7500 ? "#cad7ff" : teff > 6000 ? "#f8f7ff" : teff > 5200 ? "#fff4ea" : teff > 3700 ? "#ffd2a1" : "#ffad66";
-    const starR = Math.max((sys.st_rad ?? 0.5) * 0.00465047 * pc, 1e-9);
-    const star = new THREE.Mesh(new THREE.SphereGeometry(starR, 32, 16), new THREE.MeshBasicMaterial({ color: starCol }));
-    grp.add(star);
+    // Star colour from its measured temperature (neutral grey when unmeasured); the sphere is
+    // drawn to scale only when the radius is measured, otherwise just the glow marker.
+    const teff = sys.st_teff;
+    const starCol = teff == null ? "#cbd5e1" : teff > 7500 ? "#cad7ff" : teff > 6000 ? "#f8f7ff" : teff > 5200 ? "#fff4ea" : teff > 3700 ? "#ffd2a1" : "#ffad66";
+    this.starRadiusKnown = sys.st_rad != null && sys.st_rad > 0;
+    const starR = Math.max((this.starRadiusKnown ? sys.st_rad! : 0.1) * 0.00465047 * pc, 1e-9);
+    if (this.starRadiusKnown) grp.add(new THREE.Mesh(new THREE.SphereGeometry(starR, 32, 16), new THREE.MeshBasicMaterial({ color: starCol })));
     const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(starCol), blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: false, transparent: true }));
     glow.scale.set(0.06, 0.06, 1);
     grp.add(glow);
-    // Habitable zone (conservative, Kopparapu-like scaling from luminosity).
-    const L = Math.pow(sys.st_rad ?? 0.5, 2) * Math.pow(teff / 5772, 4);
-    const hzIn = 0.95 * Math.sqrt(L) * pc, hzOut = 1.67 * Math.sqrt(L) * pc;
-    const hz = new THREE.Mesh(new THREE.RingGeometry(hzIn, hzOut, 128), new THREE.MeshBasicMaterial({ color: 0x22c55e, transparent: true, opacity: 0.12, side: THREE.DoubleSide, depthWrite: false }));
-    hz.rotation.x = -Math.PI / 2;
-    grp.add(hz);
-    // Orbital plane orientation on the sky is unknown: draw it flat, with the transit point
-    // (the planet between its star and us) facing the Sun.
+    // Real geometry: "towards the observer" is the actual direction from this star to the Sun.
+    // Each orbit is tilted by its measured inclination about a horizontal line of nodes; the
+    // rotation about the line of sight (node longitude) is unmeasurable and is the one free choice.
     const toSun = this.toWorld(new THREE.Vector3()).sub(this.toWorld(this.galPos(i)));
-    toSun.y = 0;
     if (toSun.lengthSq() < 1e-30) toSun.set(0, 0, 1);
     toSun.normalize();
-    this.sysBasis = { y: toSun, x: new THREE.Vector3(toSun.z, 0, -toSun.x) };
+    const node = new THREE.Vector3(toSun.z, 0, -toSun.x);
+    if (node.lengthSq() < 1e-12) node.set(1, 0, 0);
+    node.normalize();
+    const up = new THREE.Vector3().crossVectors(toSun, node).normalize();
+    this.sysBasis = { x: node, up, y: toSun };
     const B = this.sysBasis;
-    const inPlane = (x: number, y: number) => B.x.clone().multiplyScalar(x * pc).addScaledVector(B.y, y * pc);
+    const sky = (o: OrbitModel, xy: [number, number], v = new THREE.Vector3()) => {
+      const [a, b, c] = toSky(o, xy);
+      return v.copy(B.x).multiplyScalar(a * pc).addScaledVector(B.up, b * pc).addScaledVector(B.y, c * pc);
+    };
+    const orbits = sys.planets.map((p, k) => ({ p, orbit: orbitFor(p, sys.st_mass, k) }));
+    // Habitable zone (Kopparapu et al. 2014), only when the star's T and R are measured; drawn in
+    // the plane of the first orbit with a measured tilt (edge-on otherwise).
+    this.hzDrawn = false;
+    const hzr = habitableZone(sys.st_teff, sys.st_rad);
+    if (hzr) {
+      const ref = orbits.find((r) => r.orbit?.incl_known)?.orbit ?? orbits.find((r) => r.orbit)?.orbit;
+      if (ref) {
+        const ring = new THREE.RingGeometry(hzr[0] * pc, hzr[1] * pc, 128);
+        const hz = new THREE.Mesh(ring, new THREE.MeshBasicMaterial({ color: 0x22c55e, transparent: true, opacity: 0.12, side: THREE.DoubleSide, depthWrite: false }));
+        // Ring lies in its local XY plane: map local X -> node, local Y -> in-plane Y direction.
+        const yDir = sky(ref, [0, 1]).divideScalar(pc);
+        const normal = new THREE.Vector3().crossVectors(B.x, yDir).normalize();
+        hz.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(B.x, yDir, normal));
+        grp.add(hz);
+        this.hzDrawn = true;
+      }
+    }
     this.unplottedPlanets = [];
-    sys.planets.forEach((p, k) => {
-      const orbit = orbitFor(p, sys.st_mass, k);
+    this.positionUnknown = [];
+    orbits.forEach(({ p, orbit }) => {
       if (!orbit) { this.unplottedPlanets.push(p.name); return; }
-      const known = orbit.phase !== "unknown";
-      grp.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(ellipsePoints(orbit).map(([x, y]) => inPlane(x, y))),
-        new THREE.LineBasicMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.45 })));
+      const short = p.name.replace(sys.host, "").trim() || p.name;
+      const pts = (xy: [number, number][]) => new THREE.BufferGeometry().setFromPoints(xy.map((q) => sky(orbit, q)));
+      if (orbit.shape === "band") {
+        // e measured but not ω: only the range of distances is known.
+        for (const r of [orbit.a * (1 - orbit.e), orbit.a * (1 + orbit.e)])
+          grp.add(new THREE.Line(pts(circlePoints(r)), new THREE.LineBasicMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.25 })));
+      } else {
+        const line = new THREE.Line(pts(ellipsePoints(orbit)), orbit.shape === "measured"
+          ? new THREE.LineBasicMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.45 })
+          : new THREE.LineDashedMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.45, dashSize: orbit.a * pc * 0.06, gapSize: orbit.a * pc * 0.06 }));
+        line.computeLineDistances();
+        grp.add(line);
+      }
+      if (!hasPosition(orbit)) { this.positionUnknown.push(short); return; }
       // ±1σ arc of the predicted position (updated every frame as the uncertainty grows).
       const arc = new THREE.Line(new THREE.BufferGeometry().setFromPoints(Array.from({ length: 49 }, () => new THREE.Vector3())),
         new THREE.LineBasicMaterial({ color: 0xfcd34d, transparent: true, opacity: 0.9 }));
       arc.visible = false;
       grp.add(arc);
-      const pr = Math.max((p.radius_re ?? 2) * 4.26352e-5 * pc, starR * 0.02);
-      const teq = p.teq_k ?? 400;
-      const col = teq > 1000 ? 0xf97316 : teq > 400 ? 0xeab308 : teq > 200 ? 0x22d3ee : 0x93c5fd;
+      const pr = Math.max((p.radius_re ?? 1) * 4.26352e-5 * pc, starR * 0.02);
+      const teq = p.teq_k;
+      // Colour by measured equilibrium temperature; grey when the archive has none.
+      const col = teq == null ? 0x94a3b8 : teq > 1000 ? 0xf97316 : teq > 400 ? 0xeab308 : teq > 200 ? 0x22d3ee : 0x93c5fd;
       const mesh = new THREE.Mesh(new THREE.SphereGeometry(pr, 16, 8), new THREE.MeshBasicMaterial({ color: col }));
       const dot = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture("#ffffff"), color: col, depthWrite: false, sizeAttenuation: false,
-        blending: THREE.AdditiveBlending, transparent: true, opacity: known ? 1 : 0.35 }));
+        blending: THREE.AdditiveBlending, transparent: true }));
       dot.scale.set(0.012, 0.012, 1);
       mesh.add(dot);
       grp.add(mesh);
       const label = document.createElement("div");
       label.className = "absolute font-mono text-[10px] text-sky-200 whitespace-nowrap";
-      label.textContent = (p.name.replace(sys.host, "").trim() || p.name) + (known ? "" : " (position unknown)");
+      label.textContent = short;
       this.labelLayer.appendChild(label);
       this.systemPlanets.push({ mesh, orbit, arc, label, name: p.name });
     });
@@ -524,18 +575,33 @@ export class GalaxyScene {
       // One fixed rate for every system, tied to the wall clock (frame rate cannot change it).
       orbitJd = this.simStart.jd + ((now - this.simStart.ms) / 1000) * DAYS_PER_SECOND;
       const B = this.sysBasis, pc = 1 / AU_PER_PC;
-      const put = (v: THREE.Vector3, [x, y]: [number, number]) => v.copy(B.x).multiplyScalar(x * pc).addScaledVector(B.y, y * pc);
+      const put = (v: THREE.Vector3, xy: [number, number], o: OrbitModel) => {
+        const [a, b, c] = toSky(o, xy);
+        v.copy(B.x).multiplyScalar(a * pc).addScaledVector(B.up, b * pc).addScaledVector(B.y, c * pc);
+      };
+      const put3 = (v: THREE.Vector3, [a, b, c]: [number, number, number]) =>
+        v.copy(B.x).multiplyScalar(a * pc).addScaledVector(B.up, b * pc).addScaledVector(B.y, c * pc);
+      // N-body track (planet-planet gravity) when loaded and covering this date; else Kepler.
+      const track = this.nbody && covers(this.nbody, orbitJd) ? this.nbody : null;
+      this.orbitEngine = track ? "nbody" : "kepler";
       for (const p of this.systemPlanets) {
         const M = meanAnomaly(p.orbit, orbitJd);
-        put(p.mesh.position, positionAtM(p.orbit, M));
+        const nb = track ? trackPosition(track, p.name, orbitJd) : null;
+        if (nb) put3(p.mesh.position, nb);
+        else put(p.mesh.position, positionAtM(p.orbit, M), p.orbit);
+        // ±1σ from the archive's ephemeris errors (the same measurement uncertainty in both engines).
         const sig = phaseSigma(p.orbit, orbitJd);
         p.arc.visible = Number.isFinite(sig) && sig > 0.002;
         if (p.arc.visible) {
           const span = Math.min(sig, Math.PI);
           const attr = p.arc.geometry.getAttribute("position") as THREE.BufferAttribute;
           const v = new THREE.Vector3();
+          const dt = (span / (2 * Math.PI)) * p.orbit.P;
           for (let k = 0; k < attr.count; k++) {
-            put(v, positionAtM(p.orbit, M - span + (2 * span * k) / (attr.count - 1)));
+            const f = -1 + (2 * k) / (attr.count - 1);
+            const q = nb ? trackPosition(track!, p.name, Math.min(Math.max(orbitJd + f * dt, track!.t0), trackEnd(track!))) : null;
+            if (q) put3(v, q);
+            else put(v, positionAtM(p.orbit, M + f * span), p.orbit);
             attr.setXYZ(k, v.x, v.y, v.z);
           }
           attr.needsUpdate = true;
@@ -546,7 +612,7 @@ export class GalaxyScene {
     }
     this.renderer.render(this.scene, this.camera);
     if (now - this.lastLabel > 120) { this.lastLabel = now; this.updateLabels(camDist); }
-    this.onFrame?.({ camDist, focusDistFromSun: distFromSunToFocus, orbitJd: this.system?.visible ? orbitJd : null });
+    this.onFrame?.({ camDist, focusDistFromSun: distFromSunToFocus, orbitJd: this.system?.visible ? orbitJd : null, engine: this.orbitEngine });
   };
 
   private project(v: THREE.Vector3): [number, number, boolean] {

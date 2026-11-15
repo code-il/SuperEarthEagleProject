@@ -87,6 +87,28 @@ SPHEREx spectra for a set of nearby objects:
 
 Re-run `build_galaxy_map` after the survey to fold the SPHEREx classes into the map.
 
+## N-body orbit engine (proof of concept, `backend/orbits/`)
+
+By default the Atlas animates analytic two-body Kepler orbits. This engine adds planet–planet
+gravity, and is checked against JPL Horizons and corrected by measured data. In the viewer, open a
+planetary system and choose **Engine: N-body** in the orbit legend. The planets then follow the
+engine's positions, loaded in 120-day stretches. When the engine refuses a system, or can't
+reproduce the archive, the legend says why and the Kepler orbits stay.
+
+- **Physics:** Newtonian N-body, plus an optional general-relativity (1PN) term for the central
+  star. It integrates with fixed-step RK4 (baseline) or adaptive 8th-order DOP853.
+- **Solar System:** starts from JPL Horizons (DE441) states. Masses are from DE440, Earth and
+  Moon are separate bodies, and Ceres, Vesta, Pallas and Hygiea are included. Every so often
+  Horizons can replace the engine's state, so errors can't build up.
+- **Exoplanets:** starts from NASA Exoplanet Archive elements and masses. It then corrects each
+  planet's phase and orbit size until the simulated transits reproduce the archive's ephemeris
+  (T0, P) within 1σ. Some systems can't be done honestly: missing masses, ω not measured, or
+  orbits that cross or sit inside the Hill stability limit. Those are refused, with the reason.
+  Systems that don't converge (resonant chains such as TRAPPIST-1) are marked "not converged".
+
+Endpoints: `GET /api/orbits/solar/validate?days=3650`, `GET /api/orbits/system/{i}?days=30`
+(transit predictions) and `GET /api/orbits/system/{i}/positions` (the viewer's tracks).
+
 ## Demonstration
 
 Open the app and pick **WISE 0855** on the home page. It opens by name; the card also links the

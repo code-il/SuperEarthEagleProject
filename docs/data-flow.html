@@ -281,7 +281,7 @@ footer { color: var(--muted); font-size: 13px; }
         <div class="node screen">
           <span class="kind">Object card</span>
           <h3>Class and its evidence</h3>
-          <p>Class with its source (catalogue, model, SPHEREx or unclassified) and confidence, Gaia's measurements, and any planets. Orbits are drawn to scale, with a habitable zone estimated from luminosity.</p>
+          <p>Class with its source (catalogue, model, SPHEREx or unclassified) and confidence, Gaia's measurements, and any planets. Orbits are drawn to scale and tilted by their measured inclination, with the Kopparapu et al. (2014) habitable zone; anything not measured is left out or labelled.</p>
         </div>
         <div class="node screen">
           <span class="kind">Frontier mode</span>
@@ -606,9 +606,11 @@ footer { color: var(--muted); font-size: 13px; }
           <tr><td>Class confidence</td><td>Share of the 15 neighbours that agree, or the spectrum fit</td><td><span class="pill p-pred">Predicted</span></td></tr>
           <tr><td>Planet orbits</td><td>Exoplanet Archive P, a, e, ω with 1σ errors (a or P from Kepler's third law when missing)</td><td><span class="pill p-meas">Catalogue</span></td></tr>
           <tr><td>Planet motion</td><td>Two-body Kepler orbits at 1 day per second, from today's positions predicted from transit or periastron times, ±1σ arc shown</td><td><span class="pill p-der">Predicted</span></td></tr>
-          <tr><td>Orbit tilt, planet dots</td><td>Plane orientation unknown, drawn flat; dots are markers</td><td><span class="pill p-ill">Illustration</span></td></tr>
+          <tr><td>Orbit tilt</td><td>Measured inclination to our line of sight, towards the real direction of the Sun (drawn edge-on and labelled when missing)</td><td><span class="pill p-meas">Catalogue</span></td></tr>
+          <tr><td>Orbit shape gaps</td><td>e not measured: dashed circle; e measured but not ω: ring between a(1−e) and a(1+e); no measured epoch: no planet dot</td><td><span class="pill p-disp">Labelled gap</span></td></tr>
+          <tr><td>Node rotation, planet dots</td><td>Rotation about the line of sight cannot be measured (line of nodes drawn horizontal); dots are markers</td><td><span class="pill p-disp">Display only</span></td></tr>
           <tr><td>Frontier pulsing</td><td>Highlight for unclassified objects, not variability</td><td><span class="pill p-disp">Display only</span></td></tr>
-          <tr><td>Habitable zone</td><td>Scaled from the host's luminosity</td><td><span class="pill p-der">Derived</span></td></tr>
+          <tr><td>Habitable zone</td><td>Kopparapu et al. (2014) from the host's measured T<sub>eff</sub> and radius; not drawn when either is missing or T<sub>eff</sub> is outside 2600–7200 K</td><td><span class="pill p-der">Derived</span></td></tr>
           <tr><td>Milky Way disk, Sun glow</td><td>Artwork for orientation</td><td><span class="pill p-ill">Illustration</span></td></tr>
           <tr><td>Card spectrum points</td><td>Forced PSF photometry on SPHEREx images (flow C)</td><td><span class="pill p-meas">Measured</span></td></tr>
           <tr><td>Blackbody curve, band indices</td><td>Fits to those points</td><td><span class="pill p-der">Derived</span></td></tr>
